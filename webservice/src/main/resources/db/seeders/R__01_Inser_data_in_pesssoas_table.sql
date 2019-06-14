@@ -6,10 +6,9 @@ alter SEQUENCE pessoas_id_seq RESTART with 1;
 
 
 insert
-  into pessoas
-  (nome,sobrenome)  
+  into pessoas(id, nome, sobrenome)  
   values
-  ('Jean', 'Sarlôn'),
-  ('Juliane', 'Martins'),
-  ('Pedro', 'Cabral'),
-  ('Renato', 'Portalupi');
+  (1, 'Jean',    'Sarlôn'),
+  (2, 'Juliane', 'Martins'),
+  (3, 'Pedro',   'Cabral'),
+  (4, 'Renato',  'Portalupi');
