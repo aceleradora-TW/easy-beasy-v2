@@ -1,29 +1,26 @@
 # esqueleto-ambulante-webapp
 
-## Project setup
+##  Baixar dependências do node
 ```
 yarn install
 ```
 
-### Compiles and hot-reloads for development
+### Copila e aplica hot-reloads para desenvolvimento
 ```
 yarn run serve
 ```
 
-### Compiles and minifies for production
+### Compila e minifica para produção
 ```
 yarn run build
 ```
 
-### Run your tests
+### Executa seus testes
 ```
 yarn run test
 ```
 
-### Lints and fixes files
+### Lint e corrige arquivos
 ```
 yarn run lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
