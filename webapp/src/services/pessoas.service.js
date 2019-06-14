@@ -1,4 +1,4 @@
-import http from './http'
+import http from '../utils/http'
 
 export default {
    getPessoas : ()   => http.get(`/pessoas/`),
