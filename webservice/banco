@@ -1,0 +1,25 @@
+CONTAINER_NAME=esqueleto-db
+POSTGRES_PASSWORD=123456
+POSTGRES_USER=postgres
+DATABASE=esqueleto
+
+case $1 in
+  run-deprecated)
+    docker run --rm --name ${CONTAINER_NAME} -p 5432:5432 -e POSTGRES_PASSWORD=${POSTGRES_PASSWORD} -d ${POSTGRES_USER}
+  ;;
+  run)
+    mkdir -p ~/.pgsql/${CONTAINER_NAME} ; docker run --name ${CONTAINER_NAME} -v ~/.pgsql/${CONTAINER_NAME}:/var/lib/postgresql/data -p 5432:5432 -e POSTGRES_PASSWORD=${POSTGRES_PASSWORD} -d ${POSTGRES_USER};
+  ;;
+
+  create)
+    docker exec -it ${CONTAINER_NAME} psql -U ${POSTGRES_USER} -c "CREATE DATABASE ${DATABASE}"
+  ;;
+
+  console)
+    docker exec -it ${CONTAINER_NAME} psql -U ${POSTGRES_USER} -d ${POSTGRES_PASSWORD}
+  ;;
+
+  *)
+    echo "nope"
+  ;;
+esac
