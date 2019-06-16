@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(maxAge = 3600)
 @RequestMapping("/ws/pessoas")
 public class PessoaController {
 

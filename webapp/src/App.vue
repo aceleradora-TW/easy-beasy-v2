@@ -6,13 +6,10 @@
 </template>
 
 <script>
-// import HelloWorld from './components/Home.vue'
 
 export default {
   name: 'app',
-  components: {
-    // HelloWorld
-  }
+  components: {}
 }
 </script>
 

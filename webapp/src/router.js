@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import axios from 'axios'
-import users from './modules/users/routes'
+import users from './modules/Pessoas/routes'
 import store from './store/'
 
 Vue.use(Router)

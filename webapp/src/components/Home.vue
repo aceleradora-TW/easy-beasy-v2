@@ -31,10 +31,19 @@
 </template>
 
 <script>
+import service from '../services/pessoas.service'
 export default {
   name: 'HelloWorld',
   props: {
     msg: String
+  },
+
+  created() {
+    service.getPessoas().then(r => {
+      // eslint-disable-next-line
+      console.log(r);
+      
+    })
   }
 }
 </script>
