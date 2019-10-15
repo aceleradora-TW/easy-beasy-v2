@@ -1,4 +1,4 @@
-package com.thoughtworks.aceleradora.services;
+package com.thoughtworks.aceleradora.service;
 
 import com.thoughtworks.aceleradora.domain.Question;
 import com.thoughtworks.aceleradora.repository.QuestionRepository;

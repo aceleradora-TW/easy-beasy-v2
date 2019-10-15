@@ -1,7 +1,7 @@
 package com.thoughtworks.aceleradora.controller;
 
 import com.thoughtworks.aceleradora.domain.Question;
-import com.thoughtworks.aceleradora.services.QuestionService;
+import com.thoughtworks.aceleradora.service.QuestionService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
