@@ -42,7 +42,6 @@ export default {
     service.getPessoas().then(r => {
       // eslint-disable-next-line
       console.log(r);
-      
     })
   }
 }
