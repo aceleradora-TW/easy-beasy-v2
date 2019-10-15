@@ -1,13 +1,13 @@
-package com.thoughtworks.aceleradora.dominio;
+package com.thoughtworks.aceleradora.domain;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Pergunta {
+public class Question {
     private String descricao;
 
     @JsonCreator
-    public Pergunta(@JsonProperty("descricao") String descricao) {
+    public Question(@JsonProperty("descricao") String descricao) {
         this.descricao = descricao;
     }
 
@@ -15,7 +15,7 @@ public class Pergunta {
         return descricao;
     }
 
-    public Pergunta setDescricao(String descricao) {
+    public Question setDescricao(String descricao) {
         this.descricao = descricao;
         return this;
     }
