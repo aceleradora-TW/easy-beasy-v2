@@ -10,7 +10,6 @@ buildscript {
     }
 }
 
-apply plugin: 'idea'
 apply plugin: 'java'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
@@ -18,21 +17,23 @@ apply plugin: 'io.spring.dependency-management'
 sourceCompatibility = 11
 targetCompatibility = 11
 
-idea {
-    module {
-        downloadSources = true
+configurations {
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
     }
 }
 
 dependencies {
     compile "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
     compile "org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}"
-    compile "org.springframework.boot:spring-boot-devtools:${springBootVersion}"
     compile "org.flywaydb:flyway-core"
     compile "org.postgresql:postgresql:42.2.5"
 
     testCompile 'junit:junit:4.12'
     testCompile "org.mockito:mockito-core:2.21.0"
+
+    developmentOnly "org.springframework.boot:spring-boot-devtools:${springBootVersion}"
 }
 
 repositories {
@@ -40,9 +41,8 @@ repositories {
 }
 
 bootRun {
-  def activeProfiles = 'dev'
-
-  jvmArgs = [
-    "-Dspring.profiles.active=$activeProfiles"
-  ]
+    doFirst {
+        systemProperty "spring.profiles.active", "dev"
+        systemProperty "spring.devtools.restart.additional-paths", "${project.project(':webapp').projectDir}"
+    }
 }
