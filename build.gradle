@@ -1,8 +1,14 @@
 apply plugin: 'idea'
 
-task build(
+idea {
+    module {
+        downloadSources = true
+    }
+}
+
+task buildProductionBundle(
     dependsOn: [
         ':webservice:build',
-        ':webapp:build'
+        ':webapp:buildForProduction'
     ]
 )
