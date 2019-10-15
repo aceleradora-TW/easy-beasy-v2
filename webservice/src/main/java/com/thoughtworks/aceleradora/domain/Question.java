@@ -4,19 +4,18 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Question {
-    private String descricao;
+    private String description;
 
     @JsonCreator
-    public Question(@JsonProperty("descricao") String descricao) {
-        this.descricao = descricao;
+    public Question(@JsonProperty("description") String description) {
+        this.description = description;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getDescription() {
+        return description;
     }
 
-    public Question setDescricao(String descricao) {
-        this.descricao = descricao;
-        return this;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

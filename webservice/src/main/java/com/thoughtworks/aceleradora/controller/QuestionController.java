@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/testeum")
+@RequestMapping("/question")
 public class QuestionController {
     private QuestionService questionService;
 
@@ -22,22 +22,22 @@ public class QuestionController {
     }
 
     @GetMapping(path = "/")
-    public List<Question> pegaListaDePerguntas() {
-        return questionService.pegarMinhasPerguntas();
+    public List<Question> GetListQuestions() {
+        return questionService.getMyQuestions();
     }
 
     @PostMapping(path = "/")
-    public void adicionaPergunta(@RequestBody Question question) {
-        questionService.adicionaPergunta(question);
+    public void addQuestion(@RequestBody Question question) {
+        questionService.addQuestion(question);
     }
 
-    @GetMapping(path = "/{indice}")
-    public Question pegaPergunta(@PathVariable("indice") int indice) {
-        return questionService.pegaPergunta(indice);
+    @GetMapping(path = "/{index}")
+    public Question getQuestion(@PathVariable("index") int index) {
+        return questionService.getQuestion(index);
     }
 
-    @DeleteMapping(path = "/{indice}")
-    public Question removePergunta(@PathVariable("indice") int indice) {
-        return questionService.removePergunta(indice);
+    @DeleteMapping(path = "/{index}")
+    public Question removeQuestion(@PathVariable("index") int index) {
+        return questionService.removeQuestion(index);
     }
 }

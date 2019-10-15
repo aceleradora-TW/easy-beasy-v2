@@ -8,27 +8,27 @@ import java.util.List;
 
 @Service
 public class QuestionService {
-    private QuestionRepository repositorio;
+    private QuestionRepository repository ;
 
-    public QuestionService(QuestionRepository repositorio) {
-        this.repositorio = repositorio;
+    public QuestionService(QuestionRepository repository) {
+        this.repository = repository;
     }
 
-    public Question pegaPergunta(int indice) {
-        return pegarMinhasPerguntas().get(indice);
+    public Question getQuestion(int indice) {
+        return getMyQuestions().get(indice);
     }
 
-    public void adicionaPergunta(Question question) {
-        question.setDescricao(question.getDescricao() + " Perguntado por: Turma 16");
+    public void addQuestion(Question question) {
+        question.setDescription(question.getDescription() + " Perguntado por: Turma 16");
 
-        repositorio.adicionaPergunta(question);
+        repository.addQuestion(question);
     }
 
-    public Question removePergunta(int indice) {
-        return repositorio.deletaPergunta(indice);
+    public Question removeQuestion(int indice) {
+        return repository.deleteQuestion(indice);
     }
 
-    public List<Question> pegarMinhasPerguntas() {
-        return repositorio.pegaTodasPerguntasDaTurma();
+    public List<Question> getMyQuestions() {
+        return repository.getAllClassQuestions();
     }
 }

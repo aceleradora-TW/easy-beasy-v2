@@ -9,17 +9,17 @@ import java.util.List;
 
 @Repository
 public class QuestionRepository {
-    private static ArrayList<Question> perguntasDaTurma = new ArrayList<>(Arrays.asList(new Question("Você está bem?"), new Question("Qual sua idade?")));
+    private static ArrayList<Question> classQuestions = new ArrayList<>(Arrays.asList(new Question("Você está bem?"), new Question("Qual sua idade?")));
 
-    public List<Question> pegaTodasPerguntasDaTurma() {
-        return perguntasDaTurma;
+    public List<Question> getAllClassQuestions() {
+        return classQuestions;
     }
 
-    public void adicionaPergunta(Question question) {
-        perguntasDaTurma.add(question);
+    public void addQuestion(Question question) {
+        classQuestions.add(question);
     }
 
-    public Question deletaPergunta(int indice) {
-        return perguntasDaTurma.remove(indice);
+    public Question deleteQuestion(int index) {
+        return classQuestions.remove(index);
     }
 }
