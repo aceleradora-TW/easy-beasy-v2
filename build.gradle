@@ -1,2 +1,8 @@
-
 apply plugin: 'idea'
+
+task build(
+    dependsOn: [
+        ':webservice:build',
+        ':webapp:build'
+    ]
+)
