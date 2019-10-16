@@ -1,7 +1,6 @@
 package com.thoughtworks.aceleradora.controladores;
 
 import com.thoughtworks.aceleradora.dominio.Estagio;
-import com.thoughtworks.aceleradora.dominio.Pergunta;
 import com.thoughtworks.aceleradora.servicos.EstagioServico;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
