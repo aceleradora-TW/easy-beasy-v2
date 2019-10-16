@@ -31,7 +31,9 @@
 </template>
 
 <script>
-import service from '../services/pessoas.service'
+// import service from '../services/pessoas.service'
+import questionService from '../services/questions.service'
+
 export default {
   name: 'HelloWorld',
   props: {
@@ -39,7 +41,7 @@ export default {
   },
 
   created() {
-    service.getPessoas().then(r => {
+    questionService.getQuestions().then(r => {
       // eslint-disable-next-line
       console.log(r);
     })
