@@ -6,7 +6,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
     }
 }
 
@@ -25,24 +25,33 @@ configurations {
 }
 
 dependencies {
-    compile "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
-    compile "org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}"
+    compile "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
+    compile "org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion"
     compile "org.flywaydb:flyway-core"
     compile "org.postgresql:postgresql:42.2.5"
 
     testCompile 'junit:junit:4.12'
     testCompile "org.mockito:mockito-core:2.21.0"
 
-    developmentOnly "org.springframework.boot:spring-boot-devtools:${springBootVersion}"
+    developmentOnly "org.springframework.boot:spring-boot-devtools:$springBootVersion"
 }
 
 repositories {
     mavenCentral()
 }
 
+def frontendProject = project(':webapp')
+
 bootRun {
     doFirst {
         systemProperty "spring.profiles.active", "dev"
-        systemProperty "spring.devtools.restart.additional-paths", "${project.project(':webapp').projectDir}"
+    }
+}
+
+clean.dependsOn frontendProject.tasks.clean
+
+processResources {
+    from(frontendProject.buildDir) {
+        into 'static'
     }
 }
