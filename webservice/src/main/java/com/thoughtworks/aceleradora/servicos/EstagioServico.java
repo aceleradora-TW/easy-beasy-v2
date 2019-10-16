@@ -1,13 +1,20 @@
 package com.thoughtworks.aceleradora.servicos;
 
+import com.thoughtworks.aceleradora.dominio.Estagio;
 import com.thoughtworks.aceleradora.repositorio.EstagioRepositorio;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class EstagioServico {
-    private EstagioRepositorio estagioRepositorio;
+    private EstagioRepositorio repositorio;
 
-    public EstagioServico(EstagioRepositorio estagioRepositorio) {
-        this.estagioRepositorio = estagioRepositorio;
+    public EstagioServico(EstagioRepositorio repositorio) {
+        this.repositorio = repositorio;
     }
+    public List<Estagio> pegarSolucoes() {
+        return repositorio.pegaSolucoesEstagio();
+    }
+
 }
