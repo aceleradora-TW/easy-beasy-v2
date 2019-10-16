@@ -1,10 +1,10 @@
 export default {
-  solution: (index) => {
+  solution: () => {
     let solution = "";
-    request.get(`/solution/${index}`).then(response => {
+    request.get(`/solution/`).then(response => {
       solution = response.data.solution})
       .catch((error)=>{
-        //tratar erro
+        console.log(erro)
       })
       return solution;
   }
