@@ -1,6 +1,7 @@
 package com.thoughtworks.aceleradora.servicos;
 
 import com.thoughtworks.aceleradora.dominio.Estagio;
+import com.thoughtworks.aceleradora.dominio.Pergunta;
 import com.thoughtworks.aceleradora.repositorio.EstagioRepositorio;
 import org.springframework.stereotype.Service;
 
@@ -16,5 +17,9 @@ public class EstagioServico {
     public List<Estagio> pegarSolucoes() {
         return repositorio.pegaSolucoesEstagio();
     }
+    public Estagio pegaSolucao(int indice) {
+        return pegarSolucoes().get(indice);
+    }
+
 
 }
