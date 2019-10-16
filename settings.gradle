@@ -1,2 +1,6 @@
 rootProject.name = 'easy-beasy'
-include 'webservice'
+
+include(
+    'webservice',
+    'webapp'
+)
