@@ -15,3 +15,7 @@ bin/
 
 # Vim
 *.swpgs
+*.swp
+
+# Gradle
+.gradle

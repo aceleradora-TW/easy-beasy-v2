@@ -1,0 +1,28 @@
+plugins {
+    id "com.moowork.node" version "1.3.1"
+}
+
+def buildCommandForEnvironment = { mode ->
+    [
+        'vue-cli-service',
+        'build',
+        '--mode',
+        mode,
+        '--dest',
+        "${project(':webservice').buildDir}/resources/main/static"
+    ]
+}
+
+// TODO: Ter uma task para executar install --production
+task yarnInstall(type: YarnTask) {
+    args = ['install']
+}
+
+task buildForProduction(dependsOn: yarnInstall, type: YarnTask) {
+    args = buildCommandForEnvironment('production')
+}
+
+task buildForDevelopment(dependsOn: yarnInstall, type: YarnTask) {
+    args = buildCommandForEnvironment('development') + ['--watch']
+}
+
