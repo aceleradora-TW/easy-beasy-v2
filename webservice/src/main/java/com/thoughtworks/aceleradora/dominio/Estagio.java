@@ -1,5 +1,8 @@
 package com.thoughtworks.aceleradora.dominio;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +14,10 @@ public class Estagio {
 
     public Estagio() {
         perguntas = new ArrayList<>();
+    }
+    @JsonCreator
+    public Estagio(@JsonProperty("solucao") String solucao) {
+        this.solucao = solucao;
     }
 
     public int getOrdem() {
