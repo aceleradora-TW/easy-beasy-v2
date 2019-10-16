@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "run-api": "json-server --watch backend.json"
   },
   "dependencies": {
     "axios": "^0.19.0",
@@ -16,6 +17,7 @@
     "sass-loader": "^7.1.0",
     "vue": "^2.6.10",
     "vue-awesome": "^3.5.4",
+    "vue-material": "^1.0.0-beta-11",
     "vue-router": "^3.0.6",
     "vuex": "^3.1.1"
   },
@@ -26,6 +28,7 @@
     "babel-eslint": "^10.0.1",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
+    "json-server": "^0.15.1",
     "vue-template-compiler": "^2.6.10"
   },
   "eslintConfig": {

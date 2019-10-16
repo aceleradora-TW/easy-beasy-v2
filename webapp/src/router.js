@@ -1,22 +1,22 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import axios from 'axios'
-import users from './modules/Pessoas/routes'
+import main from './modules/Main/routes'
 import store from './store/'
 
-Vue.use(Router)
+Vue.use(Router);
 
-const routes = [].concat(users)
+const routes = [].concat(main);
 
 const router = new Router({
   mode: 'history',
   routes
-})
+});
 
 router.beforeEach((to, from, next) => {
-  const token = store.state.token
+  const token = store.state.token;
   if (token) {
-    axios.defaults.headers.common['Authorization'] = `Bearer: ${token}`
+    axios.defaults.headers.common['Authorization'] = `Bearer: ${token}`;
     next()
   } else {
     if (to.name !== 'login.index' && store.state === '') {
@@ -24,6 +24,6 @@ router.beforeEach((to, from, next) => {
     }
     next()
   }
-})
+});
 
 export default router

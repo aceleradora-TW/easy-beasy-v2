@@ -1,7 +1,8 @@
-import Home from '@/components/Home.vue'
+import Home from '@/views/DiagnosticoPage.vue'
+
 export default [
     {
-        name: 'users.index',
+        name: 'main.index',
         path: '/',
         component: Home,
         children: []

@@ -1,22 +1,16 @@
 import Vue from 'vue'
-import App from './App.vue'
-import Vuex from 'vuex'
-import Eventbus from './utils/eventbus'
-import icons from './utils/icons'
-import BootstrapVue from 'bootstrap-vue'
-import store from './store/'
+
 import router from './router'
+import App from './App.vue'
+import VueMaterial from 'vue-material'
 
-import './assets/scss/config/vendors.scss'
+import 'vue-material/dist/vue-material.min.css'
+import 'vue-material/dist/theme/default.css'
 
-Vue.config.productionTip = false
-Vue.use(Vuex)
-Vue.use(icons)
-Vue.use(BootstrapVue)
-Vue.use(Eventbus)
+Vue.use(VueMaterial);
+Vue.config.productionTip = false;
 
 new Vue({
   router,
-  store,
   render: h => h(App),
-}).$mount('#app')
+}).$mount('#app');
