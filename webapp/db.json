@@ -1,0 +1,34 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "name": "ORGANIZATION",
+      "status": "IN_PROGRESS",
+      "head_questions": [
+        {
+          "id": 1,
+          "name": "P1",
+          "level": 0,
+          "status": "IN_PROGRESS",
+          "validations": [
+            {
+              "id": 1,
+              "question": " pergunta de validação 1",
+              "response": false
+            },
+            {
+              "id": 2,
+              "question": " pergunta de validação 2",
+              "response": true
+            },
+            {
+              "id": 3,
+              "question": " pergunta de validação 3",
+              "response": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

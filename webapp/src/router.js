@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import axios from 'axios'
-import users from './modules/Pessoas/routes'
+import category from './modules/Category/routes'
 import store from './store/'
 
 Vue.use(Router)
 
-const routes = [].concat(users)
+const routes = [].concat(category)
 
 const router = new Router({
   mode: 'history',

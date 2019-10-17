@@ -3,7 +3,7 @@ const state = {
 }
 
 const mutations = {
-    'PESSOAS_SET_LIST' (state, obj) {
+    'ADD_CATEGORIES' (state, obj) {
         state.list.push(obj);
     },
 }
