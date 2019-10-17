@@ -1,11 +1,5 @@
+import request from '../utils/request.js'
 export default {
-  solution: () => {
-    let solution = "";
-    request.get(`/solution/`).then(response => {
-      solution = response.data.solution})
-      .catch((error)=>{
-        console.log(erro)
-      })
-      return solution;
-  }
+    solution: () => request.get(`/estagio/0/`)
+
 }
