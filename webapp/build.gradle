@@ -19,10 +19,6 @@ def buildCommandForEnvironment = { mode ->
     ]
 }
 
-task clean(type: Delete) {
-    delete buildDir
-}
-
 task yarnInstall(type: YarnTask) {
     args = ['install']
 }
