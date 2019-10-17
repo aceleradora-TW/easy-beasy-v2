@@ -8,15 +8,19 @@
 import service from '../services/pessoas.service'
 export default {
   name: 'HelloWorld',
+  data: function () {
+    return {
+      hellomessage: 'Hello World'
+    }
+  },
   props: {
-    msg: String
+    
   },
 
-  created() {
-    service.getPessoas().then(r => {
-      // eslint-disable-next-line
-      console.log(r);
-    })
+  async created() {
+    const r = await service.getPessoas()
+    // eslint-disable-next-line
+    console.log(r);
   }
 }
 </script>
