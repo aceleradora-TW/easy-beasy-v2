@@ -30,7 +30,7 @@ Caso não queira instalar o Postgres na sua máquina, é possível utilizá-lo v
 Inicie o container em plano de fundo:
 
 ```bash
-docker run --rm --name esqueleto-db -p 5432:5432 -e POSTGRES_PASSWORD=esqueleto -d postgres
+docker run --rm --name esqueleto-db -p 5432:5432 -e POSTGRES_PASSWORD=123456 -d postgres
 ```
 
 Crie o banco de dados `esqueleto`:
