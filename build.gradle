@@ -6,9 +6,9 @@ idea {
     }
 }
 
-task buildForProduction(
+task buildProductionBundle(
     dependsOn: [
-        ':webapp:buildForProduction',
-        ':webservice:build'
+        ':webservice:build',
+        ':webapp:buildForProduction'
     ]
 )

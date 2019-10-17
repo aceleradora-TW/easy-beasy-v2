@@ -2,19 +2,15 @@ plugins {
     id "com.moowork.node" version "1.3.1"
 }
 
-buildDir = "$projectDir/dist"
-
 def buildCommandForEnvironment = { mode ->
     [
         'vue-cli-service',
         'build',
         '--mode',
-        mode
+        mode,
+        '--dest',
+        "${project(':webservice').buildDir}/resources/main/static"
     ]
-}
-
-task clean(type: Delete) {
-    delete buildDir
 }
 
 // TODO: Ter uma task para executar install --production
@@ -22,18 +18,11 @@ task yarnInstall(type: YarnTask) {
     args = ['install']
 }
 
-task buildForProduction(dependsOn: clean, type: YarnTask) {
+task buildForProduction(dependsOn: yarnInstall, type: YarnTask) {
     args = buildCommandForEnvironment('production')
 }
 
-task buildForDevelopment(type: YarnTask) {
-    inputs.dir("$projectDir/src")
-    inputs.dir("$projectDir/public")
-    inputs.file("$projectDir/babel.config.js")
-    inputs.file("$projectDir/package.json")
-    
-    outputs.dir buildDir
-
-    args = buildCommandForEnvironment('development')
+task buildForDevelopment(dependsOn: yarnInstall, type: YarnTask) {
+    args = buildCommandForEnvironment('development') + ['--watch']
 }
 
