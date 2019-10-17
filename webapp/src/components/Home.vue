@@ -8,7 +8,6 @@
 </template>
 
 <script>
-import service from '../services/pessoas.service'
 import solution from '../services/solution'
 
 export default {
@@ -22,20 +21,17 @@ export default {
   }),
 
   created() {
-    service.getCoco().then(r => {
-      // eslint-disable-next-line
-      console.log(r);
-      
+   solution.solution().then(r => {
+     this.solutionTela = r.data.solution;
+      console.log(r.data.solution);
+     
     })
-    solution.solution().then(response =>{
-      this.solutionTela = response.data.solution
-    })
+    
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style scoped lang = "scss">
 h3 {
   margin: 40px 0 0;
 }
