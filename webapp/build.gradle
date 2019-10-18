@@ -22,6 +22,10 @@ task yarnInstall(type: YarnTask) {
     args = ['install']
 }
 
+task lint(type: YarnTask) {
+    args = ['lint']
+}
+
 task buildForProduction(dependsOn: clean, type: YarnTask) {
     args = buildCommandForEnvironment('production')
 }
