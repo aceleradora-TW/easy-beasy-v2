@@ -32,7 +32,7 @@
 
 <script>
 // import service from '../services/pessoas.service'
-import questionService from '../services/questions.service'
+// import questionService from '../services/questions.service'
 
 export default {
   name: 'HelloWorld',
@@ -41,10 +41,10 @@ export default {
   },
 
   created() {
-    questionService.getQuestions().then(r => {
+    // questionService.getQuestions().then(r => {
       // eslint-disable-next-line
-      console.log(r);
-    })
+      // console.log(r);
+    // })
   }
 }
 </script>
