@@ -1,27 +1,24 @@
 <template>
   <div class="hello">
-    <p>
-      Estamos aqui
-    </p>    
+    <p>Estamos aqui</p>
   </div>
 </template>
 
 <script>
-import questionService from '/home/aluno02/Desktop/easy-beasy-v2/webapp/src/services/questions.service.js'
+import questionService from "/home/aluno02/Desktop/easy-beasy-v2/webapp/src/services/questions.service.js";
 
 export default {
-  name: 'Question',
-  props: {
-    msg: String
-  },
+  name: "Question",
+  questionList: [],
+  oneQuestion: "",
 
   created() {
-    questionService.getQuestions().then(r => {
-      // eslint-disable-next-line
-      console.log(r);
-    })
+    questionService.getQuestions().then(list => {
+      this.questionList = list.data;
+      this.oneQuestion = this.questionList.shift();
+    });
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
