@@ -48,6 +48,10 @@ bootRun {
     }
 }
 
+bootJar {
+    archiveFileName = 'easy-beasy.jar'
+}
+
 clean.dependsOn frontendProject.tasks.clean
 
 processResources {
