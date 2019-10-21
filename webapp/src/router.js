@@ -9,7 +9,6 @@ Vue.use(Router)
 const routes = [].concat(users)
 
 const router = new Router({
-  mode: 'history',
   routes
 })
 
