@@ -17,6 +17,10 @@ task stage(dependsOn: buildForProduction, type: Copy) {
 
     from "${project(':webservice').buildDir}"
 
-    into project.buildDir
+    into project.rootDir
 
+}
+
+task clean(dependsOn: [':webapp:clean', ':webservice:clean'], type: Delete) {
+    delete project.buildDir
 }
