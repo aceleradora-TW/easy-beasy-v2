@@ -11,7 +11,6 @@ const routes = [].concat(users, question)
 
 
 const router = new Router({
-  mode: 'history',
   routes
 })
 
