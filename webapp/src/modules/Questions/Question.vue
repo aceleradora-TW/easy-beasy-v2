@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <p>Estamos aqui</p>
-    <h1>{{oneQuestion.description}}</h1>
+    <h1>{{currentQuestion.description}}</h1>
   </div>
 </template>
 
@@ -12,7 +12,7 @@ export default {
   name: "Question",
   data: () => ({
     questionList: [],
-    oneQuestion: "",
+    currentQuestion: "",
   }),
   
   
@@ -20,7 +20,7 @@ export default {
   created() {
     questionService.getQuestions().then(list => {
       this.questionList = list.data;
-      this.oneQuestion = this.questionList.shift();
+      this.currentQuestion = this.questionList.shift();
     });
   }
 };
