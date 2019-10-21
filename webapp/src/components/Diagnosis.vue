@@ -4,16 +4,16 @@
       <h2>Diagnóstico</h2>
     </header>
     <div class="chat">
-      <p class="pergunta">Você tem uma organização de tempo e tarefas?</p>
-      <p class="resp">Não.</p>
-      <p class="pergunta">Você geralmente esquece de coisas que precisam ser feitas?</p>
-      <p class="resp">Não.</p>
-      <p class="pergunta">Você organiza a semana em tarefas e metas a serem cumpridas?</p>
+      <p class="question">Você tem uma organização de tempo e tarefas?</p>
+      <p class="answer">Não.</p>
+      <p class="question">Você geralmente esquece de coisas que precisam ser feitas?</p>
+      <p class="answer">Não.</p>
+      <p class="question">Você organiza a semana em tarefas e metas a serem cumpridas?</p>
     </div>
     <div class="footer">
-      <div class="answer">
-        <b-button squared class="answerBtn">Sim</b-button>
-        <b-button squared class="answerBtn">Não</b-button>
+      <div class="answer-buttons">
+        <b-button squared class="answer-btn">Sim</b-button>
+        <b-button squared class="answer-btn">Não</b-button>
       </div>
     </div>
   </div>
@@ -42,12 +42,12 @@ h2 {
   padding: 2rem;
 
 
-  .pergunta {
+  .question {
     text-align: left;
     color: #b1b1b1;
   }
 
-  .resp {
+  .answer {
     text-align: right;
     color: #636363;
   }
@@ -58,7 +58,7 @@ h2 {
   width: 100%;
   background-color: #ffffff;
 
-  .answer {
+  .answer-buttons {
     display: flex;
     justify-content: space-between;
     max-width: 200px;
@@ -66,7 +66,7 @@ h2 {
     padding: 0.5rem;
     bottom: 10px;
 
-    .answerBtn {
+    .answer-btn {
       background-color: #2fc0d5;
       border-color: #2fc0d5;
     }
