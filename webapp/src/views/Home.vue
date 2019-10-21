@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Diagnosis from '../components/Diagnosis';
+import Diagnosis from '@/components/Diagnosis';
 
 export default {
   components:{
