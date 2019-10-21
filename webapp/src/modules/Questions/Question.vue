@@ -1,8 +1,16 @@
 <template>
   <div class="hello">
-    <p>Estamos aqui</p>
-    <h1>{{currentQuestion.description}}</h1>
+    <div class="hello" v-if="questionList.length">
+      <p>Estamos aqui</p>
+      <h1>{{currentQuestion.description}}</h1>
+      <div>
+        <b-button @click="nextQuestion"> sim </b-button>
+        <b-button @click="nextQuestion"> nao </b-button>
+        <p>{{userResponse}}</p>
+      </div>
+    </div>
   </div>
+
 </template>
 
 <script>
@@ -12,17 +20,23 @@ export default {
   name: "Question",
   data: () => ({
     questionList: [],
-    currentQuestion: "",
+    currentQuestion: null,
+    userResponse: false,
   }),
-  
-  
 
-  created() {
+  created() { 
     questionService.getQuestions().then(list => {
       this.questionList = list.data;
       this.currentQuestion = this.questionList.shift();
     });
+  },
+  methods:{
+    nextQuestion(){
+      this.questionList.splice(0, 1);
+      this.currentQuestion = this.questionList.shift();
+    }
   }
+  
 };
 </script>
 
