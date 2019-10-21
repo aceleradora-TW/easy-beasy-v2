@@ -8,21 +8,18 @@
 </template>
 
 <script>
-import solution from '@/services/solution'
+import solution from '@/services/solution.service.js'
 
 export default {
-  name: 'Home',
-  props: {
-    msg: String
-  },
   data: () => ({
-    text:"Hello",
+    text:"Teste Entrega a Solução",
     solutionScreen: ""
   }),
 
   created() {
    solution.getSolution().then(r => {
      this.solutionScreen = r.data.solution;
+     console.log(r.data.solution);
     })
     
   }
