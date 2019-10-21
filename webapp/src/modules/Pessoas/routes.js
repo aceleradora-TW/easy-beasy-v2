@@ -1,4 +1,4 @@
-import Home from '@/components/Home.vue'
+import Home from '@/views/Home.vue'
 import UserDetails from '@/components/UserDetails.vue'
 
 export default [

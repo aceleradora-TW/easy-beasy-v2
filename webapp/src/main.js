@@ -6,6 +6,8 @@ import icons from './utils/icons'
 import BootstrapVue from 'bootstrap-vue'
 import store from './store/'
 import router from './router'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 import './assets/scss/config/vendors.scss'
 

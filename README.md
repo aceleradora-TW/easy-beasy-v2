@@ -1,10 +1,4 @@
-# Esqueleto Ambulante
-
-Uma aplicação mínima em Spring Boot, Vue JS e Postgres
-
-[![CircleCI](https://circleci.com/gh/aceleradora-TW/esqueleto-ambulante/tree/master.svg?style=svg)](https://circleci.com/gh/aceleradora-TW/esqueleto-ambulante/tree/master)
-
-![Caveira](./webservice/src/main/resources/static/images/sneaky.gif)
+# Easy Beasy
 
 
 ## Dependências
@@ -39,10 +33,27 @@ Crie o banco de dados `esqueleto`:
 docker exec -it esqueleto-db psql -U postgres -c 'CREATE DATABASE esqueleto'
 ```
 
-## As aplicações
+## Desenvolvimento local
+
+Para construir a aplicação a cada mudanca, execute em um terminal:
+
+```java
+./gradlew -t build buildForDevelopment
+```
+
+Enquanto a construção contínua (o comando acima) executa em um terminal, em outro, execute a aplicação:
+
+```java
+./gradlew bootrun
+```
+
+Com estes dois comandos rodando simultaneamente, a aplicação será reconstruída e reiniciará a cada mudança, tanto de front-end quanto de back-end.
 
 ### Web Service:
+
 Para inicializar a webservice da aplicação
-clique [aqui](./webservice) e sigua os passos descritos no readme.
+clique [aqui](./webservice) e siga os passos descritos no readme.
+
 ### Web App
+
 Para rodar o cliente clique [aqui](./webapp) e siga as instruções no readme.
