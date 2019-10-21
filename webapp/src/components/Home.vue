@@ -1,14 +1,14 @@
 <template> 
 <div> 
   <h1>{{text}}</h1>
-  <p>olaaaaaaaah</p>
-  <h1>{{solutionTela}}</h1>
+  <p>Teste</p>
+  <h1>{{solutionScreen}}</h1>
 </div>
  
 </template>
 
 <script>
-import solution from '../services/solution'
+import solution from '@/services/solution'
 
 export default {
   name: 'Home',
@@ -17,14 +17,12 @@ export default {
   },
   data: () => ({
     text:"Hello",
-    solutionTela: ""
+    solutionScreen: ""
   }),
 
   created() {
-   solution.solution().then(r => {
-     this.solutionTela = r.data.solution;
-      console.log(r.data.solution);
-     
+   solution.getSolution().then(r => {
+     this.solutionScreen = r.data.solution;
     })
     
   }
