@@ -1,16 +1,21 @@
 <template>
   <div class="hello">
     <p>Estamos aqui</p>
+    <h1>{{oneQuestion.description}}</h1>
   </div>
 </template>
 
 <script>
-import questionService from "/home/aluno02/Desktop/easy-beasy-v2/webapp/src/services/questions.service.js";
+import questionService from "@/services/questions.service.js";
 
 export default {
   name: "Question",
-  questionList: [],
-  oneQuestion: "",
+  data: () => ({
+    questionList: [],
+    oneQuestion: "",
+  }),
+  
+  
 
   created() {
     questionService.getQuestions().then(list => {
