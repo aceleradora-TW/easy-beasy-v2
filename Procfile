@@ -1,1 +1,1 @@
-web: java -jar -Dspring.profiles.active=heroku build/easy-beasy.jar
+web: java -jar -Dspring.profiles.active=heroku build/libs/easy-beasy.jar

@@ -15,7 +15,7 @@ task buildForProduction(
 
 task stage(dependsOn: buildForProduction, type: Copy) {
 
-    from "${project(':webservice').buildDir}/libs/easy-beasy.jar"
+    from "${project(':webservice').buildDir}"
 
     into project.buildDir
 
