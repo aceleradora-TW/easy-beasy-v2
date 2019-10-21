@@ -33,7 +33,7 @@ export default {
   methods:{
     nextQuestion(){
       this.questionList.splice(0, 1);
-      this.currentQuestion = this.questionList.shift();
+      this.currentQuestion = this.questionList[0];
     }
   }
   
