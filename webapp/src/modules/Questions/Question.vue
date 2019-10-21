@@ -1,12 +1,11 @@
 <template>
   <div class="hello">
     <div class="hello" v-if="questionList.length">
-      <p>Estamos aqui</p>
       <h1>{{currentQuestion.description}}</h1>
       <div>
-        <b-button @click="nextQuestion"> sim </b-button>
-        <b-button @click="nextQuestion"> nao </b-button>
         <p>{{userResponse}}</p>
+        <b-button v-on:click="nextQuestion(), collectAnswer(true)"> sim </b-button>
+        <b-button v-on:click="nextQuestion(), collectAnswer(false)"> nao </b-button>
       </div>
     </div>
   </div>
@@ -21,7 +20,8 @@ export default {
   data: () => ({
     questionList: [],
     currentQuestion: null,
-    userResponse: false,
+    userResponse: null,
+    noCount: null
   }),
 
   created() { 
@@ -34,6 +34,14 @@ export default {
     nextQuestion(){
       this.questionList.splice(0, 1);
       this.currentQuestion = this.questionList[0];
+    },
+    collectAnswer(verification){
+      if (verification){
+        this.userResponse = "Sim";
+      } else {
+        this.noCount++;
+        this.userResponse = "Não";
+      }
     }
   }
   
