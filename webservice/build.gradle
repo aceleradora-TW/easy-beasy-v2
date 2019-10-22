@@ -48,7 +48,9 @@ bootRun {
     }
 }
 
-clean.dependsOn frontendProject.tasks.clean
+bootJar {
+    archiveFileName = 'easy-beasy.jar'
+}
 
 processResources {
     from(frontendProject.buildDir) {

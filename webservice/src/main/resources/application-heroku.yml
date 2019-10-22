@@ -2,6 +2,8 @@ server:
   port: ${PORT}
 
 spring:
+  flyway:
+    locations: classpath:/db/migrations
   datasource:
     url: ${SPRING_DATASOURCE_URL}
     username: ${SPRING_DATASOURCE_USERNAME}

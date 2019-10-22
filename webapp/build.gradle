@@ -4,6 +4,12 @@ plugins {
 
 buildDir = "$projectDir/dist"
 
+node {
+    version = '12.13.0'
+    yarnVersion = '1.19.1'
+    download = true
+}
+
 def buildCommandForEnvironment = { mode ->
     [
         'vue-cli-service',
@@ -17,7 +23,6 @@ task clean(type: Delete) {
     delete buildDir
 }
 
-// TODO: Ter uma task para executar install --production
 task yarnInstall(type: YarnTask) {
     args = ['install']
 }
@@ -26,7 +31,7 @@ task lint(type: YarnTask) {
     args = ['lint']
 }
 
-task buildForProduction(dependsOn: clean, type: YarnTask) {
+task buildForProduction(dependsOn: [yarnInstall, clean], type: YarnTask) {
     args = buildCommandForEnvironment('production')
 }
 
@@ -35,7 +40,7 @@ task buildForDevelopment(type: YarnTask) {
     inputs.dir("$projectDir/public")
     inputs.file("$projectDir/babel.config.js")
     inputs.file("$projectDir/package.json")
-    
+
     outputs.dir buildDir
 
     args = buildCommandForEnvironment('development')

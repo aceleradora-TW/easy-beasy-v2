@@ -6,9 +6,27 @@ idea {
     }
 }
 
+task clean(dependsOn: [':webapp:clean', ':webservice:clean'], type: Delete) {
+    delete project.buildDir
+}
+
 task buildForProduction(
     dependsOn: [
+        clean,
         ':webapp:buildForProduction',
         ':webservice:build'
+    ]
+)
+
+task copyProductionArtifact(type: Copy) {
+    from "${project(':webservice').buildDir}"
+
+    into project.buildDir
+}
+
+task stage(
+    dependsOn: [
+        buildForProduction,
+        copyProductionArtifact
     ]
 )
