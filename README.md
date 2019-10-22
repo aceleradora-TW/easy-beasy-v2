@@ -48,12 +48,3 @@ Enquanto a construção contínua (o comando acima) executa em um terminal, em o
 ```
 
 Com estes dois comandos rodando simultaneamente, a aplicação será reconstruída e reiniciará a cada mudança, tanto de front-end quanto de back-end.
-
-### Web Service:
-
-Para inicializar a webservice da aplicação
-clique [aqui](./webservice) e siga os passos descritos no readme.
-
-### Web App
-
-Para rodar o cliente clique [aqui](./webapp) e siga as instruções no readme.
