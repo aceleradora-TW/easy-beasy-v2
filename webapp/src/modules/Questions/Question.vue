@@ -4,8 +4,8 @@
       <h1>{{currentQuestion.description}}</h1>
       <div>
         <p>{{userResponse}}</p>
-        <b-button v-on:click="nextQuestion(), collectAnswer(true)"> sim </b-button>
-        <b-button v-on:click="nextQuestion(), collectAnswer(false)"> nao </b-button>
+        <b-button v-on:click="nextQuestion(), collectPositiveAnswer()"> sim </b-button>
+        <b-button v-on:click="nextQuestion(), collectNegativeAnswer()"> nao </b-button>
       </div>
     </div>
   </div>
@@ -21,7 +21,7 @@ export default {
     questionList: [],
     currentQuestion: null,
     userResponse: null,
-    noCount: null
+    negativeCount: null
   }),
 
   created() { 
@@ -35,13 +35,12 @@ export default {
       this.questionList.splice(0, 1);
       this.currentQuestion = this.questionList[0];
     },
-    collectAnswer(verification){
-      if (verification){
+    collectPositiveAnswer(){
         this.userResponse = "Sim";
-      } else {
-        this.noCount++;
-        this.userResponse = "Não";
-      }
+    },
+    collectNegativeAnswer(){
+      this.userResponse = "Não";
+      this.negativeCount++;
     }
   }
   
