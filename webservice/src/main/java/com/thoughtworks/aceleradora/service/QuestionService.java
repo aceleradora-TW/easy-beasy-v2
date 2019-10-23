@@ -14,8 +14,8 @@ public class QuestionService {
         this.repository = repository;
     }
 
-    public Question getQuestion(int indice) {
-        return getMyQuestions().get(indice);
+    public Question getQuestion(int index) {
+        return getMyQuestions().get(index);
     }
 
     public void addQuestion(Question question) {
@@ -24,8 +24,8 @@ public class QuestionService {
         repository.addQuestion(question);
     }
 
-    public Question removeQuestion(int indice) {
-        return repository.deleteQuestion(indice);
+    public Question removeQuestion(int index) {
+        return repository.deleteQuestion(index);
     }
 
     public List<Question> getMyQuestions() {
