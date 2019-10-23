@@ -48,3 +48,7 @@ Enquanto a construção contínua (o comando acima) executa em um terminal, em o
 ```
 
 Com estes dois comandos rodando simultaneamente, a aplicação será reconstruída e reiniciará a cada mudança, tanto de front-end quanto de back-end.
+
+## Heroku 
+http://easy-beasy-test.herokuapp.com
+http://easy-beasy-homologacao.herokuapp.com
