@@ -1,5 +1,6 @@
 import axios from 'axios';
-const client = axios.create({
+const http = axios.create({
     baseURL: '/',
-    timeout: 5000});
-export default client;
+    timeout: 5000
+});
+export default http;
