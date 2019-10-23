@@ -1,6 +1,6 @@
-import request from '../utils/request';
+import http from '../utils/http';
 
 export default {
-  getPessoas : ()   => request.get(`/testeum/`),
-  getPessoa  : (id) => request.get(`/pessoas/${id}`),
+  getPessoas : ()   => http.get(`/testeum/`),
+  getPessoa  : (id) => http.get(`/pessoas/${id}`),
 }

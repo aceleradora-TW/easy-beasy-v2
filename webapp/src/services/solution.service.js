@@ -1,4 +1,4 @@
-import request from '../utils/request.js'
+import http from '../utils/http.js'
 export default {
-    getSolution: () => request.get(`/estagio/0/`)
+    getSolution: () => http.get(`/estagio/0/`)
 }
