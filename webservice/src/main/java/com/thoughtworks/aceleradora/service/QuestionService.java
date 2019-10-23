@@ -19,7 +19,6 @@ public class QuestionService {
     }
 
     public void addQuestion(Question question) {
-        question.setDescription(question.getDescription());
 
         repository.addQuestion(question);
     }
