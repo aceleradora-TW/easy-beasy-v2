@@ -1,5 +1,7 @@
 import Home from '@/views/Home.vue'
 import UserDetails from '@/components/UserDetails.vue'
+import Solution from '@/modules/Solutions/Solutions.vue'
+
 
 export default [
     {
@@ -14,4 +16,10 @@ export default [
         component: UserDetails,
         children: []
     },
+    {
+        name: 'users.solutions',
+        path: '/solutions',
+        component: Solution,
+        children: []
+    }
 ]

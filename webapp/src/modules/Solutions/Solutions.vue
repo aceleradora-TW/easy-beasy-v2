@@ -21,7 +21,6 @@ export default {
      this.solutionScreen = r.data.solution;
      console.log(r.data.solution);
     })
-    
   }
 }
 </script>
