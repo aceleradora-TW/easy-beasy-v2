@@ -1,5 +1,6 @@
 package com.thoughtworks.aceleradora.repository;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class QuestionRepository {
-    private static List<Question> classQuestions = Arrays.asList(
+    private static ArrayList<Question> classQuestions = new ArrayList<>(Arrays.asList(
         new Question("Você tem uma organização de tempo e tarefas?"),
         new Question("Você geralmente esquece de coisas que precisam ser feitas?"),
         new Question("Você organiza a semana em tarefas e metas a serem cumpridas?"),
@@ -34,7 +35,7 @@ public class QuestionRepository {
         new Question("Você reconhece o número de clientes do seu mercado?"),
         new Question("Você tem a noção da quantidade de possíveis clientes que o seu público alvo representa no mercado?"),
         new Question("Você sabe por que o cliente compra o seu produto e não o da concorrência?"),
-        new Question("Você sabe se o seu cliente recomendaria o seu produto para alguém? E por que?"));
+        new Question("Você sabe se o seu cliente recomendaria o seu produto para alguém? E por que?")));
 
     public List<Question> getAllClassQuestions() {
         return classQuestions;
