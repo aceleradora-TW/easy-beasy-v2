@@ -9,12 +9,17 @@
       <p class="question"><img src="../assets/images/easybeasy-logo.jpeg" alt="logo"> Você geralmente esquece de coisas que precisam ser feitas?</p>
       <p class="answer">Não.</p>
       <p class="question"><img src="../assets/images/easybeasy-logo.jpeg" alt="logo"> Você organiza a semana em tarefas e metas a serem cumpridas?</p>
+    
+
+    
     </div>
+          
     <div class="footer">
-      <div class="answer-buttons">
+          <div class="answer-buttons">
         <b-button squared class="answer-btn">Sim</b-button>
         <b-button squared class="answer-btn">Não</b-button>
       </div>
+
     </div>
   </div>
 </template>
@@ -26,6 +31,7 @@
 </script>
 
 <style lang="scss" scoped>
+  @media (min-width: 100px){
   header {
     justify-content: center;
     background-color: #e2e2e2;
@@ -57,6 +63,7 @@
       color: #636363;
     }
   }
+  
   .footer {
     position: fixed;
     bottom: 2rem;
@@ -71,10 +78,14 @@
       padding: 0.5rem;
       bottom: 10px;
 
+
       .answer-btn {
         background-color: #2fc0d5;
         border-color: #2fc0d5;
+
       }
-    }
-  }
+
+     
+     }
+  }}
 </style>
