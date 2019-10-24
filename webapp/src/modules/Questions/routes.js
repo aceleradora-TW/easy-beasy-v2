@@ -1,4 +1,4 @@
-import Question from '@/modules/Questions/Question.vue'
+import Question from '@/components/Question.vue'
 export default [
     {
         name: 'questions.index',

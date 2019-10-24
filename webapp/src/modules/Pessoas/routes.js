@@ -1,4 +1,4 @@
-import Question from '@/modules/Questions/Question.vue'
+import Question from '@/components/Question.vue'
 import Home from '@/views/Home.vue'
 import UserDetails from '@/components/UserDetails.vue'
 
