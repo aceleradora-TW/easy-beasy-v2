@@ -1,6 +1,6 @@
 package com.thoughtworks.aceleradora.controladores;
 
-import com.thoughtworks.aceleradora.dominio.Pergunta;
+import com.thoughtworks.aceleradora.dominio.Question;
 import com.thoughtworks.aceleradora.servicos.PerguntaServico;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,22 +22,22 @@ public class PerguntaControlador {
     }
 
     @GetMapping(path = "/")
-    public List<Pergunta> pegaListaDePerguntas() {
+    public List<Question> pegaListaDePerguntas() {
         return perguntaServico.pegarMinhasPerguntas();
     }
 
     @PostMapping(path = "/")
-    public void adicionaPergunta(@RequestBody Pergunta pergunta) {
-        perguntaServico.adicionaPergunta(pergunta);
+    public void adicionaPergunta(@RequestBody Question question) {
+        perguntaServico.adicionaPergunta(question);
     }
 
     @GetMapping(path = "/{indice}")
-    public Pergunta pegaPergunta(@PathVariable("indice") int indice) {
+    public Question pegaPergunta(@PathVariable("indice") int indice) {
         return perguntaServico.pegaPergunta(indice);
     }
 
     @DeleteMapping(path = "/{indice}")
-    public Pergunta removePergunta(@PathVariable("indice") int indice) {
+    public Question removePergunta(@PathVariable("indice") int indice) {
         return perguntaServico.removePergunta(indice);
     }
 }
