@@ -1,6 +1,6 @@
 package com.thoughtworks.aceleradora.repositorio;
 
-import com.thoughtworks.aceleradora.dominio.Pergunta;
+import com.thoughtworks.aceleradora.dominio.Question;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -9,17 +9,17 @@ import java.util.List;
 
 @Repository
 public class PerguntaRepositorio {
-    private static ArrayList<Pergunta> perguntasDaTurma = new ArrayList<>(Arrays.asList(new Pergunta("Você está bem?"), new Pergunta("Qual sua idade?")));
+    private static ArrayList<Question> perguntasDaTurma = new ArrayList<>(Arrays.asList(new Question("Você está bem?"), new Question("Qual sua idade?")));
 
-    public List<Pergunta> pegaTodasPerguntasDaTurma() {
+    public List<Question> pegaTodasPerguntasDaTurma() {
         return perguntasDaTurma;
     }
 
-    public void adicionaPergunta(Pergunta pergunta) {
-        perguntasDaTurma.add(pergunta);
+    public void adicionaPergunta(Question question) {
+        perguntasDaTurma.add(question);
     }
 
-    public Pergunta deletaPergunta(int indice) {
+    public Question deletaPergunta(int indice) {
         return perguntasDaTurma.remove(indice);
     }
 }

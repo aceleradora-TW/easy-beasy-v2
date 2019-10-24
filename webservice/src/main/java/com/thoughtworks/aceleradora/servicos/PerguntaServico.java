@@ -1,6 +1,6 @@
 package com.thoughtworks.aceleradora.servicos;
 
-import com.thoughtworks.aceleradora.dominio.Pergunta;
+import com.thoughtworks.aceleradora.dominio.Question;
 import com.thoughtworks.aceleradora.repositorio.PerguntaRepositorio;
 import org.springframework.stereotype.Service;
 
@@ -14,21 +14,21 @@ public class PerguntaServico {
         this.repositorio = repositorio;
     }
 
-    public Pergunta pegaPergunta(int indice) {
+    public Question pegaPergunta(int indice) {
         return pegarMinhasPerguntas().get(indice);
     }
 
-    public void adicionaPergunta(Pergunta pergunta) {
-        pergunta.setDescricao(pergunta.getDescricao() + " Perguntado por: Turma 16");
+    public void adicionaPergunta(Question question) {
+        question.setDescription(question.getDescription() + " Perguntado por: Turma 16");
 
-        repositorio.adicionaPergunta(pergunta);
+        repositorio.adicionaPergunta(question);
     }
 
-    public Pergunta removePergunta(int indice) {
+    public Question removePergunta(int indice) {
         return repositorio.deletaPergunta(indice);
     }
 
-    public List<Pergunta> pegarMinhasPerguntas() {
+    public List<Question> pegarMinhasPerguntas() {
         return repositorio.pegaTodasPerguntasDaTurma();
     }
 }
