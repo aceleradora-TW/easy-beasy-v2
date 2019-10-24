@@ -1,11 +1,15 @@
 <template>
-  <div class="hello">
-    <div class="hello" v-if="questionList.length">
-      <h1>{{currentQuestion.description}}</h1>
+  <div class="chat">
+    <div v-if="questionList.length">
+      <p class="question"><img src="@/assets/images/easybeasy-logo.jpeg" alt="logo">{{currentQuestion.description}}</p>
       <div>
-        <p>{{userResponse}}</p>
-        <b-button v-on:click="nextQuestion(), collectPositiveAnswer()"> sim </b-button>
-        <b-button v-on:click="nextQuestion(), collectNegativeAnswer()"> nao </b-button>
+        <p class="answer">{{userResponse}}</p>
+        <div class="footer">
+          <div class="answer-buttons">
+            <b-button class="answer-btn" v-on:click="nextQuestion(), collectPositiveAnswer()"> sim </b-button>
+            <b-button class="answer-btn" v-on:click="nextQuestion(), collectNegativeAnswer()"> nao </b-button>
+          </div>
+        </div>
       </div>
     </div>
   </div>

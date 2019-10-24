@@ -3,29 +3,37 @@
     <header>
       <h2>Diagnóstico</h2>
     </header>
-    <div class="chat">
+    <Question />
+    <!-- <div class="chat">
+      <p class="question"><img src="../assets/images/easybeasy-logo.jpeg" alt="logo"> Bem vindo a Easybeasy! A nossa plataforma irá realizar o diagnóstico da sua empresa a partir de perguntas, e respostas de “sim” ou “não”. Vamos começar!</p>
+      <p class="answer">Sim.</p>
       <p class="question"><img src="../assets/images/easybeasy-logo.jpeg" alt="logo"> Você tem uma organização de tempo e tarefas?</p>
       <p class="answer">Não.</p>
       <p class="question"><img src="../assets/images/easybeasy-logo.jpeg" alt="logo"> Você geralmente esquece de coisas que precisam ser feitas?</p>
       <p class="answer">Não.</p>
       <p class="question"><img src="../assets/images/easybeasy-logo.jpeg" alt="logo"> Você organiza a semana em tarefas e metas a serem cumpridas?</p>
-    </div>
-    <div class="footer">
+    </div> -->
+    <!-- <div class="footer">
       <div class="answer-buttons">
         <b-button squared class="answer-btn">Sim</b-button>
         <b-button squared class="answer-btn">Não</b-button>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script>
+import Question from '@/modules/Questions/Question.vue'
+
   export default {
-    name: "Diagnosis"
+    name: "Diagnosis",
+    components: {
+      Question
+    }
   };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   header {
     justify-content: center;
     background-color: #e2e2e2;
