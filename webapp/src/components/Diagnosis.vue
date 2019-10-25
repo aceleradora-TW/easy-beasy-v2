@@ -9,9 +9,6 @@
       <p class="question"><img src="../assets/images/easybeasy-logo.jpeg" alt="logo"> Você geralmente esquece de coisas que precisam ser feitas?</p>
       <p class="answer">Não.</p>
       <p class="question"><img src="../assets/images/easybeasy-logo.jpeg" alt="logo"> Você organiza a semana em tarefas e metas a serem cumpridas?</p>
-    
-
-    
     </div>
           
     <div class="footer">
@@ -66,7 +63,7 @@
   
   .footer {
     position: fixed;
-    bottom: 2rem;
+    bottom: 0rem;
     width: 100%;
     background-color: #ffffff;
 
