@@ -30,6 +30,4 @@ public class Question {
         return priority;
     }
 
-    public void setDescription(String s) {
-    }
 }
