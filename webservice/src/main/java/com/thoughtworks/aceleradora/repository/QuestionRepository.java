@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class QuestionRepository {
-    private static ArrayList<Question> classQuestions = new ArrayList<>(Arrays.asList(
+    private static ArrayList<Question> questions = new ArrayList<>(Arrays.asList(
         new Question("Você tem uma organização de tempo e tarefas?"),
         new Question("Você geralmente esquece de coisas que precisam ser feitas?"),
         new Question("Você organiza a semana em tarefas e metas a serem cumpridas?"),
@@ -37,15 +37,15 @@ public class QuestionRepository {
         new Question("Você sabe por que o cliente compra o seu produto e não o da concorrência?"),
         new Question("Você sabe se o seu cliente recomendaria o seu produto para alguém? E por que?")));
 
-    public List<Question> getAllClassQuestions() {
-        return classQuestions;
+    public List<Question> getAllQuestions() {
+        return questions;
     }
 
     public void addQuestion(Question question) {
-        classQuestions.add(question);
+        questions.add(question);
     }
 
     public Question deleteQuestion(int index) {
-        return classQuestions.remove(index);
+        return questions.remove(index);
     }
 }

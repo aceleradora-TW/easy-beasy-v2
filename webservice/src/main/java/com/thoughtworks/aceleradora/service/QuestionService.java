@@ -28,6 +28,6 @@ public class QuestionService {
     }
 
     public List<Question> getAllQuestions() {
-        return repository.getAllClassQuestions();
+        return repository.getAllQuestions();
     }
 }
