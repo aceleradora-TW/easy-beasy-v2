@@ -12,6 +12,9 @@
             <b-button class="answer-btn" v-on:click="nextQuestion(), collectPositiveAnswer()"> sim </b-button>
             <b-button class="answer-btn" v-on:click="nextQuestion(), collectNegativeAnswer()"> nao </b-button>
           </div>
+          <div>
+            <Solutions v-if="seen" id="showHide"/>
+          </div>
         </div>
       </div>
     </div>
@@ -20,33 +23,61 @@
 
 <script>
 import questionService from "@/services/questions.service.js";
+import Solutions  from "../modules/Solutions/Solutions";
 
 export default {
   name: "Question",
+
   data: () => ({
     questionList: [],
     chatHistory: [],
     userResponse: null,
-    negativeCount: null
+    negativeCount: null,
+    seen: false
   }),
+
+  components: {
+    Solutions
+  },
 
   created() { 
     questionService.getQuestions().then(list => {
       this.questionList = list.data;
     });
   },
-  methods:{
-    nextQuestion(){
+  methods: {
+    nextQuestion() {
       this.chatHistory.push(this.questionList.shift())
     },
-    collectPositiveAnswer(){
-        this.userResponse = "Sim";
+    collectPositiveAnswer() {
+      this.userResponse = "Sim";
+      this.makeDiagnostic("Sim");
     },
-    collectNegativeAnswer(){
+    collectNegativeAnswer() {
       this.userResponse = "Não";
+      this.makeDiagnostic("Não");
       this.negativeCount++;
-    }
+
+      if (this.negativeCount == 2) {
+        return Solutions;
+      }
+
+    },
+    makeDiagnostic: (resposta) => {
+      console.log("texto aleatorio de teste  --->>" + resposta);
+ /*     do {
+        console.log("texto de user response dentro do do");
+        this.userResponse = resposta;
+
+
+
+      } while (this.negativeCount < 2);     //com dois nãos interrompe a área na hora e recebe a solução do estágio
+
+      if (this.negativeCount > 0) {            //chegar ao fim do estágio com 1 não, recebe a solução do estágio
+        return solutions;
+      }
+  */  }
+
   }
-  
 };
 </script>

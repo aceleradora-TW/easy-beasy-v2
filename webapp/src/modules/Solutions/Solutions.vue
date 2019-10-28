@@ -1,7 +1,7 @@
 <template> 
 <div> 
   <h1>{{text}}</h1>
-  <p>Teste</p>
+  <p></p>
   <h1>{{solutionScreen}}</h1>
 </div>
  
@@ -12,7 +12,7 @@ import solution from '@/services/solution.service.js'
 
 export default {
   data: () => ({
-    text:"Teste Entrega a Solução",
+    text:"",
     solutionScreen: ""
   }),
 
