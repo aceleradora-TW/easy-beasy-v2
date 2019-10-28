@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class QuestionRepository {
     private static ArrayList<Question> classQuestions = new ArrayList<>(Arrays.asList(
-        // new Question(" Bem vindo a Easybeasy! A nossa plataforma irá realizar o diagnóstico da sua empresa a partir de perguntas, e respostas de “sim” ou “não”. Vamos começar!"),
         new Question("Você tem uma organização de tempo e tarefas?"),
         new Question("Você geralmente esquece de coisas que precisam ser feitas?"),
         new Question("Você organiza a semana em tarefas e metas a serem cumpridas?"),
