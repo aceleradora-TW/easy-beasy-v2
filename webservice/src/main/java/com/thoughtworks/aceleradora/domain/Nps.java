@@ -5,9 +5,6 @@ public class Nps {
     private int score;
     private String comments;
 
-    public Nps() {
-    }
-
     public long getId() {
         return id;
     }
