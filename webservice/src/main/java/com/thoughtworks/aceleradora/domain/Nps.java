@@ -1,11 +1,11 @@
 package com.thoughtworks.aceleradora.domain;
 
-public class NPS {
+public class Nps {
     private long id;
     private int note;
     private String comments;
 
-    public NPS() {
+    public Nps() {
     }
 
     public long getId() {
