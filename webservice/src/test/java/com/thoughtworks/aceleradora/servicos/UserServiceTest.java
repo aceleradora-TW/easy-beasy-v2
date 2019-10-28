@@ -10,7 +10,7 @@ import java.util.List;
 public class UserServiceTest {
 
     @Test
-    public void teste(){
+    public void shouldReturnOkIfRepositorySaveValidUser(){
         User userExpected = new User("Lucilaine", "lucilaine@email.com");
         UserRepository userRepository = new UserRepository();
         UserService userService = new UserService(userRepository);
