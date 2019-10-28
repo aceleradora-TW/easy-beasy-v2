@@ -5,9 +5,6 @@ public class Enterpreneur {
     private String name;
     private String email;
 
-    public Enterpreneur() {
-    }
-
     public long getId() {
         return id;
     }
