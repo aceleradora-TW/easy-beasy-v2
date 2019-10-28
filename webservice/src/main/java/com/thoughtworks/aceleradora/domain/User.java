@@ -1,4 +1,4 @@
-package com.thoughtworks.aceleradora.dominio;
+package com.thoughtworks.aceleradora.domain;
 
 public class User {
     private String name;

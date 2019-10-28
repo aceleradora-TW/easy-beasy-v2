@@ -1,7 +1,7 @@
-package com.thoughtworks.aceleradora.controladores;
+package com.thoughtworks.aceleradora.controller;
 
-import com.thoughtworks.aceleradora.dominio.User;
-import com.thoughtworks.aceleradora.servicos.UserService;
+import com.thoughtworks.aceleradora.domain.User;
+import com.thoughtworks.aceleradora.service.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

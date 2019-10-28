@@ -1,10 +1,10 @@
 package com.thoughtworks.aceleradora.repositorio;
 
-import com.thoughtworks.aceleradora.dominio.User;
+import com.thoughtworks.aceleradora.domain.User;
+import com.thoughtworks.aceleradora.repository.UserRepository;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class UserRepositoryTest {

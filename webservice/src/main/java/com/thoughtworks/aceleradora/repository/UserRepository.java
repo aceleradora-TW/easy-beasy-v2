@@ -1,6 +1,6 @@
-package com.thoughtworks.aceleradora.repositorio;
+package com.thoughtworks.aceleradora.repository;
 
-import com.thoughtworks.aceleradora.dominio.User;
+import com.thoughtworks.aceleradora.domain.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;

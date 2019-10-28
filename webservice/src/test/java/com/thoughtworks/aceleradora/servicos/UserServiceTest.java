@@ -1,7 +1,8 @@
 package com.thoughtworks.aceleradora.servicos;
 
-import com.thoughtworks.aceleradora.dominio.User;
-import com.thoughtworks.aceleradora.repositorio.UserRepository;
+import com.thoughtworks.aceleradora.domain.User;
+import com.thoughtworks.aceleradora.repository.UserRepository;
+import com.thoughtworks.aceleradora.service.UserService;
 import org.junit.Assert;
 import org.junit.Test;
 
