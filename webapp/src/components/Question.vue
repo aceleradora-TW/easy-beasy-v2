@@ -54,14 +54,20 @@
 
 <script>
 import questionService from "@/services/questions.service.js";
+import Solutions  from "../modules/Solutions/Solutions";
 
 export default {
   name: "Question",
+
   data: () => ({
     currentQuestion: null,
     questionList: [],
     chatHistory: []
   }),
+
+  components: {
+    Solutions
+  },
 
   created() {
     questionService.getQuestions().then(list => {
