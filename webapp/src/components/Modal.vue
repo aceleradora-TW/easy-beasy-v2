@@ -4,7 +4,7 @@
 
     <b-modal hide-header-close hide-footer no-close-on-backdrop no-close-on-esc id="modal">
       <p>O quanto você recomendaria este diagnóstico para um amigo?</p>
-      <b-button variant="outline-primary" v-for="number in 10" :key="number">{{ number }}</b-button>
+      <b-button squared class="scoreButton" variant="outline-secondary" v-on:click="getScore(number)" v-for="number in 10" :key="number">{{ number }}</b-button>
       <b-input id="input" v-model="comments"></b-input>
       <p>{{comments}}</p>
       <p>{{score}}</p>
@@ -28,3 +28,12 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+  .scoreButton{
+    // border: solid gray;
+    // border-width: 1px;
+    margin: 5px;
+    // color: gray;
+  }
+</style>
