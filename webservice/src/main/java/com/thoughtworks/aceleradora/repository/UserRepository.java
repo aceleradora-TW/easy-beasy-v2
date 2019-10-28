@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class UserRepository {
     private ArrayList<User> userData = new ArrayList<>();
 
-    public ArrayList<User> addUser(User user){
+    public ArrayList<User> save(User user){
         userData.add(user);
         return userData;
     }

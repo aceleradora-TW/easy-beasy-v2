@@ -15,7 +15,7 @@ public class UserServiceTest {
         User userExpected = new User("Lucilaine", "lucilaine@email.com");
         UserRepository userRepository = new UserRepository();
         UserService userService = new UserService(userRepository);
-        List<User> users = userService.addUser(userExpected);
+        List<User> users = userService.save(userExpected);
 
         User userResult = users.get(0);
         Assert.assertEquals(userResult.getName(), userExpected.getName());

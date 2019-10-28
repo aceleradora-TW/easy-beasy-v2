@@ -14,7 +14,7 @@ public class UserService {
         this.repository = repository;
     }
 
-    public List<User> addUser(User user){
-        return repository.addUser(user);
+    public List<User> save(User user){
+        return repository.save(user);
     }
 }
