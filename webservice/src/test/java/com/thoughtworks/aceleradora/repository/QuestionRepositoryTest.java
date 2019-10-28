@@ -1,8 +1,7 @@
-package com.thoughtworks.aceleradora.repositorio;
+package com.thoughtworks.aceleradora.repository;
 
 import com.thoughtworks.aceleradora.domain.Question;
 import com.thoughtworks.aceleradora.exceptions.NullQuestionDescriptionException;
-import com.thoughtworks.aceleradora.repository.QuestionRepository;
 import org.junit.Assert;
 import org.junit.Test;
 
