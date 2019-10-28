@@ -1,7 +1,13 @@
+import Question from '@/components/Question.vue'
 import Home from '@/views/Home.vue'
 import UserDetails from '@/components/UserDetails.vue'
 
-export default [
+export default [{
+        name: 'users.question',
+        path: '/',
+        component: Question,
+        children: []
+    },
     {
         name: 'users.index',
         path: '/home',
