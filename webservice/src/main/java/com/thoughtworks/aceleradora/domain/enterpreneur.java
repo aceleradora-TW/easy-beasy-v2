@@ -1,11 +1,11 @@
-package com.thoughtworks.aceleradora.dominio;
+package com.thoughtworks.aceleradora.domain;
 
-public class Enterprising {
+public class enterpreneur {
     private long id;
     private String name;
     private String email;
 
-    public Enterprising() {
+    public enterpreneur() {
     }
 
     public long getId() {
