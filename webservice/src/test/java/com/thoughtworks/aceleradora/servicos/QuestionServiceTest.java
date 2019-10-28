@@ -1,7 +1,8 @@
 package com.thoughtworks.aceleradora.servicos;
 
-import com.thoughtworks.aceleradora.dominio.Question;
-import com.thoughtworks.aceleradora.repositorio.QuestionRepository;
+import com.thoughtworks.aceleradora.domain.Question;
+import com.thoughtworks.aceleradora.repository.QuestionRepository;
+import com.thoughtworks.aceleradora.service.QuestionService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,7 +25,7 @@ public class QuestionServiceTest {
 
     @Test
     public void shouldReturnOKIfISaveAValidQuestion() {
-        Question expectedQuestion = new Question(1, "Sei lá?");
+        Question expectedQuestion = new Question( "Sei lá?");
 
         Mockito.when(questionRepository.salvar(expectedQuestion)).thenReturn(Arrays.asList(expectedQuestion));
 

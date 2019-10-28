@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.thoughtworks.aceleradora.domain.Question;
 
+import com.thoughtworks.aceleradora.exceptions.NullQuestionDescriptionException;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -42,6 +43,9 @@ public class QuestionRepository {
     }
 
     public void addQuestion(Question question) {
+        if(question.getDescription() == null) {
+            throw new NullQuestionDescriptionException("A descrição da pergunta não pode ser nula.");
+        }
         questions.add(question);
     }
 

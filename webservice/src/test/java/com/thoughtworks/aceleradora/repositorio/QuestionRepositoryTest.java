@@ -1,6 +1,8 @@
 package com.thoughtworks.aceleradora.repositorio;
 
-import com.thoughtworks.aceleradora.dominio.Question;
+import com.thoughtworks.aceleradora.domain.Question;
+import com.thoughtworks.aceleradora.exceptions.NullQuestionDescriptionException;
+import com.thoughtworks.aceleradora.repository.QuestionRepository;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -11,25 +13,23 @@ public class QuestionRepositoryTest {
     @Test
     public void shouldReturnOKIfISaveAValidQuestion() {
         // Insumos
-        Question questionExpected = new Question(1, "Você controla seus testes?");
+        Question questionExpected = new Question("Você controla seus testes?");
         // ação
         QuestionRepository questionRepository = new QuestionRepository();
-        List<Question> questions = questionRepository.salvar(questionExpected);
+        questionRepository.addQuestion(questionExpected);
+        List<Question> questions = questionRepository.getAllQuestions();
 
         // validação
-        Question questionResult = questions.get(0);
-        Assert.assertEquals(questionExpected.getPriority(), questionResult.getPriority());
+        Question questionResult = questions.get(questions.size()-1);
         Assert.assertEquals(questionExpected.getDescription(), questionResult.getDescription());
     }
 
-    @Test
+    @Test(expected = NullQuestionDescriptionException.class)
     public void shouldReturnErrorIfISaveAQuestionWithouDescription() {
-        Question questionExpected = new Question(1, null);
+        Question questionExpected = new Question( null);
 
         QuestionRepository questionRepository = new QuestionRepository();
-        List<Question> questions = questionRepository.salvar(questionExpected);
-
-        Assert.assertEquals(0, questions.size());
+        questionRepository.addQuestion(questionExpected);
     }
 
 }
