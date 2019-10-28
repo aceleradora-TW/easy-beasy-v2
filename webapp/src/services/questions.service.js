@@ -1,5 +1,5 @@
 import http from '../utils/http'
 
 export default {
-    getQuestions : () => http.get(`/question/`)
+    getQuestions : () => http.get(`/questions`)
 }

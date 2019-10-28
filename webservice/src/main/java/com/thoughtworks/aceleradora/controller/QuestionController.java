@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/question")
+@RequestMapping("/questions")
 public class QuestionController {
     private QuestionService questionService;
 
@@ -21,12 +21,12 @@ public class QuestionController {
         this.questionService = questionService;
     }
 
-    @GetMapping(path = "/")
+    @GetMapping(path = "")
     public List<Question> getListQuestions() {
         return questionService.getMyQuestions();
     }
 
-    @PostMapping(path = "/")
+    @PostMapping(path = "")
     public void addQuestion(@RequestBody Question question) {
         questionService.addQuestion(question);
     }
