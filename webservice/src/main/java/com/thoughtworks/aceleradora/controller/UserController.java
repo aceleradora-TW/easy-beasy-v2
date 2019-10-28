@@ -17,7 +17,7 @@ public class UserController {
     }
 
     @PostMapping("/")
-    public void addUser (@RequestBody User user){
+    public void save (@RequestBody User user){
         userService.save(user);
     }
 }
