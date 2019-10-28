@@ -13,7 +13,7 @@ public class UserRepositoryTest {
 
         User user = new User("Lucilaine", "Lucilaine@email.com");
         UserRepository userRepository = new UserRepository();
-        List<User> users = userRepository.addUser(user);
+        List<User> users = userRepository.save(user);
 
         User userResult = users.get(0);
         Assert.assertEquals(userResult.getName(), user.getName());

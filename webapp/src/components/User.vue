@@ -2,7 +2,7 @@
   <div>
       <b-input v-model="$data.user.name"></b-input>
       <b-input v-model="$data.user.email"></b-input>
-      <b-button v-on:click="addUser()">Enviar</b-button>
+      <b-button v-on:click="save()">Enviar</b-button>
   </div>
 </template>
 
@@ -16,12 +16,14 @@ export default {
         user: {    
             name: "", 
             email: ""        
-        }
+        },
     }),
     methods:{
-        addUser:()=> {
+        save:()=> {
             debugger;
-            userService.addUser(this.user);
+            userService.save(this.user)
+        .then(response => alert('salvo com sucesso'))
+        .catch(error => alert('ocorreu um erro'));
         }  
     }
       
