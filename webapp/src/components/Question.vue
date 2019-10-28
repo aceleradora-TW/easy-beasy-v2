@@ -26,7 +26,6 @@ export default {
   data: () => ({
     questionList: [],
     chatHistory: [],
-    currentQuestion: null,
     userResponse: null,
     negativeCount: null
   }),
