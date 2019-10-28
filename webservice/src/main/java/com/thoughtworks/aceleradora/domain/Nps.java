@@ -2,7 +2,7 @@ package com.thoughtworks.aceleradora.domain;
 
 public class Nps {
     private long id;
-    private int note;
+    private int score;
     private String comments;
 
     public Nps() {
@@ -12,8 +12,8 @@ public class Nps {
         return id;
     }
 
-    public int getNote() {
-        return note;
+    public int getScore() {
+        return score;
     }
 
     public String getComments() {
