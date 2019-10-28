@@ -15,8 +15,7 @@ public class UserRepositoryTest {
         UserRepository userRepository = new UserRepository();
         List<User> users = userRepository.addUser(user);
 
-        User userResult
-                = users.get(0);
+        User userResult = users.get(0);
         Assert.assertEquals(userResult.getName(), user.getName());
         Assert.assertEquals(userResult.getEmail(), user.getEmail());
     }

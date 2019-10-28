@@ -4,6 +4,8 @@ import com.thoughtworks.aceleradora.dominio.User;
 import com.thoughtworks.aceleradora.repositorio.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
     private UserRepository repository;
@@ -12,7 +14,7 @@ public class UserService {
         this.repository = repository;
     }
 
-    public void addUser(User user){
-        repository.addUser(user);
+    public List<User> addUser(User user){
+        return repository.addUser(user);
     }
 }
