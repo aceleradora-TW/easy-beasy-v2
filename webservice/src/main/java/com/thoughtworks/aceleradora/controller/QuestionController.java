@@ -23,7 +23,7 @@ public class QuestionController {
 
     @GetMapping(path = "")
     public List<Question> getListQuestions() {
-        return questionService.getMyQuestions();
+        return questionService.getAllQuestions();
     }
 
     @PostMapping(path = "")

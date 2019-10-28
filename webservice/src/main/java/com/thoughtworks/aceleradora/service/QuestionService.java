@@ -15,7 +15,7 @@ public class QuestionService {
     }
 
     public Question getQuestion(int index) {
-        return getMyQuestions().get(index);
+        return getAllQuestions().get(index);
     }
 
     public void addQuestion(Question question) {
@@ -27,7 +27,7 @@ public class QuestionService {
         return repository.deleteQuestion(index);
     }
 
-    public List<Question> getMyQuestions() {
+    public List<Question> getAllQuestions() {
         return repository.getAllClassQuestions();
     }
 }
