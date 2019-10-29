@@ -1,6 +1,6 @@
 package com.thoughtworks.aceleradora.domain;
 
-public class Nps {
+public class NetPromoterScore {
     private long id;
     private int score;
     private String comments;
