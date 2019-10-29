@@ -32,7 +32,7 @@ export default {
     chatHistory: [],
     userResponseHistory: [],
     negativeCount: null,
-    index: 0
+    index: null
   }),
 
   components: {
@@ -43,6 +43,7 @@ export default {
     questionService.getQuestions().then(list => {
       this.questionList = list.data;
       this.nextQuestion();
+      this.index = 0;
     });
   },
   methods: {
@@ -53,15 +54,20 @@ export default {
       });
     },
     collectPositiveAnswer() {
-      this.chatHistory[this.index].response = "Sim";
-      this.index++;
-      this.nextQuestion();
+      if(this.questionList.length!==0){
+        this.chatHistory[this.index].response = "Sim";
+        this.index++;
+        this.nextQuestion();
+      }
+
     },
     collectNegativeAnswer() {
-      this.chatHistory[this.index].response = "Não";
-      this.index++;
-      this.nextQuestion();
-      this.negativeCount++;
+      if(this.questionList.length!==0) {
+        this.chatHistory[this.index].response = "Não";
+        this.index++;
+        this.nextQuestion();
+        this.negativeCount++;
+      }
     },
 
       if (this.negativeCount == 2) {
