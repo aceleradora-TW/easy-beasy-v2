@@ -1,5 +1,7 @@
 package com.thoughtworks.aceleradora.domain;
 
+import org.hibernate.annotations.Entity;
+@Entity
 public class Enterpreneur {
     private long id;
     private String name;

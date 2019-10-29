@@ -1,5 +1,7 @@
 package com.thoughtworks.aceleradora.domain;
 
+import org.hibernate.annotations.Entity;
+@Entity
 public class NetPromoterScore {
     private long id;
     private int score;
