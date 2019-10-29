@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import solutions from '@/services/solutions.service.js'
+import solutions from '../services/solutions.service'
 
 export default {
   data: () => ({
@@ -18,8 +18,8 @@ export default {
 
   created() {
    solutions.getSolutions().then(r => {
-     this.solutionScreen = r.data.solutions;
-     console.log(r.data.solutions);
+     this.solutionScreen = r.data.solution;
+     console.log(r.data.solution);
     })
   }
 }
