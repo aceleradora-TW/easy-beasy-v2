@@ -5,8 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.thoughtworks.aceleradora.domain.Question;
-
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
 
 @Repository
 public class QuestionRepository {
@@ -42,6 +42,9 @@ public class QuestionRepository {
     }
 
     public void addQuestion(Question question) {
+        if(StringUtils.isEmpty(question.getDescription())) {
+            throw new IllegalArgumentException("The question description cannot be null.");
+        }
         questions.add(question);
     }
 
