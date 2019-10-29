@@ -43,6 +43,7 @@ export default {
   created() { 
     questionService.getQuestions().then(list => {
       this.questionList = list.data;
+      this.nextQuestion();
     });
   },
   methods: {
