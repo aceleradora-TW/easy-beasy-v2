@@ -1,7 +1,7 @@
 import Question from '@/components/Question.vue'
 import Home from '@/views/Home.vue'
 import UserDetails from '@/components/UserDetails.vue'
-import solutions from '@/modules/Solutions/Solutions.vue'
+import solutions from '@/components/Solutions.vue'
 
 
 export default [{

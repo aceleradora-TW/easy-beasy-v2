@@ -22,15 +22,12 @@
         <b-button class="answer-btn" v-on:click="nextQuestion(), collectNegativeAnswer()">nao</b-button>
       </div>
     </div>
-    <div>
-      <Solutions v-if="seen" id="showHide"/>
-    </div>
   </div>
 </template>
 
 <script>
 import questionService from "@/services/questions.service.js";
-import Solutions  from "../modules/Solutions/Solutions";
+import Solutions  from "./Solutions";
 
 export default {
   name: "Question",
@@ -39,7 +36,6 @@ export default {
     chatHistory: [],
     userResponse: null,
     negativeCount: null,
-    seen: true
   }),
 
   components: {
@@ -72,18 +68,7 @@ export default {
     },
     makeDiagnostic: (resposta) => {
       console.log("texto aleatorio de teste  --->>" + resposta);
- /*     do {
-        console.log("texto de user response dentro do do");
-        this.userResponse = resposta;
-
-
-
-      } while (this.negativeCount < 2);     //com dois nãos interrompe a área na hora e recebe a solução do estágio
-
-      if (this.negativeCount > 0) {            //chegar ao fim do estágio com 1 não, recebe a solução do estágio
-        return solutions;
-      }
-  */  }
+    }
 
   }
 };
