@@ -18,9 +18,8 @@ public class UserServiceTest {
         List<User> users = userService.save(userExpected);
 
         User userResult = users.get(0);
-        Assert.assertEquals(userResult.getName(), userExpected.getName());
-        Assert.assertEquals(userResult.getEmail(), userExpected.getEmail());
-
+        Assert.assertEquals(userResult.getName(), "Lucilaine");
+        Assert.assertEquals(userResult.getEmail(), "Lucilaine@email.com");
 
     }
 }

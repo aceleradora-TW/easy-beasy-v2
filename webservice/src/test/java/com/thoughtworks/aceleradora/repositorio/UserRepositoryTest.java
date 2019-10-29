@@ -16,7 +16,7 @@ public class UserRepositoryTest {
         List<User> users = userRepository.save(user);
 
         User userResult = users.get(0);
-        Assert.assertEquals(userResult.getName(), user.getName());
-        Assert.assertEquals(userResult.getEmail(), user.getEmail());
+        Assert.assertEquals(userResult.getName(),"Lucilaine");
+        Assert.assertEquals(userResult.getEmail(),"Lucilaine@email.com");
     }
 }
