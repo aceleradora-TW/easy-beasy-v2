@@ -1,8 +1,7 @@
-package com.thoughtworks.aceleradora.servicos;
+package com.thoughtworks.aceleradora.service;
 
 import com.thoughtworks.aceleradora.domain.User;
 import com.thoughtworks.aceleradora.repository.UserRepository;
-import com.thoughtworks.aceleradora.service.UserService;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -19,7 +18,7 @@ public class UserServiceTest {
 
         User userResult = users.get(0);
         Assert.assertEquals(userResult.getName(), "Lucilaine");
-        Assert.assertEquals(userResult.getEmail(), "Lucilaine@email.com");
+        Assert.assertEquals(userResult.getEmail(), "lucilaine@email.com");
 
     }
 }
