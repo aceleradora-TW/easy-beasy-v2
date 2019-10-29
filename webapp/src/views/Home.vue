@@ -1,19 +1,19 @@
 <template>
   <div>
     <Diagnosis/>  
-    <Solution/>
+    <Solutions/>
   </div>
 </template>
 
 <script>
 import Diagnosis from '@/components/Diagnosis'
-import Solution from '@/modules/Solutions/Solutions.vue'
+import Solutions from '@/modules/Solutions/Solutions.vue'
 
 
 export default {
   components:{
     Diagnosis,
-    Solution
+    Solutions
   }
 }
 </script>

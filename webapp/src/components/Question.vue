@@ -39,7 +39,7 @@ export default {
     chatHistory: [],
     userResponse: null,
     negativeCount: null,
-    seen: false
+    seen: true
   }),
 
   components: {
