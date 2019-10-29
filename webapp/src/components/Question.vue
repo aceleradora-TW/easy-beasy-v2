@@ -54,7 +54,7 @@
 
 <script>
 import questionService from "@/services/questions.service.js";
-import Solutions  from "../modules/Solutions/Solutions";
+import Solutions  from "./Solutions";
 
 export default {
   name: "Question",

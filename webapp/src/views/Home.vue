@@ -1,18 +1,15 @@
 <template>
   <div>
-    <Diagnosis/>  
-    <Solutions/>
+    <Diagnosis/>
   </div>
 </template>
 
 <script>
 import Diagnosis from '@/components/Diagnosis'
-import Solutions from '@/modules/Solutions/Solutions.vue'
 
 export default {
   components:{
-    Diagnosis,
-    Solutions
+    Diagnosis
   }
 }
 </script>
