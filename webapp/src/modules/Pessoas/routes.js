@@ -1,7 +1,7 @@
 import Question from '@/components/Question.vue'
 import Home from '@/views/Home.vue'
 import UserDetails from '@/components/UserDetails.vue'
-import Solution from '@/modules/Solutions/Solutions.vue'
+import solutions from '@/modules/Solutions/Solutions.vue'
 
 
 export default [{
@@ -25,7 +25,7 @@ export default [{
     {
         name: 'users.solutions',
         path: '/solutions',
-        component: Solution,
+        component: solutions,
         children: []
     }
 ]
