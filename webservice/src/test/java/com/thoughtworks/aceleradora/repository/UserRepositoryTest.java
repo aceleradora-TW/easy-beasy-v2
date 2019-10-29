@@ -1,4 +1,4 @@
-package com.thoughtworks.aceleradora.repositorio;
+package com.thoughtworks.aceleradora.repository;
 
 import com.thoughtworks.aceleradora.domain.User;
 import com.thoughtworks.aceleradora.repository.UserRepository;
@@ -11,12 +11,12 @@ public class UserRepositoryTest {
     @Test
     public void shouldReturnOKIfISaveAValidUser(){
 
-        User user = new User("Lucilaine", "Lucilaine@email.com");
+        User user = new User("Lucilaine", "lucilaine@email.com");
         UserRepository userRepository = new UserRepository();
         List<User> users = userRepository.save(user);
 
         User userResult = users.get(0);
-        Assert.assertEquals(userResult.getName(), user.getName());
-        Assert.assertEquals(userResult.getEmail(), user.getEmail());
+        Assert.assertEquals(userResult.getName(),"Lucilaine");
+        Assert.assertEquals(userResult.getEmail(),"lucilaine@email.com");
     }
 }
