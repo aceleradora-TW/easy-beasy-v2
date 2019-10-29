@@ -7,25 +7,24 @@
 </template>
 ​
 <script>
-​
 import userService from "@/services/user.service.js"
-​
+
 export default {
-    name:"User",
-     data: () => ({
+    name: "User",
+    data: () => ({
         user: {
-            name: '',
-            email: ''
+            name: "",
+            email: ""
         }
     }),
-    methods:{
-        save:(user)=> {
-            userService.save(user)
-                       .then(response => alert('salvo com sucesso'))
-                       .catch(error => alert('ocorreu um erro'));
-        }  
+    methods: {
+        save: (user) => {
+        debugger;
+        userService.save(user)
+                        .then(response => alert("Usuário salvo com sucesso!"))
+                        .catch(error => alert("Algo deu errado!"))
+        }
     }
-      
 }
 </script>
 ​
