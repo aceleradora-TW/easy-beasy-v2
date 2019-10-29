@@ -1,25 +1,21 @@
 <template>
   <div>
     <div class="chat">
-      <div v-if="questionList.length">
+      <div>
         <p class="question">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />Bem vindo a Easybeasy! A nossa plataforma irá realizar o diagnóstico da sua empresa a partir de perguntas, e respostas de “sim” ou “não”. Vamos começar!
         </p>
-        <p class="question" v-for="question in chatHistory" v-bind:key="question.description">
-          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
-          {{question.description}}
-        </p>
-
-        <div>
-          <p class="answer">{{userResponse}}</p>
+        <div class="question" v-for="question in chatHistory" v-bind:key="question.description">
+          <p> <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" /> {{question.description}}</p>
+          <p class="answer">{{question.response}}</p>
         </div>
       </div>
     </div>
 
     <div class="footer">
       <div class="answer-buttons">
-        <b-button class="answer-btn" v-on:click="nextQuestion(), collectPositiveAnswer()">sim</b-button>
-        <b-button class="answer-btn" v-on:click="nextQuestion(), collectNegativeAnswer()">nao</b-button>
+        <b-button class="answer-btn" v-on:click="collectPositiveAnswer()">Sim</b-button>
+        <b-button class="answer-btn" v-on:click="collectNegativeAnswer()">Não</b-button>
       </div>
     </div>
   </div>
@@ -34,15 +30,16 @@ export default {
   data: () => ({
     questionList: [],
     chatHistory: [],
-    userResponse: null,
+    userResponseHistory: [],
     negativeCount: null,
+    index: 0
   }),
 
   components: {
     Solutions
   },
 
-  created() { 
+  created() {
     questionService.getQuestions().then(list => {
       this.questionList = list.data;
       this.nextQuestion();
@@ -50,16 +47,22 @@ export default {
   },
   methods: {
     nextQuestion() {
-      this.chatHistory.push(this.questionList.shift())
+      this.chatHistory.push({
+        response: "",
+        description: this.questionList.shift().description
+      });
     },
     collectPositiveAnswer() {
-      this.userResponse = "Sim";
-      this.makeDiagnostic("Sim");
+      this.chatHistory[this.index].response = "Sim";
+      this.index++;
+      this.nextQuestion();
     },
     collectNegativeAnswer() {
-      this.userResponse = "Não";
-      this.makeDiagnostic("Não");
+      this.chatHistory[this.index].response = "Não";
+      this.index++;
+      this.nextQuestion();
       this.negativeCount++;
+    },
 
       if (this.negativeCount == 2) {
         return Solutions;
@@ -71,6 +74,7 @@ export default {
     }
 
   }
+
 };
 </script>
 
