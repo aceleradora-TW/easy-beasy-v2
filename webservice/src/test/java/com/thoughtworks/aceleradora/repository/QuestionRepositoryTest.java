@@ -1,7 +1,6 @@
 package com.thoughtworks.aceleradora.repository;
 
 import com.thoughtworks.aceleradora.domain.Question;
-import com.thoughtworks.aceleradora.exceptions.NullQuestionDescriptionException;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -23,7 +22,7 @@ public class QuestionRepositoryTest {
         Assert.assertEquals(questionExpected.getDescription(), questionResult.getDescription());
     }
 
-    @Test(expected = NullQuestionDescriptionException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void shouldReturnErrorIfISaveAQuestionWithouDescription() {
         Question questionExpected = new Question( null);
 
