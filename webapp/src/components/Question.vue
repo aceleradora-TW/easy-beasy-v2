@@ -31,7 +31,6 @@ export default {
     questionList: [],
     chatHistory: [],
     userResponseHistory: [],
-    negativeCount: null,
     index: null
   }),
 
@@ -66,20 +65,9 @@ export default {
         this.chatHistory[this.index].response = "Não";
         this.index++;
         this.nextQuestion();
-        this.negativeCount++;
       }
     },
-
-      if (this.negativeCount == 2) {
-        return Solutions;
-      }
-
-    },
-    makeDiagnostic: (resposta) => {
-      console.log("texto aleatorio de teste  --->>" + resposta);
     }
-
-  }
 
 };
 </script>
