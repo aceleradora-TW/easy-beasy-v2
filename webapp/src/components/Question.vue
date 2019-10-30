@@ -3,7 +3,7 @@
     <div class="chat">
       <div>
         <p class="question">
-          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />Olá somos a EasyBeasy! A nossa plataforma irá realizar o diagnóstico da sua empresa a partir de perguntas, e respostas de “sim” ou “não”. Vamos começar!
+          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" /> Olá somos a EasyBeasy! A nossa plataforma irá realizar o diagnóstico da sua empresa a partir de perguntas, e respostas de “sim” ou “não”. Vamos começar!
         </p>
         <div class="question" v-for="question in chatHistory" v-bind:key="question.description">
           <p> <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" /> {{question.description}}</p>
