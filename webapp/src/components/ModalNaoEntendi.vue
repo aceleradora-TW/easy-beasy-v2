@@ -1,6 +1,6 @@
 <template>
     <div>
-    <b-button class="answer-btn" id="show-btn" @click="$bvModal.show('bv-modal-example')">Nao entendi</b-button>
+        <b-button class="dontUnderstand-btn" id="show-btn" @click="$bvModal.show('bv-modal-example')">Não entendi</b-button>
 
     <b-modal id="bv-modal-example" hide-footer>
         <template v-slot:modal-title>
