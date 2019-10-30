@@ -21,7 +21,6 @@ export default {
   }),
   methods: {
     save: (user) => {
-      debugger;
       userService.save(user)
         .then(response => alert(`Usuário salvo com sucesso! ${response.status}`))
         .catch(error => alert(`Algo deu errado! ${error}`))
