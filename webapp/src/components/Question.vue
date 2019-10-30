@@ -9,7 +9,7 @@
           <p> <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" /> {{question.description}}</p>
           <p class="answer">{{question.response}}</p>
         </div>
-      <Solutions v-if="teste"></Solutions>
+      <Solutions v-if="condition"></Solutions>
       </div>
     </div>
 
@@ -33,7 +33,7 @@ export default {
     chatHistory: [],
     userResponseHistory: [],
     index: null,
-    teste: false
+    condition: false
   }),
 
   components: {
@@ -67,12 +67,12 @@ export default {
         this.chatHistory[this.index].response = "Não";
         this.index++;
         this.nextQuestion();
-        this.negativeResponseCount();
+        this.conditionForToSolution();
       }
     },
-    negativeResponseCount() {
+    conditionForToSolution() {
      if(this.chatHistory.filter(question => question.response === 'Não').length == 2){
-        this.teste = true
+        this.condition = true
      }
     }
     }
