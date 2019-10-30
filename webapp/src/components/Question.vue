@@ -101,7 +101,7 @@ export default {
       justify-content: space-between;
       max-width: 200px;
       margin: 0 auto;
-      padding: 0.5rem;
+      padding: 0.5rem 0.5rem 30px 0.5rem;
       bottom: 10px;
       .answer-btn {
         background-color: #2fc0d5;
