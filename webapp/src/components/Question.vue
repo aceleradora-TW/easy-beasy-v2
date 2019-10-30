@@ -2,20 +2,23 @@
   <div>
     <div class="chat">
       <div>
-        <p class="question">
+        <p class="question welcome-question">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />Bem vindo a Easybeasy! A nossa plataforma irá realizar o diagnóstico da sua empresa a partir de perguntas, e respostas de “sim” ou “não”. Vamos começar!
         </p>
-        <div class="question" v-for="question in chatHistory" v-bind:key="question.description">
-          <p> <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" /> {{question.description}}</p>
-          <p class="answer">{{question.response}}</p>
+        <div class="question question-history" v-for="answeredQuestion in chatHistory" v-bind:key="answeredQuestion.description">
+          <p> <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" /> {{answeredQuestion.description}}</p>
+          <p class="answer">{{answeredQuestion.response}}</p>
+        </div>
+        <div class="question current-question" v-if="currentQuestion">
+          <p> <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" /> {{currentQuestion.description}}</p>
         </div>
       </div>
     </div>
 
     <div class="footer">
       <div class="answer-buttons">
-        <b-button class="answer-btn" v-on:click="collectPositiveAnswer()">Sim</b-button>
-        <b-button class="answer-btn" v-on:click="collectNegativeAnswer()">Não</b-button>
+        <b-button class="answer-btn" v-on:click="collectAnswer('Sim')">Sim</b-button>
+        <b-button class="answer-btn" v-on:click="collectAnswer('Não')">Não</b-button>
       </div>
     </div>
   </div>
@@ -27,43 +30,29 @@ import questionService from "@/services/questions.service.js";
 export default {
   name: "Question",
   data: () => ({
+    currentQuestion: null,
     questionList: [],
     chatHistory: [],
-    userResponseHistory: [],
-    negativeCount: null,
-    index: null
   }),
 
   created() {
     questionService.getQuestions().then(list => {
       this.questionList = list.data;
       this.nextQuestion();
-      this.index = 0;
     });
   },
   methods: {
     nextQuestion() {
+      this.currentQuestion = this.questionList.shift();
+    },
+    collectAnswer(answer) {
       this.chatHistory.push({
-        response: "",
-        description: this.questionList.shift().description
+        description: this.currentQuestion.description,
+        response: answer
       });
-    },
-    collectPositiveAnswer() {
-      if(this.questionList.length!==0){
-        this.chatHistory[this.index].response = "Sim";
-        this.index++;
-        this.nextQuestion();
-      }
 
-    },
-    collectNegativeAnswer() {
-      if(this.questionList.length!==0) {
-        this.chatHistory[this.index].response = "Não";
-        this.index++;
-        this.nextQuestion();
-        this.negativeCount++;
-      }
-    },
+      this.nextQuestion();
+    }
   }
   
 };
@@ -75,7 +64,8 @@ export default {
     background-color: #ffffff;
     position: fixed;
     width: 100%;
-    overflow-y: hidden;
+    height: 100%;
+    overflow-y: auto;
     padding: 2rem;
     .question {
       text-align: left;
