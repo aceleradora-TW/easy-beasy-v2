@@ -17,8 +17,8 @@
 
     <div class="footer">
       <div class="answer-buttons">
-        <b-button class="answer-btn" v-on:click="collectAnswer('Sim')">Sim</b-button>
-        <b-button class="answer-btn" v-on:click="collectAnswer('Não')">Não</b-button>
+        <b-button class="answer-btn" v-on:click="collectAnswer('Sim')" :disabled='!currentQuestion'>Sim</b-button>
+        <b-button class="answer-btn" v-on:click="collectAnswer('Não')" :disabled='!currentQuestion'>Não</b-button>
       </div>
     </div>
   </div>
