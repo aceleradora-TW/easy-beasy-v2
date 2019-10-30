@@ -18,7 +18,7 @@
     <div class="footer">
       <div id="container" class="answer-buttons">
         <b-button class="answer-btn" v-on:click="collectPositiveAnswer()">Sim</b-button>
-        <ModalNaoEntendi />
+        <ModalNaoEntendi  />
         <b-button class="answer-btn" v-on:click="collectNegativeAnswer()">Não</b-button>
       </div>
     </div>
@@ -100,13 +100,15 @@ export default {
 
   .footer {
     position: fixed;
+    display: flex;
+    justify-content: center; 
     bottom: 0rem;
     width: 100%;
     background-color: #ffffff;
 
     #container {
       display: flex;
-      justify-content: space-evenly;
+      justify-content: space-between;
       .answer-btn {
         background-color: #2fc0d5;
         border-color: #2fc0d5;
