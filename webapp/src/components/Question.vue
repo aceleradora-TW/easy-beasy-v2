@@ -79,7 +79,7 @@ export default {
     padding: 2rem;
     .question {
       text-align: left;
-      color: #b1b1b1;
+      color: #151515;
       img {
         border-radius: 50%;
         width: 1.5rem;
