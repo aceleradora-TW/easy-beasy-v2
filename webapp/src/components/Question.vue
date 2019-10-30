@@ -67,10 +67,10 @@ export default {
         this.chatHistory[this.index].response = "Não";
         this.index++;
         this.nextQuestion();
-        this.conditionForToSolution();
+        this.conditionForTheSolution();
       }
     },
-    conditionForToSolution() {
+    conditionForTheSolution() {
      if(this.chatHistory.filter(question => question.response === 'Não').length == 2){
         this.condition = true
      }
