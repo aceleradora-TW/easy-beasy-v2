@@ -15,6 +15,7 @@
     <div class="footer">
       <div class="answer-buttons">
         <b-button class="answer-btn" v-on:click="collectPositiveAnswer()">Sim</b-button>
+        <ModalNaoEntendi/>
         <b-button class="answer-btn" v-on:click="collectNegativeAnswer()">Não</b-button>
       </div>
     </div>
@@ -23,9 +24,16 @@
 
 <script>
 import questionService from "@/services/questions.service.js";
+import ModalNaoEntendi from "@/components/ModalNaoEntendi";
+
 
 export default {
+  components: {
+    ModalNaoEntendi,
+
+  },
   name: "Question",
+
   data: () => ({
     questionList: [],
     chatHistory: [],
