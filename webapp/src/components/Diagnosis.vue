@@ -3,8 +3,7 @@
     <header>
       <h2>Diagnóstico</h2>
     </header>
-    <!-- <div><Question/></div> -->
-    <div><User/></div>
+    <Question/>
   </div>
 </template>
 
