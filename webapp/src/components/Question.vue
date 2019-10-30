@@ -1,7 +1,6 @@
 <template>
   <div>
     <div class="chat">
-      <div>
         <p class="question">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />Bem vindo a Easybeasy! A nossa plataforma irá realizar o diagnóstico da sua empresa a partir de perguntas, e respostas de “sim” ou “não”. Vamos começar!
         </p>
@@ -9,7 +8,6 @@
           <p> <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" /> {{question.description}}</p>
           <p class="answer">{{question.response}}</p>
         </div>
-      </div>
     </div>
 
     <div class="footer">
@@ -22,9 +20,9 @@
 </template>
 
 <script>
-import questionService from "@/services/questions.service.js";
+    import questionService from "@/services/questions.service.js";
 
-export default {
+    export default {
   name: "Question",
   data: () => ({
     questionList: [],
@@ -60,8 +58,9 @@ export default {
       if(this.questionList.length!==0) {
         this.chatHistory[this.index].response = "Não";
         this.index++;
-        this.nextQuestion();
         this.negativeCount++;
+        this.nextQuestion();
+
       }
     },
   }
@@ -71,43 +70,44 @@ export default {
 
 <style lang="scss">
 @media (min-width: 100px) {
-  .chat {
-    background-color: #ffffff;
-    position: fixed;
-    width: 100%;
-    overflow-y: hidden;
-    padding: 2rem;
-    .question {
-      text-align: left;
-      color: #b1b1b1;
-      img {
-        border-radius: 50%;
-        width: 1.5rem;
-      }
+    .chat {
+        background-color: #ffffff;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        overflow-y: auto;
+        padding: 2rem;
+        .question {
+            text-align: left;
+            color: #b1b1b1;
+            img {
+                border-radius: 50%;
+                width: 1.5rem;
+            }
+        }
+        .answer {
+            text-align: right;
+            color: #636363;
+        }
     }
-    .answer {
-      text-align: right;
-      color: #636363;
-    }
-  }
 
-  .footer {
-    position: fixed;
-    bottom: 0rem;
-    width: 100%;
-    background-color: #ffffff;
-    .answer-buttons {
-      display: flex;
-      justify-content: space-between;
-      max-width: 200px;
-      margin: 0 auto;
-      padding: 0.5rem;
-      bottom: 10px;
-      .answer-btn {
-        background-color: #2fc0d5;
-        border-color: #2fc0d5;
-      }
+    .footer {
+        position: fixed;
+        bottom: 0rem;
+        width: 100%;
+        background-color: #ffffff;
+        .answer-buttons {
+            display: flex;
+            justify-content: space-between;
+            max-width: 200px;
+            margin: 0 auto;
+            padding: 0.5rem;
+            bottom: 10px;
+            .answer-btn {
+                background-color: #2fc0d5;
+                border-color: #2fc0d5;
+            }
+        }
     }
-  }
 }
 </style>
