@@ -1,24 +1,41 @@
 <template>
-    <div>
-        <div class="chat">
-            <div class="chat-box">
-                <p class="question">
-                    <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo"/>Bem vindo a Easybeasy! A nossa plataforma irá
-                    realizar o diagnóstico da sua empresa a partir de perguntas, e respostas de “sim” ou “não”. Vamos
-                    começar!
-                </p>
-                <div class="question" v-for="question in chatHistory" v-bind:key="question.description">
-                    <p><img src="@/assets/images/easybeasy-logo.jpeg" alt="logo"/> {{question.description}}</p>
-                    <p class="answer">{{question.response}}</p>
-                </div>
+    <div class="chat">
+        <b-container class="chat-box">
+            <b-row align-h="start">
+                <b-col cols="auto"><img src="@/assets/images/easybeasy-logo.jpeg" alt="logo"/></b-col>
+                <b-col cols="9" class="question">
+                    Bem vindo a Easybeasy! A nossa
+                        plataforma irá
+                        realizar o diagnóstico da sua empresa a partir de perguntas, e respostas de “sim” ou “não”.
+                        Vamos
+                        começar!
+
+                </b-col>
+
+
+            </b-row>
+            <div class="question" v-for="question in chatHistory" v-bind:key="question.description">
+                <b-row>
+                    <b-col cols="auto"><img src="@/assets/images/easybeasy-logo.jpeg" alt="logo"/></b-col>
+                    <b-col cols="9" class="question">
+
+                            {{question.description}}
+
+                    </b-col>
+                </b-row>
+                <b-row align-h="end">
+                    <b-col cols="2" class="answer">
+                        {{question.response}}
+                    </b-col>
+                </b-row>
             </div>
-            <div class="footer">
-                <div class="answer-buttons">
-                    <b-button squared class="answer-btn" v-on:click="collectPositiveAnswer()">Sim</b-button>
-                    <b-button squared class="answer-btn" v-on:click="collectNegativeAnswer()">Não</b-button>
-                </div>
+        </b-container>
+        <b-row class="footer">
+            <div class="answer-buttons">
+                <b-button squared class="answer-btn" v-on:click="collectPositiveAnswer()">Sim</b-button>
+                <b-button squared class="answer-btn" v-on:click="collectNegativeAnswer()">Não</b-button>
             </div>
-        </div>
+        </b-row>
     </div>
 </template>
 
@@ -77,56 +94,61 @@ export default {
 </script>
 
 <style lang="scss">
-    @media (min-width: 100px) {
-        .chat {
-            background-color: #ffffff;
-            position: fixed;
-            width: 100%;
-            height: 86%;
-            overflow-y: scroll;
+@media (min-width: 100px) {
+    .chat {
+        background-color: #ffffff;
+        position: fixed;
+        width: 100%;
+        height: 86%;
+        overflow-y: scroll;
 
-            .chat-box{
-                padding: 3rem 2rem;
+        .chat-box {
+            padding: 3rem 2rem;
 
-                .answer {
-                    text-align: right;
-                    color: #636363;
-                }
-
-                .question {
-                    text-align: left;
-                    color: #b1b1b1;
-
-                    img {
-                        border-radius: 50%;
-                        width: 1.5rem;
-                    }
-                }
+            img {
+                border-radius: 50%;
+                width: 1.5rem;
             }
 
-
-            .footer {
-                position: fixed;
-                align-items: center;
-                bottom: 0;
-                width: 100%;
-                background-color: #ffffff;
-
-                .answer-buttons {
-                    display: flex;
-                    justify-content: space-between;
-                    max-width: 200px;
-                    margin: 0 auto;
-                    padding: 0.5rem;
-                    bottom: 10px;
-
-                    .answer-btn {
-                        background-color: #2fc0d5;
-                        border-color: #2fc0d5;
-                    }
-                }
+            .question {
+                text-align: left;
+                color: #b1b1b1;
+                margin-bottom: 15px;
             }
+
+            .answer {
+                color: #636363;
+                margin-bottom: 15px;
+                border-radius: 40%;
+                background: #80808033;
+            }
+
 
         }
+
+
+        .footer {
+            position: fixed;
+            align-items: center;
+            bottom: 0;
+            width: 100%;
+            background-color: #ffffff;
+
+            .answer-buttons {
+                display: flex;
+                justify-content: space-between;
+                max-width: 200px;
+                margin: 0 auto;
+                padding: 0.5rem;
+                bottom: 10px;
+
+                .answer-btn {
+                    background-color: #2fc0d5;
+                    border-color: #2fc0d5;
+                }
+            }
+        }
+
     }
+}
 </style>
