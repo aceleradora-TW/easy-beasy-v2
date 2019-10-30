@@ -31,7 +31,7 @@ export default {
     questionList: [],
     chatHistory: [],
     userResponseHistory: [],
-    index: null
+    index: null,
   }),
 
   components: {
@@ -65,8 +65,14 @@ export default {
         this.chatHistory[this.index].response = "Não";
         this.index++;
         this.nextQuestion();
+        this.negativeResponseCount();
       }
     },
+    negativeResponseCount() {
+     if(this.chatHistory.filter(question => question.response === 'Não').length == 2){
+       return Solutions.created();
+     }
+    }
     }
 
 };
