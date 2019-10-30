@@ -18,7 +18,7 @@
     <div class="footer">
       <div id="container" class="answer-buttons">
         <b-button class="answer-btn" v-on:click="collectPositiveAnswer()">Sim</b-button>
-        <ModalNaoEntendi class="ml-2 mr-2" />
+        <ModalNaoEntendi class="ml-5 mr-5" />
         <b-button class="answer-btn" v-on:click="collectNegativeAnswer()">Não</b-button>
       </div>
     </div>
