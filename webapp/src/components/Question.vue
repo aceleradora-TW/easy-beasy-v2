@@ -3,13 +3,10 @@
     <div class="chat">
       <div>
         <p class="question">
-          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />Bem vindo a Easybeasy! A nossa plataforma irá realizar o diagnóstico da sua empresa a partir de perguntas, e respostas de “sim” ou “não”. Vamos começar!
+          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" /> Olá somos a EasyBeasy! A nossa plataforma irá realizar o diagnóstico da sua empresa a partir de perguntas, e respostas de “sim” ou “não”. Vamos começar!
         </p>
         <div class="question" v-for="question in chatHistory" v-bind:key="question.description">
-          <p>
-            <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
-            {{question.description}}
-          </p>
+          <p> <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" /> {{question.description}}</p>
           <p class="answer">{{question.response}}</p>
         </div>
       </div>
@@ -63,6 +60,7 @@ export default {
         this.index++;
         this.nextQuestion();
       }
+
     },
     collectNegativeAnswer() {
       if (this.questionList.length !== 0) {
@@ -73,6 +71,7 @@ export default {
       }
     }
   }
+  
 };
 </script>
 
@@ -86,7 +85,7 @@ export default {
     padding: 2rem;
     .question {
       text-align: left;
-      color: #b1b1b1;
+      color: #151515;
       img {
         border-radius: 50%;
         width: 1.5rem;
@@ -101,7 +100,7 @@ export default {
   .footer {
     position: fixed;
     display: flex;
-    justify-content: center; 
+    justify-content: center;
     bottom: 0rem;
     width: 100%;
     background-color: #ffffff;
@@ -118,13 +117,13 @@ export default {
         border-color: #2fc0d5;
         color: #2fc0d5;
       }
-
       .answer-buttons {
         max-width: 200px;
         margin: 0 auto;
-        padding: 0.5rem;
+        padding: 0.5rem 0.5rem 30px 0.5rem;
         bottom: 10px;
       }
+
     }
   }
 }
