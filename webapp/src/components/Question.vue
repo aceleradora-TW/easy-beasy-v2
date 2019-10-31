@@ -119,14 +119,8 @@ export default {
             .answer {
                 color: #636363;
                 margin-bottom: 15px;
-                border-radius: 40%;
-                background: #80808033;
             }
-
-
         }
-
-
         .footer {
             position: fixed;
             align-items: center;
