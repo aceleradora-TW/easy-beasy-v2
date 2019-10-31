@@ -123,7 +123,6 @@ export default {
         padding: 0.5rem 0.5rem 30px 0.5rem;
         bottom: 10px;
       }
-
     }
   }
 }
