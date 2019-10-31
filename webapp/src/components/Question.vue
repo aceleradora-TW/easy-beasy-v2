@@ -6,7 +6,7 @@
                 <b-col cols="9" class="question">
                     Bem vindo a Easybeasy! A nossa
                         plataforma irá
-                        realizar o diagnóstico da sua empresa a partir de perguntas, e respostas de “sim” ou “não”.
+                        realizar o diagnóstico da sua empresa a partir de perguntas e respostas de “sim” ou “não”.
                         Vamos
                         começar!
 
