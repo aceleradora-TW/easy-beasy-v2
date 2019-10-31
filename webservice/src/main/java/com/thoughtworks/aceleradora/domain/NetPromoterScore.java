@@ -18,23 +18,23 @@ public class NetPromoterScore {
     @JoinColumn(name = "id_users", referencedColumnName = "id")
     private User user;
 
-    public long getId() {
+    public long getId(){
         return id;
     }
 
-    public int getScore() {
+    public int getScore(){
         return score;
     }
 
-    public String getComments() {
+    public String getComments(){
         return comments;
     }
 
-    public User getUser (){
+    public User getUser(){
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(User user){
         this.user = user;
     }
 
