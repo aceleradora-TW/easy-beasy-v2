@@ -1,9 +1,6 @@
 package com.thoughtworks.aceleradora.domain;
 
-import org.hibernate.annotations.Entity;
-
 import javax.persistence.*;
-
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
