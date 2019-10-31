@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/estagio")
+@RequestMapping("/stage")
 public class StageController {
 
     private StageService stageService;
@@ -19,7 +19,7 @@ public class StageController {
         this.stageService = stageService;
     }
 
-    @GetMapping(path = "/solucao")
+    @GetMapping(path = "")
     public List<Stage> getStagesList() {
         return stageService.getStages();
     }
