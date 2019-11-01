@@ -1,16 +1,13 @@
 <template>
   <div class="chat">
     <b-container class="chat-box">
-      <b-row align-h="start">
+      <b-row align-h="start" class="mb-4">
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
         <b-col cols="9" class="question">
-          Bem vindo a Easybeasy! A nossa
-          plataforma irá
-          realizar o diagnóstico da sua empresa a partir de perguntas e respostas de “sim” ou “não”.
-          Vamos
-          começar!
+          Bem vindo a Easybeasy! A nossa plataforma irá realizar o diagnóstico da sua
+          empresa a partir de perguntas e respostas de “sim” ou “não”. Vamos começar!
         </b-col>
       </b-row>
       <div
@@ -22,10 +19,10 @@
           <b-col cols="auto">
             <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
           </b-col>
-          <b-col cols="9" class="question">{{answeredQuestion.description}}</b-col>
+          <b-col cols="9" class="question mb-3" >{{answeredQuestion.description}}</b-col>
         </b-row>
         <b-row align-h="end">
-          <b-col cols="2" class="answer">{{answeredQuestion.response}}</b-col>
+          <b-col cols="2" class="answer mb-3">{{answeredQuestion.response}}</b-col>
         </b-row>
       </div>
       <b-row class="question current-question" v-if="currentQuestion">
@@ -90,51 +87,51 @@ export default {
 
 <style lang="scss">
 @media (min-width: 100px) {
-  .chat {
-    background-color: #ffffff;
-    position: fixed;
-    width: 100%;
-    height: 86%;
-    overflow-y: scroll;
+.chat {
+  background-color: #ffffff;
+  position: fixed;
+  width: 100%;
+  height: 86%;
+  overflow-y: scroll;
 
-    .chat-box {
-      img {
-        border-radius: 50%;
-        width: 1.5rem;
-      }
+  .chat-box {
+    padding: 3rem 2rem;
 
-      .question {
-        text-align: left;
-        color: #b1b1b1;
-        margin-bottom: 15px;
-      }
-
-      .answer {
-        text-align: right;
-        color: #636363;
-        margin-bottom: 15px;
-      }
+    img {
+      border-radius: 50%;
+      width: 1.5rem;
+    }
+    
+    .question {
+      text-align: left;
+      color: #b1b1b1; 
+      }   
     }
 
-    .footer {
-      position: fixed;
-      align-items: center;
-      bottom: 0;
-      width: 100%;
-      background-color: #ffffff;
+    .answer {
+      text-align: right;
+      color: #636363;
+    }
+  }
 
-      .answer-buttons {
-        display: flex;
-        justify-content: space-between;
-        max-width: 200px;
-        margin: 0 auto;
-        padding: 0.5rem;
-        bottom: 10px;
+  .footer {
+    position: fixed;
+    align-items: center;
+    bottom: 0;
+    width: 100%;
+    background-color: #ffffff;
 
-        .answer-btn {
-          background-color: #2fc0d5;
-          border-color: #2fc0d5;
-        }
+    .answer-buttons {
+      display: flex;
+      justify-content: space-between;
+      max-width: 200px;
+      margin: 0 auto;
+      padding: 0.5rem;
+      bottom: 10px;
+
+      .answer-btn {
+        background-color: #2fc0d5;
+        border-color: #2fc0d5;
       }
     }
   }
