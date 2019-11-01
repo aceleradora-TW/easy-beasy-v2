@@ -1,39 +1,53 @@
 <template>
-  <div>
-    <div class="chat">
-      <b-container class="chat-box">
-        <b-row align-h="start">
+  <div class="chat">
+    <b-container class="chat-box">
+      <b-row align-h="start" class="mb-4">
+        <b-col cols="auto">
+          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
+        </b-col>
+        <b-col cols="9" class="question">
+          Bem vindo a Easybeasy! A nossa plataforma irá realizar o diagnóstico da sua
+          empresa a partir de perguntas e respostas de “sim” ou “não”. Vamos começar!
+        </b-col>
+      </b-row>
+      <div
+        class="question question-history"
+        v-for="answeredQuestion in chatHistory"
+        v-bind:key="answeredQuestion.description"
+      >
+        <b-row>
           <b-col cols="auto">
             <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
           </b-col>
-          <b-col cols="9" class="question">
-            Bem vindo a Easybeasy! A nossa
-            plataforma irá
-            realizar o diagnóstico da sua empresa a partir de perguntas e respostas de “sim” ou “não”.
-            Vamos
-            começar!
-          </b-col>
+          <b-col cols="9" class="question mb-3">{{answeredQuestion.description}}</b-col>
         </b-row>
-        <div class="question" v-for="question in chatHistory" v-bind:key="question.description">
-          <b-row>
-            <b-col cols="auto">
-              <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
-            </b-col>
-            <b-col cols="9" class="question">{{question.description}}</b-col>
-          </b-row>
-          <b-row align-h="end">
-            <b-col cols="2" class="answer">{{question.response}}</b-col>
-          </b-row>
-        </div>
-      </b-container>
-      <b-row class="footer">
-        <div id="container" class="answer-buttons">
-          <b-button squared class="answer-btn" v-on:click="collectPositiveAnswer()">Sim</b-button>
-          <ModalDoubt class="ml-5 mr-5" />
-          <b-button squared class="answer-btn" v-on:click="collectNegativeAnswer()">Não</b-button>
-        </div>
+        <b-row align-h="end">
+          <b-col cols="2" class="answer mb-3">{{answeredQuestion.response}}</b-col>
+        </b-row>
+      </div>
+      <b-row class="question current-question" v-if="currentQuestion">
+        <b-col cols="auto">
+          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
+        </b-col>
+        <b-col cols="9">{{currentQuestion.description}}</b-col>
       </b-row>
-    </div>
+    </b-container>
+
+    <b-row class="footer">
+      <div id="container" class="answer-buttons">
+        <b-button
+          class="answer-btn"
+          v-on:click="collectAnswer('Sim')"
+          :disabled="!currentQuestion"
+        >Sim</b-button>
+        <ModalDoubt class="ml-5 mr-5" />
+        <b-button
+          class="answer-btn"
+          v-on:click="collectAnswer('Não')"
+          :disabled="!currentQuestion"
+        >Não</b-button>
+      </div>
+    </b-row>
   </div>
 </template>
 
@@ -47,45 +61,28 @@ export default {
   },
   name: "Question",
   data: () => ({
+    currentQuestion: null,
     questionList: [],
-    chatHistory: [],
-    userResponseHistory: [],
-    negativeCount: null,
-    index: null
+    chatHistory: []
   }),
 
   created() {
     questionService.getQuestions().then(list => {
       this.questionList = list.data;
       this.nextQuestion();
-      this.index = 0;
     });
   },
   methods: {
     nextQuestion() {
+      this.currentQuestion = this.questionList.shift();
+    },
+    collectAnswer(answer) {
       this.chatHistory.push({
-        response: "",
-        description: this.questionList.shift().description
+        description: this.currentQuestion.description,
+        response: answer
       });
-    },
-    collectPositiveAnswer() {
-      if (this.chatHistory[this.index].response === "") {
-        this.chatHistory[this.index].response = "Sim";
-        if (this.questionList.length !== 0) {
-          this.index++;
-          this.nextQuestion();
-        }
-      }
-    },
-    collectNegativeAnswer() {
-      if (this.chatHistory[this.index].response === "") {
-        this.chatHistory[this.index].response = "Não";
-        if (this.questionList.length !== 0) {
-          this.index++;
-          this.negativeCount++;
-          this.nextQuestion();
-        }
-      }
+
+      this.nextQuestion();
     }
   }
 };
@@ -107,10 +104,12 @@ export default {
       }
       .question {
         text-align: left;
-        color: #b1b1b1;
-        margin-bottom: 15px;
+        color: #111111;
+        font-family: "Lato, sans-serif";
+        font-size: 13pt;
       }
       .answer {
+        text-align: right;
         color: #636363;
         margin-bottom: 15px;
       }
@@ -118,8 +117,8 @@ export default {
     .footer {
       position: fixed;
       display: flex;
+      align-items: center;
       justify-content: center;
-
       bottom: 0;
       width: 100%;
       background-color: #ffffff;
