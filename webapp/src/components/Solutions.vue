@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import solutions from "../services/solutions.service";
+import solutions from "@/services/solutions.service";
 
 export default {
   data: () => ({
