@@ -1,17 +1,16 @@
 <template>
   <div>
-    <Diagnosis/>  
+    <Modal />
   </div>
 </template>
 
 <script>
 import Diagnosis from '@/components/Diagnosis'
+import Modal from '@/components/Modal'
 export default {
   components:{
-    Diagnosis
+    Diagnosis,
+    Modal
   }
 }
 </script>
-
-<style scoped>
-</style>

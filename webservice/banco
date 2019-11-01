@@ -1,14 +1,16 @@
-CONTAINER_NAME=esqueleto-db
-POSTGRES_PASSWORD=123456
-POSTGRES_USER=postgres
-DATABASE=esqueleto
+#!/bin/bash
+
+readonly CONTAINER_NAME=easy-beasy-db
+readonly POSTGRES_PASSWORD=123456
+readonly POSTGRES_USER=postgres
+readonly DATABASE=easybeasy
 
 case $1 in
   run-deprecated)
     docker run --rm --name ${CONTAINER_NAME} -p 5432:5432 -e POSTGRES_PASSWORD=${POSTGRES_PASSWORD} -d ${POSTGRES_USER}
   ;;
   run)
-    mkdir -p ~/.pgsql/${CONTAINER_NAME} ; docker run --name ${CONTAINER_NAME} -v ~/.pgsql/${CONTAINER_NAME}:/var/lib/postgresql/data -p 5432:5432 -e POSTGRES_PASSWORD=${POSTGRES_PASSWORD} -d ${POSTGRES_USER};
+    mkdir -p ~/.pgsql/${CONTAINER_NAME}; docker run --name ${CONTAINER_NAME} -v ~/.pgsql/${CONTAINER_NAME}:/var/lib/postgresql/data -p 5432:5432 -e POSTGRES_PASSWORD=${POSTGRES_PASSWORD} -d ${POSTGRES_USER};
   ;;
 
   create)
