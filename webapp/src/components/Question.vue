@@ -112,7 +112,7 @@ export default {
 
             .question {
                 text-align: left;
-                color: #b1b1b1;
+                color: #111111;
                 margin-bottom: 15px;
             }
 
