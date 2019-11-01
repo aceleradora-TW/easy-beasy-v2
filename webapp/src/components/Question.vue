@@ -10,11 +10,7 @@
           empresa a partir de perguntas e respostas de “sim” ou “não”. Vamos começar!
         </b-col>
       </b-row>
-      <div
-        class="question question-history"
-        v-for="answeredQuestion in chatHistory"
-        v-bind:key="answeredQuestion.description"
-      >
+      <div class="question question-history" v-for="answeredQuestion in chatHistory" v-bind:key="answeredQuestion.description">
         <b-row>
           <b-col cols="auto">
             <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />

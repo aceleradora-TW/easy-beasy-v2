@@ -7,9 +7,12 @@
     >Não entendi</b-button>
 
     <b-modal id="bv-modal-example" hide-footer>
-      <template v-slot:modal-title>Explicação Financeiro</template>
-      <div class="text">
-        <h3>Explicação</h3>
+      <template v-slot:modal-title>Financeiro</template>
+      <div class="ml-3 mr-3">
+        <p>Pense no seu dia a dia, 
+        se você sabe qual o próximo passo que deve ser tomado e para onde está indo,
+        se tem esclarecido quais e quando suas tarefas devem ser feitas
+        </p>
       </div>
       <b-container fluid>
         <b-row class="mb-3">
