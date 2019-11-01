@@ -19,7 +19,7 @@
           <b-col cols="auto">
             <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
           </b-col>
-          <b-col cols="9" class="question mb-3" >{{answeredQuestion.description}}</b-col>
+          <b-col cols="9" class="question mb-3">{{answeredQuestion.description}}</b-col>
         </b-row>
         <b-row align-h="end">
           <b-col cols="2" class="answer mb-3">{{answeredQuestion.response}}</b-col>
@@ -29,9 +29,7 @@
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
-        <b-col cols="9">
-          {{currentQuestion.description}}
-        </b-col>
+        <b-col cols="9">{{currentQuestion.description}}</b-col>
       </b-row>
       <Solutions v-if="condition"></Solutions>
     </b-container>
@@ -55,7 +53,7 @@
 
 <script>
 import questionService from "@/services/questions.service.js";
-import Solutions  from "./Solutions";
+import Solutions from "./Solutions";
 
 export default {
   name: "Question",
@@ -83,14 +81,14 @@ export default {
     collectAnswer(answer) {
       this.chatHistory.push({
         description: this.currentQuestion.description,
-        response: answer,
+        response: answer
       });
       this.conditionForTheSolution();
       this.nextQuestion();
     },
     conditionForTheSolution() {
-      if(this.chatHistory.filter(question => question.response === 'Não').length == 2){
-        this.condition = true
+      if (this.chatHistory.filter(question => question.response === "Não").length == 2) {
+        this.condition = true;
       }
     }
   }
@@ -99,52 +97,53 @@ export default {
 
 <style lang="scss">
 @media (min-width: 100px) {
-.chat {
-  background-color: #ffffff;
-  position: fixed;
-  width: 100%;
-  height: 86%;
-  overflow-y: scroll;
-
-  .chat-box {
-    padding: 3rem 2rem;
-
-            img {
-                border-radius: 50%;
-                width: 1.5rem;
-            }
-
-            .question {
-                text-align: left;
-                color: #111111;
-                font-family: 'Lato, sans-serif';
-                font-size: 13pt;
-            }
-
-    .answer {
-      text-align: right;
-      color: #636363;
-    }
-  }
-
-  .footer {
-    position: fixed;
-    align-items: center;
-    bottom: 0;
-    width: 100%;
+  .chat {
     background-color: #ffffff;
+    position: fixed;
+    width: 100%;
+    height: 86%;
+    overflow-y: scroll;
 
-    .answer-buttons {
-      display: flex;
-      justify-content: space-between;
-      max-width: 200px;
-      margin: 0 auto;
-      padding: 0.5rem;
-      bottom: 10px;
+    .chat-box {
+      padding: 3rem 2rem;
 
-      .answer-btn {
-        background-color: #2fc0d5;
-        border-color: #2fc0d5;
+      img {
+        border-radius: 50%;
+        width: 1.5rem;
+      }
+
+      .question {
+        text-align: left;
+        color: #111111;
+        font-family: "Lato, sans-serif";
+        font-size: 13pt;
+      }
+
+      .answer {
+        text-align: right;
+        color: #636363;
+      }
+    }
+
+    .footer {
+      position: fixed;
+      align-items: center;
+      bottom: 0;
+      width: 100%;
+      background-color: #ffffff;
+
+      .answer-buttons {
+        display: flex;
+        justify-content: space-between;
+        max-width: 200px;
+        margin: 0 auto;
+        padding: 0.5rem;
+        bottom: 10px;
+
+        .answer-btn {
+          background-color: #2fc0d5;
+          border-color: #2fc0d5;
+        }
       }
     }
   }
