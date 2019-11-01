@@ -83,10 +83,10 @@ export default {
         description: this.currentQuestion.description,
         response: answer
       });
-      this.conditionForTheSolution();
+      this.shouldShowSolution();
       this.nextQuestion();
     },
-    conditionForTheSolution() {
+    shouldShowSolution() {
       if (this.chatHistory.filter(question => question.response === "Não").length == 2) {
         this.condition = true;
       }
