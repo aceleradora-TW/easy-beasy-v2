@@ -19,7 +19,7 @@
           <b-col cols="auto">
             <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
           </b-col>
-          <b-col cols="9" class="question mb-3" >{{answeredQuestion.description}}</b-col>
+          <b-col cols="9" class="question mb-3">{{answeredQuestion.description}}</b-col>
         </b-row>
         <b-row align-h="end">
           <b-col cols="2" class="answer mb-3">{{answeredQuestion.response}}</b-col>
@@ -33,6 +33,7 @@
           {{currentQuestion.description}}
         </b-col>
       </b-row>
+      <Solutions v-if="condition"></Solutions>
     </b-container>
 
     <b-row class="footer">
@@ -54,7 +55,7 @@
 
 <script>
 import questionService from "@/services/questions.service.js";
-import Solutions  from "./Solutions";
+import Solutions from "./Solutions";
 
 export default {
   name: "Question",
