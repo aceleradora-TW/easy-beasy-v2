@@ -109,16 +109,17 @@ export default {
   .chat-box {
     padding: 3rem 2rem;
 
-    img {
-      border-radius: 50%;
-      width: 1.5rem;
-    }
+            img {
+                border-radius: 50%;
+                width: 1.5rem;
+            }
 
-    .question {
-      text-align: left;
-      color: #b1b1b1;
-      }
-    }
+            .question {
+                text-align: left;
+                color: #111111;
+                font-family: 'Lato, sans-serif';
+                font-size: 13pt;
+            }
 
     .answer {
       text-align: right;
