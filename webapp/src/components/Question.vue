@@ -1,23 +1,38 @@
 <template>
   <div>
     <div class="chat">
-      <div>
-        <p class="question">
-          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" /> Olá somos a EasyBeasy! A nossa plataforma irá realizar o diagnóstico da sua empresa a partir de perguntas, e respostas de “sim” ou “não”. Vamos começar!
-        </p>
+      <b-container class="chat-box">
+        <b-row align-h="start">
+          <b-col cols="auto">
+            <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
+          </b-col>
+          <b-col cols="9" class="question">
+            Bem vindo a Easybeasy! A nossa
+            plataforma irá
+            realizar o diagnóstico da sua empresa a partir de perguntas e respostas de “sim” ou “não”.
+            Vamos
+            começar!
+          </b-col>
+        </b-row>
         <div class="question" v-for="question in chatHistory" v-bind:key="question.description">
-          <p> <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" /> {{question.description}}</p>
-          <p class="answer">{{question.response}}</p>
+          <b-row>
+            <b-col cols="auto">
+              <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
+            </b-col>
+            <b-col cols="9" class="question">{{question.description}}</b-col>
+          </b-row>
+          <b-row align-h="end">
+            <b-col cols="2" class="answer">{{question.response}}</b-col>
+          </b-row>
         </div>
-      </div>
-    </div>
-
-    <div class="footer">
-      <div id="container" class="answer-buttons">
-        <b-button class="answer-btn" v-on:click="collectPositiveAnswer()">Sim</b-button>
-        <ModalNaoEntendi class="ml-5 mr-5" />
-        <b-button class="answer-btn" v-on:click="collectNegativeAnswer()">Não</b-button>
-      </div>
+      </b-container>
+      <b-row class="footer">
+        <div id="container" class="answer-buttons">
+          <b-button squared class="answer-btn" v-on:click="collectPositiveAnswer()">Sim</b-button>
+          <ModalNaoEntendi class="ml-5 mr-5" />
+          <b-button squared class="answer-btn" v-on:click="collectNegativeAnswer()">Não</b-button>
+        </div>
+      </b-row>
     </div>
   </div>
 </template>
@@ -31,7 +46,6 @@ export default {
     ModalNaoEntendi
   },
   name: "Question",
-
   data: () => ({
     questionList: [],
     chatHistory: [],
@@ -55,23 +69,25 @@ export default {
       });
     },
     collectPositiveAnswer() {
-      if (this.questionList.length !== 0) {
+      if (this.chatHistory[this.index].response === "") {
         this.chatHistory[this.index].response = "Sim";
-        this.index++;
-        this.nextQuestion();
+        if (this.questionList.length !== 0) {
+          this.index++;
+          this.nextQuestion();
+        }
       }
-
     },
     collectNegativeAnswer() {
-      if (this.questionList.length !== 0) {
+      if (this.chatHistory[this.index].response === "") {
         this.chatHistory[this.index].response = "Não";
-        this.index++;
-        this.nextQuestion();
-        this.negativeCount++;
+        if (this.questionList.length !== 0) {
+          this.index++;
+          this.negativeCount++;
+          this.nextQuestion();
+        }
       }
     }
   }
-  
 };
 </script>
 
@@ -81,47 +97,51 @@ export default {
     background-color: #ffffff;
     position: fixed;
     width: 100%;
-    overflow-y: hidden;
-    padding: 2rem;
-    .question {
-      text-align: left;
-      color: #151515;
+    height: 86%;
+    overflow-y: scroll;
+    .chat-box {
+      padding: 3rem 2rem;
       img {
         border-radius: 50%;
         width: 1.5rem;
       }
+      .question {
+        text-align: left;
+        color: #b1b1b1;
+        margin-bottom: 15px;
+      }
+      .answer {
+        color: #636363;
+        margin-bottom: 15px;
+      }
     }
-    .answer {
-      text-align: right;
-      color: #636363;
-    }
-  }
-
-  .footer {
-    position: fixed;
-    display: flex;
-    justify-content: center;
-    bottom: 0rem;
-    width: 100%;
-    background-color: #ffffff;
-
-    #container {
+    .footer {
+      position: fixed;
       display: flex;
-      justify-content: space-between;
-      .answer-btn {
-        background-color: #2fc0d5;
-        border-color: #2fc0d5;
-      }
-      .dontUnderstand-btn {
-        background-color: #ffffff;
-        border-color: #2fc0d5;
-        color: #2fc0d5;
-      }
-      .answer-buttons {
-        max-width: 200px;
-        margin: 0 auto;
-        padding: 0.5rem 0.5rem 30px 0.5rem;
-        bottom: 10px;
+      justify-content: center;
+
+      bottom: 0;
+      width: 100%;
+      background-color: #ffffff;
+
+      #container {
+        display: flex;
+        justify-content: space-between;
+        .answer-btn {
+          background-color: #2fc0d5;
+          border-color: #2fc0d5;
+        }
+        .dontUnderstand-btn {
+          background-color: #ffffff;
+          border-color: #2fc0d5;
+          color: #2fc0d5;
+        }
+        .answer-buttons {
+          max-width: 200px;
+          margin: 0 auto;
+          padding: 0.5rem;
+          bottom: 10px;
+        }
       }
     }
   }
