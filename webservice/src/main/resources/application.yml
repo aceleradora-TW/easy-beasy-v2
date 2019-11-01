@@ -1,4 +1,10 @@
 spring:
+  flyway:
+    locations: classpath:/db/migrations,classpath:/db/seeders
+  datasource:
+    url: jdbc:postgresql://ec2-54-235-104-136.compute-1.amazonaws.com:5432/dca2hm5aiqiaha
+    username: tzoxnxascioane
+    password: cc74b2f1a42532bb822274ea7f4d9e375e97f51810f1c8ecc63fefe74fb7de96
   jpa:
     show-sql: true
     database-platform: org.hibernate.dialect.PostgreSQL95Dialect
