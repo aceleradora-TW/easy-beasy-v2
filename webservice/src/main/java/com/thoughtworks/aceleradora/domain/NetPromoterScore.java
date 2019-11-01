@@ -4,6 +4,7 @@ import javax.persistence.*;
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
+@Table(name = "net_promoter_score")
 public class NetPromoterScore {
 
     @Id
@@ -13,20 +14,28 @@ public class NetPromoterScore {
     private int score;
     private String comments;
 
-    @Column(name = "id_users")
     @OneToOne
+    @JoinColumn(name = "id_users", referencedColumnName = "id")
     private User user;
 
-    public long getId() {
+    public long getId(){
         return id;
     }
 
-    public int getScore() {
+    public int getScore(){
         return score;
     }
 
-    public String getComments() {
+    public String getComments(){
         return comments;
+    }
+
+    public User getUser(){
+        return user;
+    }
+
+    public void setUser(User user){
+        this.user = user;
     }
 
 }
