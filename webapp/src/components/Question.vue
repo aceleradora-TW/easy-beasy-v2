@@ -114,6 +114,8 @@ export default {
                 text-align: left;
                 color: #111111;
                 margin-bottom: 15px;
+                font-family: 'Lato, sans-serif';
+                font-size: 13pt;
             }
 
             .answer {
