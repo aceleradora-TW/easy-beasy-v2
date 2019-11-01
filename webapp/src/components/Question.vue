@@ -29,7 +29,7 @@
       <b-row class="footer">
         <div id="container" class="answer-buttons">
           <b-button squared class="answer-btn" v-on:click="collectPositiveAnswer()">Sim</b-button>
-          <ModalNaoEntendi class="ml-5 mr-5" />
+          <ModalDoubt class="ml-5 mr-5" />
           <b-button squared class="answer-btn" v-on:click="collectNegativeAnswer()">Não</b-button>
         </div>
       </b-row>
@@ -39,11 +39,11 @@
 
 <script>
 import questionService from "@/services/questions.service.js";
-import ModalNaoEntendi from "@/components/ModalNaoEntendi";
+import ModalDoubt from "@/components/ModalDoubt";
 
 export default {
   components: {
-    ModalNaoEntendi
+    ModalDoubt
   },
   name: "Question",
   data: () => ({

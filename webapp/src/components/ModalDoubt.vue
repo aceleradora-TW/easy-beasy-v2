@@ -16,7 +16,7 @@
 
 <script>
     export default {
-        name: "ModalNaoEntendi"
+        name: "ModalDoubt"
     }
 </script>
 
