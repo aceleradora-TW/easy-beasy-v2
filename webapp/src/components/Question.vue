@@ -31,7 +31,7 @@
         </b-col>
         <b-col cols="9">{{currentQuestion.description}}</b-col>
       </b-row>
-      <Solutions v-if="condition"></Solutions>
+      <Solutions v-if="shouldShowSolution()"></Solutions>
     </b-container>
 
     <b-row class="footer">
@@ -61,7 +61,6 @@ export default {
     currentQuestion: null,
     questionList: [],
     chatHistory: [],
-    condition: false
   }),
 
   components: {
@@ -88,7 +87,7 @@ export default {
     },
     shouldShowSolution() {
       if (this.chatHistory.filter(question => question.response === "Não").length == 2) {
-        this.condition = true;
+         return true;
       }
     }
   }
