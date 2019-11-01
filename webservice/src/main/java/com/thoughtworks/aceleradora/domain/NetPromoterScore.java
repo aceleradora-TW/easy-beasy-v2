@@ -38,4 +38,11 @@ public class NetPromoterScore {
         this.user = user;
     }
 
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
+    }
 }
