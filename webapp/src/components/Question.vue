@@ -86,7 +86,13 @@ export default {
         response: answer
       });
 
+      this.shouldShowSolution();
       this.nextQuestion();
+    },
+    shouldShowSolution() {
+      if (this.chatHistory.filter(question => question.response === "Não").length == 2) {
+        this.condition = true;
+      }
     }
   }
 };
