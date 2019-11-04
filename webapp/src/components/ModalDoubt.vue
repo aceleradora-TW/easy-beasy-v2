@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-button
-      class="dontUnderstand-btn"
+      class="doubt-btn"
       id="show-btn"
       v-on:click="$bvModal.show('bv-modal-example')"
     >Não entendi</b-button>
@@ -19,8 +19,8 @@
           <b-col md="1.5" class="ml-md-auto">
             <b-button
               squared
-              type="submit"
-              v-on:click="$bvModal.hide('modal')"
+              type="submit" 
+              v-on:click="$bvModal.hide('bv-modal-example')"
               class="answer-btn mt-20"
             >Entendi</b-button>
           </b-col>

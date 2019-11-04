@@ -126,7 +126,7 @@ export default {
           background-color: #2fc0d5;
           border-color: #2fc0d5;
         }
-        .dontUnderstand-btn {
+        .doubt-btn {
           background-color: #ffffff;
           border-color: #2fc0d5;
           color: #2fc0d5;
