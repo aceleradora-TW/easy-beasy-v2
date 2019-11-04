@@ -47,8 +47,10 @@ export default {
         score: this.score,
         comments: this.comments
       })
-              .then(response => alert(response.status))
+              .then(response => alert("Sua nota foi enviada com sucesso!"))
               .catch(error => alert(error))
+              console.log (this.score)
+              console.log (this.comments)
     }
   }
 };
