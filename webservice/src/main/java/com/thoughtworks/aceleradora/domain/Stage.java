@@ -30,6 +30,14 @@ public class Stage {
         this.questions.add(question);
     }
 
+    public String getDoubt() {
+        return doubt;
+    }
+
+    public void setDoubt(String doubt) {
+        this.doubt = doubt;
+    }
+
     public String getSolution() {
         return solution;
     }
@@ -45,4 +53,5 @@ public class Stage {
     public void setNumber(int number) {
         this.number = number;
     }
+
 }
