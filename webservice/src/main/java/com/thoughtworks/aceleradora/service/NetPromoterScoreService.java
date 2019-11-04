@@ -13,7 +13,7 @@ public class NetPromoterScoreService {
         this.repository = repository;
     }
 
-    public NetPromoterScore saveNPS (NetPromoterScore netPromoterScore){
+    public NetPromoterScore save (NetPromoterScore netPromoterScore){
         return repository.save(netPromoterScore);
     }
 }

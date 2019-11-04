@@ -23,7 +23,7 @@ public class NetPromoterScoreController {
     @PostMapping
     public NetPromoterScore saveNPS(@RequestBody NetPromoterScore netPromoterScore) {
         NetPromoterScore newNPS =  new NetPromoterScore();
-        return netPromoterScoreService.saveNPS(newNPS);
+        return netPromoterScoreService.save(newNPS);
     }
 }
 
