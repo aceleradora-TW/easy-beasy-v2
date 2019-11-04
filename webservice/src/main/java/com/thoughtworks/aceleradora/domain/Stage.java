@@ -1,13 +1,25 @@
 package com.thoughtworks.aceleradora.domain;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 
 public class Stage {
+    @JsonProperty("questions")
     private List<Question> questions;
     private String solution;
-    private String name;
+    private String doubt;
+    private int number;
 
-    public Stage() {
+
+    @JsonCreator
+    public Stage(@JsonProperty("solution") String solution,
+                 @JsonProperty("number") int number,
+                 @JsonProperty("doubt") String doubt) {
+        this.solution = solution;
+        this.number = number;
+        this.doubt =  doubt;
     }
 
     public List<Question> getQuestions() {
@@ -26,11 +38,11 @@ public class Stage {
         this.solution = solution;
     }
 
-    public String getName() {
-        return name;
+    public int getNumber() {
+        return number;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNumber(int number) {
+        this.number = number;
     }
 }
