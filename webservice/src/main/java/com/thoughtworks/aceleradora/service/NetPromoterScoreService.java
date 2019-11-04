@@ -1,5 +1,6 @@
 package com.thoughtworks.aceleradora.service;
 
+import com.thoughtworks.aceleradora.domain.NetPromoterScore;
 import com.thoughtworks.aceleradora.repository.NetPromoterScoreRepository;
 import org.springframework.stereotype.Service;
 
@@ -12,4 +13,7 @@ public class NetPromoterScoreService {
         this.repository = repository;
     }
 
+    public NetPromoterScore saveNPS (NetPromoterScore netPromoterScore){
+        return repository.save(netPromoterScore);
+    }
 }
