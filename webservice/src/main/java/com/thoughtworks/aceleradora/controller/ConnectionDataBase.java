@@ -4,14 +4,24 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class ConectionDataBase {
+public class ConnectionDataBase {
 
     private Connection connection = null;
     private Statement statement;
     private ResultSet result;
+    private String strConnection;
     private String address;
     private String user;
     private String password;
+    private String driverjdbc;
+
+    public ConnectionDataBase(String address, String port, String dataBase, String user, String password){
+        setStrConnection("jdbc:postgresql://" + address + ";" + port + "/" + dataBase);
+        setAddress(address);
+        setPassword(password);
+        setUser(user);
+        setDriverjdbc("org.postgresql.Driver");
+    }
 
     public Connection getConnection() {
         return connection;
@@ -37,6 +47,14 @@ public class ConectionDataBase {
         this.result = result;
     }
 
+    public String getStrConnection(){
+        return strConnection;
+    }
+
+    public void setStrConnection(String strConnection){
+        this.strConnection = strConnection;
+    }
+
     public String getAddress() {
         return address;
     }
@@ -59,5 +77,13 @@ public class ConectionDataBase {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getDriverjdbc(){
+        return getDriverjdbc();
+    }
+
+    public void setDriverjdbc(String driverjdbc) {
+        this.driverjdbc = driverjdbc;
     }
 }
