@@ -21,9 +21,6 @@ public class NetPromoterScoreController {
     }
     @PostMapping
     public ResponseEntity<?> saveScore(@RequestBody NetPromoterScore score) {
-        System.out.println(">>>>>>>>>> " + score.getComments());
-        System.out.println(">>>>>>>>>> " + score.getScore());
-
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
