@@ -93,6 +93,14 @@ export default {
       if (this.chatHistory.filter(question => question.response === "Não").length == 2) {
          return true;
       }
+      if(!this.questionList.length && this.chatHistory.filter(question => question.response === "Não").length == 1){
+        return true;
+      }
+    },
+    solutionNotIdentified(){
+      if(!this.questionList.length){
+        
+      }
     }
   }
 };
