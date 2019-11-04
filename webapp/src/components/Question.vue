@@ -29,11 +29,17 @@
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
-        <b-col cols="9">
-          {{currentQuestion.description}}
-        </b-col>
+        <b-col cols="9">{{currentQuestion.description}}</b-col>
       </b-row>
       <Solutions v-if="shouldShowSolution()"></Solutions>
+      <b-row v-if="solutionNotIdentified()">
+        <b-col cols="auto">
+          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
+        </b-col>
+        <b-col cols="9" class="question">
+          Não identificamos problema!!!
+        </b-col>
+      </b-row>
     </b-container>
 
     <b-row class="footer">
@@ -97,9 +103,9 @@ export default {
         return true;
       }
     },
-    solutionNotIdentified(){
-      if(!this.questionList.length){
-        
+    solutionNotIdentified() {
+      if (!this.questionList.length && !this.shouldShowSolution()) {
+        return true;
       }
     }
   }
