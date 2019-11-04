@@ -14,8 +14,8 @@ public class Stage {
         return questions;
     }
 
-    public void setQuestions(List<Question> questions) {
-        this.questions = questions;
+    public void setQuestions(Question question) {
+        this.questions.add(question);
     }
 
     public String getSolution() {
