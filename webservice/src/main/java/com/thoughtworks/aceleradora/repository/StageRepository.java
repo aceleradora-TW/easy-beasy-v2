@@ -37,4 +37,8 @@ public class StageRepository {
         }
         throw new IllegalArgumentException("This stage number does not exist.");
     }
+
+    public static ArrayList<Stage> getStages() {
+        return stages;
+    }
 }
