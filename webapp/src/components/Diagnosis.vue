@@ -4,18 +4,18 @@
       <!-- <h2>Diagnóstico</h2> -->
     <!-- </header> -->
     <!-- <Question/> -->
-  <User/>
+  <User></User>
   </div>
 </template>
 
 <script>
-import Question from '@/components/Question.vue'
+//import Question from '@/components/Question.vue'
 import User from '@/components/User'
 
   export default {
     name: "Diagnosis",
     components: {
-      Question,
+      //Question,
       User
     }
 
