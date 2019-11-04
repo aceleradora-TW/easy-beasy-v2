@@ -1,9 +1,10 @@
 <template>
   <div>
-    <header>
-      <h2>Diagnóstico</h2>
-    </header>
-    <Question/>
+    <!-- <header> -->
+      <!-- <h2>Diagnóstico</h2> -->
+    <!-- </header> -->
+    <!-- <Question/> -->
+  <User/>
   </div>
 </template>
 
