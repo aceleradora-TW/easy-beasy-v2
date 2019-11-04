@@ -21,7 +21,7 @@
       <b-container fluid>
         <b-row class="mb-3">
           <b-col md="1.5" class="ml-md-auto">
-            <b-button squared type="submit" v-on:click="$bvModal.hide('modal')" class="answer-btn mt-20">enviar</b-button>
+            <b-button squared type="submit" v-on:click="$bvModal.hide('modal'), submitScore()" class="answer-btn mt-20">enviar</b-button>
           </b-col>
         </b-row>
       </b-container>
@@ -30,6 +30,7 @@
 </template>
 
 <script>
+  import netPromoterScoreService from '@/services/netPromoterScore.service.js'
 export default {
   name: "Modal",
 
@@ -40,6 +41,14 @@ export default {
   methods: {
     getScore(number) {
       this.score = number;
+    },
+    submitScore() {
+      netPromoterScoreService.save({
+        score: this.score,
+        comments: this.comments
+      })
+              .then(response => alert(response.status))
+              .catch(error => alert(error))
     }
   }
 };
