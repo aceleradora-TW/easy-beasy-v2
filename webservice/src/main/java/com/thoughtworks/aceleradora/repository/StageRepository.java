@@ -28,7 +28,13 @@ public class StageRepository {
         stages.add(stage);
     }
 
-    public Stage deleteStage(int index) {
-        return stages.remove(index);
+    public Stage deleteStage(int number) {
+        for (Stage auxStage: stages) {
+            if (auxStage.getNumber() == number){
+                stages.remove(auxStage);
+                return auxStage;
+            }
+        }
+        throw new IllegalArgumentException("This stage number does not exist.");
     }
 }
