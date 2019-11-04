@@ -36,7 +36,7 @@
           v-on:click="collectAnswer('Sim')"
           :disabled="!currentQuestion"
         >Sim</b-button>
-        <ModalDoubt class="ml-5 mr-5" />
+        <ModalDoubt stagePosition="" class="ml-5 mr-5" />
         <b-button
           class="answer-btn"
           v-on:click="collectAnswer('Não')"
