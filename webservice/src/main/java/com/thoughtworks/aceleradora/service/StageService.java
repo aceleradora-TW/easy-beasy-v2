@@ -25,6 +25,7 @@ public class StageService {
 
     public Stage deleteStage(int number) {
         List<Stage> stages = getStages();
+
         for (Stage auxStage : stages) {
             if (auxStage.getNumber() == number) {
                 return repository.deleteStage(auxStage);
