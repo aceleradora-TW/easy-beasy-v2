@@ -7,7 +7,7 @@
     >Não entendi</b-button>
 
     <b-modal id="bv-modal-example" hide-footer>
-      <template v-slot:modal-title>Financeiro</template>
+      <template v-slot:modal-title>Prioridade</template>
       <div class="ml-3 mr-3">
         <p>
           Pense no seu dia a dia,
