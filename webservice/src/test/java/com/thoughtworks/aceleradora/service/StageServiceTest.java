@@ -66,4 +66,16 @@ public class StageServiceTest {
         StageService stageService = new StageService(stageRepository);
         stageService.save(stage);
     }
+
+    @Test
+    public void shouldTrowExceptionIfSolutionStartsWithSpace(){
+        Stage stage = new Stage(" ", 3, "doubt");
+
+        expectedException.expect(IllegalArgumentException.class);
+        expectedException.expectMessage("The stage solution cannot starts with space.");
+
+        StageRepository stageRepository = new StageRepository();
+        StageService stageService = new StageService(stageRepository);
+        stageService.save(stage);
+    }
 }
