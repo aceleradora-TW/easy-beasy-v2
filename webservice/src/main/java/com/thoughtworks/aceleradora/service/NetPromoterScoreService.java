@@ -9,11 +9,11 @@ public class NetPromoterScoreService {
 
     private NetPromoterScoreRepository repository;
 
-    public NetPromoterScoreService (NetPromoterScoreRepository repository){
+    public NetPromoterScoreService(NetPromoterScoreRepository repository) {
         this.repository = repository;
     }
 
-    public NetPromoterScore save (NetPromoterScore netPromoterScore){
+    public NetPromoterScore save(NetPromoterScore netPromoterScore) {
         return repository.save(netPromoterScore);
     }
 }
