@@ -54,4 +54,16 @@ public class StageServiceTest {
         StageService stageService = new StageService(stageRepository);
         stageService.save(stage);
     }
+
+    @Test
+    public void shouldTrowExceptionIfDoubtNull(){
+        Stage stage = new Stage("solution", 3, null);
+
+        expectedException.expect(IllegalArgumentException.class);
+        expectedException.expectMessage("The stage doubt cannot be null.");
+
+        StageRepository stageRepository = new StageRepository();
+        StageService stageService = new StageService(stageRepository);
+        stageService.save(stage);
+    }
 }
