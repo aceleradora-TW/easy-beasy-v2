@@ -3,11 +3,12 @@ package com.thoughtworks.aceleradora.domain;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Stage {
     @JsonProperty("questions")
-    private List<Question> questions;
+    private List<Question> questions= new ArrayList<>();
     private String solution;
     private String doubt;
     private int number;
