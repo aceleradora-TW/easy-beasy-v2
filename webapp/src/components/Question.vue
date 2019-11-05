@@ -152,8 +152,7 @@ export default {
         width: 1.5rem;
       }
 
-      .question,
-      #Solutuion {
+      .question {
         text-align: left;
         color: #111111;
         font-family: 'Lato, sans-serif';
