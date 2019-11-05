@@ -15,10 +15,23 @@ public class StageService {
         this.repository = repository;
     }
 
-    public List<Stage> save (Stage stage){
+    public List<Stage> save(Stage stage) {
         return repository.save(stage);
     }
 
+    public List<Stage> getStages() {
+        return repository.getStages();
+    }
+
+    public Stage deleteStage(int number) {
+        List<Stage> stages = getStages();
+        for (Stage auxStage : stages) {
+            if (auxStage.getNumber() == number) {
+                return repository.deleteStage(auxStage);
+            }
+        }
+        throw new IllegalArgumentException("This stage number does not exist.");
+    }
 
     public void saveVerification(Stage stage) {
         if (StringUtils.isEmpty(stage.getSolution())) {

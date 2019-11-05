@@ -19,14 +19,9 @@ public class StageRepository {
         return stages;
     }
 
-    public Stage deleteStage(int number) {
-        for (Stage auxStage : stages) {
-            if (auxStage.getNumber() == number) {
-                stages.remove(auxStage);
-                return auxStage;
-            }
-        }
-        throw new IllegalArgumentException("This stage number does not exist.");
+    public Stage deleteStage(Stage stage) {
+        stages.remove(stage);
+        return stage;
     }
 
     public ArrayList<Stage> getStages() {
