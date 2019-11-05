@@ -29,4 +29,17 @@ public class StageServiceTest {
         Assert.assertEquals(stage.getNumber(), stageResult.getNumber());
     }
 
+    @Test
+    public void shouldTrowExceptionIfStageNumberAlredyExists() {
+        Stage stage = new Stage("solution", 3, "doubt");
+        Stage stageRepeated = new Stage("solution not repeated", 3, "doubt not repeated");
+        StageRepository stageRepository = new StageRepository();
+
+        expectedException.expect(IllegalArgumentException.class);
+        expectedException.expectMessage("The stage number already exist.");
+
+        StageService stageService = new StageService(stageRepository);
+        stageService.save(stage);
+        stageService.save(stageRepeated);
+    }
 }

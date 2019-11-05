@@ -16,6 +16,7 @@ public class StageService {
     }
 
     public List<Stage> save(Stage stage) {
+        saveVerification(stage);
         return repository.save(stage);
     }
 
@@ -35,16 +36,19 @@ public class StageService {
     }
 
     public void saveVerification(Stage stage) {
+        List<Stage> stages = repository.getStages();
         if (StringUtils.isEmpty(stage.getSolution())) {
             throw new IllegalArgumentException("The stage solution cannot be null.");
-        } else if (StringUtils.isEmpty(stage.getDoubt())) {
+        }
+
+        if (StringUtils.isEmpty(stage.getDoubt())) {
             throw new IllegalArgumentException("The stage doubt cannot be null.");
         }
-        for (Stage auxStage : repository.getStages()) {
+
+        for (Stage auxStage : stages) {
             if (stage.getNumber() == auxStage.getNumber()) {
                 throw new IllegalArgumentException("The stage number already exist.");
             }
         }
-        save(stage);
     }
 }
