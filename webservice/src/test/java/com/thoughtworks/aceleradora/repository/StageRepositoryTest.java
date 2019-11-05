@@ -40,4 +40,15 @@ public class StageRepositoryTest {
         stageRepository.addStage(stage);
         stageRepository.addStage(stageRepeated);
     }
+
+    @Test
+    public void shouldTrowExceptionIfSolutionNull(){
+        Stage stage = new Stage (null, 3, "doubt");
+
+        expectedException.expect(IllegalArgumentException.class);
+        expectedException.expectMessage("The stage solution cannot be null.");
+
+        StageRepository stageRepository = new StageRepository();
+        stageRepository.addStage(stage);
+    }
 }
