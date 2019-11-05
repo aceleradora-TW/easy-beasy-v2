@@ -1,13 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import axios from 'axios'
-import users from './modules/Pessoas/routes'
 import store from './store/'
 import question from './modules/Questions/routes'
 
 Vue.use(Router)
 
-const routes = [].concat(users, question)
+const routes = [].concat(question)
 
 
 const router = new Router({
