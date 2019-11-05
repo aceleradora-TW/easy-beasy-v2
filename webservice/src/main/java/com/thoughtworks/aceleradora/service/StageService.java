@@ -37,12 +37,16 @@ public class StageService {
 
     public void saveVerification(Stage stage) {
         List<Stage> stages = repository.getStages();
+
         if (StringUtils.isEmpty(stage.getSolution())) {
             throw new IllegalArgumentException("The stage solution cannot be null.");
         }
 
         if (StringUtils.isEmpty(stage.getDoubt())) {
             throw new IllegalArgumentException("The stage doubt cannot be null.");
+        }
+        if (stage.getSolution().startsWith(" ")) {
+            throw new IllegalArgumentException("The stage solution cannot starts with space.");
         }
 
         for (Stage auxStage : stages) {
