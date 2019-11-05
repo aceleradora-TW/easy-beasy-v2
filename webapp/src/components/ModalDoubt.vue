@@ -9,7 +9,10 @@
     <b-modal id="bv-modal-example" hide-footer>
       <template v-slot:modal-title>Financeiro</template>
       <div class="ml-3 mr-3">
-        <p>{{stagePosition.doubt}}
+        <p>
+          Pense no seu dia a dia,
+          se você sabe qual o próximo passo que deve ser tomado e para onde está indo,
+          se tem esclarecido quais e quando suas tarefas devem ser feitas.
         </p>
       </div>
       <b-container fluid>
@@ -17,7 +20,7 @@
           <b-col md="1.5" class="ml-md-auto">
             <b-button
               squared
-              type="submit" 
+              type="submit"
               v-on:click="$bvModal.hide('bv-modal-example')"
               class="answer-btn mt-20"
             >Entendi</b-button>
@@ -30,13 +33,12 @@
 
 <script>
 export default {
-  name: "ModalDoubt",
-   props:["stagePosition"]
+  name: "ModalDoubt"
 };
 </script>
 
 <style scoped>
-.answer-btn:hover{
+.answer-btn:hover {
   background-color: #2fc0d5;
   border-color: #2fc0d5;
 }
