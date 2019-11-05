@@ -1,6 +1,6 @@
 import Question from '@/components/Question.vue'
 import Home from '@/views/Home.vue'
-import UserDetails from '@/components/UserDetails.vue'
+
 
 export default [{
         name: 'users.question',
@@ -14,10 +14,5 @@ export default [{
         component: Home,
         children: []
     },
-    {
-        name: 'users.details',
-        path: '/details',
-        component: UserDetails,
-        children: []
-    },
+ 
 ]
