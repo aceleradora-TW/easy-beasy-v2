@@ -7,6 +7,9 @@
                 <strong>Por favor, nos informe nome e email para receber o diagnóstico.</strong>
             </p>
 
+            <label class="mt-20">Qual o seu nome?</label>
+            <b-input id="input" v-model="nameUser"></b-input>
+
             <b-container fluid>
                 <b-row class="mb-3">
                     <b-col md="1.5" class="ml-md-auto">
