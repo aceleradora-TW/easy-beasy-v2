@@ -26,7 +26,7 @@
             <b-container fluid>
                 <b-row class="mb-3">
                     <b-col md="1.5" class="ml-md-auto">
-                        <b-button squared type="submit" v-on:click="$bvModal.hide('modal') && save(user)" class="saveUser">Salvar</b-button>
+                        <b-button squared type="submit" v-on:click="$bvModal.hide('modal') && save()" class="saveUser">Salvar</b-button>
                     </b-col>
                 </b-row>
             </b-container>
@@ -34,7 +34,7 @@
     </div>
 </template>
 <script>
-    import userService from "@/services/user.service.js"
+    import userService from "@/services/user.service"
     import { required, email } from "vuelidate/lib/validators";
 
     export default {
@@ -54,22 +54,24 @@
             }
         },
         methods:{
-            save(user){
-                if(user.name == "" || user.email == "")
-                {
-                    alert ("Por favor, preencha os seguintes campos.");
-                    if(user.name == "")
-                    {
-                        alert ("Informe um nome.");
-                    }
+            save(){
+
+                // if(user.name == "" || user.email == "")
+                // {
+                //     alert ("Por favor, preencha os seguintes campos.");
+                //     if(user.name == "")
+                //     {
+                //         alert ("Informe um nome.");
+                //     }
                     // if(user.email == email)
                     // {
                     //   alert ("Informe o email.");
                     // }
-                }
+                // }
+                userService.save(this.user);
             }
 
-        },
+        }
         //  checkName:{
         //   if(isNameValid){
 
