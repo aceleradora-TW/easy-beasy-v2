@@ -24,6 +24,10 @@ public class StageService {
         return repository.getStages();
     }
 
+    public Stage getStage(int index) {
+        return getStages().get(index);
+    }
+
     public Stage deleteStage(int number) {
         List<Stage> stages = getStages();
 
@@ -58,9 +62,5 @@ public class StageService {
                 throw new IllegalArgumentException("The stage number already exist.");
             }
         }
-    }
-
-    public Stage getStage(int index) {
-        return getStages().get(index);
     }
 }
