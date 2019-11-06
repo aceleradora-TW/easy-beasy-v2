@@ -59,10 +59,10 @@
                 debugger;
                 const allButtons = document.querySelectorAll(".nps-button"); // aqui uma classe para selecionar todos os botoes para colocar o background default
                 for (let i = 0; i < allButtons.length; i++) {
-                    allButtons[i].style.backgroundColor = "red"; // colocar a cor default aqui
+                    allButtons[i].style.backgroundColor = "#ffffff"; // colocar a cor default aqui
                 }
                 const button = event.currentTarget;
-                button.style.background = "green"; // trocar a cor que vcs desejam aqui
+                button.style.background = "#bcbcbc"; // trocar a cor que vcs desejam aqui
             }
         }
     };
