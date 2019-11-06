@@ -126,4 +126,18 @@ public class StageServiceTest {
 
         stageService.deleteStage(5);
     }
+
+    @Test
+    public void shouldReturnOKIfReturnJustOneStageByIndex(){
+        Stage stage = new Stage("solution", 1, "doubt");
+        Stage oneMoreStage = new Stage("solution", 2, "doubt");
+
+        when(stageRepository.getStages()).thenReturn(Arrays.asList(stage, oneMoreStage));
+
+        Stage stageResult = stageService.getStage(0);
+        Stage oneMoreResult = stageService.getStage(1);
+
+        Assert.assertEquals(stage, stageResult);
+        Assert.assertEquals(oneMoreStage, oneMoreResult);
+    }
 }
