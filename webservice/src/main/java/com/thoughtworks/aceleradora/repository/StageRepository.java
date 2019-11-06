@@ -11,8 +11,8 @@ import java.util.List;
 public class StageRepository {
 
     private static ArrayList<Stage> stages = new ArrayList<>(Arrays.asList(
-            new Stage("naum", 1, "explicatione"),
-            new Stage("naum2", 2, "explicatwo")));
+            new Stage("Controle seus gastos!", 1, "explicatione"),
+            new Stage("Controle seu tempo!", 2, "explicatwo")));
 
     public List<Stage> save(Stage stage) {
         stages.add(stage);

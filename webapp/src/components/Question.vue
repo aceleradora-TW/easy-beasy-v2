@@ -17,15 +17,35 @@
           </b-col>
           <b-col cols="9" class="question mb-3">{{answeredQuestion.description}}</b-col>
         </b-row>
+
         <b-row align-h="end">
           <b-col cols="2" class="answer mb-3">{{answeredQuestion.response}}</b-col>
         </b-row>
       </div>
-      <b-row class="question current-question" v-if="currentQuestion">
+
+      <b-row class="question current-question" v-if="!showSolution">
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
         <b-col cols="9">{{currentQuestion.description}}</b-col>
+      </b-row>
+
+      <b-row v-if="showSolution" class="mb-3">
+        <b-col cols="auto">
+          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
+        </b-col>
+        <b-col cols="9" class="question">
+          <Solutions></Solutions>
+        </b-col>
+      </b-row>
+
+      <b-row v-if="solutionNotIdentified()" class="mb-3">
+        <b-col cols="auto">
+          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
+        </b-col>
+        <b-col cols="9" class="question">
+          Não identificamos problema!!!
+        </b-col>
       </b-row>
     </b-container>
 
@@ -34,13 +54,13 @@
         <b-button
           class="answer-btn"
           v-on:click="collectAnswer('Sim')"
-          :disabled="!currentQuestion"
+          :disabled="showSolution || solutionNotIdentified()"
         >Sim</b-button>
         <ModalDoubt class="ml-5 mr-5"/>
         <b-button
           class="answer-btn"
           v-on:click="collectAnswer('Não')"
-          :disabled="!currentQuestion"
+          :disabled="showSolution || solutionNotIdentified()"
         >Não</b-button>
       </div>
     </b-row>
@@ -50,16 +70,20 @@
 <script>
 import questionService from "@/services/questions.service.js";
 import ModalDoubt from "@/components/ModalDoubt";
+import Solutions from "./Solutions";
 
 export default {
   components: {
-    ModalDoubt
+    ModalDoubt,
+    Solutions
   },
   name: "Question",
+
   data: () => ({
-    currentQuestion: null,
+    currentQuestion: "",
     questionList: [],
-    chatHistory: []
+    chatHistory: [],
+    showSolution: false
   }),
 
   created() {
@@ -77,8 +101,33 @@ export default {
         description: this.currentQuestion.description,
         response: answer
       });
+      this.shouldShowSolution();
+    },
+    shouldShowSolution() {
+      if (this.quantityNegativeAnswers() == 2) {
+        this.showSolution = true;
+        return;
+      }
+      if (!this.questionList.length
+          && this.quantityNegativeAnswers() == 1) {
+        this.showSolution = true;
+        return;
+      }
 
       this.nextQuestion();
+      this.gotoBottom();
+    },
+    solutionNotIdentified() {
+      if (!this.questionList.length && this.quantityNegativeAnswers() == 0) {
+        return true;
+      }
+    },
+    quantityNegativeAnswers () {
+      return this.chatHistory
+                 .filter(question => question.response === "Não").length
+    },
+    gotoBottom(){
+      var element = document.querySelector("div.chat-box.container");element.scrollIntoView({behavior: "smooth", block: "end"});
     }
   }
 };

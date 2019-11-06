@@ -59,4 +59,8 @@ public class StageService {
             }
         }
     }
+
+    public Stage getStage(int index) {
+        return getStages().get(index);
+    }
 }
