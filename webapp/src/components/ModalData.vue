@@ -7,52 +7,81 @@
                 <strong>Por favor, nos informe nome e email para receber o diagnóstico.</strong>
             </p>
 
-            <label class="mt-20">Qual o seu nome?</label>
-            <b-input id="input" v-model="nameUser"></b-input>
-
-            <label class="mt-20">Qual o seu e-mail?</label>
-            <b-input id="input" v-model="emailUser"></b-input>
-
+            <b-row>
+                <b-col md="6" sm="12">
+                    <b-form-group label-for="user-name">
+                        <b-form-input id="user-name" type="text" v-model="user.name" :state="null" required placeholder="Informe seu nome"/>
+                        <span class = "invalidName" v-if="!isNameValid">Nome invalido/vazio!</span>
+                    </b-form-group>
+                </b-col>
+            </b-row>
+            <b-row>
+                <b-col md="6" sm="12">
+                    <b-form-group label-for="user-email">
+                        <b-form-input id="user-email" type="email" v-model="user.email" required placeholder="exemplo@gmail.com"/>
+                        <span v-if="!isEmailValid">Informe seu email!</span>
+                    </b-form-group>
+                </b-col>
+            </b-row>
             <b-container fluid>
                 <b-row class="mb-3">
                     <b-col md="1.5" class="ml-md-auto">
-                        <b-button squared type="submit" v-on:click="$bvModal.hide('modal')" class="answer-btn mt-20">
-                            enviar
-                        </b-button>
+                        <b-button squared type="submit" v-on:click="$bvModal.hide('modal') && save(user)" class="saveUser">Salvar</b-button>
                     </b-col>
                 </b-row>
             </b-container>
         </b-modal>
     </div>
 </template>
-
 <script>
+    import userService from "@/services/user.service.js"
+    import { required, email } from "vuelidate/lib/validators";
+
     export default {
         name: "ModalData",
-
         data: () => ({
-            nameUser: "",
-            emailUser: ""
+            user: {
+                name: "",
+                email: ""
+            },
+            isNameValid: true,
+            isEmailValid: true
         }),
-    };
+        validations: {
+            user: {
+                name: { required },
+                email: { required, email }
+            }
+        },
+        methods:{
+            save(user){
+                if(user.name == "" || user.email == "")
+                {
+                    alert ("Por favor, preencha os seguintes campos.");
+                    if(user.name == "")
+                    {
+                        alert ("Informe um nome.");
+                    }
+                    // if(user.email == email)
+                    // {
+                    //   alert ("Informe o email.");
+                    // }
+                }
+            }
+
+        },
+        //  checkName:{
+        //   if(isNameValid){
+
+        //   }
+        //  }
+        //   }
+    }
+
 </script>
-
-<style lang="scss" scoped>
-    .ml-6 {
-        margin-left: 6px;
-    }
-
-    .answer-btn {
-        background-color: #2fc0d5;
-        border-color: #2fc0d5;
-    }
-
-    .answer-btn:hover {
-        background-color: #2fc0d5;
-        border-color: #2fc0d5;
-    }
-
-    .mt-20 {
-        margin-top: 20px;
+<style scoped>
+    .user{
+        text-align: justify;
+        background-color: white;
     }
 </style>
