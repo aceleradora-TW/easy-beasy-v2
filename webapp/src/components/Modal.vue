@@ -7,7 +7,8 @@
                 <strong>Em uma escala de 1 a 10, o quanto você recomendaria o nosso serviço para alguém?</strong>
             </p>
             <b-button
-                    class="ml-6 nps-button"
+
+                    class="ml-6 font nps-button"
                     squared
                     variant="outline-secondary"
                     v-on:click="getScore(number), changeBackGroundColor($event)"
@@ -57,12 +58,12 @@
             },
             changeBackGroundColor(event) {
                 debugger;
-                const allButtons = document.querySelectorAll(".nps-button"); // aqui uma classe para selecionar todos os botoes para colocar o background default
+                const allButtons = document.querySelectorAll(".nps-button");
                 for (let i = 0; i < allButtons.length; i++) {
-                    allButtons[i].style.backgroundColor = "#ffffff"; // colocar a cor default aqui
+                    allButtons[i].style.backgroundColor = "#ffffff";
                 }
                 const button = event.currentTarget;
-                button.style.background = "#bcbcbc"; // trocar a cor que vcs desejam aqui
+                button.style.background = "#bcbcbc";
             }
         }
     };
@@ -71,6 +72,10 @@
 <style lang="scss" scoped>
     .ml-6 {
         margin-left: 6px;
+    }
+    .font{
+        font-weight: bold;
+        font-size: 18px;
     }
 
     .answer-btn {
