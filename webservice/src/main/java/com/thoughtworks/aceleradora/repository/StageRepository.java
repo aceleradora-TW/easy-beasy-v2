@@ -10,9 +10,9 @@ import java.util.List;
 @Repository
 public class StageRepository {
 
-    private static ArrayList<Stage> stages = new ArrayList<>(Arrays.asList(
-            new Stage("Controle seus gastos!", 1, "explicatione"),
-            new Stage("Controle seu tempo!", 2, "explicatwo")));
+    private static List<Stage> stages = new ArrayList<>(Arrays.asList(
+            new Stage("Controle seus gastos!", 1, "doubt"),
+            new Stage("Controle seu tempo!", 2, "doubt")));
 
     public List<Stage> save(Stage stage) {
         stages.add(stage);
@@ -24,7 +24,7 @@ public class StageRepository {
         return stage;
     }
 
-    public ArrayList<Stage> getStages() {
+    public List<Stage> getStages() {
         return stages;
     }
 }
