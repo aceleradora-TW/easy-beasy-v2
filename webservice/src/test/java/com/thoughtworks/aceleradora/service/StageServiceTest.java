@@ -69,7 +69,7 @@ public class StageServiceTest {
     }
 
     @Test
-    public void shouldTrowExceptionIfDoubtNull(){
+    public void shouldTrowExceptionIfDoubtNull() {
         Stage stage = new Stage("solution", 6, null);
 
         when(stageRepository.getStages()).thenReturn(Arrays.asList(stage));
@@ -81,7 +81,7 @@ public class StageServiceTest {
     }
 
     @Test
-    public void shouldTrowExceptionIfSolutionStartsWithSpace(){
+    public void shouldTrowExceptionIfSolutionStartsWithSpace() {
         Stage stage = new Stage(" ", 7, "doubt");
 
         when(stageRepository.getStages()).thenReturn(Arrays.asList(stage));
@@ -93,7 +93,7 @@ public class StageServiceTest {
     }
 
     @Test
-    public void shouldTrowExceptionIfDoubtStartsWithSpace(){
+    public void shouldTrowExceptionIfDoubtStartsWithSpace() {
         Stage stage = new Stage("solution", 8, " ");
 
         when(stageRepository.getStages()).thenReturn(Arrays.asList(stage));
@@ -106,7 +106,7 @@ public class StageServiceTest {
 
 
     @Test
-    public void shouldReturnDeletedStageIfDeleteStageSuccessfully(){
+    public void shouldReturnDeletedStageIfDeleteStageSuccessfully() {
         Stage stage = new Stage("solution", 9, "doubt");
 
         when(stageRepository.getStages()).thenReturn(Arrays.asList(stage));
@@ -115,5 +115,15 @@ public class StageServiceTest {
         Stage stageResult = stageService.deleteStage(9);
 
         Assert.assertEquals(stage, stageResult);
+    }
+    
+    @Test
+    public void shouldReturnExceptionIfTryToDeleteAnNonexistentStage(){
+        when(stageRepository.getStages()).thenReturn(Arrays.asList());
+
+        expectedException.expect(IllegalArgumentException.class);
+        expectedException.expectMessage("This stage number does not exist.");
+
+        stageService.deleteStage(5);
     }
 }
