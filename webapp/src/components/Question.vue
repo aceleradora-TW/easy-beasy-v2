@@ -6,7 +6,7 @@
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
         <b-col cols="9" class="question">
-          Bem vindo a Easybeasy! A nossa plataforma irá realizar o diagnóstico da sua
+          Olá somos a Easybeasy! A nossa plataforma irá realizar o diagnóstico da sua
           empresa a partir de perguntas e respostas de “sim” ou “não”. Vamos começar!
         </b-col>
       </b-row>
@@ -149,7 +149,7 @@ export default {
       }
       .question {
         text-align: left;
-        color: #111111;
+        color: #151515;
         font-family: "Lato, sans-serif";
         font-size: 13pt;
       }
@@ -171,6 +171,8 @@ export default {
       #container {
         display: flex;
         justify-content: space-between;
+        padding: 0.5rem 0.5rem 30px 0.5rem;
+
         .answer-btn {
           background-color: #2fc0d5;
           border-color: #2fc0d5;
