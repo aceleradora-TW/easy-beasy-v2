@@ -6,10 +6,24 @@ import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
+import java.util.Arrays;
 import java.util.List;
 
+import static org.mockito.Mockito.when;
+
+@RunWith(MockitoJUnitRunner.class)
 public class StageServiceTest {
+
+    @Mock
+    private StageRepository stageRepository;
+
+    @InjectMocks
+    private StageService stageService;
 
     @Rule
     public ExpectedException
@@ -17,77 +31,89 @@ public class StageServiceTest {
 
     @Test
     public void shouldReturnOKIfAddValidStage() {
-        Stage stage = new Stage("solution", 5, "doubt");
-        StageRepository stageRepository = new StageRepository();
-        StageService stageService = new StageService(stageRepository);
-        stageService.save(stage);
-        List<Stage> stages = stageService.getStages();
+        Stage stage = new Stage("solution", 1, "doubt");
 
-        Stage stageResult = stages.get(stages.size() - 1);
+        when(stageRepository.getStages()).thenReturn(Arrays.asList());
+        when(stageRepository.save(stage)).thenReturn(Arrays.asList(stage));
+
+        List<Stage> stages = stageService.save(stage);
+
+        Stage stageResult = stages.get(0);
         Assert.assertEquals(stage.getSolution(), stageResult.getSolution());
         Assert.assertEquals(stage.getDoubt(), stageResult.getDoubt());
         Assert.assertEquals(stage.getNumber(), stageResult.getNumber());
     }
 
     @Test
-    public void shouldTrowExceptionIfStageNumberAlredyExists() {
-        Stage stage = new Stage("solution", 3, "doubt");
-        Stage stageRepeated = new Stage("solution not repeated", 3, "doubt not repeated");
-        StageRepository stageRepository = new StageRepository();
+    public void shouldTrowExceptionIfStageNumberAlreadyExists() {
+        Stage stage = new Stage("solution not repeated", 4, "doubt not repeated");
+
+        when(stageRepository.getStages()).thenReturn(Arrays.asList(new Stage("solutionadhudsahuda", 4, "doubtdsadisadhusa")));
 
         expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage("The stage number already exist.");
 
-        StageService stageService = new StageService(stageRepository);
         stageService.save(stage);
-        stageService.save(stageRepeated);
     }
 
     @Test
     public void shouldTrowExceptionIfSolutionNull() {
-        Stage stage = new Stage(null, 3, "doubt");
+        Stage stage = new Stage(null, 5, "doubt");
+
+        when(stageRepository.getStages()).thenReturn(Arrays.asList(stage));
 
         expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage("The stage solution cannot be null.");
 
-        StageRepository stageRepository = new StageRepository();
-        StageService stageService = new StageService(stageRepository);
         stageService.save(stage);
     }
 
     @Test
     public void shouldTrowExceptionIfDoubtNull(){
-        Stage stage = new Stage("solution", 3, null);
+        Stage stage = new Stage("solution", 6, null);
+
+        when(stageRepository.getStages()).thenReturn(Arrays.asList(stage));
 
         expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage("The stage doubt cannot be null.");
 
-        StageRepository stageRepository = new StageRepository();
-        StageService stageService = new StageService(stageRepository);
         stageService.save(stage);
     }
 
     @Test
     public void shouldTrowExceptionIfSolutionStartsWithSpace(){
-        Stage stage = new Stage(" ", 3, "doubt");
+        Stage stage = new Stage(" ", 7, "doubt");
+
+        when(stageRepository.getStages()).thenReturn(Arrays.asList(stage));
 
         expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage("The stage solution cannot starts with space.");
 
-        StageRepository stageRepository = new StageRepository();
-        StageService stageService = new StageService(stageRepository);
         stageService.save(stage);
     }
 
     @Test
     public void shouldTrowExceptionIfDoubtStartsWithSpace(){
-        Stage stage = new Stage("solution", 3, " ");
+        Stage stage = new Stage("solution", 8, " ");
+
+        when(stageRepository.getStages()).thenReturn(Arrays.asList(stage));
 
         expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage("The stage doubt cannot starts with space.");
 
-        StageRepository stageRepository = new StageRepository();
-        StageService stageService = new StageService(stageRepository);
         stageService.save(stage);
+    }
+
+
+    @Test
+    public void shouldReturnDeletedStageIfDeleteStageSuccessfully(){
+        Stage stage = new Stage("solution", 9, "doubt");
+
+        when(stageRepository.getStages()).thenReturn(Arrays.asList(stage));
+        when(stageRepository.deleteStage(stage)).thenReturn(stage);
+
+        Stage stageResult = stageService.deleteStage(9);
+
+        Assert.assertEquals(stage, stageResult);
     }
 }
