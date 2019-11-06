@@ -6,7 +6,7 @@
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
         <b-col cols="9" class="question">
-          Olá somos a Easybeasy! A nossa plataforma irá realizar o diagnóstico da sua
+          Olá, somos a Easybeasy! A nossa plataforma irá realizar o diagnóstico da sua
           empresa a partir de perguntas e respostas de “sim” ou “não”. Vamos começar!
         </b-col>
       </b-row>
