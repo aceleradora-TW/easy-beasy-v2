@@ -10,6 +10,9 @@
             <label class="mt-20">Qual o seu nome?</label>
             <b-input id="input" v-model="nameUser"></b-input>
 
+            <label class="mt-20">Qual o seu e-mail?</label>
+            <b-input id="input" v-model="emailUser"></b-input>
+
             <b-container fluid>
                 <b-row class="mb-3">
                     <b-col md="1.5" class="ml-md-auto">
