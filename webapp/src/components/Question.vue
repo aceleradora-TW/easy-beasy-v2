@@ -51,6 +51,7 @@
 
     <b-row class="footer">
       <div id="container" class="answer-buttons">
+        <ModalData class="ml-5 mr-5"/>
         <b-button
           class="answer-btn"
           v-on:click="collectAnswer('Sim')"
@@ -69,11 +70,13 @@
 
 <script>
 import questionService from "@/services/questions.service.js";
+import ModalData from "./ModalData";
 import ModalDoubt from "@/components/ModalDoubt";
 import Solutions from "./Solutions";
 
 export default {
   components: {
+    ModalData,
     ModalDoubt,
     Solutions
   },
