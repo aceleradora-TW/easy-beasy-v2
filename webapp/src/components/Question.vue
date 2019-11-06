@@ -10,42 +10,57 @@
           empresa a partir de perguntas e respostas de “sim” ou “não”. Vamos começar!
         </b-col>
       </b-row>
-      <div
-        class="question question-history"
-        v-for="answeredQuestion in chatHistory"
-        v-bind:key="answeredQuestion.description"
-      >
+      <div class="question question-history" v-for="answeredQuestion in chatHistory" v-bind:key="answeredQuestion.description">
         <b-row>
           <b-col cols="auto">
             <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
           </b-col>
-          <b-col cols="9" class="question mb-3" >{{answeredQuestion.description}}</b-col>
+          <b-col cols="9" class="question mb-3">{{answeredQuestion.description}}</b-col>
         </b-row>
+
         <b-row align-h="end">
           <b-col cols="2" class="answer mb-3">{{answeredQuestion.response}}</b-col>
         </b-row>
       </div>
-      <b-row class="question current-question" v-if="currentQuestion">
+
+      <b-row class="question current-question" v-if="!showSolution">
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
-        <b-col cols="9">
-          {{currentQuestion.description}}
+        <b-col cols="9">{{currentQuestion.description}}</b-col>
+      </b-row>
+
+      <b-row v-if="showSolution" class="mb-3">
+        <b-col cols="auto">
+          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
+        </b-col>
+        <b-col cols="9" class="question">
+          <Solutions></Solutions>
+        </b-col>
+      </b-row>
+
+      <b-row v-if="solutionNotIdentified()" class="mb-3">
+        <b-col cols="auto">
+          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
+        </b-col>
+        <b-col cols="9" class="question">
+          Não identificamos problema!!!
         </b-col>
       </b-row>
     </b-container>
 
     <b-row class="footer">
-      <div class="answer-buttons">
+      <div id="container" class="answer-buttons">
         <b-button
           class="answer-btn"
           v-on:click="collectAnswer('Sim')"
-          :disabled="!currentQuestion"
+          :disabled="showSolution || solutionNotIdentified()"
         >Sim</b-button>
+        <ModalDoubt class="ml-5 mr-5"/>
         <b-button
           class="answer-btn"
           v-on:click="collectAnswer('Não')"
-          :disabled="!currentQuestion"
+          :disabled="showSolution || solutionNotIdentified()"
         >Não</b-button>
       </div>
     </b-row>
@@ -54,13 +69,21 @@
 
 <script>
 import questionService from "@/services/questions.service.js";
+import ModalDoubt from "@/components/ModalDoubt";
+import Solutions from "./Solutions";
 
 export default {
+  components: {
+    ModalDoubt,
+    Solutions
+  },
   name: "Question",
+
   data: () => ({
-    currentQuestion: null,
+    currentQuestion: "",
     questionList: [],
-    chatHistory: []
+    chatHistory: [],
+    showSolution: false
   }),
 
   created() {
@@ -78,8 +101,33 @@ export default {
         description: this.currentQuestion.description,
         response: answer
       });
+      this.shouldShowSolution();
+    },
+    shouldShowSolution() {
+      if (this.quantityNegativeAnswers() == 2) {
+        this.showSolution = true;
+        return;
+      }
+      if (!this.questionList.length
+          && this.quantityNegativeAnswers() == 1) {
+        this.showSolution = true;
+        return;
+      }
 
       this.nextQuestion();
+      this.gotoBottom();
+    },
+    solutionNotIdentified() {
+      if (!this.questionList.length && this.quantityNegativeAnswers() == 0) {
+        return true;
+      }
+    },
+    quantityNegativeAnswers () {
+      return this.chatHistory
+                 .filter(question => question.response === "Não").length
+    },
+    gotoBottom(){
+      var element = document.querySelector("div.chat-box.container");element.scrollIntoView({behavior: "smooth", block: "end"});
     }
   }
 };
@@ -93,46 +141,50 @@ export default {
     width: 100%;
     height: 86%;
     overflow-y: scroll;
-
     .chat-box {
       padding: 3rem 2rem;
-
       img {
         border-radius: 50%;
         width: 1.5rem;
       }
-
       .question {
         text-align: left;
         color: #111111;
-        font-family: 'Lato, sans-serif';
+        font-family: "Lato, sans-serif";
         font-size: 13pt;
       }
-
       .answer {
         text-align: right;
         color: #636363;
+        margin-bottom: 15px;
       }
     }
-
     .footer {
       position: fixed;
+      display: flex;
       align-items: center;
+      justify-content: center;
       bottom: 0;
       width: 100%;
       background-color: #ffffff;
 
-      .answer-buttons {
+      #container {
         display: flex;
         justify-content: space-between;
-        max-width: 200px;
-        margin: 0 auto;
-        padding: 0.5rem;
-        bottom: 10px;
-
         .answer-btn {
           background-color: #2fc0d5;
           border-color: #2fc0d5;
+        }
+        .doubt-btn {
+          background-color: #ffffff;
+          border-color: #2fc0d5;
+          color: #2fc0d5;
+        }
+        .answer-buttons {
+          max-width: 200px;
+          margin: 0 auto;
+          padding: 0.5rem;
+          bottom: 10px;
         }
       }
     }
