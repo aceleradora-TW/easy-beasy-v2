@@ -16,7 +16,7 @@ public class NetPromoterScoreController {
         this.netPromoterScoreService = netPromoterScoreService;
     }
 
-    @PostMapping
+    @PostMapping("/")
     public NetPromoterScore save(@RequestBody NetPromoterScore netPromoterScore) {
         NetPromoterScore newNPS = new NetPromoterScore();
         return netPromoterScoreService.save(newNPS);
