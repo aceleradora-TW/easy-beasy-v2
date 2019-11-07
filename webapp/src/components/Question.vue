@@ -136,7 +136,8 @@ export default {
                  .filter(question => question.response === "Não").length
     },
     gotoBottom(){
-      const element = document.querySelector("div.chat-box.container");element.scrollIntoView({behavior: "smooth", block: "end"});
+      const element = document.querySelector("div.chat-box.container");
+      element.scrollIntoView({behavior: "smooth", block: "end"});
     }
   }
 };
