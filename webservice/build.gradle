@@ -32,7 +32,8 @@ dependencies {
 
     testCompile 'junit:junit:4.12'
     testCompile "org.mockito:mockito-core:2.21.0"
-    testCompile "com.h2database:h2:1.4.200"
+    testCompile "io.rest-assured:xml-path:4.1.2"
+    testCompile "io.rest-assured:json-path:4.1.2"
     testCompile "io.rest-assured:rest-assured:4.1.2"
     testCompile "org.springframework.boot:spring-boot-starter-test:$springBootVersion"
 
