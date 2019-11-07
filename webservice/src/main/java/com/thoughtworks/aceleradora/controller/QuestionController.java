@@ -15,18 +15,19 @@ import java.util.List;
 @RestController
 @RequestMapping("/questions")
 public class QuestionController {
+
     private QuestionService questionService;
 
     public QuestionController(QuestionService questionService) {
         this.questionService = questionService;
     }
 
-    @GetMapping(path = "")
+    @GetMapping
     public List<Question> getListQuestions() {
         return questionService.getAllQuestions();
     }
 
-    @PostMapping(path = "")
+    @PostMapping
     public void addQuestion(@RequestBody Question question) {
         questionService.addQuestion(question);
     }
