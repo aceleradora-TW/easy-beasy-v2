@@ -95,9 +95,7 @@ export default {
   },
   methods: {
     nextQuestion() {
-      if(this.questionList.length) {
-        this.currentQuestion = this.questionList.shift();
-      }
+      this.currentQuestion = this.questionList.shift();
     },
     collectAnswer(answer) {
       this.chatHistory.push({
@@ -105,6 +103,7 @@ export default {
         response: answer
       });
       this.shouldShowSolution();
+
     },
     shouldShowSolution() {
       if (this.quantityNegativeAnswers() === 2) {
@@ -116,20 +115,12 @@ export default {
         this.showSolution = true;
         return;
       }
-
+      this.solutionNotIdentified()
       this.nextQuestion();
-      this.solutionNotIdentified();
       this.gotoBottom();
     },
     solutionNotIdentified() {
-      
-      if (!this.questionList.length && this.quantityNegativeAnswers() === 0) {
-        debugger;
-        this.chatHistory.push({
-          description: this.currentQuestion.description,
-          response: 'Sim'
-        });
-        this.currentQuestion = null;
+      if (!this.questionList.length && this.quantityNegativeAnswers() == 0) {
         this.theresNoSolution = true;
       }
     },
