@@ -1,5 +1,6 @@
 package com.thoughtworks.aceleradora.service;
 
+import com.thoughtworks.aceleradora.domain.Question;
 import com.thoughtworks.aceleradora.domain.Stage;
 import com.thoughtworks.aceleradora.repository.StageRepository;
 import org.junit.Assert;
@@ -9,6 +10,7 @@ import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Arrays;
@@ -21,6 +23,9 @@ public class StageServiceTest {
 
     @Mock
     private StageRepository stageRepository;
+
+    @Mock
+    private QuestionService questionService;
 
     @InjectMocks
     private StageService stageService;
@@ -104,7 +109,6 @@ public class StageServiceTest {
         stageService.save(stage);
     }
 
-
     @Test
     public void shouldReturnDeletedStageIfDeleteStageSuccessfully() {
         Stage stage = new Stage("solution", 9, "doubt");
@@ -116,9 +120,9 @@ public class StageServiceTest {
 
         Assert.assertEquals(stage, stageResult);
     }
-    
+
     @Test
-    public void shouldReturnExceptionIfTryToDeleteAnNonexistentStage(){
+    public void shouldReturnExceptionIfTryToDeleteAnNonexistentStage() {
         when(stageRepository.getStages()).thenReturn(Arrays.asList());
 
         expectedException.expect(IllegalArgumentException.class);
@@ -128,7 +132,7 @@ public class StageServiceTest {
     }
 
     @Test
-    public void shouldReturnOKIfReturnJustOneStageByIndex(){
+    public void shouldReturnOKIfReturnJustOneStageByIndex() {
         Stage stage = new Stage("solution", 1, "doubt");
         Stage oneMoreStage = new Stage("solution", 2, "doubt");
 
@@ -139,5 +143,16 @@ public class StageServiceTest {
 
         Assert.assertEquals(stage, stageResult);
         Assert.assertEquals(oneMoreStage, oneMoreResult);
+    }
+
+    @Test
+    public void shouldReturnOKIfReturnAllQuestions() {
+        Question question = new Question("question");
+
+        Mockito.when(questionService.getAllQuestions()).thenReturn(Arrays.asList(question));
+
+        List<Question> questions = stageService.getQuestions();
+
+        Assert.assertEquals(questions.get(0), question);
     }
 }

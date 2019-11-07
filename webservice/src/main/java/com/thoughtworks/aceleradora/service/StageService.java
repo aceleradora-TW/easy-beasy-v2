@@ -1,7 +1,9 @@
 package com.thoughtworks.aceleradora.service;
 
+import com.thoughtworks.aceleradora.domain.Question;
 import com.thoughtworks.aceleradora.domain.Stage;
 import com.thoughtworks.aceleradora.repository.StageRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -10,9 +12,15 @@ import java.util.List;
 @Service
 public class StageService {
     private StageRepository repository;
+    public QuestionService questionService;
 
-    public StageService(StageRepository repository) {
+    public StageService(StageRepository repository, QuestionService questionService) {
         this.repository = repository;
+        this.questionService = questionService;
+    }
+
+    public List<Question> getQuestions(){
+        return questionService.getAllQuestions();
     }
 
     public List<Stage> save(Stage stage) {
