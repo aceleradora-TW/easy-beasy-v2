@@ -56,7 +56,7 @@
           v-on:click="collectAnswer('Sim')"
           :disabled="showSolution || solutionNotIdentified()"
         >Sim</b-button>
-        <ModalDoubt class="ml-5 mr-5"/>
+        <ModalQuestion class="ml-5 mr-5"/>
         <b-button
           class="answer-btn"
           v-on:click="collectAnswer('Não')"
@@ -69,12 +69,12 @@
 
 <script>
 import questionService from "@/services/questions.service.js";
-import ModalDoubt from "@/components/ModalDoubt";
+import ModalQuestion from "@/components/ModalQuestion";
 import Solutions from "./Solutions";
 
 export default {
   components: {
-    ModalDoubt,
+    ModalQuestion,
     Solutions
   },
   name: "Question",
