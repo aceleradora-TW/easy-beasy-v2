@@ -8,7 +8,7 @@ import java.util.List;
 
 @Service
 public class QuestionService {
-    private QuestionRepository repository ;
+    private QuestionRepository repository;
 
     public QuestionService(QuestionRepository repository) {
         this.repository = repository;
@@ -22,11 +22,4 @@ public class QuestionService {
         return getAllQuestions().get(index);
     }
 
-    public void addQuestion(Question question) {
-        repository.addQuestion(question);
-    }
-
-    public Question removeQuestion(int index) {
-        return repository.deleteQuestion(index);
-    }
 }

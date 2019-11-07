@@ -26,18 +26,9 @@ public class QuestionController {
         return questionService.getAllQuestions();
     }
 
-    @PostMapping(path = "")
-    public void addQuestion(@RequestBody Question question) {
-        questionService.addQuestion(question);
-    }
-
     @GetMapping(path = "/{index}")
     public Question getQuestion(@PathVariable("index") int index) {
         return questionService.getQuestion(index);
     }
 
-    @DeleteMapping(path = "/{index}")
-    public Question removeQuestion(@PathVariable("index") int index) {
-        return questionService.removeQuestion(index);
-    }
 }

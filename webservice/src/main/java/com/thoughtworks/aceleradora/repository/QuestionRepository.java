@@ -40,15 +40,4 @@ public class QuestionRepository {
     public List<Question> getAllQuestions() {
         return questions;
     }
-
-    public void addQuestion(Question question) {
-        if(StringUtils.isEmpty(question.getDescription())) {
-            throw new IllegalArgumentException("The question description cannot be null.");
-        }
-        questions.add(question);
-    }
-
-    public Question deleteQuestion(int index) {
-        return questions.remove(index);
-    }
 }
