@@ -11,9 +11,10 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Arrays;
+import java.util.List;
 
 @RunWith(MockitoJUnitRunner.class)
-public  class QuestionServiceTest {
+public class QuestionServiceTest {
     @Mock
     private QuestionRepository questionRepository;
 
@@ -21,7 +22,7 @@ public  class QuestionServiceTest {
     private QuestionService questionService;
 
     @Test
-    public void shouldReturnOKIfGetOneQuestion(){
+    public void shouldReturnOKIfGetOneQuestion() {
         Question question = new Question("question");
 
         Mockito.when(questionService.getAllQuestions()).thenReturn(Arrays.asList(question));
@@ -30,6 +31,19 @@ public  class QuestionServiceTest {
         Question questionExpected = questionService.getQuestion(0);
 
         Assert.assertEquals(question.getDescription(), questionExpected.getDescription());
+    }
+
+    @Test
+    public void shouldReturnOKIfGetAllQuestion() {
+        Question question = new Question("question");
+        Question question1 = new Question("question");
+
+        Mockito.when((questionRepository.getAllQuestions())).thenReturn(Arrays.asList(question, question1));
+
+        List<Question> questions = questionService.getAllQuestions();
+
+        Assert.assertEquals(questions.get(0), question);
+        Assert.assertEquals(questions.get(1), question1);
     }
 
 }

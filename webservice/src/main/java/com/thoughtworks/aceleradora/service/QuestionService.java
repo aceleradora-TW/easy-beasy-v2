@@ -14,6 +14,10 @@ public class QuestionService {
         this.repository = repository;
     }
 
+    public List<Question> getAllQuestions() {
+        return repository.getAllQuestions();
+    }
+
     public Question getQuestion(int index) {
         return getAllQuestions().get(index);
     }
@@ -24,9 +28,5 @@ public class QuestionService {
 
     public Question removeQuestion(int index) {
         return repository.deleteQuestion(index);
-    }
-
-    public List<Question> getAllQuestions() {
-        return repository.getAllQuestions();
     }
 }
