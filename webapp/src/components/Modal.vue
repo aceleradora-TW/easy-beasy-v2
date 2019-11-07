@@ -17,7 +17,7 @@
             </b-button>
 
             <label class="mt-20">Qual a razão da sua nota?</label>
-            <b-input id="input" v-model="comments"></b-input>
+            <b-input id="input" v-model="nps.comments"></b-input>
 
             <b-container fluid>
                 <b-row class="mb-3">
@@ -39,25 +39,20 @@
         name: "Modal",
 
         data: () => ({
-            score: 0,
-            comments: ""
+            nps : {
+                score: 0,
+                comments: ""
+            }
         }),
         methods: {
             getScore(number) {
-                this.score = number;
+                this.nps.score = number;
             },
             submitScore() {
-                netPromoterScoreService.save({
-                    score: this.score,
-                    comments: this.comments
-                })
-                    .then(response => alert("Sua nota foi enviada com sucesso!"))
-                    .catch(error => alert(error))
-                console.log(this.score)
-                console.log(this.comments)
+                netPromoterScoreService.save(this.nps).then(response => alert("Sua nota foi enviada com sucesso!"))
+                .catch(error => alert(error))
             },
             changeBackGroundColor(event) {
-                debugger;
                 const allButtons = document.querySelectorAll(".nps-button");
                 for (let i = 0; i < allButtons.length; i++) {
                     allButtons[i].style.backgroundColor = "#ffffff";

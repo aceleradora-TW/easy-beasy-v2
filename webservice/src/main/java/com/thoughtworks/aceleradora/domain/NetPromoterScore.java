@@ -1,7 +1,6 @@
 package com.thoughtworks.aceleradora.domain;
 
 import javax.persistence.*;
-
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
@@ -15,11 +14,8 @@ public class NetPromoterScore {
     private int score;
     private String comments;
 
-    @OneToOne
-    @JoinColumn(name = "id_users", referencedColumnName = "id")
-    private User user;
 
-    public long getId() {
+    public long getId(){
         return id;
     }
 
@@ -29,21 +25,5 @@ public class NetPromoterScore {
 
     public String getComments() {
         return comments;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
-    }
-
-    public void setComments(String comments) {
-        this.comments = comments;
     }
 }
