@@ -44,7 +44,7 @@
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
         <b-col cols="9" class="question">
-          Não identificamos problema!!!
+          Não identificamos nenhum problema!
         </b-col>
       </b-row>
     </b-container>
@@ -100,7 +100,6 @@ export default {
       }
     },
     collectAnswer(answer) {
-      debugger
       this.chatHistory.push({
         description: this.currentQuestion.description,
         response: answer
@@ -108,7 +107,6 @@ export default {
       this.shouldShowSolution();
     },
     shouldShowSolution() {
-      debugger
       if (this.quantityNegativeAnswers() === 2) {
         this.showSolution = true;
         return;
@@ -124,7 +122,6 @@ export default {
       this.gotoBottom();
     },
     solutionNotIdentified() {
-      debugger
       if (!this.questionList.length && this.quantityNegativeAnswers() === 0) {
         this.chatHistory.push({
           description: this.currentQuestion.description,
