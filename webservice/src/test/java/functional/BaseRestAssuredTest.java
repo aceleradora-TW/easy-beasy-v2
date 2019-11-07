@@ -16,7 +16,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 @ActiveProfiles("dev")
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = RANDOM_PORT, classes = BaseRestAssuredTest.TestConfiguration.class)
-public class BaseRestAssuredTest {
+public abstract class BaseRestAssuredTest {
 
     @Configuration
     @EnableAutoConfiguration
