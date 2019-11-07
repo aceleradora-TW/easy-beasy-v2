@@ -23,7 +23,7 @@
         </b-row>
       </div>
 
-      <b-row class="question current-question" v-if="currentQuestion">
+      <b-row class="question current-question" v-if="currentQuestion && !showSolution">
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
@@ -122,7 +122,9 @@ export default {
       this.gotoBottom();
     },
     solutionNotIdentified() {
+      
       if (!this.questionList.length && this.quantityNegativeAnswers() === 0) {
+        debugger;
         this.chatHistory.push({
           description: this.currentQuestion.description,
           response: 'Sim'
