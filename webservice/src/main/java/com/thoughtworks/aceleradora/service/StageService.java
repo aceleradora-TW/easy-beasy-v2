@@ -3,7 +3,6 @@ package com.thoughtworks.aceleradora.service;
 import com.thoughtworks.aceleradora.domain.Question;
 import com.thoughtworks.aceleradora.domain.Stage;
 import com.thoughtworks.aceleradora.repository.StageRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -12,15 +11,19 @@ import java.util.List;
 @Service
 public class StageService {
     private StageRepository repository;
-    public QuestionService questionService;
+    private QuestionService questionService;
 
     public StageService(StageRepository repository, QuestionService questionService) {
         this.repository = repository;
         this.questionService = questionService;
     }
 
-    public List<Question> getQuestions(){
+    public List<Question> getQuestions() {
         return questionService.getAllQuestions();
+    }
+
+    public Question getQuestion(int index) {
+        return questionService.getQuestion(index);
     }
 
     public List<Stage> save(Stage stage) {
@@ -47,7 +50,7 @@ public class StageService {
         throw new IllegalArgumentException("This stage number does not exist.");
     }
 
-    public void saveVerification(Stage stage) {
+    private void saveVerification(Stage stage) {
         List<Stage> stages = repository.getStages();
 
         if (StringUtils.isEmpty(stage.getSolution())) {
@@ -61,7 +64,7 @@ public class StageService {
             throw new IllegalArgumentException("The stage solution cannot starts with space.");
         }
 
-        if (stage.getDoubt().startsWith(" ")){
+        if (stage.getDoubt().startsWith(" ")) {
             throw new IllegalArgumentException("The stage doubt cannot starts with space.");
         }
 
