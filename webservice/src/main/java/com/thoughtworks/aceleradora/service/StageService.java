@@ -2,6 +2,7 @@ package com.thoughtworks.aceleradora.service;
 
 import com.thoughtworks.aceleradora.domain.Question;
 import com.thoughtworks.aceleradora.domain.Stage;
+import com.thoughtworks.aceleradora.repository.QuestionRepository;
 import com.thoughtworks.aceleradora.repository.StageRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -11,19 +12,19 @@ import java.util.List;
 @Service
 public class StageService {
     private StageRepository repository;
-    private QuestionService questionService;
+    private QuestionRepository questionRepository;
 
-    public StageService(StageRepository repository, QuestionService questionService) {
+    public StageService(StageRepository repository, QuestionRepository questionRepository) {
         this.repository = repository;
-        this.questionService = questionService;
+        this.questionRepository = questionRepository;
     }
 
     public List<Question> getQuestions() {
-        return questionService.getAllQuestions();
+        return questionRepository.getAllQuestions();
     }
 
     public Question getQuestion(int index) {
-        return questionService.getQuestion(index);
+        return getQuestions().get(index);
     }
 
     public List<Stage> save(Stage stage) {
