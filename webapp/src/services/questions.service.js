@@ -1,5 +1,5 @@
 import http from '../utils/http'
 
 export default {
-    getQuestions : () => http.get(`/questions`)
+    getQuestions: (id) => http.get(`/stage/ ${id}`).data
 }

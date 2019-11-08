@@ -68,7 +68,7 @@
 </template>
 
 <script>
-import questionService from "@/services/questions.service.js";
+import stageService from "@/services/stage.service.js";
 import ModalDoubt from "@/components/ModalDoubt";
 import Solutions from "./Solutions";
 
@@ -88,10 +88,12 @@ export default {
   }),
 
   created() {
-    questionService.getQuestions().then(list => {
-      this.questionList = list.data;
+      stageService.getStageById(1).then(response => {// TODO remover hardcoded
+      const stage = response.data;
+      this.questionList = stage.questions;
       this.nextQuestion();
-    });
+    }); 
+      
   },
   methods: {
     nextQuestion() {
