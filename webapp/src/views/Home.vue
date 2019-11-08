@@ -1,18 +1,18 @@
 <template>
   <div>
-    <Modal/>
+    <ModalNps/>
     <Diagnosis/>
   </div>
 </template>
 
 <script>
 import Diagnosis from '@/components/Diagnosis'
-import Modal from '@/components/Modal'
+import ModalNps from '@/components/ModalNps'
 
 export default {
   components:{
     Diagnosis,
-    Modal
+    ModalNps
   }
 }
 </script>
