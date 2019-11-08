@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Stage {
-    @JsonProperty("questions")
     private List<Question> questions= new ArrayList<>();
     private String solution;
     private String doubt;
@@ -17,10 +16,12 @@ public class Stage {
     @JsonCreator
     public Stage(@JsonProperty("solution") String solution,
                  @JsonProperty("number") int number,
-                 @JsonProperty("doubt") String doubt) {
+                 @JsonProperty("doubt") String doubt,
+                 @JsonProperty("questions") List<Question> questions) {
         this.solution = solution;
         this.number = number;
         this.doubt =  doubt;
+        this.questions = questions;
     }
 
     public List<Question> getQuestions() {
