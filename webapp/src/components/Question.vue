@@ -84,11 +84,12 @@ export default {
     questionList: [],
     chatHistory: [],
     showSolution: false,
-    theresNoSolution: false
+    theresNoSolution: false,
+    idStage: 1
   }),
 
   created() {
-      stageService.getStageById(1).then(response => {// TODO remover hardcoded
+      stageService.getStageById(this.idStage).then(response => {   
       const stage = response.data;
       this.questionList = stage.questions;
       this.nextQuestion();
