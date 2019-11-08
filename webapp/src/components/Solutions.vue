@@ -16,7 +16,6 @@ export default {
     Solution.getStageById(this.idStage).then(r => {
       const stage = r.data;
       this.solutionScreen = stage.solution;
-      this.idStage++;
     });
   }
 };
