@@ -39,12 +39,12 @@
         </b-col>
       </b-row>
 
-      <b-row v-if="solutionNotIdentified()" class="mb-3">
+      <b-row v-if="solutionNotIdentified()"  class="mb-3">
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
         <b-col cols="9" class="question">
-          Não identificamos problema!!!
+          Não identificamos problema!!! 
         </b-col>
       </b-row>
     </b-container>
@@ -86,7 +86,7 @@ export default {
     currentQuestion: "",
     questionList: [],
     chatHistory: [],
-    showSolution: false
+    showSolution: false,
   }),
 
   created() {
@@ -108,6 +108,7 @@ export default {
     },
     shouldShowSolution() {
       if (this.quantityNegativeAnswers() == 2) {
+        this.showModalData();
         this.showSolution = true;
         return;
       }
@@ -131,6 +132,9 @@ export default {
     },
     gotoBottom(){
       var element = document.querySelector("div.chat-box.container");element.scrollIntoView({behavior: "smooth", block: "end"});
+    },
+    showModalData() {
+      this.$bvModal.show('modal'); 
     }
   }
 };
