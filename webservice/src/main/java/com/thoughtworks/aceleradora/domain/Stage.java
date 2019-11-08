@@ -7,10 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Stage {
-    private List<Question> questions= new ArrayList<>();
+    private List<Question> questions = new ArrayList<>();
     private String solution;
     private String doubt;
     private int number;
+    private Long id;
 
 
     @JsonCreator
@@ -20,8 +21,13 @@ public class Stage {
                  @JsonProperty("questions") List<Question> questions) {
         this.solution = solution;
         this.number = number;
-        this.doubt =  doubt;
+        this.doubt = doubt;
         this.questions = questions;
+    }
+
+    public Stage(String solution, int number, String doubt, ArrayList<Question> questions, Long id) {
+        this(solution, number, doubt, questions);
+        this.id = id;
     }
 
     public List<Question> getQuestions() {
@@ -56,4 +62,11 @@ public class Stage {
         this.number = number;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

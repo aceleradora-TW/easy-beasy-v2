@@ -134,12 +134,15 @@ public class StageServiceTest {
     }
 
     @Test
-    public void shouldReturnOKIfReturnJustOneStageByIndex() {
-        when(stageRepository.getStages()).thenReturn(asList(stage));
+    public void shouldReturnOKIfReturnJustOneStageById() {
+        Long id = 1L;
+        stage.setId(id);
 
-        Stage stageResult = stageService.getStage(0);
+        Mockito.when(stageRepository.getStageById(id)).thenReturn(stage);
 
-        Assert.assertEquals(stage, stageResult);
+        Stage stageResult = stageService.getStageById(id);
+
+        Assert.assertEquals(stageResult.getId(), id);
     }
 
     @Test

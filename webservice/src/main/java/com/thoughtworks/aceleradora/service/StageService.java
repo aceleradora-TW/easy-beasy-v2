@@ -36,8 +36,8 @@ public class StageService {
         return repository.getStages();
     }
 
-    public Stage getStage(int index) {
-        return getStages().get(index);
+    public Stage getStageById(Long id) {
+        return repository.getStageById(id);
     }
 
     public Stage deleteStage(int number) {
