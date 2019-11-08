@@ -4,6 +4,13 @@ jobs:
   build:
     docker:
       - image: circleci/openjdk:11.0.2-jdk-node-browsers-legacy
+        environment:
+          spring_profiles_active: dev
+      - image: circleci/postgres:11
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: 123456
+          POSTGRES_DB: easybeasy
 
     working_directory: ~/repo
 
