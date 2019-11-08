@@ -70,7 +70,7 @@
 <script>
 import questionService from "@/services/questions.service.js";
 import ModalQuestion from "@/components/ModalQuestion";
-import Solution from "./Solution";
+import Solution from "@/components/Solution";
 
 export default {
   components: {
@@ -120,7 +120,7 @@ export default {
       this.gotoBottom();
     },
     solutionNotIdentified() {
-      if (!this.questionList.length && this.quantityNegativeAnswers() == 0) {
+      if (!this.questionList.length && this.quantityNegativeAnswers() === 0) {
         this.theresNoSolution = true;
       }
     },
