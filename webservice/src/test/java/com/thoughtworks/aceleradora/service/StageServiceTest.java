@@ -2,6 +2,7 @@ package com.thoughtworks.aceleradora.service;
 
 import com.thoughtworks.aceleradora.domain.Question;
 import com.thoughtworks.aceleradora.domain.Stage;
+import com.thoughtworks.aceleradora.repository.QuestionRepository;
 import com.thoughtworks.aceleradora.repository.StageRepository;
 import org.junit.Assert;
 import org.junit.Rule;
@@ -13,6 +14,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -25,7 +27,7 @@ public class StageServiceTest {
     private StageRepository stageRepository;
 
     @Mock
-    private QuestionService questionService;
+    private QuestionRepository questionRepository;
 
     @InjectMocks
     private StageService stageService;
@@ -149,7 +151,7 @@ public class StageServiceTest {
     public void shouldReturnOKIfReturnAllQuestions() {
         Question question = new Question("question");
 
-        Mockito.when(questionService.getAllQuestions()).thenReturn(Arrays.asList(question));
+        Mockito.when(questionRepository.getAllQuestions()).thenReturn(Arrays.asList(question));
 
         List<Question> questions = stageService.getQuestions();
 
@@ -160,7 +162,7 @@ public class StageServiceTest {
     public void shouldReturnOKIfReturnOneQuestion() {
         Question question = new Question("question");
 
-        Mockito.when(questionService.getQuestion(0)).thenReturn(question);
+        Mockito.when(questionRepository.getAllQuestions()).thenReturn(Arrays.asList(question));
 
         Question questionResult = stageService.getQuestion(0);
 
