@@ -35,7 +35,7 @@
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
         <b-col cols="9" class="question">
-          <Solutions></Solutions>
+          <Solution/>
         </b-col>
       </b-row>
 
@@ -70,12 +70,12 @@
 <script>
 import questionService from "@/services/questions.service.js";
 import ModalQuestion from "@/components/ModalQuestion";
-import Solutions from "./Solutions";
+import Solution from "./Solution";
 
 export default {
   components: {
     ModalQuestion,
-    Solutions
+    Solution
   },
   name: "Question",
 
