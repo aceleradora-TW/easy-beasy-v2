@@ -62,6 +62,10 @@ processResources {
     }
 }
 
+test {
+    exclude 'functional/**'
+}
+
 task functionalTest(type: Test) {
     include 'functional/**'
 }
