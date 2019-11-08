@@ -155,4 +155,15 @@ public class StageServiceTest {
 
         Assert.assertEquals(questions.get(0), question);
     }
+
+    @Test
+    public void shouldReturnOKIfReturnOneQuestion() {
+        Question question = new Question("question");
+
+        Mockito.when(questionService.getQuestion(0)).thenReturn(question);
+
+        Question questionResult = stageService.getQuestion(0);
+
+        Assert.assertEquals(question, questionResult);
+    }
 }
