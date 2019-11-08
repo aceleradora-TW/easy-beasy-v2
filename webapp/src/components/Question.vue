@@ -1,5 +1,6 @@
 <template>
   <div class="chat">
+    <ModalNps/>
     <b-container class="chat-box">
       <b-row align-h="start" class="mb-4">
         <b-col cols="auto">
@@ -71,11 +72,13 @@
 import questionService from "@/services/questions.service.js";
 import ModalDoubt from "@/components/ModalDoubt";
 import Solutions from "./Solutions";
+import ModalNps from "@/components/ModalNps";
 
 export default {
   components: {
     ModalDoubt,
-    Solutions
+    Solutions,
+    ModalNps
   },
   name: "Question",
 
@@ -107,11 +110,11 @@ export default {
     },
     shouldShowSolution() {
       if (this.quantityNegativeAnswers() === 2) {
+        this.showNps()
         this.showSolution = true;
-        return;
       }
-      if (!this.questionList.length
-          && this.quantityNegativeAnswers() === 1) {
+      if (!this.questionList.length && this.quantityNegativeAnswers() === 1) {
+        this.showNps();
         this.showSolution = true;
         return;
       }
@@ -121,6 +124,7 @@ export default {
     },
     solutionNotIdentified() {
       if (!this.questionList.length && this.quantityNegativeAnswers() == 0) {
+        this.showNps()
         this.theresNoSolution = true;
       }
     },
@@ -131,6 +135,9 @@ export default {
     gotoBottom(){
       const element = document.querySelector("div.chat-box.container");
       element.scrollIntoView({behavior: "smooth", block: "end"});
+    },
+    showNps(){
+      this.$bvModal.show('modalNps')
     }
   }
 };
