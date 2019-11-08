@@ -9,10 +9,11 @@ import Solution from "@/services/solutions.service";
 
 export default {
   data: () => ({
-    solutionScreen: ""
+    solutionScreen: "",
+    id: 0
   }),
   created() {
-    Solution.getSolutions().then(r => {
+    Solution.getSolutions(this.id).then(r => {
       this.solutionScreen = r.data.solution;
     });
   }
