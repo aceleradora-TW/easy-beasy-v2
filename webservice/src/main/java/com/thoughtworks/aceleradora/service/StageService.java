@@ -28,7 +28,7 @@ public class StageService {
     }
 
     public List<Stage> save(Stage stage) {
-        saveVerification(stage);
+        validation(stage);
         return repository.save(stage);
     }
 
@@ -51,7 +51,7 @@ public class StageService {
         throw new IllegalArgumentException("This stage number does not exist.");
     }
 
-    private void saveVerification(Stage stage) {
+    private void validation(Stage stage) {
         List<Stage> stages = repository.getStages();
 
         if (StringUtils.isEmpty(stage.getSolution())) {
