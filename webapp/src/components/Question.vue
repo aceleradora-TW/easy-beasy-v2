@@ -142,8 +142,8 @@ export default {
     background-color: #ffffff;
     position: fixed;
     width: 100%;
-    height: 86%;
-    overflow-y: scroll;
+    height: 80%;
+    overflow-y: auto;
     .chat-box {
       padding: 3rem 2rem;
       img {
