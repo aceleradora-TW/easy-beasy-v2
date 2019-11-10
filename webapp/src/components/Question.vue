@@ -53,13 +53,13 @@
       <div id="container" class="answer-buttons">
         <b-button
           class="answer-btn"
-          v-on:click="collectAnswer('Sim')"
+          v-on:click="collectAnswer('Sim'), gotoBottom()"
           :disabled="showSolution || theresNoSolution"
         >Sim</b-button>
         <ModalDoubt class="ml-5 mr-5"/>
         <b-button
           class="answer-btn"
-          v-on:click="collectAnswer('Não')"
+          v-on:click="collectAnswer('Não'), gotoBottom()"
           :disabled="showSolution || theresNoSolution"
         >Não</b-button>
       </div>
@@ -103,7 +103,6 @@ export default {
         response: answer
       });
       this.shouldShowSolution();
-
     },
     shouldShowSolution() {
       if (this.quantityNegativeAnswers() === 2) {
@@ -117,10 +116,9 @@ export default {
       }
       this.solutionNotIdentified()
       this.nextQuestion();
-      this.gotoBottom();
     },
     solutionNotIdentified() {
-      if (!this.questionList.length && this.quantityNegativeAnswers() == 0) {
+      if (!this.questionList.length && this.quantityNegativeAnswers() === 0) {
         this.theresNoSolution = true;
       }
     },
@@ -129,8 +127,10 @@ export default {
                  .filter(question => question.response === "Não").length
     },
     gotoBottom(){
-      const element = document.querySelector("div.chat-box.container");
-      element.scrollIntoView({behavior: "smooth", block: "end"});
+      this.$nextTick(() => {
+        const element = this.$el.querySelector(".chat-box");
+        element.scrollIntoView({behavior: "smooth", block: "end"})
+      });
     }
   }
 };
