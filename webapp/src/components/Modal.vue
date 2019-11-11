@@ -46,6 +46,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/scss/config/variables.scss';
 .ml-6 {
   margin-left: 6px;
 }
