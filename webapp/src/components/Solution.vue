@@ -5,14 +5,14 @@
 </template>
 
 <script>
-import Solution from "@/services/solutions.service";
+import SolutionService from "@/services/solutions.service";
 
 export default {
   data: () => ({
     solutionScreen: ""
   }),
   created() {
-    Solution.getSolutions().then(r => {
+    SolutionService.getSolutions().then(r => {
       this.solutionScreen = r.data.solution;
     });
   }
