@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <b-modal hide-header-close hide-footer no-close-on-backdrop no-close-on-esc id="modalData">
       <p>
         <strong>Por favor, nos informe nome e email para receber o diagnóstico.</strong>
@@ -56,6 +55,9 @@ import { required, email } from "vuelidate/lib/validators";
 
 export default {
   name: "ModalData",
+   props: {
+    method: { type: Function },
+  },
   data: () => ({
     user: {
       name: "",
@@ -73,6 +75,7 @@ export default {
   methods: {
     save() {
       userService.save(this.user);
+      this.method();
     }
   }
 };

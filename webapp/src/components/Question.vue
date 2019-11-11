@@ -1,6 +1,6 @@
 <template>
   <div class="chat">
-    <ModalData/>
+    <ModalData :method="show"/>
     <b-container class="chat-box">
       <b-row align-h="start" class="mb-4">
         <b-col cols="auto">
@@ -108,16 +108,19 @@ export default {
       });
       this.shouldShowSolution();
     },
+    show() {
+        this.showSolution = true;
+    },
     shouldShowSolution() {
       if (this.quantityNegativeAnswers() === 2) {
         this.showModalData();
-        this.showSolution = true;
+        // this.showSolution = true;
         return;
       }
       if (!this.questionList.length
           && this.quantityNegativeAnswers() === 1) {
         this.showModalData();
-        this.showSolution = true;
+        // this.showSolution = true;
         return;
       }
       this.solutionNotIdentified()
