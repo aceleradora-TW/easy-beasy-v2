@@ -90,7 +90,7 @@ export default {
 
   created() {
       StageService.getStageById(this.idStage).then(response => {
-      const stage = response.data;
+      let stage = response.data;
       this.questionList = stage.questions;
       this.nextQuestion();
     }); 
@@ -143,6 +143,14 @@ export default {
     nextStage(){
       if(this.theresNoSolution===true || this.showSolution===true){
         this.idStage++;
+        this.questionList = [];
+        StageService.getStageById(this.idStage).then(response => {
+          let stage = response.data;
+          this.questionList = stage.questions;
+          this.theresNoSolution = false;
+          this.showSolution = false;
+          this.nextQuestion();
+        }); 
         console.log("OI AMIGUINHO, ESTAMOS NO ESTÁGIO " + this.idStage);
       }
     }
