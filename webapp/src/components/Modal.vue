@@ -50,12 +50,12 @@ export default {
   margin-left: 6px;
 }
 .answer-btn {
-  background-color: #2fc0d5;
-  border-color: #2fc0d5;
+  background-color: $primary-color;
+  border-color:$primary-color;
 }
 .answer-btn:hover{
-  background-color: #2fc0d5;
-  border-color: #2fc0d5;
+  background-color:$primary-color;
+  border-color:$primary-color;
 }
 .mt-20{
   margin-top: 20px;
