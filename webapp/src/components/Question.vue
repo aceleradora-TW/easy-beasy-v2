@@ -1,6 +1,6 @@
 <template>
   <div class="chat">
-    <ModalData :method="show"/>
+    <ModalData :callBack="callBack" />
     <b-container class="chat-box">
       <b-row align-h="start" class="mb-4">
         <b-col cols="auto">
@@ -11,7 +11,11 @@
           empresa a partir de perguntas e respostas de “sim” ou “não”. Vamos começar!
         </b-col>
       </b-row>
-      <div class="question question-history" v-for="answeredQuestion in chatHistory" v-bind:key="answeredQuestion.description">
+      <div
+        class="question question-history"
+        v-for="answeredQuestion in chatHistory"
+        v-bind:key="answeredQuestion.description"
+      >
         <b-row>
           <b-col cols="auto">
             <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
@@ -36,7 +40,7 @@
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
         <b-col cols="9" class="question">
-          <Solution/>
+          <Solution />
         </b-col>
       </b-row>
 
@@ -44,9 +48,7 @@
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
-        <b-col cols="9" class="question">
-          Não identificamos nenhum problema!
-        </b-col>
+        <b-col cols="9" class="question">Não identificamos nenhum problema!</b-col>
       </b-row>
     </b-container>
 
@@ -57,7 +59,7 @@
           v-on:click="collectAnswer('Sim'), gotoBottom()"
           :disabled="showSolution || theresNoSolution"
         >Sim</b-button>
-        <ModalQuestion class="ml-5 mr-5"/>
+        <ModalQuestion class="ml-5 mr-5" />
         <b-button
           class="answer-btn"
           v-on:click="collectAnswer('Não'), gotoBottom()"
@@ -74,7 +76,6 @@ import ModalQuestion from "@/components/ModalQuestion";
 import Solution from "@/components/Solution";
 import ModalData from "@/components/ModalData";
 
-
 export default {
   components: {
     ModalQuestion,
@@ -88,7 +89,8 @@ export default {
     questionList: [],
     chatHistory: [],
     showSolution: false,
-    theresNoSolution: false
+    theresNoSolution: false,
+    callBack: () => {}
   }),
 
   created() {
@@ -108,49 +110,51 @@ export default {
       });
       this.shouldShowSolution();
     },
-    show() {
-        this.showSolution = true;
+    showSolutionMessage() {
+      this.showSolution = true;
+    },
+    showSolutionNotIndefiedMessage() {
+      this.theresNoSolution = true;
     },
     shouldShowSolution() {
       if (this.quantityNegativeAnswers() === 2) {
+        this.callBack = this.showSolutionMessage;
         this.showModalData();
-        // this.showSolution = true;
         return;
       }
-      if (!this.questionList.length
-          && this.quantityNegativeAnswers() === 1) {
+      if (!this.questionList.length && this.quantityNegativeAnswers() === 1) {
+        this.callBack = this.showSolutionMessage;
         this.showModalData();
-        // this.showSolution = true;
         return;
       }
-      this.solutionNotIdentified()
+      this.solutionNotIdentified();
       this.nextQuestion();
     },
     solutionNotIdentified() {
       if (!this.questionList.length && this.quantityNegativeAnswers() === 0) {
+        this.callBack = this.showSolutionNotIndefiedMessage;
         this.showModalData();
-        this.theresNoSolution = true;
       }
     },
-    quantityNegativeAnswers () {
-      return this.chatHistory
-                 .filter(question => question.response === "Não").length
+    quantityNegativeAnswers() {
+      return this.chatHistory.filter(question => question.response === "Não")
+        .length;
     },
-    gotoBottom(){
+    gotoBottom() {
       this.$nextTick(() => {
         const element = this.$el.querySelector(".chat-box");
-        element.scrollIntoView({behavior: "smooth", block: "end"})
+        element.scrollIntoView({ behavior: "smooth", block: "end" });
       });
     },
     showModalData() {
-      this.$bvModal.show('modalData');
+      this.$bvModal.show("modalData");
     }
   }
 };
 </script>
 
 <style lang="scss">
-@import '@/assets/scss/config/variables.scss';
+@import "@/assets/scss/config/variables.scss";
 @media (min-width: 100px) {
   .chat {
     background-color: $secondary-color;
@@ -167,7 +171,7 @@ export default {
       .question {
         text-align: left;
         color: $question-text-color;
-        font-family: "Lato, sans-serif",serif;
+        font-family: "Lato, sans-serif", serif;
         font-size: 13pt;
       }
       .answer {

@@ -56,7 +56,7 @@ import { required, email } from "vuelidate/lib/validators";
 export default {
   name: "ModalData",
    props: {
-    method: { type: Function },
+    callBack: { type: Function },
   },
   data: () => ({
     user: {
@@ -75,7 +75,7 @@ export default {
   methods: {
     save() {
       userService.save(this.user);
-      this.method();
+      this.callBack();
     }
   }
 };
