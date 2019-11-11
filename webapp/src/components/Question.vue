@@ -56,7 +56,7 @@
           v-on:click="collectAnswer('Sim')"
           :disabled="showSolution || theresNoSolution"
         >Sim</b-button>
-        <ModalDoubt class="ml-5 mr-5"/>
+        <ModalQuestion class="ml-5 mr-5"/>
         <b-button
           class="answer-btn"
           v-on:click="collectAnswer('Não')"
@@ -69,12 +69,12 @@
 
 <script>
 import StageService from "@/services/stage.service.js";
-import ModalDoubt from "@/components/ModalDoubt";
-import Solutions from "./Solutions";
+import ModalQuestion from "@/components/ModalQuestion";
+import Solutions from "@/components/Solution";
 
 export default {
   components: {
-    ModalDoubt,
+    ModalQuestion,
     Solutions
   },
   name: "Question",
@@ -89,7 +89,7 @@ export default {
   }),
 
   created() {
-      stageService.getStageById(this.idStage).then(response => {   
+      StageService.getStageById(this.idStage).then(response => {
       const stage = response.data;
       this.questionList = stage.questions;
       this.nextQuestion();
