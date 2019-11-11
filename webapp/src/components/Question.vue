@@ -68,7 +68,7 @@
 </template>
 
 <script>
-import questionService from "@/services/questions.service.js";
+import QuestionService from "@/services/questions.service.js";
 import ModalQuestion from "@/components/ModalQuestion";
 import Solution from "@/components/Solution";
 
@@ -88,7 +88,7 @@ export default {
   }),
 
   created() {
-    questionService.getQuestions().then(list => {
+    QuestionService.getQuestions().then(list => {
       this.questionList = list.data;
       this.nextQuestion();
     });
