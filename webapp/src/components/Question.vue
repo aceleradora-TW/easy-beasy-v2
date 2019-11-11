@@ -137,9 +137,10 @@ export default {
 </script>
 
 <style lang="scss">
+@import '@/assets/scss/config/variables.scss';
 @media (min-width: 100px) {
   .chat {
-    background-color: #ffffff;
+    background-color: $secondary-color;
     position: fixed;
     width: 100%;
     height: 80%;
@@ -152,13 +153,13 @@ export default {
       }
       .question {
         text-align: left;
-        color: #151515;
+        color: $question-text-color;
         font-family: "Lato, sans-serif",serif;
         font-size: 13pt;
       }
       .answer {
         text-align: right;
-        color: #636363;
+        color: $question-text-color;
         margin-bottom: 15px;
       }
     }
@@ -169,7 +170,7 @@ export default {
       justify-content: center;
       bottom: 0;
       width: 100%;
-      background-color: #ffffff;
+      background-color: $secondary-color;
 
       #container {
         display: flex;
@@ -177,8 +178,8 @@ export default {
         padding: 0.5rem 0.5rem 30px 0.5rem;
 
         .answer-btn {
-          background-color: #2fc0d5;
-          border-color: #2fc0d5;
+          background-color: $primary-color;
+          border-color: $primary-color;
         }
         .modal-question-btn {
           background-color: #ffffff;

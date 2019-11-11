@@ -46,16 +46,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/scss/config/variables.scss';
 .ml-6 {
   margin-left: 6px;
 }
 .answer-btn {
-  background-color: #2fc0d5;
-  border-color: #2fc0d5;
+  background-color: $primary-color;
+  border-color:$primary-color;
 }
 .answer-btn:hover{
-  background-color: #2fc0d5;
-  border-color: #2fc0d5;
+  background-color:$primary-color;
+  border-color:$primary-color;
 }
 .mt-20{
   margin-top: 20px;
