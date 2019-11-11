@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Solution from "@/services/stage.service";
+import StageService from "@/services/stage.service";
 
 export default {
   data: () => ({
@@ -13,7 +13,7 @@ export default {
     idStage: 1
   }),
   created() {
-    Solution.getStageById(this.idStage).then(r => {
+    StageService.getStageById(this.idStage).then(r => {
       const stage = r.data;
       this.solutionScreen = stage.solution;
     });

@@ -68,7 +68,7 @@
 </template>
 
 <script>
-import stageService from "@/services/stage.service.js";
+import StageService from "@/services/stage.service.js";
 import ModalDoubt from "@/components/ModalDoubt";
 import Solutions from "./Solutions";
 
