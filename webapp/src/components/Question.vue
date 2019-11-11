@@ -35,7 +35,7 @@
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
         <b-col cols="9" class="question">
-          <Solutions></Solutions>
+          <Solution/>
         </b-col>
       </b-row>
 
@@ -56,7 +56,7 @@
           v-on:click="collectAnswer('Sim'), gotoBottom()"
           :disabled="showSolution || theresNoSolution"
         >Sim</b-button>
-        <ModalDoubt class="ml-5 mr-5"/>
+        <ModalQuestion class="ml-5 mr-5"/>
         <b-button
           class="answer-btn"
           v-on:click="collectAnswer('Não'), gotoBottom()"
@@ -69,13 +69,13 @@
 
 <script>
 import questionService from "@/services/questions.service.js";
-import ModalDoubt from "@/components/ModalDoubt";
-import Solutions from "./Solutions";
+import ModalQuestion from "@/components/ModalQuestion";
+import Solution from "@/components/Solution";
 
 export default {
   components: {
-    ModalDoubt,
-    Solutions
+    ModalQuestion,
+    Solution
   },
   name: "Question",
 
