@@ -137,6 +137,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import '@/assets/scss/config/variables.scss';
 @media (min-width: 100px) {
   .chat {
     background-color: #ffffff;
@@ -177,7 +178,7 @@ export default {
         padding: 0.5rem 0.5rem 30px 0.5rem;
 
         .answer-btn {
-          background-color: #2fc0d5;
+          background-color: $primary-color;
           border-color: #2fc0d5;
         }
         .doubt-btn {
