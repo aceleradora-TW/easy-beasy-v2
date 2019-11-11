@@ -1,7 +1,7 @@
 <template>
   <div>
 
-    <b-modal hide-header-close hide-footer no-close-on-backdrop no-close-on-esc id="modal">
+    <b-modal hide-header-close hide-footer no-close-on-backdrop no-close-on-esc id="modalData">
       <p>
         <strong>Por favor, nos informe nome e email para receber o diagnóstico.</strong>
       </p>
@@ -41,7 +41,7 @@
             <b-button
               squared
               type="submit"
-              v-on:click="save(), $bvModal.hide('modal')"
+              v-on:click="save(), $bvModal.hide('modalData')"
               class="saveUser"
             >Salvar</b-button>
           </b-col>

@@ -1,5 +1,6 @@
 <template>
   <div class="chat">
+    <ModalData/>
     <b-container class="chat-box">
       <b-row align-h="start" class="mb-4">
         <b-col cols="auto">
@@ -23,7 +24,7 @@
         </b-row>
       </div>
 
-      <b-row class="question current-question" v-if="!showSolution">
+      <b-row class="question current-question" v-if="currentQuestion && !showSolution">
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
@@ -35,33 +36,32 @@
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
         <b-col cols="9" class="question">
-          <Solutions></Solutions>
+          <Solution/>
         </b-col>
       </b-row>
 
-      <b-row v-if="solutionNotIdentified()"  class="mb-3">
+      <b-row v-if="theresNoSolution" class="mb-3">
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
         <b-col cols="9" class="question">
-          Não identificamos problema!!! 
+          Não identificamos nenhum problema!
         </b-col>
       </b-row>
     </b-container>
 
     <b-row class="footer">
       <div id="container" class="answer-buttons">
-        <ModalData class="ml-5 mr-5"/>
         <b-button
           class="answer-btn"
-          v-on:click="collectAnswer('Sim')"
-          :disabled="showSolution || solutionNotIdentified()"
+          v-on:click="collectAnswer('Sim'), gotoBottom()"
+          :disabled="showSolution || theresNoSolution"
         >Sim</b-button>
-        <ModalDoubt class="ml-5 mr-5"/>
+        <ModalQuestion class="ml-5 mr-5"/>
         <b-button
           class="answer-btn"
-          v-on:click="collectAnswer('Não')"
-          :disabled="showSolution || solutionNotIdentified()"
+          v-on:click="collectAnswer('Não'), gotoBottom()"
+          :disabled="showSolution || theresNoSolution"
         >Não</b-button>
       </div>
     </b-row>
@@ -70,23 +70,25 @@
 
 <script>
 import questionService from "@/services/questions.service.js";
-import ModalData from "./ModalData";
-import ModalDoubt from "@/components/ModalDoubt";
-import Solutions from "./Solutions";
+import ModalQuestion from "@/components/ModalQuestion";
+import Solution from "@/components/Solution";
+import ModalData from "@/components/ModalData";
+
 
 export default {
   components: {
-    ModalData,
-    ModalDoubt,
-    Solutions
+    ModalQuestion,
+    Solution,
+    ModalData
   },
   name: "Question",
 
   data: () => ({
-    currentQuestion: "",
+    currentQuestion: null,
     questionList: [],
     chatHistory: [],
     showSolution: false,
+    theresNoSolution: false
   }),
 
   created() {
@@ -107,23 +109,24 @@ export default {
       this.shouldShowSolution();
     },
     shouldShowSolution() {
-      if (this.quantityNegativeAnswers() == 2) {
+      if (this.quantityNegativeAnswers() === 2) {
         this.showModalData();
         this.showSolution = true;
         return;
       }
       if (!this.questionList.length
-          && this.quantityNegativeAnswers() == 1) {
+          && this.quantityNegativeAnswers() === 1) {
+        this.showModalData();
         this.showSolution = true;
         return;
       }
-
+      this.solutionNotIdentified()
       this.nextQuestion();
-      this.gotoBottom();
     },
     solutionNotIdentified() {
-      if (!this.questionList.length && this.quantityNegativeAnswers() == 0) {
-        return true;
+      if (!this.questionList.length && this.quantityNegativeAnswers() === 0) {
+        this.showModalData();
+        this.theresNoSolution = true;
       }
     },
     quantityNegativeAnswers () {
@@ -131,10 +134,13 @@ export default {
                  .filter(question => question.response === "Não").length
     },
     gotoBottom(){
-      var element = document.querySelector("div.chat-box.container");element.scrollIntoView({behavior: "smooth", block: "end"});
+      this.$nextTick(() => {
+        const element = this.$el.querySelector(".chat-box");
+        element.scrollIntoView({behavior: "smooth", block: "end"})
+      });
     },
     showModalData() {
-      this.$bvModal.show('modal'); 
+      this.$bvModal.show('modalData');
     }
   }
 };
@@ -146,8 +152,8 @@ export default {
     background-color: #ffffff;
     position: fixed;
     width: 100%;
-    height: 86%;
-    overflow-y: scroll;
+    height: 80%;
+    overflow-y: auto;
     .chat-box {
       padding: 3rem 2rem;
       img {
@@ -157,7 +163,7 @@ export default {
       .question {
         text-align: left;
         color: #151515;
-        font-family: "Lato, sans-serif";
+        font-family: "Lato, sans-serif",serif;
         font-size: 13pt;
       }
       .answer {
