@@ -44,6 +44,7 @@ public class StageServiceTest {
 
     @Test
     public void shouldReturnOKIfAddValidStage() {
+
         when(stageRepository.getStages()).thenReturn(asList());
         when(stageRepository.save(stage)).thenReturn(asList(stage));
 
@@ -53,6 +54,9 @@ public class StageServiceTest {
         Assert.assertEquals(stage.getSolution(), stageResult.getSolution());
         Assert.assertEquals(stage.getHint(), stageResult.getHint());
         Assert.assertEquals(stage.getNumber(), stageResult.getNumber());
+
+        Mockito.verify(stageRepository, Mockito.times(1)).getStages();
+        Mockito.verify(stageRepository, Mockito.times(1)).save(stage);
     }
 
     @Test
@@ -63,6 +67,8 @@ public class StageServiceTest {
         expectedException.expectMessage("The stage number already exist.");
 
         stageService.save(stage);
+
+        Mockito.verify(stageRepository, Mockito.times(1)).getStages();
     }
 
     @Test
@@ -75,6 +81,7 @@ public class StageServiceTest {
         expectedException.expectMessage("The stage solution cannot be null.");
 
         stageService.save(stage);
+        Mockito.verify(stageRepository, Mockito.times(1)).getStages();
     }
 
     @Test
@@ -87,6 +94,7 @@ public class StageServiceTest {
         expectedException.expectMessage("The stage doubt cannot be null.");
 
         stageService.save(stage);
+        Mockito.verify(stageRepository, Mockito.times(1)).getStages();
     }
 
     @Test
@@ -99,6 +107,7 @@ public class StageServiceTest {
         expectedException.expectMessage("The stage solution cannot starts with space.");
 
         stageService.save(stage);
+        Mockito.verify(stageRepository, Mockito.times(1)).getStages();
     }
 
     @Test
@@ -111,6 +120,7 @@ public class StageServiceTest {
         expectedException.expectMessage("The stage doubt cannot starts with space.");
 
         stageService.save(stage);
+        Mockito.verify(stageRepository, Mockito.times(1)).getStages();
     }
 
     @Test
@@ -121,6 +131,8 @@ public class StageServiceTest {
         Stage stageResult = stageService.deleteStage(1);
 
         Assert.assertEquals(stage, stageResult);
+        Mockito.verify(stageRepository, Mockito.times(1)).getStages();
+        Mockito.verify(stageRepository, Mockito.times(1)).deleteStage(stage);
     }
 
     @Test
@@ -131,6 +143,7 @@ public class StageServiceTest {
         expectedException.expectMessage("This stage number does not exist.");
 
         stageService.deleteStage(5);
+        Mockito.verify(stageRepository, Mockito.times(1)).getStages();
     }
 
     @Test
@@ -143,6 +156,7 @@ public class StageServiceTest {
         Stage stageResult = stageService.getStageById(id);
 
         Assert.assertEquals(stageResult.getId(), id);
+        Mockito.verify(stageRepository, Mockito.times(1)).getStageById(id);
     }
 
     @Test
@@ -154,6 +168,7 @@ public class StageServiceTest {
         List<Question> questions = stageService.getQuestions();
 
         Assert.assertEquals(questions.get(0), question);
+        Mockito.verify(questionRepository, Mockito.times(1)).getAllQuestions();
     }
 
     @Test
@@ -165,5 +180,6 @@ public class StageServiceTest {
         Question questionResult = stageService.getQuestion(0);
 
         Assert.assertEquals(question, questionResult);
+        Mockito.verify(questionRepository, Mockito.times(1)).getAllQuestions();
     }
 }
