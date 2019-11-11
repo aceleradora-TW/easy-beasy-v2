@@ -19,12 +19,13 @@ export default {
 </script>
 
 <style lang="scss">
+@import '@/assets/scss/config/variables.scss';
 header {
   justify-content: center;
-  background-color: #e2e2e2;
+  background-color: $backgound-header-color;
   padding: 5px 15px;
 }
 h2 {
-  color: #cccccc;
+  color: $text-header-color;
 }
 </style>
