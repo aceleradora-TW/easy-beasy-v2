@@ -36,7 +36,7 @@
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
         <b-col cols="9" class="question">
-          <Solutions></Solutions>
+          <Solution/>
         </b-col>
       </b-row>
 
@@ -54,13 +54,13 @@
       <div id="container" class="answer-buttons">
         <b-button
           class="answer-btn"
-          v-on:click="collectAnswer('Sim')"
+          v-on:click="collectAnswer('Sim'), gotoBottom()"
           :disabled="showSolution || theresNoSolution"
         >Sim</b-button>
-        <ModalDoubt class="ml-5 mr-5"/>
+        <ModalQuestion class="ml-5 mr-5"/>
         <b-button
           class="answer-btn"
-          v-on:click="collectAnswer('Não')"
+          v-on:click="collectAnswer('Não'), gotoBottom()"
           :disabled="showSolution || theresNoSolution"
         >Não</b-button>
       </div>
@@ -70,14 +70,15 @@
 
 <script>
 import questionService from "@/services/questions.service.js";
-import ModalDoubt from "@/components/ModalDoubt";
-import Solutions from "./Solutions";
+import ModalQuestion from "@/components/ModalQuestion";
+import Solution from "@/components/Solution";
 import ModalNps from "@/components/ModalNps";
+
 
 export default {
   components: {
-    ModalDoubt,
-    Solutions,
+    ModalQuestion,
+    Solution,
     ModalNps
   },
   name: "Question",
@@ -106,7 +107,6 @@ export default {
         response: answer
       });
       this.shouldShowSolution();
-
     },
     shouldShowSolution() {
       if (this.quantityNegativeAnswers() === 2) {
@@ -120,7 +120,6 @@ export default {
       }
       this.solutionNotIdentified()
       this.nextQuestion();
-      this.gotoBottom();
     },
     solutionNotIdentified() {
       if (!this.questionList.length && this.quantityNegativeAnswers() == 0) {
@@ -128,15 +127,17 @@ export default {
         this.theresNoSolution = true;
       }
     },
-    quantityNegativeAnswers () {
+    quantityNegativeAnswers() {
       return this.chatHistory
-                 .filter(question => question.response === "Não").length
+              .filter(question => question.response === "Não").length
     },
-    gotoBottom(){
-      const element = document.querySelector("div.chat-box.container");
-      element.scrollIntoView({behavior: "smooth", block: "end"});
+    gotoBottom() {
+      this.$nextTick(() => {
+        const element = this.$el.querySelector(".chat-box");
+        element.scrollIntoView({behavior: "smooth", block: "end"})
+      });
     },
-    showNps(){
+    showNps() {
       this.$bvModal.show('modalNps')
     }
   }
@@ -149,8 +150,8 @@ export default {
     background-color: #ffffff;
     position: fixed;
     width: 100%;
-    height: 86%;
-    overflow-y: scroll;
+    height: 80%;
+    overflow-y: auto;
     .chat-box {
       padding: 3rem 2rem;
       img {
