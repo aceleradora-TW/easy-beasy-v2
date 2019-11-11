@@ -10,7 +10,11 @@
           empresa a partir de perguntas e respostas de “sim” ou “não”. Vamos começar!
         </b-col>
       </b-row>
-      <div class="question question-history" v-for="answeredQuestion in chatHistory" v-bind:key="answeredQuestion.description">
+      <div
+        class="question question-history"
+        v-for="answeredQuestion in chatHistory"
+        v-bind:key="answeredQuestion.description"
+      >
         <b-row>
           <b-col cols="auto">
             <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
@@ -27,7 +31,7 @@
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
-        <b-col cols="9">{{currentQuestion.description}}</b-col>
+        <b-col cols="9">{{title}}</b-col>
       </b-row>
 
       <b-row v-if="showSolution" class="mb-3">
@@ -35,7 +39,7 @@
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
         <b-col cols="9" class="question">
-          <Solution/>
+          <Solution />
         </b-col>
       </b-row>
 
@@ -43,9 +47,7 @@
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
-        <b-col cols="9" class="question">
-          Não identificamos nenhum problema!
-        </b-col>
+        <b-col cols="9" class="question">Não identificamos nenhum problema!</b-col>
       </b-row>
     </b-container>
 
@@ -56,7 +58,7 @@
           v-on:click="collectAnswer('Sim'), gotoBottom()"
           :disabled="showSolution || theresNoSolution"
         >Sim</b-button>
-        <ModalQuestion class="ml-5 mr-5"/>
+        <ModalQuestion class="ml-5 mr-5" />
         <b-button
           class="answer-btn"
           v-on:click="collectAnswer('Não'), gotoBottom()"
@@ -84,7 +86,9 @@ export default {
     questionList: [],
     chatHistory: [],
     showSolution: false,
-    theresNoSolution: false
+    theresNoSolution: false,
+    title: "",
+    titleToWrite:""
   }),
 
   created() {
@@ -94,8 +98,19 @@ export default {
     });
   },
   methods: {
+    typeWrite(){
+            this.title = "";
+           this.titleToWrite.description.split("").forEach((letra ,  i ) => {
+            setTimeout(() => {
+                this.title+= letra;
+            }, 20 * i )
+        });
+      },
     nextQuestion() {
       this.currentQuestion = this.questionList.shift();
+      this.titleToWrite = this.currentQuestion;
+      console.log(this.titleToWrite);
+      this.typeWrite();
     },
     collectAnswer(answer) {
       this.chatHistory.push({
@@ -153,7 +168,7 @@ export default {
       .question {
         text-align: left;
         color: #151515;
-        font-family: "Lato, sans-serif",serif;
+        font-family: "Lato, sans-serif", serif;
         font-size: 13pt;
       }
       .answer {
