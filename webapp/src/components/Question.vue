@@ -111,11 +111,13 @@ export default {
     shouldShowSolution() {
       if (this.quantityNegativeAnswers() === 2) {
         this.showSolution = true;
+        this.nextStage();
         return;
       }
       if (!this.questionList.length
           && this.quantityNegativeAnswers() === 1) {
         this.showSolution = true;
+        this.nextStage();
         return;
       }
       this.solutionNotIdentified()
@@ -125,6 +127,7 @@ export default {
     solutionNotIdentified() {
       if (!this.questionList.length && this.quantityNegativeAnswers() === 0) {
         this.theresNoSolution = true;
+        this.nextStage();
       }
     },
     quantityNegativeAnswers () {
@@ -136,6 +139,12 @@ export default {
         const element = this.$el.querySelector(".chat-box");
         element.scrollIntoView({behavior: "smooth", block: "end"})
       });
+    },
+    nextStage(){
+      if(this.theresNoSolution===true || this.showSolution===true){
+        this.idStage++;
+        console.log("OI AMIGUINHO, ESTAMOS NO ESTÁGIO " + this.idStage);
+      }
     }
   }
 };
