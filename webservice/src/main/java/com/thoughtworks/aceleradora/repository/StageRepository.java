@@ -40,8 +40,8 @@ public class StageRepository {
             new Question("Você sabe se o seu cliente recomendaria o seu produto para alguém? E por que?")));
 
     private List<Stage> stages = new ArrayList<>(Arrays.asList(
-            new Stage("Controle seus gastos!", 1, "doubt", questions, 1L),
-            new Stage("Controle seu tempo!", 2, "doubt", questions, 2L)));
+            new Stage("Controle seus gastos!", 1, "hint", questions, 1L),
+            new Stage("Controle seu tempo!", 2, "hint", questions, 2L)));
 
     public List<Stage> save(Stage stage) {
         stages.add(stage);

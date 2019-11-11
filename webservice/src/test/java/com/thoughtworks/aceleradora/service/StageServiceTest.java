@@ -39,7 +39,7 @@ public class StageServiceTest {
 
     @Before
     public  void setup(){
-        stage = new Stage("solution", 1, "doubt", asList(new Question("question")));
+        stage = new Stage("solution", 1, "hint", asList(new Question("question")));
     }
 
     @Test
@@ -51,7 +51,7 @@ public class StageServiceTest {
 
         Stage stageResult = stages.get(0);
         Assert.assertEquals(stage.getSolution(), stageResult.getSolution());
-        Assert.assertEquals(stage.getDoubt(), stageResult.getDoubt());
+        Assert.assertEquals(stage.getHint(), stageResult.getHint());
         Assert.assertEquals(stage.getNumber(), stageResult.getNumber());
     }
 
@@ -67,7 +67,7 @@ public class StageServiceTest {
 
     @Test
     public void shouldTrowExceptionIfSolutionNull() {
-        Stage stage = new Stage(null, 1, "doubt", asList(new Question("question")));
+        Stage stage = new Stage(null, 1, "hint", asList(new Question("question")));
 
         when(stageRepository.getStages()).thenReturn(asList(stage));
 
@@ -103,7 +103,7 @@ public class StageServiceTest {
 
     @Test
     public void shouldTrowExceptionIfDoubtStartsWithSpace() {
-        Stage stage = new Stage("solution", 1, " doubt", asList(new Question("question")));
+        Stage stage = new Stage("solution", 1, " hint", asList(new Question("question")));
 
         when(stageRepository.getStages()).thenReturn(asList(stage));
 

@@ -9,7 +9,7 @@ import java.util.List;
 public class Stage {
     private List<Question> questions = new ArrayList<>();
     private String solution;
-    private String doubt;
+    private String hint;
     private int number;
     private Long id;
 
@@ -17,16 +17,16 @@ public class Stage {
     @JsonCreator
     public Stage(@JsonProperty("solution") String solution,
                  @JsonProperty("number") int number,
-                 @JsonProperty("doubt") String doubt,
+                 @JsonProperty("hint") String hint,
                  @JsonProperty("questions") List<Question> questions) {
         this.solution = solution;
         this.number = number;
-        this.doubt = doubt;
+        this.hint = hint;
         this.questions = questions;
     }
 
-    public Stage(String solution, int number, String doubt, ArrayList<Question> questions, Long id) {
-        this(solution, number, doubt, questions);
+    public Stage(String solution, int number, String hint, ArrayList<Question> questions, Long id) {
+        this(solution, number, hint, questions);
         this.id = id;
     }
 
@@ -38,12 +38,12 @@ public class Stage {
         this.questions.add(question);
     }
 
-    public String getDoubt() {
-        return doubt;
+    public String getHint() {
+        return hint;
     }
 
-    public void setDoubt(String doubt) {
-        this.doubt = doubt;
+    public void setHint(String hint) {
+        this.hint = hint;
     }
 
     public String getSolution() {

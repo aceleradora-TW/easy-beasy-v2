@@ -58,14 +58,14 @@ public class StageService {
             throw new IllegalArgumentException("The stage solution cannot be null.");
         }
 
-        if (StringUtils.isEmpty(stage.getDoubt())) {
+        if (StringUtils.isEmpty(stage.getHint())) {
             throw new IllegalArgumentException("The stage doubt cannot be null.");
         }
         if (stage.getSolution().startsWith(" ")) {
             throw new IllegalArgumentException("The stage solution cannot starts with space.");
         }
 
-        if (stage.getDoubt().startsWith(" ")) {
+        if (stage.getHint().startsWith(" ")) {
             throw new IllegalArgumentException("The stage doubt cannot starts with space.");
         }
 
