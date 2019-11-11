@@ -1,20 +1,19 @@
 <template>
   <div>
-    <!-- <header> -->
-      <!-- <h2>Diagnóstico</h2> -->
-    <!-- </header> -->
-    <!-- <Question/> -->
-  <User></User>
+    <header>
+      <h2>Diagnóstico</h2>
+    </header>
+    <Question/>
   </div>
 </template>
 
 <script>
-//import Question from '@/components/Question.vue'
+import Question from '@/components/Question.vue'
 
   export default {
     name: "Diagnosis",
     components: {
-      //Question,
+      Question,
     }
 
   };
