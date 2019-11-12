@@ -60,7 +60,7 @@
           v-on:click="collectAnswer('Sim'), gotoBottom()"
           :disabled="showSolution || theresNoSolution"
         >Sim</b-button>
-        <ModalQuestion class="ml-5 mr-5" />
+        <ModalQuestion class="ml-5 mr-5" :disableButtonNotUnderstand="disableButtonNotUnderstand" />
         <b-button
           class="answer-btn"
           v-on:click="collectAnswer('Não'), gotoBottom()"
@@ -94,7 +94,9 @@ export default {
     showSolution: false,
     theresNoSolution: false,
     idStage: 1,
-    callBack: () => {}
+    callBack: () => {},
+    disableButtonNotUnderstand: false
+
   }),
 
   created() {
@@ -123,16 +125,16 @@ export default {
     },
     shouldShowSolution() {
       if (this.quantityNegativeAnswers() === 2) {
-        this.showModalData();
-        this.callBack = this.showSolutionMessage;
-        this.showNps();
-
+        this.disableButtonNotUnderstand = true;
+          this.showModalData();
+          this.callBack = this.showSolutionMessage;
+          this.showNps();
       }
       if (!this.questionList.length && this.quantityNegativeAnswers() === 1) {
+        this.disableButtonNotUnderstand = true;
         this.showModalData();
         this.callBack = this.showSolutionMessage;
         this.showNps();
-
         return;
       }
       this.solutionNotIdentified();
@@ -140,6 +142,7 @@ export default {
     },
     solutionNotIdentified() {
       if (!this.questionList.length && this.quantityNegativeAnswers() == 0) {
+        this.disableButtonNotUnderstand = true;
         this.showModalData();
         this.callBack = this.showSolutionNotIndefiedMessage;
         this.showNps()
