@@ -3,7 +3,7 @@
     <b-button
       class="modal-question-btn"
       id="show-btn"
-      v-on:click="$bvModal.show('bv-modal-example')"
+      v-on:click="$bvModal.show('bv-modal-example')" :disabled="disableButton"
     >Não entendi</b-button>
 
     <b-modal id="bv-modal-example" hide-footer>
@@ -33,7 +33,10 @@
 
 <script>
 export default {
-  name: "ModalQuestion"
+  name: "ModalQuestion",
+   props: {
+    disableButton: { type: Boolean },
+  },
 };
 </script>
 

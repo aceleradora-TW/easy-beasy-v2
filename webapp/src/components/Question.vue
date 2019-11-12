@@ -57,7 +57,7 @@
           v-on:click="collectAnswer('Sim'), gotoBottom()"
           :disabled="showSolution || theresNoSolution"
         >Sim</b-button>
-        <ModalQuestion class="ml-5 mr-5"/>
+        <ModalQuestion class="ml-5 mr-5" :disableButton="disableButton" />
         <b-button
           class="answer-btn"
           v-on:click="collectAnswer('Não'), gotoBottom()"
@@ -89,7 +89,9 @@ export default {
     chatHistory: [],
     showSolution: false,
     theresNoSolution: false,
-    idStage: 1
+    idStage: 1,
+    disableButton: false
+
   }),
 
   created() {
@@ -110,12 +112,20 @@ export default {
       });
       this.shouldShowSolution();
     },
+    showSolutionMessage() {
+      this.showSolution = true;
+    },
+    showSolutionNotIndefiedMessage() {
+      this.theresNoSolution = true;
+    },
     shouldShowSolution() {
       if (this.quantityNegativeAnswers() === 2) {
+        this.disableButton = true;
         this.showNps()
         this.showSolution = true;
       }
       if (!this.questionList.length && this.quantityNegativeAnswers() === 1) {
+        this.disableButton = true;
         this.showNps();
         this.showSolution = true;
         return;
@@ -125,6 +135,7 @@ export default {
     },
     solutionNotIdentified() {
       if (!this.questionList.length && this.quantityNegativeAnswers() == 0) {
+        this.disableButton = true;
         this.showNps()
         this.theresNoSolution = true;
       }
