@@ -57,13 +57,13 @@
         <b-button
           class="answer-btn"
           v-on:click="collectAnswer('Sim'), gotoBottom()"
-          :disabled="showSolution || theresNoSolution"
+          :disabled="showSolution || theresNoSolution || isTypewriterRunning()"
         >Sim</b-button>
         <ModalQuestion class="ml-5 mr-5" />
         <b-button
           class="answer-btn"
           v-on:click="collectAnswer('Não'), gotoBottom()"
-          :disabled="showSolution || theresNoSolution"
+          :disabled="showSolution || theresNoSolution || isTypewriterRunning()"
         >Não</b-button>
       </div>
     </b-row>
@@ -93,7 +93,6 @@ export default {
     theresNoSolution: false,
     idStage: 1,
     title: "",
-    titleToWrite:""
   }),
 
   created() {
@@ -104,17 +103,21 @@ export default {
     });
   },
   methods: {
-    typeWrite(){
-            this.title = "";
-           this.titleToWrite.description.split("").forEach((letra ,  i ) => {
-            setTimeout(() => {
-                this.title+= letra;
-            }, 20 * i )
-        });
-      },
+    typeWrite() {
+      this.clearTypewriter();
+
+      [...this.currentQuestion.description].forEach((char, index) => {
+        setTimeout(() => {
+          this.title += char;
+        }, 20 * index);
+      });
+    },
+    clearTypewriter() {
+      this.title = "";
+    },
     nextQuestion() {
       this.currentQuestion = this.questionList.shift();
-      this.titleToWrite = this.currentQuestion;
+
       this.typeWrite();
     },
     collectAnswer(answer) {
@@ -155,6 +158,9 @@ export default {
     },
     showNps() {
       this.$bvModal.show('modalNps')
+    },
+    isTypewriterRunning() {
+      return this.currentQuestion && this.currentQuestion.description !== this.title;
     }
   }
 };
