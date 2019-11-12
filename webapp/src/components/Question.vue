@@ -127,8 +127,7 @@ export default {
       this.nextQuestion();
     },
     solutionNotIdentified() {
-      if (!this.questionList.length && this.quantityNegativeAnswers() == 0) {
-        this.showNps()
+      if (!this.questionList.length && this.quantityNegativeAnswers() === 0) {
         this.theresNoSolution = true;
         this.nextStage();
       }
@@ -154,7 +153,6 @@ export default {
           let stage = response.data;
           this.questionList = stage.questions;
           this.theresNoSolution = false;
-          this.showSolution = false;
           this.nextQuestion();
         });
         console.log("OI AMIGUINHO, ESTAMOS NO ESTÁGIO " + this.idStage);
