@@ -3,7 +3,7 @@
     <b-button
       class="modal-question-btn"
       id="show-btn"
-      v-on:click="$bvModal.show('bv-modal-example')" :disabled="disableButton"
+      v-on:click="$bvModal.show('bv-modal-example')" :disabled="disableButtonNotUnderstand"
     >Não entendi</b-button>
 
     <b-modal id="bv-modal-example" hide-footer>
@@ -35,7 +35,7 @@
 export default {
   name: "ModalQuestion",
    props: {
-    disableButton: { type: Boolean },
+   disableButtonNotUnderstand: { type: Boolean },
   },
 };
 </script>
