@@ -91,8 +91,7 @@ export default {
     chatHistory: [],
     showSolution: false,
     theresNoSolution: false,
-    idStage: 1
-    theresNoSolution: false,
+    idStage: 1,
     title: "",
     titleToWrite:""
   }),
@@ -116,7 +115,6 @@ export default {
     nextQuestion() {
       this.currentQuestion = this.questionList.shift();
       this.titleToWrite = this.currentQuestion;
-      console.log(this.titleToWrite);
       this.typeWrite();
     },
     collectAnswer(answer) {
