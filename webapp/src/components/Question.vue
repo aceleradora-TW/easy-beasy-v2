@@ -35,7 +35,7 @@
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
         <b-col cols="9" class="question">
-          <Solutions></Solutions>
+          <Solution/>
         </b-col>
       </b-row>
 
@@ -53,13 +53,13 @@
       <div id="container" class="answer-buttons">
         <b-button
           class="answer-btn"
-          v-on:click="collectAnswer('Sim'), gotoBottom"
+          v-on:click="collectAnswer('Sim'), gotoBottom()"
           :disabled="showSolution || theresNoSolution"
         >Sim</b-button>
         <ModalQuestion class="ml-5 mr-5"/>
         <b-button
           class="answer-btn"
-          v-on:click="collectAnswer('Não'), gotoBottom"
+          v-on:click="collectAnswer('Não'), gotoBottom()"
           :disabled="showSolution || theresNoSolution"
         >Não</b-button>
       </div>
@@ -70,12 +70,12 @@
 <script>
 import StageService from "@/services/stage.service.js";
 import ModalQuestion from "@/components/ModalQuestion";
-import Solutions from "@/components/Solution";
+import Solution from "@/components/Solution";
 
 export default {
   components: {
     ModalQuestion,
-    Solutions
+    Solution
   },
   name: "Question",
 
@@ -93,8 +93,8 @@ export default {
       let stage = response.data;
       this.questionList = stage.questions;
       this.nextQuestion();
-    }); 
-      
+    });
+
   },
   methods: {
     nextQuestion() {
@@ -150,7 +150,7 @@ export default {
           this.theresNoSolution = false;
           this.showSolution = false;
           this.nextQuestion();
-        }); 
+        });
         console.log("OI AMIGUINHO, ESTAMOS NO ESTÁGIO " + this.idStage);
       }
     }
