@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-button
-      class="doubt-btn"
+      class="modal-question-btn"
       id="show-btn"
       v-on:click="$bvModal.show('bv-modal-example')"
     >Não entendi</b-button>
@@ -33,7 +33,7 @@
 
 <script>
 export default {
-  name: "ModalDoubt"
+  name: "ModalQuestion"
 };
 </script>
 

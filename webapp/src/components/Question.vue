@@ -189,10 +189,10 @@ export default {
           background-color: $primary-color;
           border-color: $primary-color;
         }
-        .doubt-btn {
-          background-color: $secondary-color;
-          border-color: $primary-color;
-          color: $primary-color;
+        .modal-question-btn {
+          background-color: #ffffff;
+          border-color: #2fc0d5;
+          color: #2fc0d5;
         }
         .answer-buttons {
           max-width: 200px;
