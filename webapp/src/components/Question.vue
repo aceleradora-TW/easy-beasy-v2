@@ -57,13 +57,13 @@
         <b-button
           class="answer-btn"
           v-on:click="collectAnswer('Sim'), gotoBottom()"
-          :disabled="showSolution || theresNoSolution"
+          :disabled="showSolution || theresNoSolution || isTypewriterRunning"
         >Sim</b-button>
         <ModalQuestion class="ml-5 mr-5" :disableButtonNotUnderstand="disableButtonNotUnderstand" />
         <b-button
           class="answer-btn"
           v-on:click="collectAnswer('Não'), gotoBottom()"
-          :disabled="showSolution || theresNoSolution"
+          :disabled="showSolution || theresNoSolution || isTypewriterRunning"
         >Não</b-button>
       </div>
     </b-row>
@@ -93,6 +93,7 @@ export default {
     showSolution: false,
     theresNoSolution: false,
     idStage: 1,
+      isTypewriterRunning: false,
       callBack: () => {},
       disableButtonNotUnderstand: false,
     title: "",
@@ -110,14 +111,23 @@ export default {
     });
   },
   methods: {
-    typeWrite(){
-            this.title = "";
-           this.titleToWrite.description.split("").forEach((letra ,  i ) => {
-            setTimeout(() => {
-                this.title+= letra;
-            }, 20 * i )
+   typeWrite() {
+      this.clearTypewriter();
+      this.isTypewriterRunning = true;
+      new Promise((resolve, reject) => {
+        [...this.currentQuestion.description].forEach((char, index) => {
+        setTimeout(() => {
+          this.title += char;
+          if(this.title === this.currentQuestion.description) resolve();
+          }, 20 * index);
         });
-      },
+      }).then(() => {
+        this.isTypewriterRunning = false;
+      });
+    },
+    clearTypewriter() {
+      this.title = "";
+    },
     nextQuestion() {
       this.currentQuestion = this.questionList.shift();
       this.titleToWrite = this.currentQuestion;
