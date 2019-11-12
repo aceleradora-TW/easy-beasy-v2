@@ -1,5 +1,6 @@
 <template>
   <div class="chat">
+    <ModalNps/>
     <ModalData :callBack="callBack" />
     <b-container class="chat-box">
       <b-row align-h="start" class="mb-4">
@@ -14,8 +15,7 @@
       <div
         class="question question-history"
         v-for="answeredQuestion in chatHistory"
-        v-bind:key="answeredQuestion.description"
-      >
+        v-bind:key="answeredQuestion.description">
         <b-row>
           <b-col cols="auto">
             <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
@@ -51,7 +51,6 @@
         <b-col cols="9" class="question">Não identificamos nenhum problema!</b-col>
       </b-row>
     </b-container>
-
     <b-row class="footer">
       <div id="container" class="answer-buttons">
         <b-button
@@ -71,15 +70,17 @@
 </template>
 
 <script>
-import questionService from "@/services/questions.service.js";
+import QuestionService from "@/services/questions.service.js";
 import ModalQuestion from "@/components/ModalQuestion";
 import Solution from "@/components/Solution";
+import ModalNps from "@/components/ModalNps";
 import ModalData from "@/components/ModalData";
 
 export default {
   components: {
     ModalQuestion,
     Solution,
+    ModalNps,
     ModalData
   },
   name: "Question",
@@ -94,7 +95,7 @@ export default {
   }),
 
   created() {
-    questionService.getQuestions().then(list => {
+    QuestionService.getQuestions().then(list => {
       this.questionList = list.data;
       this.nextQuestion();
     });
@@ -118,11 +119,12 @@ export default {
     },
     shouldShowSolution() {
       if (this.quantityNegativeAnswers() === 2) {
+        this.showNps();
         this.callBack = this.showSolutionMessage;
         this.showModalData();
-        return;
       }
       if (!this.questionList.length && this.quantityNegativeAnswers() === 1) {
+        this.showNps();
         this.callBack = this.showSolutionMessage;
         this.showModalData();
         return;
@@ -131,20 +133,24 @@ export default {
       this.nextQuestion();
     },
     solutionNotIdentified() {
-      if (!this.questionList.length && this.quantityNegativeAnswers() === 0) {
+      if (!this.questionList.length && this.quantityNegativeAnswers() == 0) {
+        this.showNps()
         this.callBack = this.showSolutionNotIndefiedMessage;
         this.showModalData();
       }
     },
     quantityNegativeAnswers() {
-      return this.chatHistory.filter(question => question.response === "Não")
-        .length;
+      return this.chatHistory
+              .filter(question => question.response === "Não").length
     },
     gotoBottom() {
       this.$nextTick(() => {
         const element = this.$el.querySelector(".chat-box");
-        element.scrollIntoView({ behavior: "smooth", block: "end" });
+        element.scrollIntoView({behavior: "smooth", block: "end"})
       });
+    },
+    showNps() {
+      this.$bvModal.show('modalNps')
     },
     showModalData() {
       this.$bvModal.show("modalData");
@@ -198,10 +204,10 @@ export default {
           background-color: $primary-color;
           border-color: $primary-color;
         }
-        .doubt-btn {
-          background-color: $secondary-color;
-          border-color: $primary-color;
-          color: $primary-color;
+        .modal-question-btn {
+          background-color: #ffffff;
+          border-color: #2fc0d5;
+          color: #2fc0d5;
         }
         .answer-buttons {
           max-width: 200px;

@@ -8,16 +8,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping ("/user")
+@RequestMapping("/user")
 public class UserController {
     private UserService userService;
 
-    public UserController(UserService userService){
+    public UserController(UserService userService) {
         this.userService = userService;
     }
 
     @PostMapping("/")
-    public void save (@RequestBody User user){
+    public void save(@RequestBody User user) {
         userService.save(user);
     }
 }
