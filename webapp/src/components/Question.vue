@@ -123,14 +123,16 @@ export default {
     },
     shouldShowSolution() {
       if (this.quantityNegativeAnswers() === 2) {
-        this.showNps();
-        this.callBack = this.showSolutionMessage;
         this.showModalData();
+        this.callBack = this.showSolutionMessage;
+        this.showNps();
+
       }
       if (!this.questionList.length && this.quantityNegativeAnswers() === 1) {
-        this.showNps();
-        this.callBack = this.showSolutionMessage;
         this.showModalData();
+        this.callBack = this.showSolutionMessage;
+        this.showNps();
+
         return;
       }
       this.solutionNotIdentified();
@@ -138,9 +140,9 @@ export default {
     },
     solutionNotIdentified() {
       if (!this.questionList.length && this.quantityNegativeAnswers() == 0) {
-        this.showNps()
-        this.callBack = this.showSolutionNotIndefiedMessage;
         this.showModalData();
+        this.callBack = this.showSolutionNotIndefiedMessage;
+        this.showNps()
       }
     },
     quantityNegativeAnswers() {

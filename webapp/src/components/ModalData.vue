@@ -41,7 +41,7 @@
               squared
               type="submit"
               v-on:click="save(), $bvModal.hide('modalData')"
-              class="saveUser"
+              class="saveUser answer-btn mt-20"
             >Salvar</b-button>
           </b-col>
         </b-row>
@@ -76,13 +76,26 @@ export default {
     save() {
       userService.save(this.user);
       this.callBack();
+
     }
   }
 };
 </script>
-<style scoped>
+<style lang="scss" scoped>
+@import '@/assets/scss/config/variables.scss';
 .user {
   text-align: justify;
   background-color: white;
+}
+.answer-btn {
+  background-color: $primary-color;
+  border-color:$primary-color;
+}
+.answer-btn:hover{
+  background-color:$primary-color;
+  border-color:$primary-color;
+}
+.mt-20{
+  margin-top: 20px;
 }
 </style>
