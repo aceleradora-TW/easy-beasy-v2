@@ -40,7 +40,7 @@
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
         <b-col cols="9" class="question">
-          <Solution />
+          <Solution/>
         </b-col>
       </b-row>
 
@@ -53,6 +53,7 @@
         </b-col>
       </b-row>
     </b-container>
+
     <b-row class="footer">
       <div id="container" class="answer-buttons">
         <b-button
@@ -101,9 +102,12 @@ export default {
 
   created() {
       StageService.getStageById(this.idStage).then(response => {
-      const stage = response.data;
+      let stage = response.data;
       this.questionList = stage.questions;
       this.nextQuestion();
+    })
+    .catch((error) => {
+      console.log(error.response.data)
     });
   },
   methods: {
@@ -126,18 +130,21 @@ export default {
     shouldShowSolution() {
       if (this.quantityNegativeAnswers() === 2) {
         this.disableButtonNotUnderstand = true;
-          this.showModalData();
-          this.callBack = this.showSolutionMessage;
-          this.showNps();
+        this.showModalData();
+        this.callBack = this.showSolutionMessage;
+        this.showNps();
+        this.showSolution = true;
+        this.nextStage();
       }
       if (!this.questionList.length && this.quantityNegativeAnswers() === 1) {
         this.disableButtonNotUnderstand = true;
         this.showModalData();
         this.callBack = this.showSolutionMessage;
         this.showNps();
-        return;
+        this.showSolution = true;
+        this.nextStage();
       }
-      this.solutionNotIdentified();
+      this.solutionNotIdentified()
       this.nextQuestion();
     },
     solutionNotIdentified() {
@@ -146,6 +153,8 @@ export default {
         this.showModalData();
         this.callBack = this.showSolutionNotIndefiedMessage;
         this.showNps()
+        this.theresNoSolution = true;
+        this.nextStage();
       }
     },
     quantityNegativeAnswers() {
@@ -163,6 +172,22 @@ export default {
     },
     showModalData() {
       this.$bvModal.show("modalData");
+    },
+    nextStage(){
+      if(this.theresNoSolution===true || this.showSolution===true){
+        this.idStage++;
+        this.questionList = [];
+        StageService.getStageById(this.idStage).then(response => {
+          let stage = response.data;
+          this.questionList = stage.questions;
+          this.theresNoSolution = false;
+          this.nextQuestion();
+
+        })
+        .catch((error) => {
+          console.log(error.response.data);
+        });
+      }
     }
   }
 };
