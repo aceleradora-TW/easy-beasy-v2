@@ -1,5 +1,6 @@
 <template>
   <div class="chat">
+    <ModalNps/>
     <b-container class="chat-box">
       <b-row align-h="start" class="mb-4">
         <b-col cols="auto">
@@ -70,14 +71,17 @@
 </template>
 
 <script>
-import questionService from "@/services/questions.service.js";
+import QuestionService from "@/services/questions.service.js";
 import ModalQuestion from "@/components/ModalQuestion";
 import Solution from "@/components/Solution";
+import ModalNps from "@/components/ModalNps";
+
 
 export default {
   components: {
     ModalQuestion,
-    Solution
+    Solution,
+    ModalNps
   },
   name: "Question",
 
@@ -92,7 +96,7 @@ export default {
   }),
 
   created() {
-    questionService.getQuestions().then(list => {
+    QuestionService.getQuestions().then(list => {
       this.questionList = list.data;
       this.nextQuestion();
     });
@@ -121,11 +125,11 @@ export default {
     },
     shouldShowSolution() {
       if (this.quantityNegativeAnswers() === 2) {
+        this.showNps()
         this.showSolution = true;
-        return;
       }
-      if (!this.questionList.length
-          && this.quantityNegativeAnswers() === 1) {
+      if (!this.questionList.length && this.quantityNegativeAnswers() === 1) {
+        this.showNps();
         this.showSolution = true;
         return;
       }
@@ -133,28 +137,33 @@ export default {
       this.nextQuestion();
     },
     solutionNotIdentified() {
-      if (!this.questionList.length && this.quantityNegativeAnswers() === 0) {
+      if (!this.questionList.length && this.quantityNegativeAnswers() == 0) {
+        this.showNps()
         this.theresNoSolution = true;
       }
     },
-    quantityNegativeAnswers () {
+    quantityNegativeAnswers() {
       return this.chatHistory
-                 .filter(question => question.response === "Não").length
+              .filter(question => question.response === "Não").length
     },
-    gotoBottom(){
+    gotoBottom() {
       this.$nextTick(() => {
         const element = this.$el.querySelector(".chat-box");
         element.scrollIntoView({behavior: "smooth", block: "end"})
       });
+    },
+    showNps() {
+      this.$bvModal.show('modalNps')
     }
   }
 };
 </script>
 
 <style lang="scss">
+@import '@/assets/scss/config/variables.scss';
 @media (min-width: 100px) {
   .chat {
-    background-color: #ffffff;
+    background-color: $secondary-color;
     position: fixed;
     width: 100%;
     height: 80%;
@@ -167,13 +176,13 @@ export default {
       }
       .question {
         text-align: left;
-        color: #151515;
-        font-family: "Lato, sans-serif", serif;
+        color: $question-text-color;
+        font-family: "Lato, sans-serif",serif;
         font-size: 13pt;
       }
       .answer {
         text-align: right;
-        color: #636363;
+        color: $question-text-color;
         margin-bottom: 15px;
       }
     }
@@ -184,7 +193,7 @@ export default {
       justify-content: center;
       bottom: 0;
       width: 100%;
-      background-color: #ffffff;
+      background-color: $secondary-color;
 
       #container {
         display: flex;
@@ -192,10 +201,10 @@ export default {
         padding: 0.5rem 0.5rem 30px 0.5rem;
 
         .answer-btn {
-          background-color: #2fc0d5;
-          border-color: #2fc0d5;
+          background-color: $primary-color;
+          border-color: $primary-color;
         }
-        .doubt-btn {
+        .modal-question-btn {
           background-color: #ffffff;
           border-color: #2fc0d5;
           color: #2fc0d5;
