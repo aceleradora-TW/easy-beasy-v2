@@ -5,15 +5,17 @@
 </template>
 
 <script>
-import SolutionService from "@/services/solutions.service";
+import StageService from "@/services/stage.service";
 
 export default {
   data: () => ({
-    solutionScreen: ""
+    solutionScreen: "",
+    idStage: 1
   }),
   created() {
-    SolutionService.getSolutions().then(r => {
-      this.solutionScreen = r.data.solution;
+    StageService.getStageById(this.idStage).then(r => {
+      const stage = r.data;
+      this.solutionScreen = stage.solution;
     });
   }
 };

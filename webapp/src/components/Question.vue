@@ -71,7 +71,7 @@
 </template>
 
 <script>
-import QuestionService from "@/services/questions.service.js";
+import StageService from "@/services/stage.service.js";
 import ModalQuestion from "@/components/ModalQuestion";
 import Solution from "@/components/Solution";
 import ModalNps from "@/components/ModalNps";
@@ -91,13 +91,16 @@ export default {
     chatHistory: [],
     showSolution: false,
     theresNoSolution: false,
+    idStage: 1
+    theresNoSolution: false,
     title: "",
     titleToWrite:""
   }),
 
   created() {
-    QuestionService.getQuestions().then(list => {
-      this.questionList = list.data;
+      StageService.getStageById(this.idStage).then(response => {
+      const stage = response.data;
+      this.questionList = stage.questions;
       this.nextQuestion();
     });
   },
