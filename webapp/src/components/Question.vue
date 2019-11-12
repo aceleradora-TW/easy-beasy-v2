@@ -98,7 +98,6 @@ export default {
       this.questionList = stage.questions;
       this.nextQuestion();
     });
-
   },
   methods: {
     nextQuestion() {
@@ -110,7 +109,6 @@ export default {
         response: answer
       });
       this.shouldShowSolution();
-
     },
     shouldShowSolution() {
       if (this.quantityNegativeAnswers() === 2) {
@@ -127,7 +125,6 @@ export default {
       }
       this.solutionNotIdentified()
       this.nextQuestion();
-      this.gotoBottom();
     },
     solutionNotIdentified() {
       if (!this.questionList.length && this.quantityNegativeAnswers() == 0) {
