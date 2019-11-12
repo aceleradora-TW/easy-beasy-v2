@@ -12,14 +12,14 @@ import java.util.List;
 public class StageRepository {
 
 
-    private ArrayList<Question> P1 = new ArrayList<>(Arrays.asList(
+    private ArrayList<Question> questions = new ArrayList<>(Arrays.asList(
             new Question("Você tem uma organização de tempo e tarefas?"),
             new Question("Você geralmente esquece de coisas que precisam ser feitas?"),
             new Question("Você organiza a semana em tarefas e metas a serem cumpridas?"),
             new Question("Você utiliza alguma ferramenta ou estratégia para organizar a sua semana?")));
 
     private List<Stage> stages = new ArrayList<>(Arrays.asList(
-            new Stage("Controle seus gastos!", 1, "hint", P1, 1L)));
+            new Stage("Controle seus gastos!", 1, "hint", questions, 1L)));
 
     public List<Stage> save(Stage stage) {
         stages.add(stage);
