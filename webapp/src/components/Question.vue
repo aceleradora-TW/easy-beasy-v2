@@ -105,6 +105,9 @@ export default {
       let stage = response.data;
       this.questionList = stage.questions;
       this.nextQuestion();
+    })
+    .catch((error) => {
+      console.log(error.response.data)
     });
   },
   methods: {
@@ -180,8 +183,10 @@ export default {
           this.theresNoSolution = false;
           this.nextQuestion();
 
+        })
+        .catch((error) => {
+          console.log(error.response.data);
         });
-        console.log("OI AMIGUINHO, ESTAMOS NO ESTÁGIO " + this.idStage);
       }
     }
   }
