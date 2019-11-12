@@ -8,7 +8,7 @@ import java.util.List;
 
 @Service
 public class QuestionService {
-    private QuestionRepository repository ;
+    private QuestionRepository repository;
 
     public QuestionService(QuestionRepository repository) {
         this.repository = repository;

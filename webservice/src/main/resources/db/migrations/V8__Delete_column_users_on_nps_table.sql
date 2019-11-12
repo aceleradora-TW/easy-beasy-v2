@@ -1,0 +1,1 @@
+ALTER TABLE net_promoter_score DROP COLUMN id_users;

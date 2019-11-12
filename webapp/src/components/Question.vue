@@ -1,5 +1,6 @@
 <template>
   <div class="chat">
+    <ModalNps/>
     <b-container class="chat-box">
       <b-row align-h="start" class="mb-4">
         <b-col cols="auto">
@@ -71,11 +72,14 @@
 import QuestionService from "@/services/questions.service.js";
 import ModalQuestion from "@/components/ModalQuestion";
 import Solution from "@/components/Solution";
+import ModalNps from "@/components/ModalNps";
+
 
 export default {
   components: {
     ModalQuestion,
-    Solution
+    Solution,
+    ModalNps
   },
   name: "Question",
 
@@ -106,11 +110,11 @@ export default {
     },
     shouldShowSolution() {
       if (this.quantityNegativeAnswers() === 2) {
+        this.showNps()
         this.showSolution = true;
-        return;
       }
-      if (!this.questionList.length
-          && this.quantityNegativeAnswers() === 1) {
+      if (!this.questionList.length && this.quantityNegativeAnswers() === 1) {
+        this.showNps();
         this.showSolution = true;
         return;
       }
@@ -118,19 +122,23 @@ export default {
       this.nextQuestion();
     },
     solutionNotIdentified() {
-      if (!this.questionList.length && this.quantityNegativeAnswers() === 0) {
+      if (!this.questionList.length && this.quantityNegativeAnswers() == 0) {
+        this.showNps()
         this.theresNoSolution = true;
       }
     },
-    quantityNegativeAnswers () {
+    quantityNegativeAnswers() {
       return this.chatHistory
-                 .filter(question => question.response === "Não").length
+              .filter(question => question.response === "Não").length
     },
-    gotoBottom(){
+    gotoBottom() {
       this.$nextTick(() => {
         const element = this.$el.querySelector(".chat-box");
         element.scrollIntoView({behavior: "smooth", block: "end"})
       });
+    },
+    showNps() {
+      this.$bvModal.show('modalNps')
     }
   }
 };
