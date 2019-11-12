@@ -48,7 +48,9 @@
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
-        <b-col cols="9" class="question">Não identificamos nenhum problema!</b-col>
+        <b-col cols="9" class="question">
+          Não identificamos nenhum problema!
+        </b-col>
       </b-row>
     </b-container>
     <b-row class="footer">
@@ -70,7 +72,7 @@
 </template>
 
 <script>
-import QuestionService from "@/services/questions.service.js";
+import StageService from "@/services/stage.service.js";
 import ModalQuestion from "@/components/ModalQuestion";
 import Solution from "@/components/Solution";
 import ModalNps from "@/components/ModalNps";
@@ -91,12 +93,14 @@ export default {
     chatHistory: [],
     showSolution: false,
     theresNoSolution: false,
+    idStage: 1,
     callBack: () => {}
   }),
 
   created() {
-    QuestionService.getQuestions().then(list => {
-      this.questionList = list.data;
+      StageService.getStageById(this.idStage).then(response => {
+      const stage = response.data;
+      this.questionList = stage.questions;
       this.nextQuestion();
     });
   },
