@@ -117,14 +117,16 @@ export default {
         this.nextStage();
         return;
       }
-      if (!this.questionList.length && this.quantityNegativeAnswers() === 1) {
+      else if (!this.questionList.length && this.quantityNegativeAnswers() === 1) {
         this.showNps();
         this.showSolution = true;
         this.nextStage();
         return;
       }
-      this.solutionNotIdentified()
-      this.nextQuestion();
+      else{
+        this.solutionNotIdentified();
+        this.nextQuestion();
+      }
     },
     solutionNotIdentified() {
       if (!this.questionList.length && this.quantityNegativeAnswers() === 0) {
@@ -154,6 +156,7 @@ export default {
           this.questionList = stage.questions;
           this.theresNoSolution = false;
           this.nextQuestion();
+          
         });
         console.log("OI AMIGUINHO, ESTAMOS NO ESTÁGIO " + this.idStage);
       }

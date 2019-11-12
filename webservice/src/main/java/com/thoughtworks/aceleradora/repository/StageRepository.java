@@ -19,14 +19,8 @@ public class StageRepository {
             new Question("Você utiliza alguma ferramenta ou estratégia para organizar a sua semana?"),
             new Question("Você tem um controle do dinheiro que entra e sai da empresa?")));
 
-    private ArrayList<Question> P2 = new ArrayList<>(Arrays.asList(
-            new Question("Você tem controle sobre das datas dos pagamentos e recebimentos?"),
-            new Question("Você sabe quanto dinheiro gasto por mês?"),
-            new Question("Você sabe qual é o faturamento mensal da empresa?")));
-
     private List<Stage> stages = new ArrayList<>(Arrays.asList(
-            new Stage("Controle seus gastos!", 1, "hint", P1, 1L),
-            new Stage("Controle seu tempo!", 2, "hint", P2, 2L)));
+            new Stage("Controle seus gastos!", 1, "hint", P1, 1L)));
 
     public List<Stage> save(Stage stage) {
         stages.add(stage);
