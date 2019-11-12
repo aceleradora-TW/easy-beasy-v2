@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import Vuex from 'vuex'
+import Vuelidate from "vuelidate";
 import Eventbus from './utils/eventbus'
 import icons from './utils/icons'
 import BootstrapVue from 'bootstrap-vue'
@@ -16,9 +17,10 @@ Vue.use(Vuex)
 Vue.use(icons)
 Vue.use(BootstrapVue)
 Vue.use(Eventbus)
+Vue.use(Vuelidate);
 
 new Vue({
-  router,
-  store,
-  render: h => h(App),
+    router,
+    store,
+    render: h => h(App),
 }).$mount('#app')

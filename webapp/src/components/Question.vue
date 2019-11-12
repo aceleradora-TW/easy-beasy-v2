@@ -1,6 +1,7 @@
 <template>
   <div class="chat">
     <ModalNps/>
+    <ModalData :callBack="callBack" />
     <b-container class="chat-box">
       <b-row align-h="start" class="mb-4">
         <b-col cols="auto">
@@ -14,8 +15,7 @@
       <div
         class="question question-history"
         v-for="answeredQuestion in chatHistory"
-        v-bind:key="answeredQuestion.description"
-      >
+        v-bind:key="answeredQuestion.description">
         <b-row>
           <b-col cols="auto">
             <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
@@ -59,7 +59,7 @@
           v-on:click="collectAnswer('Sim'), gotoBottom()"
           :disabled="showSolution || theresNoSolution"
         >Sim</b-button>
-        <ModalQuestion class="ml-5 mr-5" />
+        <ModalQuestion class="ml-5 mr-5" :disableButtonNotUnderstand="disableButtonNotUnderstand" />
         <b-button
           class="answer-btn"
           v-on:click="collectAnswer('Não'), gotoBottom()"
@@ -75,13 +75,14 @@ import StageService from "@/services/stage.service.js";
 import ModalQuestion from "@/components/ModalQuestion";
 import Solution from "@/components/Solution";
 import ModalNps from "@/components/ModalNps";
-
+import ModalData from "@/components/ModalData";
 
 export default {
   components: {
     ModalQuestion,
     Solution,
-    ModalNps
+    ModalNps,
+    ModalData
   },
   name: "Question",
 
@@ -92,15 +93,20 @@ export default {
     showSolution: false,
     theresNoSolution: false,
     idStage: 1,
+      callBack: () => {},
+      disableButtonNotUnderstand: false,
     title: "",
     titleToWrite:""
   }),
 
   created() {
       StageService.getStageById(this.idStage).then(response => {
-      const stage = response.data;
+      let stage = response.data;
       this.questionList = stage.questions;
       this.nextQuestion();
+    })
+    .catch((error) => {
+      console.log(error.response.data)
     });
   },
   methods: {
@@ -124,23 +130,40 @@ export default {
       });
       this.shouldShowSolution();
     },
+    showSolutionMessage() {
+      this.showSolution = true;
+    },
+    showSolutionNotIndefiedMessage() {
+      this.theresNoSolution = true;
+    },
     shouldShowSolution() {
       if (this.quantityNegativeAnswers() === 2) {
-        this.showNps()
-        this.showSolution = true;
-      }
-      if (!this.questionList.length && this.quantityNegativeAnswers() === 1) {
+        this.disableButtonNotUnderstand = true;
+        this.showModalData();
+        this.callBack = this.showSolutionMessage;
         this.showNps();
         this.showSolution = true;
-        return;
+        this.nextStage();
+      }
+      if (!this.questionList.length && this.quantityNegativeAnswers() === 1) {
+        this.disableButtonNotUnderstand = true;
+        this.showModalData();
+        this.callBack = this.showSolutionMessage;
+        this.showNps();
+        this.showSolution = true;
+        this.nextStage();
       }
       this.solutionNotIdentified()
       this.nextQuestion();
     },
     solutionNotIdentified() {
       if (!this.questionList.length && this.quantityNegativeAnswers() == 0) {
+        this.disableButtonNotUnderstand = true;
+        this.showModalData();
+        this.callBack = this.showSolutionNotIndefiedMessage;
         this.showNps()
         this.theresNoSolution = true;
+        this.nextStage();
       }
     },
     quantityNegativeAnswers() {
@@ -155,13 +178,32 @@ export default {
     },
     showNps() {
       this.$bvModal.show('modalNps')
+    },
+    showModalData() {
+      this.$bvModal.show("modalData");
+    },
+    nextStage(){
+      if(this.theresNoSolution===true || this.showSolution===true){
+        this.idStage++;
+        this.questionList = [];
+        StageService.getStageById(this.idStage).then(response => {
+          let stage = response.data;
+          this.questionList = stage.questions;
+          this.theresNoSolution = false;
+          this.nextQuestion();
+
+        })
+        .catch((error) => {
+          console.log(error.response.data);
+        });
+      }
     }
   }
 };
 </script>
 
 <style lang="scss">
-@import '@/assets/scss/config/variables.scss';
+@import "@/assets/scss/config/variables.scss";
 @media (min-width: 100px) {
   .chat {
     background-color: $secondary-color;
@@ -178,7 +220,7 @@ export default {
       .question {
         text-align: left;
         color: $question-text-color;
-        font-family: "Lato, sans-serif",serif;
+        font-family: "Lato, sans-serif", serif;
         font-size: 13pt;
       }
       .answer {

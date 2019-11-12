@@ -3,19 +3,20 @@
     <header>
       <h2>Diagnóstico</h2>
     </header>
-    <Question />
+    <Question/>
   </div>
 </template>
 
 <script>
-import Question from "@/components/Question.vue";
+import Question from '@/components/Question.vue'
 
-export default {
-  name: "Diagnosis",
-  components: {
-    Question
-  }
-};
+  export default {
+    name: "Diagnosis",
+    components: {
+      Question,
+    }
+
+  };
 </script>
 
 <style lang="scss" scoped>
