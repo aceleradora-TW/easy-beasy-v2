@@ -123,14 +123,12 @@ export default {
         this.showNps()
         this.showSolution = true;
         this.nextStage();
-        return;
       }
       if (!this.questionList.length && this.quantityNegativeAnswers() === 1) {
         this.disableButtonNotUnderstand = true;
         this.showNps();
         this.showSolution = true;
         this.nextStage();
-        return;
       }
       this.solutionNotIdentified()
       this.nextQuestion();
