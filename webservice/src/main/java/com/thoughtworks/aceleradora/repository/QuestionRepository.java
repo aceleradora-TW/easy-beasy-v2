@@ -1,12 +1,11 @@
 package com.thoughtworks.aceleradora.repository;
 
+import com.thoughtworks.aceleradora.domain.Question;
+import org.springframework.stereotype.Repository;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import com.thoughtworks.aceleradora.domain.Question;
-import org.springframework.stereotype.Repository;
-import org.springframework.util.StringUtils;
 
 @Repository
 public class QuestionRepository {
