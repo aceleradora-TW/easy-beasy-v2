@@ -32,7 +32,7 @@
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
-        <b-col cols="9">{{currentQuestion.description}}</b-col>
+        <b-col cols="9">{{typewritingQuestion}}</b-col>
       </b-row>
 
       <b-row v-if="showSolution" class="mb-3">
@@ -40,7 +40,7 @@
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
         <b-col cols="9" class="question">
-          <Solution/>
+          <Solution />
         </b-col>
       </b-row>
 
@@ -48,9 +48,7 @@
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
-        <b-col cols="9" class="question">
-          Não identificamos nenhum problema!
-        </b-col>
+        <b-col cols="9" class="question">{{solutionNotFound}}</b-col>
       </b-row>
     </b-container>
 
@@ -59,13 +57,13 @@
         <b-button
           class="answer-btn"
           v-on:click="collectAnswer('Sim'), gotoBottom()"
-          :disabled="showSolution || theresNoSolution"
+          :disabled="showSolution || theresNoSolution || isTypewriterRunning"
         >Sim</b-button>
         <ModalQuestion class="ml-5 mr-5" :disableButtonNotUnderstand="disableButtonNotUnderstand" />
         <b-button
           class="answer-btn"
           v-on:click="collectAnswer('Não'), gotoBottom()"
-          :disabled="showSolution || theresNoSolution"
+          :disabled="showSolution || theresNoSolution || isTypewriterRunning"
         >Não</b-button>
       </div>
     </b-row>
@@ -94,9 +92,12 @@ export default {
     chatHistory: [],
     showSolution: false,
     theresNoSolution: false,
+    solutionNotFound: "Não identificamos nenhum problema!",
     idStage: 1,
+    isTypewriterRunning: false,
     callBack: () => {},
-    disableButtonNotUnderstand: false
+    disableButtonNotUnderstand: false,
+    typewritingQuestion: "",
 
   }),
 
@@ -107,12 +108,29 @@ export default {
       this.nextQuestion();
     })
     .catch((error) => {
-      console.log(error.response.data)
     });
   },
   methods: {
+   typeWrite() {
+      this.clearTypewriter();
+      this.isTypewriterRunning = true;
+      new Promise((resolve, reject) => {
+        [...this.currentQuestion.description].forEach((char, index) => {
+        setTimeout(() => {
+          this.typewritingQuestion += char;
+          if(this.typewritingQuestion === this.currentQuestion.description) resolve();
+          }, 20 * index);
+        });
+      }).then(() => {
+        this.isTypewriterRunning = false;
+      });
+    },
+    clearTypewriter() {
+      this.typewritingQuestion = "";
+    },
     nextQuestion() {
       this.currentQuestion = this.questionList.shift();
+      this.typeWrite();
     },
     collectAnswer(answer) {
       this.chatHistory.push({
@@ -185,7 +203,7 @@ export default {
 
         })
         .catch((error) => {
-          console.log(error.response.data);
+          console.log(error);
         });
       }
     }
