@@ -41,7 +41,7 @@
               squared
               type="submit"
               v-on:click="save(), $bvModal.hide('modalData')"
-              class="saveUser answer-btn mt-20"
+              class="saveUser answer-btn mt-20" @click="toast('b-toaster-top-center')" 
             >Salvar</b-button>
           </b-col>
         </b-row>
@@ -73,6 +73,14 @@ export default {
     }
   },
   methods: {
+    toast(toaster) {
+        this.$bvToast.toast
+        (`Salvo com Sucesso`,
+        {
+          title: `EasyBeasy`,
+          toaster: toaster
+        })
+      },
     save() {
       userService.save(this.user);
       this.callBack();
