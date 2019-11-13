@@ -45,118 +45,92 @@ public class StageServiceTest {
     @Test
     public void shouldReturnOKIfAddValidStage() {
 
-        when(stageRepository.getStages()).thenReturn(asList());
-        when(stageRepository.save(stage)).thenReturn(asList(stage));
+        when(stageRepository.findAll()).thenReturn(asList());
+        when(stageRepository.save(stage)).thenReturn(stage);
 
-        List<Stage> stages = stageService.save(stage);
+        Stage stages = stageService.save(stage);
 
-        Stage stageResult = stages.get(0);
-        Assert.assertEquals(stage.getSolution(), stageResult.getSolution());
-        Assert.assertEquals(stage.getHint(), stageResult.getHint());
-        Assert.assertEquals(stage.getNumber(), stageResult.getNumber());
+        Assert.assertEquals(stage.getSolution(), stages.getSolution());
+        Assert.assertEquals(stage.getHint(), stages.getHint());
+        Assert.assertEquals(stage.getNumber(), stages.getNumber());
 
-        Mockito.verify(stageRepository, Mockito.times(1)).getStages();
+        Mockito.verify(stageRepository, Mockito.times(1)).findAll();
         Mockito.verify(stageRepository, Mockito.times(1)).save(stage);
     }
 
     @Test
     public void shouldTrowExceptionIfStageNumberAlreadyExists() {
-        when(stageRepository.getStages()).thenReturn(asList(stage));
+        when(stageRepository.findAll()).thenReturn(asList(stage));
 
         expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage("The stage number already exist.");
 
         stageService.save(stage);
 
-        Mockito.verify(stageRepository, Mockito.times(1)).getStages();
+        Mockito.verify(stageRepository, Mockito.times(1)).findAll();
     }
 
     @Test
     public void shouldTrowExceptionIfSolutionNull() {
         Stage stage = new Stage(null, 1, "hint", asList(new Question("question")));
 
-        when(stageRepository.getStages()).thenReturn(asList(stage));
+        when(stageRepository.findAll()).thenReturn(asList(stage));
 
         expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage("The stage solution cannot be null.");
 
         stageService.save(stage);
-        Mockito.verify(stageRepository, Mockito.times(1)).getStages();
+        Mockito.verify(stageRepository, Mockito.times(1)).findAll();
     }
 
     @Test
     public void shouldTrowExceptionIfDoubtNull() {
         Stage stage = new Stage("solution", 1, null, asList(new Question("question")));
 
-        when(stageRepository.getStages()).thenReturn(asList(stage));
+        when(stageRepository.findAll()).thenReturn(asList(stage));
 
         expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage("The stage doubt cannot be null.");
 
         stageService.save(stage);
-        Mockito.verify(stageRepository, Mockito.times(1)).getStages();
+        Mockito.verify(stageRepository, Mockito.times(1)).findAll();
     }
 
     @Test
     public void shouldTrowExceptionIfSolutionStartsWithSpace() {
         Stage stage = new Stage(" solution", 1, "doubt", asList(new Question("question")));
 
-        when(stageRepository.getStages()).thenReturn(asList(stage));
+        when(stageRepository.findAll()).thenReturn(asList(stage));
 
         expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage("The stage solution cannot starts with space.");
 
         stageService.save(stage);
-        Mockito.verify(stageRepository, Mockito.times(1)).getStages();
+        Mockito.verify(stageRepository, Mockito.times(1)).findAll();
     }
 
     @Test
     public void shouldTrowExceptionIfDoubtStartsWithSpace() {
         Stage stage = new Stage("solution", 1, " hint", asList(new Question("question")));
 
-        when(stageRepository.getStages()).thenReturn(asList(stage));
+        when(stageRepository.findAll()).thenReturn(asList(stage));
 
         expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage("The stage doubt cannot starts with space.");
 
         stageService.save(stage);
-        Mockito.verify(stageRepository, Mockito.times(1)).getStages();
-    }
-
-    @Test
-    public void shouldReturnDeletedStageIfDeleteStageSuccessfully() {
-        when(stageRepository.getStages()).thenReturn(asList(stage));
-        when(stageRepository.deleteStage(stage)).thenReturn(stage);
-
-        Stage stageResult = stageService.deleteStage(1);
-
-        Assert.assertEquals(stage, stageResult);
-        Mockito.verify(stageRepository, Mockito.times(1)).getStages();
-        Mockito.verify(stageRepository, Mockito.times(1)).deleteStage(stage);
+        Mockito.verify(stageRepository, Mockito.times(1)).findAll();
     }
 
     @Test
     public void shouldReturnExceptionIfTryToDeleteAnNonexistentStage() {
-        when(stageRepository.getStages()).thenReturn(asList());
+        when(stageRepository.findAll()).thenReturn(asList());
 
         expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage("This stage number does not exist.");
 
         stageService.deleteStage(5);
-        Mockito.verify(stageRepository, Mockito.times(1)).getStages();
-    }
-
-    @Test
-    public void shouldReturnOKIfReturnJustOneStageById() {
-        Long id = 1L;
-        stage.setId(id);
-
-        Mockito.when(stageRepository.getStageById(id)).thenReturn(stage);
-
-        Stage stageResult = stageService.getStageById(id);
-
-        Assert.assertEquals(stageResult.getId(), id);
-        Mockito.verify(stageRepository, Mockito.times(1)).getStageById(id);
+        Mockito.verify(stageRepository, Mockito.times(1)).findAll();
     }
 
     @Test
