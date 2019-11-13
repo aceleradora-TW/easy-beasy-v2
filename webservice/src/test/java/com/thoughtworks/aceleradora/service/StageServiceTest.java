@@ -137,23 +137,23 @@ public class StageServiceTest {
     public void shouldReturnOKIfReturnAllQuestions() {
         Question question = new Question("question");
 
-        Mockito.when(questionRepository.getAllQuestions()).thenReturn(asList(question));
+        Mockito.when(questionRepository.findAll()).thenReturn(asList(question));
 
         List<Question> questions = stageService.getQuestions();
 
         Assert.assertEquals(questions.get(0), question);
-        Mockito.verify(questionRepository, Mockito.times(1)).getAllQuestions();
+        Mockito.verify(questionRepository, Mockito.times(1)).findAll();
     }
 
     @Test
     public void shouldReturnOKIfReturnOneQuestion() {
         Question question = new Question("question");
 
-        Mockito.when(questionRepository.getAllQuestions()).thenReturn(asList(question));
+        Mockito.when(questionRepository.findAll()).thenReturn(asList(question));
 
         Question questionResult = stageService.getQuestion(0);
 
         Assert.assertEquals(question, questionResult);
-        Mockito.verify(questionRepository, Mockito.times(1)).getAllQuestions();
+        Mockito.verify(questionRepository, Mockito.times(1)).findAll();
     }
 }
