@@ -143,7 +143,7 @@ export default {
     showSolutionMessage() {
       this.showSolution = true;
     },
-    showSolutionNotIndefiedMessage() {
+    showNoSolutionIndefiedMessage() {
       this.theresNoSolution = true;
     },
     shouldShowSolution() {
@@ -170,7 +170,7 @@ export default {
       if (!this.questionList.length && this.quantityNegativeAnswers() == 0) {
         this.disableButtonNotUnderstand = true;
         this.showModalData();
-        this.callBack = this.showSolutionNotIndefiedMessage;
+        this.callBack = this.showNoSolutionIndefiedMessage;
         this.showNps()
         this.theresNoSolution = true;
         this.nextStage();
