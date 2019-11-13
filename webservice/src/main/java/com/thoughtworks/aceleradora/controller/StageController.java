@@ -24,9 +24,9 @@ public class StageController {
         return stageService.getStages();
     }
 
-    @GetMapping(path = "/{index}")
-    public Stage getStage(@PathVariable("index") int index) {
-        return stageService.getStage(index);
+    @GetMapping(path = "/{id}")
+    public Stage getStage(@PathVariable("id") Long id) {
+        return stageService.getStageById(id);
     }
 
 }

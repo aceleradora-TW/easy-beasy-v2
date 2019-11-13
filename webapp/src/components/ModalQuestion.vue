@@ -1,9 +1,9 @@
 <template>
   <div>
     <b-button
-      class="doubt-btn"
+      class="modal-question-btn"
       id="show-btn"
-      v-on:click="$bvModal.show('bv-modal-example')"
+      v-on:click="$bvModal.show('bv-modal-example')" :disabled="disableButtonNotUnderstand"
     >Não entendi</b-button>
 
     <b-modal id="bv-modal-example" hide-footer>
@@ -33,17 +33,22 @@
 
 <script>
 export default {
-  name: "ModalDoubt"
+  name: "ModalQuestion",
+   props: {
+   disableButtonNotUnderstand: { type: Boolean },
+  },
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '@/assets/scss/config/variables.scss';
+
 .answer-btn:hover {
-  background-color: #2fc0d5;
-  border-color: #2fc0d5;
+  background-color:$primary-color;
+  border-color: $primary-color;
 }
 .answer-btn {
-  background-color: #2fc0d5;
-  border-color: #2fc0d5;
+  background-color:$primary-color;
+  border-color: $primary-color;
 }
 </style>

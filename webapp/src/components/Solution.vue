@@ -5,15 +5,17 @@
 </template>
 
 <script>
-import Solution from "@/services/solutions.service";
+import StageService from "@/services/stage.service";
 
 export default {
   data: () => ({
-    solutionScreen: ""
+    solutionScreen: "",
+    idStage: 1
   }),
   created() {
-    Solution.getSolutions().then(r => {
-      this.solutionScreen = r.data.solution;
+    StageService.getStageById(this.idStage).then(r => {
+      const stage = r.data;
+      this.solutionScreen = stage.solution;
     });
   }
 };
@@ -23,7 +25,6 @@ export default {
 @media (min-width: 100px) {
   p {
     text-align: left;
-    color: #111111;
     font-family: "Lato, sans-serif";
     font-size: 13pt;
   }
