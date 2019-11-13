@@ -24,7 +24,8 @@
               <b-form-input
                 id="user-email"
                 type="email"
-                v-model="user.email"
+                v-model="$v.user.email.$model"
+                :class="{ 'is-invalid': save && $v.user.email.$error }"               
                 placeholder="exemplo@gmail.com"
               />
             </b-form-group>
@@ -51,7 +52,7 @@
 
 <script>
 import userService from "@/services/user.service";
-import { required } from "vuelidate/lib/validators";
+import { required, email } from "vuelidate/lib/validators";
 
 export default {
   name: "ModalData",
@@ -68,6 +69,9 @@ export default {
     user: {
       name: {
         required
+      },
+      email: {
+        required, email
       }
     }
   },
