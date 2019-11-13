@@ -16,8 +16,7 @@ public class StageRepository {
             new Question("Você tem uma organização de tempo e tarefas?"),
             new Question("Você geralmente esquece de coisas que precisam ser feitas?"),
             new Question("Você organiza a semana em tarefas e metas a serem cumpridas?"),
-            new Question("Você utiliza alguma ferramenta ou estratégia para organizar a sua semana?"),
-            new Question("Você tem um controle do dinheiro que entra e sai da empresa?")));
+            new Question("Você utiliza alguma ferramenta ou estratégia para organizar a sua semana?")));
 
     private List<Stage> stages = new ArrayList<>(Arrays.asList(
             new Stage("Controle seus gastos!", 1, "hint", P1, 1L)));
