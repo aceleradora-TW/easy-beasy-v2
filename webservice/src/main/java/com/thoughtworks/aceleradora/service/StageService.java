@@ -20,7 +20,7 @@ public class StageService {
     }
 
     public List<Question> getQuestions() {
-        return questionRepository.getAllQuestions();
+        return questionRepository.findAll();
     }
 
     public Question getQuestion(int index) {
