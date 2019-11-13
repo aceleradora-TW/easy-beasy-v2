@@ -92,7 +92,7 @@ export default {
     chatHistory: [],
     showSolution: false,
     theresNoSolution: false,
-    solutionNotFound: null,
+    solutionNotFound: "Não identificamos nenhum problema!",
     idStage: 1,
     isTypewriterRunning: false,
     callBack: () => {},
@@ -105,7 +105,6 @@ export default {
       StageService.getStageById(this.idStage).then(response => {
       let stage = response.data;
       this.questionList = stage.questions;
-      this.solutionNotFound = "Não identificamos nenhum problema!";
       this.nextQuestion();
     })
     .catch((error) => {
@@ -204,6 +203,7 @@ export default {
 
         })
         .catch((error) => {
+          console.log(error);
         });
       }
     }
