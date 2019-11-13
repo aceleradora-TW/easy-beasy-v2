@@ -48,7 +48,7 @@
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
-        <b-col cols="9" class="question">Não identificamos nenhum problema!</b-col>
+        <b-col cols="9" class="question">{{solutionNotFound}}</b-col>
       </b-row>
     </b-container>
 
@@ -92,17 +92,20 @@ export default {
     chatHistory: [],
     showSolution: false,
     theresNoSolution: false,
+    solutionNotFound: null,
     idStage: 1,
     isTypewriterRunning: false,
     callBack: () => {},
     disableButtonNotUnderstand: false,
     typewritingQuestion: "",
+
   }),
 
   created() {
       StageService.getStageById(this.idStage).then(response => {
       let stage = response.data;
       this.questionList = stage.questions;
+      this.solutionNotFound = "Não identificamos nenhum problema!";
       this.nextQuestion();
     })
     .catch((error) => {
