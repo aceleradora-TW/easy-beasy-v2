@@ -1,7 +1,7 @@
 CREATE TABLE stage (
 
   id serial primary key,
-  solution varchar(255),
-  hint varchar(255),
+  solution varchar,
+  hint varchar,
   number integer
 );
