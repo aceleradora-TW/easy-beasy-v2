@@ -74,13 +74,11 @@ export default {
   },
   methods: {
     toast(toaster) {
-        this.$bvToast.toast
-        (`Salvo com Sucesso`,
-        {
-          title: `EasyBeasy`,
-          toaster: toaster
-        })
-      },
+    this.$bvToast.toast(`Salvo com Sucesso`, {
+      title: `EasyBeasy`,
+      toaster
+    })
+},
     save() {
       userService.save(this.user);
       this.callBack();
