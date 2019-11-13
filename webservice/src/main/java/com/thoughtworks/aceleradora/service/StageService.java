@@ -27,17 +27,17 @@ public class StageService {
         return getQuestions().get(index);
     }
 
-    public List<Stage> save(Stage stage) {
+    public Stage save(Stage stage) {
         validation(stage);
         return repository.save(stage);
     }
 
     public List<Stage> getStages() {
-        return repository.getStages();
+        return repository.findAll();
     }
 
     public Stage getStageById(Long id) {
-        return repository.getStageById(id);
+        return repository.findById(id).get();
     }
 
     public Stage deleteStage(int number) {
@@ -45,14 +45,14 @@ public class StageService {
 
         for (Stage auxStage : stages) {
             if (auxStage.getNumber() == number) {
-                return repository.deleteStage(auxStage);
+                repository.delete(auxStage);
             }
         }
         throw new IllegalArgumentException("This stage number does not exist.");
     }
 
     private void validation(Stage stage) {
-        List<Stage> stages = repository.getStages();
+        List<Stage> stages = repository.findAll();
 
         if (StringUtils.isEmpty(stage.getSolution())) {
             throw new IllegalArgumentException("The stage solution cannot be null.");
