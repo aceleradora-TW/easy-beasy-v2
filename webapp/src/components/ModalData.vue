@@ -4,55 +4,54 @@
       <p>
         <strong>Por favor, nos informe nome e email para receber o diagnóstico.</strong>
       </p>
-      <b-form @submit.stop.prevent="onSubmit">
-        <b-row>
-          <b-col md="6" sm="12">
-            <b-form-group label-for="user-name">
-              <b-form-input
-                id="user-name"
-                name="user-name"
-                v-model="$v.user.name.$model"
-                :state="$v.user.name.$dirty ? !$v.user.name.$error : ''"
-                aria-describedby="input-1-live-feedback"
-                placeholder="Informe seu nome"
-              />
-              </b-form-group>
+
+      <b-row>
+        <b-col md="6" sm="12">
+          <b-form-group label-for="user-name">
+            <b-form-input
+              id="user-name"
+              type="text"
+              v-model="user.name"
+              :state="null"
+              required
+              placeholder="Informe seu nome"
+            />
+            <span class="invalidName" v-if="!isNameValid">Nome invalido/vazio!</span>
+          </b-form-group>
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col md="6" sm="12">
+          <b-form-group label-for="user-email">
+            <b-form-input
+              id="user-email"
+              type="email"
+              v-model="user.email"
+              required
+              placeholder="exemplo@gmail.com"
+            />
+            <span v-if="!isEmailValid">Informe seu email!</span>
+          </b-form-group>
+        </b-col>
+      </b-row>
+      <b-container fluid>
+        <b-row class="mb-3">
+          <b-col md="1.5" class="ml-md-auto">
+            <b-button
+              squared
+              type="submit"
+              v-on:click="save(), $bvModal.hide('modalData')"
+              class="saveUser answer-btn mt-20"
+            >Salvar</b-button>
           </b-col>
         </b-row>
-        <b-row>
-          <b-col md="6" sm="12">
-            <b-form-group label-for="user-email">
-              <b-form-input
-                id="user-email"
-                type="email"
-                v-model="user.email"
-                placeholder="exemplo@gmail.com"
-              />
-            </b-form-group>
-          </b-col>
-        </b-row>
-        <b-container fluid>
-          <b-row class="mb-3">
-            <b-col md="1.5" class="ml-md-auto">
-              <b-button
-                squared
-                type="submit"
-                v-on:click="save(), $bvModal.hide('modalData')"
-                class="saveUser answer-btn mt-20"
-                :disabled="$v.user.$invalid"
-              >Salvar</b-button>
-            </b-col>
-          </b-row>
-        </b-container>
-      </b-form>
+      </b-container>
     </b-modal>
   </div>
 </template>
-
-
 <script>
 import userService from "@/services/user.service";
-import { required } from "vuelidate/lib/validators";
+import { required, email } from "vuelidate/lib/validators";
 
 export default {
   name: "ModalData",
@@ -63,23 +62,21 @@ export default {
     user: {
       name: "",
       email: ""
-    }
+    },
+    isNameValid: true,
+    isEmailValid: true
   }),
   validations: {
     user: {
-      name: {
-        required
-      }
+      name: { required },
+      email: { required, email }
     }
   },
   methods: {
     save() {
-      this.$v.user.$touch()
-        if (this.$v.user.$anyError) {
-        return
-      }
       userService.save(this.user);
       this.callBack();
+
     }
   }
 };
