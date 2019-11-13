@@ -93,9 +93,9 @@ export default {
     showSolution: false,
     theresNoSolution: false,
     idStage: 1,
-      isTypewriterRunning: false,
-      callBack: () => {},
-      disableButtonNotUnderstand: false,
+    isTypewriterRunning: false,
+    callBack: () => {},
+    disableButtonNotUnderstand: false,
     title: "",
     titleToWrite:""
   }),
