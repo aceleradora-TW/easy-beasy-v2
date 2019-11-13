@@ -32,7 +32,7 @@
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
-        <b-col cols="9">{{title}}</b-col>
+        <b-col cols="9">{{typewritingQuestion}}</b-col>
       </b-row>
 
       <b-row v-if="showSolution" class="mb-3">
@@ -96,8 +96,7 @@ export default {
     isTypewriterRunning: false,
     callBack: () => {},
     disableButtonNotUnderstand: false,
-    title: "",
-    titleToWrite:""
+    typewritingQuestion: "",
   }),
 
   created() {
@@ -107,7 +106,6 @@ export default {
       this.nextQuestion();
     })
     .catch((error) => {
-      console.log(error.response.data)
     });
   },
   methods: {
@@ -117,8 +115,8 @@ export default {
       new Promise((resolve, reject) => {
         [...this.currentQuestion.description].forEach((char, index) => {
         setTimeout(() => {
-          this.title += char;
-          if(this.title === this.currentQuestion.description) resolve();
+          this.typewritingQuestion += char;
+          if(this.typewritingQuestion === this.currentQuestion.description) resolve();
           }, 20 * index);
         });
       }).then(() => {
@@ -126,11 +124,10 @@ export default {
       });
     },
     clearTypewriter() {
-      this.title = "";
+      this.typewritingQuestion = "";
     },
     nextQuestion() {
       this.currentQuestion = this.questionList.shift();
-      this.titleToWrite = this.currentQuestion;
       this.typeWrite();
     },
     collectAnswer(answer) {
@@ -204,7 +201,6 @@ export default {
 
         })
         .catch((error) => {
-          console.log(error.response.data);
         });
       }
     }
