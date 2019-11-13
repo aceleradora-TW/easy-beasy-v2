@@ -4,22 +4,17 @@
       <p>
         <strong>Por favor, nos informe nome e email para receber o diagnóstico.</strong>
       </p>
-      <b-form v-on:submit.stop.prevent="onSubmit">
+      <b-form>
         <b-row>
           <b-col md="6" sm="12">
             <b-form-group label-for="user-name">
               <b-form-input
                 id="user-name"
                 name="user-name"
-                
-                v-model="user.name.$model"
+                v-model="$v.user.name.$model"
                 :state="$v.user.name.$dirty ? !$v.user.name.$error : null"
-                aria-describedby="input-1-live-feedback"
                 placeholder="Informe seu nome"
               />
-              <b-form-invalid-feedback id="input-1-live-feedback">
-                This is a required field and must be at least 3 characters.
-              </b-form-invalid-feedback>
               </b-form-group>
           </b-col>
         </b-row>
@@ -43,14 +38,17 @@
                 type="submit"
                 v-on:click="save(), $bvModal.hide('modalData')"
                 class="saveUser answer-btn mt-20"
+                :disabled="$v.user.$invalid"
               >Salvar</b-button>
             </b-col>
           </b-row>
         </b-container>
       </b-form>
-    </b-modal>''
+    </b-modal>
   </div>
 </template>
+
+
 <script>
 import userService from "@/services/user.service";
 import { required } from "vuelidate/lib/validators";
@@ -84,6 +82,8 @@ export default {
     }
   }
 };
+
+
 </script>
 <style lang="scss" scoped>
 @import '@/assets/scss/config/variables.scss';
