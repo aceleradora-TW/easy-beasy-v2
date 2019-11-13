@@ -4,6 +4,7 @@ import com.thoughtworks.aceleradora.domain.Question;
 import com.thoughtworks.aceleradora.domain.Stage;
 import com.thoughtworks.aceleradora.repository.QuestionRepository;
 import com.thoughtworks.aceleradora.repository.StageRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -14,6 +15,7 @@ public class StageService {
     private StageRepository repository;
     private QuestionRepository questionRepository;
 
+    @Autowired
     public StageService(StageRepository repository, QuestionRepository questionRepository) {
         this.repository = repository;
         this.questionRepository = questionRepository;
