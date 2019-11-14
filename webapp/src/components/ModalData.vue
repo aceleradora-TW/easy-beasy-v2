@@ -2,7 +2,7 @@
   <div>
     <b-modal hide-header-close hide-footer no-close-on-backdrop no-close-on-esc id="modalData">
       <p>
-        <strong>Por favor, nos informe nome e email para receber o diagnóstico.</strong>
+          {{collectText}}
       </p>
 
       <b-row>
@@ -61,7 +61,9 @@ export default {
   data: () => ({
     user: {
       name: "",
-      email: ""
+      email: "",
+      collectText:"Chegamos a um resultado, informe seus dados para que possamos compartilha-lo com você."
+
     },
     isNameValid: true,
     isEmailValid: true
