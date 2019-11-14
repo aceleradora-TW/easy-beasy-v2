@@ -5,7 +5,7 @@ import org.junit.Test;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.equalTo;
 
-public class TestTestOfTest extends BaseRestAssuredTest {
+public class StageTest extends BaseRestAssuredTest {
 
     @Test
     public void shouldReturnSingleStageAtSpecifiedIndex() {
