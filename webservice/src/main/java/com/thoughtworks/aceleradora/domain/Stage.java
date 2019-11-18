@@ -9,7 +9,7 @@ import java.util.List;
 
 import static javax.persistence.GenerationType.IDENTITY;
 @Entity
-@Table(name = "stage")
+@Table(name = "stages")
 public class Stage {
     @Id
     @GeneratedValue(strategy = IDENTITY)
