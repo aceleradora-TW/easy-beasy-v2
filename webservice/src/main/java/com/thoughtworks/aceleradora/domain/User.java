@@ -1,5 +1,7 @@
 package com.thoughtworks.aceleradora.domain;
 
+import com.thoughtworks.aceleradora.validators.annotations.UserValid;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -9,6 +11,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "users")
+@UserValid
 public class User {
     @Id
     @GeneratedValue(strategy = IDENTITY)
