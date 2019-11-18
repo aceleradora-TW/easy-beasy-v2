@@ -1,10 +1,9 @@
 <template>
   <div>
     <b-modal hide-header-close hide-footer no-close-on-backdrop no-close-on-esc id="modalData">
-      <p>
-          {{collectText}}
-      </p>
-
+        <p>
+          {{user.collectText}}
+        </p>
       <b-row>
         <b-col md="6" sm="12">
           <b-form-group label-for="user-name">
@@ -63,7 +62,6 @@ export default {
       name: "",
       email: "",
       collectText:"Chegamos a um resultado, informe seus dados para que possamos compartilha-lo com você."
-
     },
     isNameValid: true,
     isEmailValid: true
