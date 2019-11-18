@@ -32,6 +32,10 @@ dependencies {
 
     testCompile 'junit:junit:4.12'
     testCompile "org.mockito:mockito-core:2.21.0"
+    testCompile "io.rest-assured:xml-path:4.1.2"
+    testCompile "io.rest-assured:json-path:4.1.2"
+    testCompile "io.rest-assured:rest-assured:4.1.2"
+    testCompile "org.springframework.boot:spring-boot-starter-test:$springBootVersion"
 
     developmentOnly "org.springframework.boot:spring-boot-devtools:$springBootVersion"
 }
@@ -56,4 +60,12 @@ processResources {
     from(frontendProject.buildDir) {
         into 'static'
     }
+}
+
+test {
+    exclude 'functional/**'
+}
+
+task functionalTest(type: Test) {
+    include 'functional/**'
 }
