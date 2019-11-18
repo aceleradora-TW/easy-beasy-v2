@@ -2,17 +2,13 @@ package functional;
 
 import com.thoughtworks.aceleradora.domain.User;
 import io.restassured.http.ContentType;
-import org.hamcrest.Matcher;
-import org.hamcrest.Matchers;
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.junit.Test;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.equalTo;
 
-public class StageTest extends BaseRestAssuredTest {
+public class TestRestAssured extends BaseRestAssuredTest {
 
     @Test
     public void shouldReturnSingleStageAtSpecifiedIndex() {
