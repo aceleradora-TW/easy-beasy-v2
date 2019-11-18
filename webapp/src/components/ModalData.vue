@@ -25,7 +25,7 @@
                 id="user-email"
                 type="email"
                 v-model="$v.user.email.$model"
-                :class="{ 'is-invalid': save && $v.user.email.$error }"               
+                :class="{ 'is-invalid': save && $v.user.email.$error }"
                 placeholder="exemplo@gmail.com"
               />
             </b-form-group>
@@ -38,7 +38,7 @@
                 squared
                 type="submit"
                 v-on:click="save(), $bvModal.hide('modalData')"
-                class="saveUser answer-btn mt-20"
+                class="saveUser answer-btn mt-20" @click="toast('b-toaster-top-center')"
                 :disabled="$v.user.$invalid"
               >Salvar</b-button>
             </b-col>
@@ -76,6 +76,12 @@ export default {
     }
   },
   methods: {
+    toast(toaster) {
+    this.$bvToast.toast(`Salvo com Sucesso`, {
+      title: `EasyBeasy`,
+      toaster
+    })
+},
     save() {
       this.$v.user.$touch()
         if (this.$v.user.$anyError) {
