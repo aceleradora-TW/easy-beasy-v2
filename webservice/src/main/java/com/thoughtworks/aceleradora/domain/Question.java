@@ -24,6 +24,10 @@ public class Question {
         this.description = description;
     }
 
+    @JsonCreator
+    public Question() {
+    }
+
     public String getDescription() {
         return description;
     }
