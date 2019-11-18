@@ -2,12 +2,11 @@ package com.thoughtworks.aceleradora.domain;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-
 import static javax.persistence.GenerationType.IDENTITY;
+
 @Entity
 @Table(name = "stages")
 public class Stage {
