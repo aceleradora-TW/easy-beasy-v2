@@ -23,6 +23,9 @@ public class Stage {
     private String hint;
     private int number;
 
+    @JsonCreator
+    public Stage() {
+    }
 
     @JsonCreator
     public Stage(@JsonProperty("solution") String solution,
