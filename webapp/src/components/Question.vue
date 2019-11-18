@@ -28,7 +28,7 @@
         </b-row>
       </div>
 
-      <b-row class="question current-question" v-if="currentQuestion && !showSolution">
+      <b-row class="question current-question" v-if="isThereNextQuestion">
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
@@ -98,6 +98,7 @@ export default {
     callBack: () => {},
     disableButtonNotUnderstand: false,
     typewritingQuestion: "",
+    isThereNextQuestion: false
 
   }),
 
@@ -108,13 +109,14 @@ export default {
       this.nextQuestion();
     })
     .catch((error) => {
+      return error;
     });
   },
   methods: {
    typeWrite() {
       this.clearTypewriter();
       this.isTypewriterRunning = true;
-      new Promise((resolve, reject) => {
+      new Promise((resolve) => {
         [...this.currentQuestion.description].forEach((char, index) => {
         setTimeout(() => {
           this.typewritingQuestion += char;
@@ -130,6 +132,7 @@ export default {
     },
     nextQuestion() {
       this.currentQuestion = this.questionList.shift();
+      this.isThereNextQuestion = true;
       this.typeWrite();
     },
     collectAnswer(answer) {
@@ -141,38 +144,42 @@ export default {
     },
     showSolutionMessage() {
       this.showSolution = true;
+      this.nextStage();
     },
     showNoSolutionIndefiedMessage() {
       this.theresNoSolution = true;
+      this.nextStage();
     },
     shouldShowSolution() {
       if (this.quantityNegativeAnswers() === 2) {
         this.disableButtonNotUnderstand = true;
-        this.showModalData();
         this.callBack = this.showSolutionMessage;
-        this.showNps();
-        this.showSolution = true;
-        this.nextStage();
+        this.isThereNextQuestion = false;
+        this.showModalData();
+         this.showNps();
+        return;       
       }
       if (!this.questionList.length && this.quantityNegativeAnswers() === 1) {
         this.disableButtonNotUnderstand = true;
         this.showModalData();
         this.callBack = this.showSolutionMessage;
+        this.isThereNextQuestion = false;
         this.showNps();
-        this.showSolution = true;
-        this.nextStage();
+        return;
       }
-      this.solutionNotIdentified()
-      this.nextQuestion();
+      this.solutionNotIdentified();
+      if(this.questionList.length){
+        this.nextQuestion();
+      }
+      
     },
     solutionNotIdentified() {
       if (!this.questionList.length && this.quantityNegativeAnswers() == 0) {
         this.disableButtonNotUnderstand = true;
         this.showModalData();
         this.callBack = this.showNoSolutionIndefiedMessage;
+        this.isThereNextQuestion = false;
         this.showNps()
-        this.theresNoSolution = true;
-        this.nextStage();
       }
     },
     quantityNegativeAnswers() {
@@ -200,10 +207,11 @@ export default {
           this.questionList = stage.questions;
           this.theresNoSolution = false;
           this.nextQuestion();
+          this.isThereNextQuestion = false;
 
         })
         .catch((error) => {
-          console.log(error);
+          return error;
         });
       }
     }
