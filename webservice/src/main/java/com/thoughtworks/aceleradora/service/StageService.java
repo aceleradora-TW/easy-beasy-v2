@@ -39,7 +39,7 @@ public class StageService {
     }
 
     public Stage getStageById(Long id) {
-        return repository.findById(id).get();
+        return repository.findById(id).orElseThrow(IllegalArgumentException::new);
     }
 
     public Stage deleteStage(int number) {

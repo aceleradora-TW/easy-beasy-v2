@@ -10,6 +10,7 @@ import java.util.Optional;
 @Repository
 public interface StageRepository  extends CrudRepository<Stage, Long> {
 
+
     List<Stage> findAll();
-    Optional<Stage> findById(Long Id);
+    Optional<Stage> findById(Long id);
 }
