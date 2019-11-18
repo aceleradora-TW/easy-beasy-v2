@@ -8,9 +8,7 @@ alter SEQUENCE stage_id_seq RESTART with 1;
 
 
 insert into stage(solution, hint, number)
-values('Podemos melhorar alguns pontos na sua gestão de tempo e tarefas. A solução consistirá em como organizar suas atividades, definir prazos e metas, além da indicação de algumas ferramentas que poderão complementar a sua rotina. Confira no link a baixo a solução para a sua pendência:
-
-https://medium.com/@easybeasybr/gestão-de-tempo-e-tarefas-p1-12a51de24f75', 'Pense no seu dia a dia, se você sabe qual o próximo passo que deve ser tomado, se tem esclarecido quais e quando suas tarefas devem ser feitas.', 1),
+values('Podemos melhorar alguns pontos na sua gestão de tempo e tarefas. A solução consistirá em como organizar suas atividades, definir prazos e metas, além da indicação de algumas ferramentas que poderão complementar a sua rotina. Confira no link a baixo a solução para a sua pendência: https://medium.com/@easybeasybr/gestão-de-tempo-e-tarefas-p1-12a51de24f75', 'Pense no seu dia a dia, se você sabe qual o próximo passo que deve ser tomado, se tem esclarecido quais e quando suas tarefas devem ser feitas.', 1),
 
 ('Além de fechar o mês no azul é importante saber por quê e como isso aconteceu, caso contrário você poderá se deparar com surpresas e até acabar tendo prejuízo por falta de organização. Para resolver isso vamos te ensinar como fazer um controle fácil de tudo que entra e sai do caixa do seu negócio. Confira no link a baixo a solução para a sua pendência:
 
