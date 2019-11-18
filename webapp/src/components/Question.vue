@@ -50,6 +50,13 @@
         </b-col>
         <b-col cols="9" class="question">{{solutionNotFound}}</b-col>
       </b-row>
+
+      <b-row v-if="theresNoSolution" class="mb-3">
+        <b-col cols="auto" class="mb-3">
+          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
+        </b-col>
+        <b-col cols="9" class="question">{{feedback}}</b-col>
+      </b-row>
     </b-container>
 
     <b-row class="footer">
@@ -93,6 +100,7 @@ export default {
     showSolution: false,
     theresNoSolution: false,
     solutionNotFound: "Não identificamos nenhum problema!",
+    feedback: "Ajude-nos a melhorar esta ferramenta, envie seu feedback",
     idStage: 1,
     isTypewriterRunning: false,
     callBack: () => {},
