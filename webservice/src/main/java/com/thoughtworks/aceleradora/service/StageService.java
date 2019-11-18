@@ -54,6 +54,7 @@ public class StageService {
     }
 
     private void validation(Stage stage) {
+        List<Stage> stages = repository.findAll();
 
         if (StringUtils.isEmpty(stage.getSolution())) {
             throw new IllegalArgumentException("The stage solution cannot be null.");
@@ -70,7 +71,7 @@ public class StageService {
             throw new IllegalArgumentException("The stage doubt cannot starts with space.");
         }
 
-        for (Stage auxStage : repository.findAll()) {
+        for (Stage auxStage : stages) {
             if (stage.getNumber() == auxStage.getNumber()) {
                 throw new IllegalArgumentException("The stage number already exist.");
             }
