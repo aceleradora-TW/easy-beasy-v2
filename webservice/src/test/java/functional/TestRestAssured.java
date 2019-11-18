@@ -1,5 +1,6 @@
 package functional;
 
+import com.thoughtworks.aceleradora.domain.NetPromoterScore;
 import com.thoughtworks.aceleradora.domain.User;
 import io.restassured.http.ContentType;
 import org.json.JSONException;
@@ -27,7 +28,7 @@ public class TestRestAssured extends BaseRestAssuredTest {
     }
 
     @Test
-    public void shouldSaveValidUser() throws JSONException {
+    public void shouldReturnOKIfSaveValidUser(){
         User newUser = new User("Maria", "maria@gmail.com");
 
         given(aRequestToEasyBeasy())
@@ -35,6 +36,21 @@ public class TestRestAssured extends BaseRestAssuredTest {
                 .body(newUser)
                 .when()
                 .post("/user/")
+                .then()
+                .statusCode(200);
+    }
+
+    @Test
+    public void shouldReturnOKIfSaveValidNPS(){
+        NetPromoterScore newNPS = new NetPromoterScore();
+        newNPS.setScore(10);
+        newNPS.setComments("comment");
+
+        given(aRequestToEasyBeasy())
+                .contentType(ContentType.JSON)
+                .body(newNPS)
+                .when()
+                .post("/net-promoter-score/")
                 .then()
                 .statusCode(200);
     }
