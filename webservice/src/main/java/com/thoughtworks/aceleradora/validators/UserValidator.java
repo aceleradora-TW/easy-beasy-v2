@@ -1,8 +1,6 @@
 package com.thoughtworks.aceleradora.validators;
 
-import com.thoughtworks.aceleradora.domain.NetPromoterScore;
 import com.thoughtworks.aceleradora.domain.User;
-import com.thoughtworks.aceleradora.repository.NetPromoterScoreRepository;
 import com.thoughtworks.aceleradora.repository.UserRepository;
 import com.thoughtworks.aceleradora.validators.annotations.UserValid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +20,8 @@ public class UserValidator implements ConstraintValidator<UserValid, User> {
     @Override
     public boolean isValid(User user, ConstraintValidatorContext context) {
         context.disableDefaultConstraintViolation();
-        return nomeNaoEstaVazio(user, context);
+        return nomeNaoEstaVazio(user, context) &&
+                emailNaoEstaVazio(user, context);
     }
 
     private boolean nomeNaoEstaVazio(User user, ConstraintValidatorContext context) {
@@ -32,7 +31,16 @@ public class UserValidator implements ConstraintValidator<UserValid, User> {
 
             return false;
         }
+        return true;
+    }
 
+    private boolean emailNaoEstaVazio(User user, ConstraintValidatorContext context) {
+        if (user.getEmail().trim().isEmpty()) {
+            context.buildConstraintViolationWithTemplate("insira seu email completo.")
+                    .addConstraintViolation();
+
+            return false;
+        }
         return true;
     }
 
