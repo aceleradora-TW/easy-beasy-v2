@@ -85,8 +85,6 @@ public class StageServiceTest {
     public void shouldTrowExceptionIfDoubtNull() {
         Stage stage = new Stage("solution", 1, null, asList(new Question("question")));
 
-        // when(stageRepository.findAll()).thenReturn(asList(stage));
-
         expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage("The stage doubt cannot be null.");
 
@@ -129,25 +127,23 @@ public class StageServiceTest {
 
     @Test
     public void shouldReturnOKIfReturnAllQuestions() {
-        Question question = new Question("question");
 
-        Mockito.when(questionRepository.findAll()).thenReturn(asList(question));
+        expectedException.expect(IllegalArgumentException.class);
 
-        List<Question> questions = stageService.getQuestions();
+        List<Question> questions = stageService.getStageById((long) 0).getQuestions();
 
-        Assert.assertEquals(questions.get(0), question);
+        Assert.assertEquals(questions, stage.getQuestions());
         Mockito.verify(questionRepository, Mockito.times(1)).findAll();
     }
 
     @Test
     public void shouldReturnOKIfReturnOneQuestion() {
-        Question question = new Question("question");
 
-        Mockito.when(questionRepository.findAll()).thenReturn(asList(question));
+        expectedException.expect(IllegalArgumentException.class);
 
-        Question questionResult = stageService.getQuestion(0);
+        Question questionResult = stageService.getStageById((long) 0).getQuestions().get(0);
 
-        Assert.assertEquals(question, questionResult);
+        Assert.assertEquals(stage.getQuestions().get(0), questionResult);
         Mockito.verify(questionRepository, Mockito.times(1)).findAll();
     }
 }
