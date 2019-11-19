@@ -35,37 +35,37 @@ public class StageServiceTest {
     @Rule
     public ExpectedException
             expectedException = ExpectedException.none();
-    private Stage stage;
+    private Stage expectedStage;
 
     @Before
     public  void setup(){
-        stage = new Stage("solution", 1, "hint", asList(new Question("question")));
+        expectedStage = new Stage("solution", 1, "hint", asList(new Question("question")));
     }
 
     @Test
     public void shouldReturnOKIfAddValidStage() {
 
         when(stageRepository.findAll()).thenReturn(asList());
-        when(stageRepository.save(stage)).thenReturn(stage);
+        when(stageRepository.save(expectedStage)).thenReturn(expectedStage);
 
-        Stage stages = stageService.save(stage);
+        Stage stages = stageService.save(expectedStage);
 
-        Assert.assertEquals(stage.getSolution(), stages.getSolution());
-        Assert.assertEquals(stage.getHint(), stages.getHint());
-        Assert.assertEquals(stage.getNumber(), stages.getNumber());
+        Assert.assertEquals(expectedStage.getSolution(), stages.getSolution());
+        Assert.assertEquals(expectedStage.getHint(), stages.getHint());
+        Assert.assertEquals(expectedStage.getNumber(), stages.getNumber());
 
         Mockito.verify(stageRepository, Mockito.times(1)).findAll();
-        Mockito.verify(stageRepository, Mockito.times(1)).save(stage);
+        Mockito.verify(stageRepository, Mockito.times(1)).save(expectedStage);
     }
 
     @Test
     public void shouldTrowExceptionIfStageNumberAlreadyExists() {
-        when(stageRepository.findAll()).thenReturn(asList(stage));
+        when(stageRepository.findAll()).thenReturn(asList(expectedStage));
 
         expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage("The stage number already exist.");
 
-        stageService.save(stage);
+        stageService.save(expectedStage);
 
         Mockito.verify(stageRepository, Mockito.times(1)).findAll();
     }
@@ -121,7 +121,7 @@ public class StageServiceTest {
 
         List<Question> questions = stageService.getStageById((long) 0).getQuestions();
 
-        Assert.assertEquals(questions, stage.getQuestions());
+        Assert.assertEquals(questions, expectedStage.getQuestions());
         Mockito.verify(questionRepository, Mockito.times(1)).findAll();
     }
 
@@ -132,7 +132,7 @@ public class StageServiceTest {
 
         Question questionResult = stageService.getStageById((long) 0).getQuestions().get(0);
 
-        Assert.assertEquals(stage.getQuestions().get(0), questionResult);
+        Assert.assertEquals(expectedStage.getQuestions().get(0), questionResult);
         Mockito.verify(questionRepository, Mockito.times(1)).findAll();
     }
 }
