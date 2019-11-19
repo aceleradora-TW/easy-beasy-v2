@@ -36,11 +36,11 @@ public class StageService {
         return repository.findById(id).orElseThrow(IllegalArgumentException::new);
     }
 
-    public Stage deleteStage(int number) {
+    public Stage deleteStage(int stageNumber) {
         List<Stage> stages = getStages();
 
         for (Stage auxStage : stages) {
-            if (auxStage.getNumber() == number) {
+            if (auxStage.getNumber() == stageNumber) {
                 repository.delete(auxStage);
             }
         }
