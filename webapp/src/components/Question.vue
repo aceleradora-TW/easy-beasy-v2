@@ -55,13 +55,13 @@
         <b-col cols="auto" class="mb-3">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
-        <b-col cols="9" class="question">{{feedback}}</b-col>
+        <b-col cols="9" class="feedback">{{feedbackNps}}</b-col>
       </b-row>
       <b-row v-if="showSolution" class="mb-3">
         <b-col cols="auto" class="mb-3">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
-        <b-col cols="9" class="question">{{feedback}}</b-col>
+        <b-col cols="9" class="feedback">{{feedbackNps}}</b-col>
       </b-row>
     </b-container>
 
@@ -106,7 +106,7 @@ export default {
     showSolution: false,
     theresNoSolution: false,
     solutionNotFound: "Não identificamos nenhum problema!",
-    feedback: "Ajude-nos a melhorar esta ferramenta, envie seu feedback",
+    feedbackNps: "Ajude-nos a melhorar esta ferramenta, envie seu feedback",
     idStage: 1,
     isTypewriterRunning: false,
     callBack: () => {},
@@ -245,6 +245,13 @@ export default {
         color: $question-text-color;
         font-family: "Lato, sans-serif", serif;
         font-size: 13pt;
+      }
+      .feedback{
+        text-align: left;
+        color: $question-text-color;
+        font-family: "Lato, sans-serif", serif;
+        font-size: 13pt;
+        font-weight: bold;
       }
       .answer {
         text-align: right;
