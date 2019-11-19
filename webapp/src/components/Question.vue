@@ -116,7 +116,7 @@ export default {
    typeWrite() {
       this.clearTypewriter();
       this.isTypewriterRunning = true;
-      new Promise((resolve) => {
+      new Promise( resolve => {
         [...this.currentQuestion.description].forEach((char, index) => {
         setTimeout(() => {
           this.typewritingQuestion += char;
