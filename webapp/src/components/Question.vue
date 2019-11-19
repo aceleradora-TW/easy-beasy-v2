@@ -236,6 +236,11 @@ export default {
     width: 100%;
     height: 80%;
     overflow-y: auto;
+        .showNps {
+          background-color: #ffffff;
+          border-color: #ffffff;
+          color: rgb(54, 54, 218);
+        }
     .chat-box {
       padding: 3rem 2rem;
 
@@ -248,18 +253,13 @@ export default {
         color: $question-text-color;
         font-family: "Lato, sans-serif", serif;
         font-size: 13pt;
+
       }
       .feedback {
         text-align: left;
         color: $question-text-color;
         font-family: "Lato, sans-serif", serif;
         font-size: 13pt;
-
-        .showNps {
-          background-color: #ffffff;
-          border-color: #ffffff;
-          color: rgb(54, 54, 218);
-        }
       }
       .answer {
         text-align: right;
@@ -297,6 +297,11 @@ export default {
           bottom: 10px;
         }
       }
+    }
+    .showNps {
+      background-color: #ffffff;
+      border-color: #ffffff;
+      color: rgb(54, 54, 218);
     }
   }
 }
