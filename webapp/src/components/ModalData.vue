@@ -2,49 +2,47 @@
   <div>
     <b-modal hide-header-close hide-footer no-close-on-backdrop no-close-on-esc id="modalData">
       <p>
-        <strong>Por favor, nos informe nome e email para receber o diagnóstico.</strong>
+          {{user.collectText}}
       </p>
-      <b-form>
-        <b-row>
-          <b-col md="6" sm="12">
+      <b-row>
+        <b-col md="6" sm="12">
             <b-form-group label-for="user-name">
-              <b-form-input
-                id="user-name"
-                name="user-name"
-                v-model="$v.user.name.$model"
-                :state="$v.user.name.$dirty ? !$v.user.name.$error : null"
-                placeholder="Informe seu nome"
-              />
-              </b-form-group>
-          </b-col>
-        </b-row>
-        <b-row>
-          <b-col md="6" sm="12">
-            <b-form-group label-for="user-email">
-              <b-form-input
-                id="user-email"
-                type="email"
-                v-model="$v.user.email.$model"
-                :class="{ 'is-invalid': save && $v.user.email.$error }"
-                placeholder="exemplo@gmail.com"
-              />
+                <b-form-input
+                        id="user-name"
+                        name="user-name"
+                        v-model="$v.user.name.$model"
+                        :state="$v.user.name.$dirty ? !$v.user.name.$error : null"
+                        placeholder="Informe seu nome"
+                />
             </b-form-group>
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col md="6" sm="12">
+            <b-form-group label-for="user-email">
+                <b-form-input
+                        id="user-email"
+                        type="email"
+                        v-model="$v.user.email.$model"
+                        :class="{ 'is-invalid': save && $v.user.email.$error }"
+                        placeholder="exemplo@gmail.com"
+                />
+            </b-form-group>
+        </b-col>
+      </b-row>
+      <b-container fluid>
+        <b-row class="mb-3">
+          <b-col md="1.5" class="ml-md-auto">
+            <b-button
+              squared
+              type="submit"
+              v-on:click="save(), $bvModal.hide('modalData')"
+              class="saveUser answer-btn mt-20" @click="toast('b-toaster-top-center')"
+              :disabled="$v.user.$invalid"
+            >Salvar</b-button>
           </b-col>
         </b-row>
-        <b-container fluid>
-          <b-row class="mb-3">
-            <b-col md="1.5" class="ml-md-auto">
-              <b-button
-                squared
-                type="submit"
-                v-on:click="save(), $bvModal.hide('modalData')"
-                class="saveUser answer-btn mt-20" @click="toast('b-toaster-top-center')"
-                :disabled="$v.user.$invalid"
-              >Salvar</b-button>
-            </b-col>
-          </b-row>
-        </b-container>
-      </b-form>
+      </b-container>
     </b-modal>
   </div>
 </template>
@@ -62,8 +60,11 @@ export default {
   data: () => ({
     user: {
       name: "",
-      email: ""
-    }
+      email: "",
+      collectText:"Chegamos a um resultado, informe seus dados para que possamos compartilha-lo com você."
+    },
+    isNameValid: true,
+    isEmailValid: true
   }),
   validations: {
     user: {
