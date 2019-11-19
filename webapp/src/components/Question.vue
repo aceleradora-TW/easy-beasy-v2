@@ -182,7 +182,6 @@ export default {
         this.disableButtonNotUnderstand = true;
         this.showModalData();
         this.callBack = this.showSolutionMessage;
-        this.showSolution = true;
         this.nextStage();
       }
       if (!this.questionList.length && this.quantityNegativeAnswers() === 1) {
