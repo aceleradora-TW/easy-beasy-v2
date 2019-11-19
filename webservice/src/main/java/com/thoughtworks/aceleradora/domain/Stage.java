@@ -3,16 +3,34 @@ package com.thoughtworks.aceleradora.domain;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
 import java.util.ArrayList;
 import java.util.List;
+import static javax.persistence.GenerationType.IDENTITY;
 
+@Entity
+@Table(name = "stages")
 public class Stage {
-    private List<Question> questions = new ArrayList<>();
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    private Long id;
+
+    @OneToMany
+    @JoinColumn(name = "id_stage")
+    private List<Question> questions;
+
     private String solution;
     private String hint;
     private int number;
-    private Long id;
 
+    @JsonCreator
+    public Stage() {
+    }
 
     @JsonCreator
     public Stage(@JsonProperty("solution") String solution,
