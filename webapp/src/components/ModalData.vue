@@ -87,8 +87,10 @@ export default {
         if (this.$v.user.$anyError) {
         return
       }
-      userService.save(this.user);
-      this.callBack();
+      userService.save(this.user).then(/*somente sucesso*/() => {
+                this.callBack();
+      }).catch(/*todos os erros*/errors => console.log(errors));
+
     }
   }
 };
