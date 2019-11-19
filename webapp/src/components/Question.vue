@@ -1,5 +1,6 @@
 <template>
   <div class="chat">
+    <ModalNps/>
     <ModalData :callBack="callBack" />
     <b-container class="chat-box">
       <b-row align-h="start" class="mb-4">
@@ -7,40 +8,31 @@
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
         <b-col cols="9" class="question">
-          Olá, somos a Easybeasy! A nossa plataforma irá realizar o diagnóstico
-          da sua empresa a partir de perguntas e respostas de “sim” ou “não”.
-          Vamos começar!
+          Olá, somos a Easybeasy! A nossa plataforma irá realizar o diagnóstico da sua
+          empresa a partir de perguntas e respostas de “sim” ou “não”. Vamos começar!
         </b-col>
       </b-row>
       <div
         class="question question-history"
         v-for="answeredQuestion in chatHistory"
-        v-bind:key="answeredQuestion.description"
-      >
+        v-bind:key="answeredQuestion.description">
         <b-row>
           <b-col cols="auto">
             <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
           </b-col>
-          <b-col cols="9" class="question mb-3">{{
-            answeredQuestion.description
-          }}</b-col>
+          <b-col cols="9" class="question mb-3">{{answeredQuestion.description}}</b-col>
         </b-row>
 
         <b-row align-h="end">
-          <b-col cols="2" class="answer mb-3">{{
-            answeredQuestion.response
-          }}</b-col>
+          <b-col cols="2" class="answer mb-3">{{answeredQuestion.response}}</b-col>
         </b-row>
       </div>
 
-      <b-row
-        class="question current-question"
-        v-if="currentQuestion && !showSolution"
-      >
+      <b-row class="question current-question" v-if="isThereNextQuestion">
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
-        <b-col cols="9">{{ typewritingQuestion }}</b-col>
+        <b-col cols="9">{{typewritingQuestion}}</b-col>
       </b-row>
 
       <b-row v-if="showSolution" class="mb-3">
@@ -56,24 +48,7 @@
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
-        <b-col cols="9" class="question">{{ solutionNotFound }}</b-col>
-      </b-row>
-
-      <b-row v-if="theresNoSolution" class="mb-3">
-        <b-col cols="auto" class="mb-3">
-          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
-        </b-col>
-        <b-col cols="9" class="feedback">{{ feedbackNps }}</b-col>
-        <b-button v-on:click="showNps" class="showNps">Clique aqui!</b-button>
-      </b-row>
-      <b-row v-if="showSolution" class="mb-3">
-        <b-col cols="auto" class="mb-3">
-          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
-        </b-col>
-        <b-col cols="9" class="feedback">
-          {{ feedbackNps }}
-          <b-button v-on:click="showNps" class="showNps">Clique aqui!</b-button>
-        </b-col>
+        <b-col cols="9" class="question">{{solutionNotFound}}</b-col>
       </b-row>
     </b-container>
 
@@ -83,18 +58,13 @@
           class="answer-btn"
           v-on:click="collectAnswer('Sim'), gotoBottom()"
           :disabled="showSolution || theresNoSolution || isTypewriterRunning"
-          >Sim</b-button
-        >
-        <ModalQuestion
-          class="ml-5 mr-5"
-          :disableButtonNotUnderstand="disableButtonNotUnderstand"
-        />
+        >Sim</b-button>
+        <ModalQuestion class="ml-5 mr-5" :disableButtonNotUnderstand="disableButtonNotUnderstand" />
         <b-button
           class="answer-btn"
           v-on:click="collectAnswer('Não'), gotoBottom()"
           :disabled="showSolution || theresNoSolution || isTypewriterRunning"
-          >Não</b-button
-        >
+        >Não</b-button>
       </div>
     </b-row>
   </div>
@@ -123,33 +93,34 @@ export default {
     showSolution: false,
     theresNoSolution: false,
     solutionNotFound: "Não identificamos nenhum problema!",
-    feedbackNps:
-      "Gostaria de nos ajudar a melhorar essa ferramenta? envie seu feedback!",
     idStage: 1,
     isTypewriterRunning: false,
     callBack: () => {},
     disableButtonNotUnderstand: false,
-    typewritingQuestion: ""
+    typewritingQuestion: "",
+    isThereNextQuestion: false
+
   }),
 
   created() {
-    StageService.getStageById(this.idStage)
-      .then(response => {
-        this.questionList = response.data.questions;
-        this.nextQuestion();
-      })
-      .catch(error => {});
+      StageService.getStageById(this.idStage).then(response => {
+      let stage = response.data;
+      this.questionList = stage.questions;
+      this.nextQuestion();
+    })
+    .catch((error) => {
+      return error;
+    });
   },
   methods: {
-    typeWrite() {
+   typeWrite() {
       this.clearTypewriter();
       this.isTypewriterRunning = true;
-      new Promise((resolve, reject) => {
+      new Promise( resolve => {
         [...this.currentQuestion.description].forEach((char, index) => {
-          setTimeout(() => {
-            this.typewritingQuestion += char;
-            if (this.typewritingQuestion === this.currentQuestion.description)
-              resolve();
+        setTimeout(() => {
+          this.typewritingQuestion += char;
+          if(this.typewritingQuestion === this.currentQuestion.description) resolve();
           }, 20 * index);
         });
       }).then(() => {
@@ -161,6 +132,7 @@ export default {
     },
     nextQuestion() {
       this.currentQuestion = this.questionList.shift();
+      this.isThereNextQuestion = true;
       this.typeWrite();
     },
     collectAnswer(answer) {
@@ -172,67 +144,75 @@ export default {
     },
     showSolutionMessage() {
       this.showSolution = true;
+      this.nextStage();
     },
     showNoSolutionIndefiedMessage() {
       this.theresNoSolution = true;
+      this.nextStage();
     },
     shouldShowSolution() {
       if (this.quantityNegativeAnswers() === 2) {
         this.disableButtonNotUnderstand = true;
-        this.showModalData();
         this.callBack = this.showSolutionMessage;
-        this.showSolution = true;
-        this.nextStage();
+        this.isThereNextQuestion = false;
+        this.showModalData();
+         this.showNps();
+        return;
       }
       if (!this.questionList.length && this.quantityNegativeAnswers() === 1) {
         this.disableButtonNotUnderstand = true;
         this.showModalData();
         this.callBack = this.showSolutionMessage;
-        this.showSolution = true;
-        this.nextStage();
+        this.isThereNextQuestion = false;
+        this.showNps();
+        return;
       }
       this.solutionNotIdentified();
-      this.nextQuestion();
+      if(this.questionList.length){
+        this.nextQuestion();
+      }
+
     },
     solutionNotIdentified() {
       if (!this.questionList.length && this.quantityNegativeAnswers() == 0) {
         this.disableButtonNotUnderstand = true;
         this.showModalData();
         this.callBack = this.showNoSolutionIndefiedMessage;
-        this.theresNoSolution = true;
-        this.nextStage();
+        this.isThereNextQuestion = false;
+        this.showNps()
       }
     },
     quantityNegativeAnswers() {
-      return this.chatHistory.filter(question => question.response === "Não")
-        .length;
+      return this.chatHistory
+              .filter(question => question.response === "Não").length
     },
     gotoBottom() {
       this.$nextTick(() => {
         const element = this.$el.querySelector(".chat-box");
-        element.scrollIntoView({ behavior: "smooth", block: "end" });
+        element.scrollIntoView({behavior: "smooth", block: "end"})
       });
     },
     showNps() {
-      this.$bvModal.show("modalNps");
+      this.$bvModal.show('modalNps')
     },
     showModalData() {
       this.$bvModal.show("modalData");
     },
-    nextStage() {
-      if (this.theresNoSolution === true || this.showSolution === true) {
+    nextStage(){
+      if(this.theresNoSolution===true || this.showSolution===true){
         this.idStage++;
         this.questionList = [];
-        StageService.getStageById(this.idStage)
-          .then(response => {
-            let stage = response.data;
-            this.questionList = stage.questions;
-            this.theresNoSolution = false;
-            this.nextQuestion();
-          })
-          .catch(error => {
-            console.log(error);
-          });
+        StageService.getStageById(this.idStage).then(response => {
+          let stage = response.data;
+          this.questionList = stage.questions;
+          this.theresNoSolution = false;
+          this.nextQuestion();
+          this.isThereNextQuestion = false;
+
+        })
+        .catch((error) => {
+          return error;
+        });
       }
     }
   }
@@ -248,25 +228,13 @@ export default {
     width: 100%;
     height: 80%;
     overflow-y: auto;
-    .showNps {
-      background-color: #ffffff;
-      border-color: #ffffff;
-      color: rgb(54, 54, 218);
-    }
     .chat-box {
       padding: 3rem 2rem;
-
       img {
         border-radius: 50%;
         width: 1.5rem;
       }
       .question {
-        text-align: left;
-        color: $question-text-color;
-        font-family: "Lato, sans-serif", serif;
-        font-size: 13pt;
-      }
-      .feedback {
         text-align: left;
         color: $question-text-color;
         font-family: "Lato, sans-serif", serif;
@@ -308,11 +276,6 @@ export default {
           bottom: 10px;
         }
       }
-    }
-    .showNps {
-      background-color: #ffffff;
-      border-color: #ffffff;
-      color: rgb(54, 54, 218);
     }
   }
 }
