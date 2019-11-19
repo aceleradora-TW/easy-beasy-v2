@@ -74,52 +74,46 @@ public class StageServiceTest {
     public void shouldTrowExceptionIfSolutionNull() {
         Stage stage = new Stage(null, 1, "hint", asList(new Question("question")));
 
-        when(stageRepository.findAll()).thenReturn(asList(stage));
-
         expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage("The stage solution cannot be null.");
 
         stageService.save(stage);
-        Mockito.verify(stageRepository, Mockito.times(1)).findAll();
+        Mockito.verifyZeroInteractions(stageRepository);
     }
 
     @Test
     public void shouldTrowExceptionIfDoubtNull() {
         Stage stage = new Stage("solution", 1, null, asList(new Question("question")));
 
-        when(stageRepository.findAll()).thenReturn(asList(stage));
+        // when(stageRepository.findAll()).thenReturn(asList(stage));
 
         expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage("The stage doubt cannot be null.");
 
         stageService.save(stage);
-        Mockito.verify(stageRepository, Mockito.times(1)).findAll();
+        Mockito.verifyZeroInteractions(stageRepository);
     }
 
     @Test
     public void shouldTrowExceptionIfSolutionStartsWithSpace() {
         Stage stage = new Stage(" solution", 1, "doubt", asList(new Question("question")));
 
-        when(stageRepository.findAll()).thenReturn(asList(stage));
-
         expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage("The stage solution cannot starts with space.");
 
         stageService.save(stage);
-        Mockito.verify(stageRepository, Mockito.times(1)).findAll();
+        Mockito.verifyZeroInteractions(stageRepository);
     }
 
     @Test
     public void shouldTrowExceptionIfDoubtStartsWithSpace() {
         Stage stage = new Stage("solution", 1, " hint", asList(new Question("question")));
 
-        when(stageRepository.findAll()).thenReturn(asList(stage));
-
         expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage("The stage doubt cannot starts with space.");
 
         stageService.save(stage);
-        Mockito.verify(stageRepository, Mockito.times(1)).findAll();
+        Mockito.verifyZeroInteractions(stageRepository);
     }
 
     @Test
