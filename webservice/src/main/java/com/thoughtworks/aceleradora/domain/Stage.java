@@ -15,7 +15,7 @@ public class Stage {
     private Long id;
 
     @OneToMany
-    @JoinColumn(name = "fk_id_stage")
+    @JoinColumn(name = "id_stage")
     private List<Question> questions;
 
     private String solution;
