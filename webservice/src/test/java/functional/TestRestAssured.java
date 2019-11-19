@@ -3,13 +3,22 @@ package functional;
 import com.thoughtworks.aceleradora.domain.NetPromoterScore;
 import com.thoughtworks.aceleradora.domain.User;
 import io.restassured.http.ContentType;
+import io.restassured.specification.Argument;
 import org.json.JSONException;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
+import java.util.List;
+import java.util.NoSuchElementException;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.equalTo;
 
 public class TestRestAssured extends BaseRestAssuredTest {
+
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
 
     @Test
     public void shouldReturnSingleStageAtSpecifiedIndex() {
@@ -28,7 +37,7 @@ public class TestRestAssured extends BaseRestAssuredTest {
     }
 
     @Test
-    public void shouldReturnOKIfSaveValidUser(){
+    public void shouldReturnOKIfSaveValidUser() {
         User newUser = new User("Maria", "maria@gmail.com");
 
         given(aRequestToEasyBeasy())
@@ -41,7 +50,7 @@ public class TestRestAssured extends BaseRestAssuredTest {
     }
 
     @Test
-    public void shouldReturnOKIfSaveValidNPS(){
+    public void shouldReturnOKIfSaveValidNPS() {
         NetPromoterScore newNPS = new NetPromoterScore();
         newNPS.setScore(10);
         newNPS.setComments("comment");
@@ -53,5 +62,14 @@ public class TestRestAssured extends BaseRestAssuredTest {
                 .post("/net-promoter-score/")
                 .then()
                 .statusCode(200);
+    }
+
+    @Test
+    public void shouldThrowExceptionIfRequestInvalidStage() {
+        given(aRequestToEasyBeasy())
+                .when()
+                .get("/stage/-1")
+                .then()
+                .statusCode(500);
     }
 }
