@@ -56,7 +56,6 @@
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
         <b-col cols="9" class="feedback">{{feedbackNps}}</b-col>
-        <b-button v-on:click="showNps" class="showNps">Clique aqui!</b-button>
       </b-row>
       <b-row v-if="showSolution" class="mb-3">
         <b-col cols="auto" class="mb-3">
