@@ -36,16 +36,6 @@ public class StageService {
         return repository.findById(id).orElseThrow(IllegalArgumentException::new);
     }
 
-    public Stage deleteStage(int stageNumber) {
-        List<Stage> stages = getStages();
-
-        for (Stage auxStage : stages) {
-            if (auxStage.getNumber() == stageNumber) {
-                repository.delete(auxStage);
-            }
-        }
-        throw new IllegalArgumentException("This stage number does not exist.");
-    }
 
     private void validation(Stage stage) {
 

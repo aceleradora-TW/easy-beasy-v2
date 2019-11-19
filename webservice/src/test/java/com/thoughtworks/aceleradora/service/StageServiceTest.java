@@ -115,17 +115,6 @@ public class StageServiceTest {
     }
 
     @Test
-    public void shouldReturnExceptionIfTryToDeleteAnNonexistentStage() {
-        when(stageRepository.findAll()).thenReturn(asList());
-
-        expectedException.expect(IllegalArgumentException.class);
-        expectedException.expectMessage("This stage number does not exist.");
-
-        stageService.deleteStage(5);
-        Mockito.verify(stageRepository, Mockito.times(1)).findAll();
-    }
-
-    @Test
     public void shouldReturnOKIfReturnAllQuestions() {
 
         expectedException.expect(IllegalArgumentException.class);
