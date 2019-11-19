@@ -3,14 +3,10 @@ package functional;
 import com.thoughtworks.aceleradora.domain.NetPromoterScore;
 import com.thoughtworks.aceleradora.domain.User;
 import io.restassured.http.ContentType;
-import io.restassured.specification.Argument;
-import org.json.JSONException;
+import org.apache.http.HttpStatus;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
-import java.util.List;
-import java.util.NoSuchElementException;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -26,7 +22,7 @@ public class TestRestAssured extends BaseRestAssuredTest {
                 .when()
                 .get("/stage/1")
                 .then()
-                .statusCode(200)
+                .statusCode(HttpStatus.SC_OK)
                 .body("solution", equalTo("Controle seus gastos!"))
                 .body("number", equalTo(1))
                 .body("hint", equalTo("hint"))
@@ -46,7 +42,7 @@ public class TestRestAssured extends BaseRestAssuredTest {
                 .when()
                 .post("/user/")
                 .then()
-                .statusCode(200);
+                .statusCode(HttpStatus.SC_OK);
     }
 
     @Test
@@ -61,7 +57,7 @@ public class TestRestAssured extends BaseRestAssuredTest {
                 .when()
                 .post("/net-promoter-score/")
                 .then()
-                .statusCode(200);
+                .statusCode(HttpStatus.SC_OK);
     }
 
     @Test
@@ -70,6 +66,6 @@ public class TestRestAssured extends BaseRestAssuredTest {
                 .when()
                 .get("/stage/-1")
                 .then()
-                .statusCode(500);
+                .statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR);
     }
 }
