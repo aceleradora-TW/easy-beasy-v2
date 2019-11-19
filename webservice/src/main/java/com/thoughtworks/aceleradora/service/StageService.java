@@ -2,7 +2,6 @@ package com.thoughtworks.aceleradora.service;
 
 import com.thoughtworks.aceleradora.domain.Question;
 import com.thoughtworks.aceleradora.domain.Stage;
-import com.thoughtworks.aceleradora.repository.QuestionRepository;
 import com.thoughtworks.aceleradora.repository.StageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +19,7 @@ public class StageService {
         this.repository = repository;
     }
 
-    public List<Question> getQuestions(Long id) {
+    public List<Question> getQuestionsFormStage(Long id) {
         return getStageById(id).getQuestions();
     }
 
