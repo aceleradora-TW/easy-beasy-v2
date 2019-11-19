@@ -116,7 +116,7 @@ export default {
    typeWrite() {
       this.clearTypewriter();
       this.isTypewriterRunning = true;
-      new Promise((resolve) => {
+      new Promise(resolve => {
         [...this.currentQuestion.description].forEach((char, index) => {
         setTimeout(() => {
           this.typewritingQuestion += char;
@@ -157,7 +157,7 @@ export default {
         this.isThereNextQuestion = false;
         this.showModalData();
          this.showNps();
-        return;       
+        return;
       }
       if (!this.questionList.length && this.quantityNegativeAnswers() === 1) {
         this.disableButtonNotUnderstand = true;
@@ -171,7 +171,7 @@ export default {
       if(this.questionList.length){
         this.nextQuestion();
       }
-      
+
     },
     solutionNotIdentified() {
       if (!this.questionList.length && this.quantityNegativeAnswers() == 0) {
