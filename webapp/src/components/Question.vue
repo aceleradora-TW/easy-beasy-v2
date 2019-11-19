@@ -1,6 +1,6 @@
 <template>
   <div class="chat">
-    <ModalNps/>
+    <!-- <ModalNps/> -->
     <ModalData :callBack="callBack" />
     <b-container class="chat-box">
       <b-row align-h="start" class="mb-4">
@@ -61,7 +61,8 @@
         <b-col cols="auto" class="mb-3">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
-        <b-col cols="9" class="feedback">{{feedbackNps}}</b-col>
+        <b-col cols="9" class="feedback">{{feedbackNps}} <b-button v-on:click= "showNps" class="showNps">Clique aqui!</b-button>
+        </b-col>
       </b-row>
     </b-container>
 
@@ -106,7 +107,7 @@ export default {
     showSolution: false,
     theresNoSolution: false,
     solutionNotFound: "Não identificamos nenhum problema!",
-    feedbackNps: "Ajude-nos a melhorar esta ferramenta, envie seu feedback",
+    feedbackNps: "Gostaria de nos ajudar a melhorar essa ferramenta? envie seu feedback!",
     idStage: 1,
     isTypewriterRunning: false,
     callBack: () => {},
@@ -164,7 +165,7 @@ export default {
         this.disableButtonNotUnderstand = true;
         this.showModalData();
         this.callBack = this.showSolutionMessage;
-        this.showNps();
+        // this.showNps();
         this.showSolution = true;
         this.nextStage();
       }
@@ -172,7 +173,7 @@ export default {
         this.disableButtonNotUnderstand = true;
         this.showModalData();
         this.callBack = this.showSolutionMessage;
-        this.showNps();
+        // this.showNps();
         this.showSolution = true;
         this.nextStage();
       }
@@ -184,7 +185,7 @@ export default {
         this.disableButtonNotUnderstand = true;
         this.showModalData();
         this.callBack = this.showNoSolutionIndefiedMessage;
-        this.showNps()
+        // this.showNps()
         this.theresNoSolution = true;
         this.nextStage();
       }
@@ -245,14 +246,25 @@ export default {
         color: $question-text-color;
         font-family: "Lato, sans-serif", serif;
         font-size: 13pt;
+
       }
       .feedback{
         text-align: left;
         color: $question-text-color;
         font-family: "Lato, sans-serif", serif;
         font-size: 13pt;
-        font-weight: bold;
-      }
+        // font-weight: bold;
+        
+        border-radius: solid 3rem;
+        
+
+        .showNps{
+          background-color: #ffffff;
+          border-color: #ffffff;
+          color:rgb(54, 54, 218);
+
+        }
+  }
       .answer {
         text-align: right;
         color: $question-text-color;
