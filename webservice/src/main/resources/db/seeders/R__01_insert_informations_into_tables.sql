@@ -1,13 +1,13 @@
 --Remove todos os dados das tabelas para evitar duplicacoes de dados de teste
-delete from question;
-delete from stage;
+delete from questions;
+delete from stages;
 
 --Reseta gerador de ids para 1
 alter SEQUENCE question_id_seq RESTART with 1;
 alter SEQUENCE stage_id_seq RESTART with 1;
 
 
-insert into stage(solution, hint, number)
+insert into stages(solution, hint, "number")
 values('Podemos melhorar alguns pontos na sua gestão de tempo e tarefas. A solução consistirá em como organizar suas atividades, definir prazos e metas, além da indicação de algumas ferramentas que poderão complementar a sua rotina. Confira no link a baixo a solução para a sua pendência: https://medium.com/@easybeasybr/gestão-de-tempo-e-tarefas-p1-12a51de24f75', 'Pense no seu dia a dia, se você sabe qual o próximo passo que deve ser tomado, se tem esclarecido quais e quando suas tarefas devem ser feitas.', 1),
 
 ('Além de fechar o mês no azul é importante saber por quê e como isso aconteceu, caso contrário você poderá se deparar com surpresas e até acabar tendo prejuízo por falta de organização. Para resolver isso vamos te ensinar como fazer um controle fácil de tudo que entra e sai do caixa do seu negócio. Confira no link a baixo a solução para a sua pendência:
@@ -41,7 +41,7 @@ Confira no link a baixo a solução para a sua pendência:
 
 https://medium.com/@easybeasybr/pontuando-meu-produto-servi%C3%A7o-ma3-2a453a1065d0', 'Tenha em mente o seu cliente, se você sabe o quanto ele está satisfeito. Reflita sobre o que diferencia você da concorrência, o que faz seus consumidores comprarem de você.', 8);
 
-insert into question(description, fk_id_stage)
+insert into questions(description, id_stage)
 values('Você tem uma organização de tempo e tarefas?', 1),
 ('Você geralmente lembra de coisas que precisam ser feitas?', 1),
 ('Você organiza a semana em tarefas e metas a serem cumpridas?', 1),
