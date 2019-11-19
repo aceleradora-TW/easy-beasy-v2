@@ -1,6 +1,5 @@
 <template>
   <div class="chat">
-    <!-- <ModalNps/> -->
     <ModalData :callBack="callBack" />
     <b-container class="chat-box">
       <b-row align-h="start" class="mb-4">
@@ -15,7 +14,8 @@
       <div
         class="question question-history"
         v-for="answeredQuestion in chatHistory"
-        v-bind:key="answeredQuestion.description">
+        v-bind:key="answeredQuestion.description"
+      >
         <b-row>
           <b-col cols="auto">
             <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
@@ -61,7 +61,9 @@
         <b-col cols="auto" class="mb-3">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
-        <b-col cols="9" class="feedback">{{feedbackNps}} <b-button v-on:click= "showNps" class="showNps">Clique aqui!</b-button>
+        <b-col cols="9" class="feedback">
+          {{feedbackNps}}
+          <b-button v-on:click="showNps" class="showNps">Clique aqui!</b-button>
         </b-col>
       </b-row>
     </b-container>
@@ -107,33 +109,34 @@ export default {
     showSolution: false,
     theresNoSolution: false,
     solutionNotFound: "Não identificamos nenhum problema!",
-    feedbackNps: "Gostaria de nos ajudar a melhorar essa ferramenta? envie seu feedback!",
+    feedbackNps:
+      "Gostaria de nos ajudar a melhorar essa ferramenta? envie seu feedback!",
     idStage: 1,
     isTypewriterRunning: false,
     callBack: () => {},
     disableButtonNotUnderstand: false,
-    typewritingQuestion: "",
-
+    typewritingQuestion: ""
   }),
 
   created() {
-      StageService.getStageById(this.idStage).then(response => {
-      let stage = response.data;
-      this.questionList = stage.questions;
-      this.nextQuestion();
-    })
-    .catch((error) => {
-    });
+    StageService.getStageById(this.idStage)
+      .then(response => {
+        let stage = response.data;
+        this.questionList = stage.questions;
+        this.nextQuestion();
+      })
+      .catch(error => {});
   },
   methods: {
-   typeWrite() {
+    typeWrite() {
       this.clearTypewriter();
       this.isTypewriterRunning = true;
       new Promise((resolve, reject) => {
         [...this.currentQuestion.description].forEach((char, index) => {
-        setTimeout(() => {
-          this.typewritingQuestion += char;
-          if(this.typewritingQuestion === this.currentQuestion.description) resolve();
+          setTimeout(() => {
+            this.typewritingQuestion += char;
+            if (this.typewritingQuestion === this.currentQuestion.description)
+              resolve();
           }, 20 * index);
         });
       }).then(() => {
@@ -165,7 +168,6 @@ export default {
         this.disableButtonNotUnderstand = true;
         this.showModalData();
         this.callBack = this.showSolutionMessage;
-        // this.showNps();
         this.showSolution = true;
         this.nextStage();
       }
@@ -173,11 +175,10 @@ export default {
         this.disableButtonNotUnderstand = true;
         this.showModalData();
         this.callBack = this.showSolutionMessage;
-        // this.showNps();
         this.showSolution = true;
         this.nextStage();
       }
-      this.solutionNotIdentified()
+      this.solutionNotIdentified();
       this.nextQuestion();
     },
     solutionNotIdentified() {
@@ -185,41 +186,40 @@ export default {
         this.disableButtonNotUnderstand = true;
         this.showModalData();
         this.callBack = this.showNoSolutionIndefiedMessage;
-        // this.showNps()
         this.theresNoSolution = true;
         this.nextStage();
       }
     },
     quantityNegativeAnswers() {
-      return this.chatHistory
-              .filter(question => question.response === "Não").length
+      return this.chatHistory.filter(question => question.response === "Não")
+        .length;
     },
     gotoBottom() {
       this.$nextTick(() => {
         const element = this.$el.querySelector(".chat-box");
-        element.scrollIntoView({behavior: "smooth", block: "end"})
+        element.scrollIntoView({ behavior: "smooth", block: "end" });
       });
     },
     showNps() {
-      this.$bvModal.show('modalNps')
+      this.$bvModal.show("modalNps");
     },
     showModalData() {
       this.$bvModal.show("modalData");
     },
-    nextStage(){
-      if(this.theresNoSolution===true || this.showSolution===true){
+    nextStage() {
+      if (this.theresNoSolution === true || this.showSolution === true) {
         this.idStage++;
         this.questionList = [];
-        StageService.getStageById(this.idStage).then(response => {
-          let stage = response.data;
-          this.questionList = stage.questions;
-          this.theresNoSolution = false;
-          this.nextQuestion();
-
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+        StageService.getStageById(this.idStage)
+          .then(response => {
+            let stage = response.data;
+            this.questionList = stage.questions;
+            this.theresNoSolution = false;
+            this.nextQuestion();
+          })
+          .catch(error => {
+            console.log(error);
+          });
       }
     }
   }
@@ -237,6 +237,7 @@ export default {
     overflow-y: auto;
     .chat-box {
       padding: 3rem 2rem;
+
       img {
         border-radius: 50%;
         width: 1.5rem;
@@ -246,25 +247,19 @@ export default {
         color: $question-text-color;
         font-family: "Lato, sans-serif", serif;
         font-size: 13pt;
-
       }
-      .feedback{
+      .feedback {
         text-align: left;
         color: $question-text-color;
         font-family: "Lato, sans-serif", serif;
         font-size: 13pt;
-        // font-weight: bold;
-        
-        border-radius: solid 3rem;
-        
 
-        .showNps{
+        .showNps {
           background-color: #ffffff;
           border-color: #ffffff;
-          color:rgb(54, 54, 218);
-
+          color: rgb(54, 54, 218);
         }
-  }
+      }
       .answer {
         text-align: right;
         color: $question-text-color;
