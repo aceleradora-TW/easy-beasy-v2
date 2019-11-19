@@ -7,8 +7,9 @@
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
         <b-col cols="9" class="question">
-          Olá, somos a Easybeasy! A nossa plataforma irá realizar o diagnóstico da sua
-          empresa a partir de perguntas e respostas de “sim” ou “não”. Vamos começar!
+          Olá, somos a Easybeasy! A nossa plataforma irá realizar o diagnóstico
+          da sua empresa a partir de perguntas e respostas de “sim” ou “não”.
+          Vamos começar!
         </b-col>
       </b-row>
       <div
@@ -20,19 +21,26 @@
           <b-col cols="auto">
             <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
           </b-col>
-          <b-col cols="9" class="question mb-3">{{answeredQuestion.description}}</b-col>
+          <b-col cols="9" class="question mb-3">{{
+            answeredQuestion.description
+          }}</b-col>
         </b-row>
 
         <b-row align-h="end">
-          <b-col cols="2" class="answer mb-3">{{answeredQuestion.response}}</b-col>
+          <b-col cols="2" class="answer mb-3">{{
+            answeredQuestion.response
+          }}</b-col>
         </b-row>
       </div>
 
-      <b-row class="question current-question" v-if="currentQuestion && !showSolution">
+      <b-row
+        class="question current-question"
+        v-if="currentQuestion && !showSolution"
+      >
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
-        <b-col cols="9">{{typewritingQuestion}}</b-col>
+        <b-col cols="9">{{ typewritingQuestion }}</b-col>
       </b-row>
 
       <b-row v-if="showSolution" class="mb-3">
@@ -48,14 +56,14 @@
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
-        <b-col cols="9" class="question">{{solutionNotFound}}</b-col>
+        <b-col cols="9" class="question">{{ solutionNotFound }}</b-col>
       </b-row>
 
       <b-row v-if="theresNoSolution" class="mb-3">
         <b-col cols="auto" class="mb-3">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
-        <b-col cols="9" class="feedback">{{feedbackNps}}</b-col>
+        <b-col cols="9" class="feedback">{{ feedbackNps }}</b-col>
         <b-button v-on:click="showNps" class="showNps">Clique aqui!</b-button>
       </b-row>
       <b-row v-if="showSolution" class="mb-3">
@@ -63,7 +71,7 @@
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
         <b-col cols="9" class="feedback">
-          {{feedbackNps}}
+          {{ feedbackNps }}
           <b-button v-on:click="showNps" class="showNps">Clique aqui!</b-button>
         </b-col>
       </b-row>
@@ -75,13 +83,18 @@
           class="answer-btn"
           v-on:click="collectAnswer('Sim'), gotoBottom()"
           :disabled="showSolution || theresNoSolution || isTypewriterRunning"
-        >Sim</b-button>
-        <ModalQuestion class="ml-5 mr-5" :disableButtonNotUnderstand="disableButtonNotUnderstand" />
+          >Sim</b-button
+        >
+        <ModalQuestion
+          class="ml-5 mr-5"
+          :disableButtonNotUnderstand="disableButtonNotUnderstand"
+        />
         <b-button
           class="answer-btn"
           v-on:click="collectAnswer('Não'), gotoBottom()"
           :disabled="showSolution || theresNoSolution || isTypewriterRunning"
-        >Não</b-button>
+          >Não</b-button
+        >
       </div>
     </b-row>
   </div>
@@ -122,8 +135,7 @@ export default {
   created() {
     StageService.getStageById(this.idStage)
       .then(response => {
-        let stage = response.data;
-        this.questionList = stage.questions;
+        this.questionList = response.data.questions;
         this.nextQuestion();
       })
       .catch(error => {});
@@ -236,11 +248,11 @@ export default {
     width: 100%;
     height: 80%;
     overflow-y: auto;
-        .showNps {
-          background-color: #ffffff;
-          border-color: #ffffff;
-          color: rgb(54, 54, 218);
-        }
+    .showNps {
+      background-color: #ffffff;
+      border-color: #ffffff;
+      color: rgb(54, 54, 218);
+    }
     .chat-box {
       padding: 3rem 2rem;
 
@@ -253,7 +265,6 @@ export default {
         color: $question-text-color;
         font-family: "Lato, sans-serif", serif;
         font-size: 13pt;
-
       }
       .feedback {
         text-align: left;
