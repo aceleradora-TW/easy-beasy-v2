@@ -1,7 +1,10 @@
 <template>
     <div>
 
-        <b-modal hide-header-close hide-footer no-close-on-backdrop no-close-on-esc id="modalNps">
+        <b-modal hide-header-close hide-footer no-close-on-backdrop no-close-on-esc id="modalNps"
+            title="Ajude-nos a melhorar!"
+            :header-bg-variant= "headerBgVariant"
+            :header-text-variant = "headerTextVariant">
             <p>
                 <strong>Em uma escala de 1 a 10, o quanto você recomendaria o nosso serviço para alguém?</strong>
             </p>
@@ -39,8 +42,10 @@
         data: () => ({
             nps : {
                 score: 0,
-                comments: ""
-            }
+                comments: "",
+            },
+            headerBgVariant: 'info',
+            headerTextVariant: 'light'
         }),
         methods: {
             getScore(number) {
