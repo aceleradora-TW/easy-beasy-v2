@@ -3,10 +3,10 @@ package functional;
 import com.thoughtworks.aceleradora.domain.NetPromoterScore;
 import com.thoughtworks.aceleradora.domain.User;
 import io.restassured.http.ContentType;
-import org.apache.http.HttpStatus;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.springframework.http.HttpStatus;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -22,7 +22,7 @@ public class TestRestAssured extends BaseRestAssuredTest {
                 .when()
                 .get("/stage/1")
                 .then()
-                .statusCode(200)
+                .statusCode(HttpStatus.OK.value())
                 .body("solution", equalTo("Podemos melhorar alguns pontos na sua gestão de tempo e tarefas. A solução consistirá em como organizar suas atividades, definir prazos e metas, além da indicação de algumas ferramentas que poderão complementar a sua rotina. Confira no link a baixo a solução para a sua pendência: https://medium.com/@easybeasybr/gestão-de-tempo-e-tarefas-p1-12a51de24f75"))
                 .body("number", equalTo(1))
                 .body("hint", equalTo("Pense no seu dia a dia, se você sabe qual o próximo passo que deve ser tomado, se tem esclarecido quais e quando suas tarefas devem ser feitas."))
@@ -42,7 +42,7 @@ public class TestRestAssured extends BaseRestAssuredTest {
                 .when()
                 .post("/user/")
                 .then()
-                .statusCode(HttpStatus.SC_OK);
+                .statusCode(HttpStatus.OK.value());
     }
 
     @Test
@@ -57,7 +57,7 @@ public class TestRestAssured extends BaseRestAssuredTest {
                 .when()
                 .post("/net-promoter-score/")
                 .then()
-                .statusCode(HttpStatus.SC_OK);
+                .statusCode(HttpStatus.OK.value());
     }
 
     @Test
@@ -66,6 +66,6 @@ public class TestRestAssured extends BaseRestAssuredTest {
                 .when()
                 .get("/stage/-1")
                 .then()
-                .statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR);
+                .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
     }
 }
