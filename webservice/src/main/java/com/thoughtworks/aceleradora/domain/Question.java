@@ -3,13 +3,29 @@ package com.thoughtworks.aceleradora.domain;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import static javax.persistence.GenerationType.IDENTITY;
+
+@Entity
+@Table(name = "questions")
 public class Question {
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    private Long id;
 
     private String description;
 
     @JsonCreator
     public Question(@JsonProperty("description") String description) {
         this.description = description;
+    }
+
+    @JsonCreator
+    public Question() {
     }
 
     public String getDescription() {

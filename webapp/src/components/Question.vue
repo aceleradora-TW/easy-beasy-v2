@@ -1,6 +1,5 @@
 <template>
   <div class="chat">
-    <ModalNps/>
     <ModalData :callBack="callBack" />
     <b-container class="chat-box">
       <b-row align-h="start" class="mb-4">
@@ -13,9 +12,10 @@
         </b-col>
       </b-row>
       <div
-        class="question question-history"
+        class="question-history"
         v-for="answeredQuestion in chatHistory"
-        v-bind:key="answeredQuestion.description">
+        v-bind:key="answeredQuestion.description"
+      >
         <b-row>
           <b-col cols="auto">
             <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
@@ -27,14 +27,12 @@
           <b-col cols="2" class="answer mb-3">{{answeredQuestion.response}}</b-col>
         </b-row>
       </div>
-
-      <b-row class="question current-question" v-if="currentQuestion && !showSolution">
+      <b-row class="current-question" v-if="currentQuestion && !showSolution">
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
-        <b-col cols="9">{{typewritingQuestion}}</b-col>
+        <b-col class="question" cols="9">{{typewritingQuestion}}</b-col>
       </b-row>
-
       <b-row v-if="showSolution" class="mb-3">
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
@@ -43,12 +41,44 @@
           <Solution />
         </b-col>
       </b-row>
-
       <b-row v-if="theresNoSolution" class="mb-3">
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
         <b-col cols="9" class="question">{{solutionNotFound}}</b-col>
+      </b-row>
+
+      <b-row v-if="theresNoSolution" class="mb-3">
+        <b-col cols="auto" class="mb-3">
+          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
+        </b-col>
+        <b-col cols="9" class="feedback question">{{feedbackNps}}</b-col>
+      </b-row>
+      <b-row v-if="theresNoSolution">
+        <div>
+          <b-col cols="auto" class="mb-3">
+            <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
+          </b-col>
+        </div>
+        <div>
+          <b-button v-on:click="showNps" class="showNps question">Clique aqui!</b-button>
+        </div>
+      </b-row>
+      <b-row v-if="showSolution" class="mb-3">
+        <b-col cols="auto" class="mb-3">
+          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
+        </b-col>
+        <b-col cols="9" class="feedback question">{{feedbackNps}}</b-col>
+      </b-row>
+      <b-row v-if="showSolution">
+        <div>
+          <b-col cols="auto" class="mb-3">
+            <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
+          </b-col>
+        </div>
+        <div>
+          <b-button v-on:click="showNps" class="showNps question">Clique aqui!</b-button>
+        </div>
       </b-row>
     </b-container>
 
@@ -93,32 +123,34 @@ export default {
     showSolution: false,
     theresNoSolution: false,
     solutionNotFound: "Não identificamos nenhum problema!",
+    feedbackNps:
+      "Gostaria de nos ajudar a melhorar essa ferramenta? envie seu feedback!",
     idStage: 1,
     isTypewriterRunning: false,
     callBack: () => {},
     disableButtonNotUnderstand: false,
-    typewritingQuestion: "",
-
+    typewritingQuestion: ""
   }),
 
   created() {
-      StageService.getStageById(this.idStage).then(response => {
-      let stage = response.data;
-      this.questionList = stage.questions;
-      this.nextQuestion();
-    })
-    .catch((error) => {
-    });
+    StageService.getStageById(this.idStage)
+      .then(response => {
+        let stage = response.data;
+        this.questionList = stage.questions;
+        this.nextQuestion();
+      })
+      .catch(error => {});
   },
   methods: {
-   typeWrite() {
+    typeWrite() {
       this.clearTypewriter();
       this.isTypewriterRunning = true;
       new Promise((resolve, reject) => {
         [...this.currentQuestion.description].forEach((char, index) => {
-        setTimeout(() => {
-          this.typewritingQuestion += char;
-          if(this.typewritingQuestion === this.currentQuestion.description) resolve();
+          setTimeout(() => {
+            this.typewritingQuestion += char;
+            if (this.typewritingQuestion === this.currentQuestion.description)
+              resolve();
           }, 20 * index);
         });
       }).then(() => {
@@ -150,19 +182,16 @@ export default {
         this.disableButtonNotUnderstand = true;
         this.showModalData();
         this.callBack = this.showSolutionMessage;
-        this.showNps();
-        this.showSolution = true;
         this.nextStage();
       }
       if (!this.questionList.length && this.quantityNegativeAnswers() === 1) {
         this.disableButtonNotUnderstand = true;
         this.showModalData();
         this.callBack = this.showSolutionMessage;
-        this.showNps();
         this.showSolution = true;
         this.nextStage();
       }
-      this.solutionNotIdentified()
+      this.solutionNotIdentified();
       this.nextQuestion();
     },
     solutionNotIdentified() {
@@ -170,41 +199,40 @@ export default {
         this.disableButtonNotUnderstand = true;
         this.showModalData();
         this.callBack = this.showNoSolutionIndefiedMessage;
-        this.showNps()
         this.theresNoSolution = true;
         this.nextStage();
       }
     },
     quantityNegativeAnswers() {
-      return this.chatHistory
-              .filter(question => question.response === "Não").length
+      return this.chatHistory.filter(question => question.response === "Não")
+        .length;
     },
     gotoBottom() {
       this.$nextTick(() => {
         const element = this.$el.querySelector(".chat-box");
-        element.scrollIntoView({behavior: "smooth", block: "end"})
+        element.scrollIntoView({ behavior: "smooth", block: "end" });
       });
     },
     showNps() {
-      this.$bvModal.show('modalNps')
+      this.$bvModal.show("modalNps");
     },
     showModalData() {
       this.$bvModal.show("modalData");
     },
-    nextStage(){
-      if(this.theresNoSolution===true || this.showSolution===true){
+    nextStage() {
+      if (this.theresNoSolution === true || this.showSolution === true) {
         this.idStage++;
         this.questionList = [];
-        StageService.getStageById(this.idStage).then(response => {
-          let stage = response.data;
-          this.questionList = stage.questions;
-          this.theresNoSolution = false;
-          this.nextQuestion();
-
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+        StageService.getStageById(this.idStage)
+          .then(response => {
+            let stage = response.data;
+            this.questionList = stage.questions;
+            this.theresNoSolution = false;
+            this.nextQuestion();
+          })
+          .catch(error => {
+            console.log(error);
+          });
       }
     }
   }
@@ -220,22 +248,63 @@ export default {
     width: 100%;
     height: 80%;
     overflow-y: auto;
+    .showNps {
+      background-color: #ffffff;
+      border-color: #ffffff;
+      color: rgb(54, 54, 218);
+    }
     .chat-box {
       padding: 3rem 2rem;
+
       img {
         border-radius: 50%;
         width: 1.5rem;
       }
       .question {
+        position: relative;
+        background: $primary-color;
+        border-radius: 0.4em;
+        padding: 1em;
+        color: #fff;
+        text-align: start;
+      }
+      .question:after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 50%;
+        width: 0;
+        height: 0;
+        border: 12px solid transparent;
+        border-right-color: $primary-color;
+        border-left: 0;
+        border-top: 0;
+        margin-top: -6px;
+        margin-left: -12px;
+      }
+      .feedback {
         text-align: left;
-        color: $question-text-color;
         font-family: "Lato, sans-serif", serif;
         font-size: 13pt;
       }
       .answer {
-        text-align: right;
-        color: $question-text-color;
-        margin-bottom: 15px;
+        position: relative;
+        background: #e2e2e2;
+        border-radius: 0.4em;
+        color: #0e0606;
+      }
+      .answer:after {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        width: 0;
+        height: 0;
+        border: 12px solid transparent;
+        border-left-color: #e2e2e2;
+        border-right: 0;
+        border-top: 0;
+        margin-top: -6px;
+        margin-right: -12px;
       }
     }
     .footer {
