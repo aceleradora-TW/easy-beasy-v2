@@ -2,6 +2,7 @@ package com.thoughtworks.aceleradora.controller;
 
 import com.thoughtworks.aceleradora.domain.User;
 import com.thoughtworks.aceleradora.service.UserService;
+import com.thoughtworks.aceleradora.validators.ResponseEntityErrors;
 import com.thoughtworks.aceleradora.validators.UserValidator;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -18,6 +19,7 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
     private UserService userService;
+    private ResponseEntityErrors responseEntityErrors;
 
     public UserController(UserService userService) {
         this.userService = userService;
@@ -27,23 +29,11 @@ public class UserController {
     public ResponseEntity save(@RequestBody @Valid User user, BindingResult bindingResult) {
 
         if(bindingResult.hasErrors()){
-            return new ResponseEntityErros(bindingResult.getAllErrors()).build();
+            return new ResponseEntityErrors(bindingResult.getAllErrors()).build();
         }
 
         userService.save(user);
 
         return ResponseEntity.ok().build();
-    }
-
-    private class ResponseEntityErros {
-        private final List<ObjectError> errors;
-
-        public ResponseEntityErros(List<ObjectError> errors) {
-            this.errors = errors;
-        }
-
-        public ResponseEntity build(){
-            return ResponseEntity.badRequest().body(this.errors);
-        }
     }
 }
