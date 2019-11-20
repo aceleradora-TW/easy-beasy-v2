@@ -3,13 +3,18 @@ package functional;
 import com.thoughtworks.aceleradora.domain.NetPromoterScore;
 import com.thoughtworks.aceleradora.domain.User;
 import io.restassured.http.ContentType;
-import org.json.JSONException;
+import org.apache.http.HttpStatus;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.equalTo;
 
 public class TestRestAssured extends BaseRestAssuredTest {
+
+    @Rule
+    public ExpectedException exception = ExpectedException.none();
 
     @Test
     public void shouldReturnSingleStageAtSpecifiedIndex() {
@@ -17,7 +22,7 @@ public class TestRestAssured extends BaseRestAssuredTest {
                 .when()
                 .get("/stage/1")
                 .then()
-                .statusCode(200)
+                .statusCode(HttpStatus.SC_OK)
                 .body("solution", equalTo("Controle seus gastos!"))
                 .body("number", equalTo(1))
                 .body("hint", equalTo("hint"))
@@ -28,7 +33,7 @@ public class TestRestAssured extends BaseRestAssuredTest {
     }
 
     @Test
-    public void shouldReturnOKIfSaveValidUser(){
+    public void shouldReturnOKIfSaveValidUser() {
         User newUser = new User("Maria", "maria@gmail.com");
 
         given(aRequestToEasyBeasy())
@@ -37,11 +42,11 @@ public class TestRestAssured extends BaseRestAssuredTest {
                 .when()
                 .post("/user/")
                 .then()
-                .statusCode(200);
+                .statusCode(HttpStatus.SC_OK);
     }
 
     @Test
-    public void shouldReturnOKIfSaveValidNPS(){
+    public void shouldReturnOKIfSaveValidNPS() {
         NetPromoterScore newNPS = new NetPromoterScore();
         newNPS.setScore(10);
         newNPS.setComments("comment");
@@ -52,6 +57,15 @@ public class TestRestAssured extends BaseRestAssuredTest {
                 .when()
                 .post("/net-promoter-score/")
                 .then()
-                .statusCode(200);
+                .statusCode(HttpStatus.SC_OK);
+    }
+
+    @Test
+    public void shouldThrowExceptionIfRequestInvalidStage() {
+        given(aRequestToEasyBeasy())
+                .when()
+                .get("/stage/-1")
+                .then()
+                .statusCode(HttpStatus.SC_INTERNAL_SERVER_ERROR);
     }
 }
