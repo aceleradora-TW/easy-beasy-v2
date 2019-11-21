@@ -68,17 +68,7 @@
         <b-col cols="auto" class="mb-3">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
-        <b-col cols="9" class="feedback question">{{feedbackNps}}</b-col>
-      </b-row>
-      <b-row v-if="showSolution">
-        <div>
-          <b-col cols="auto" class="mb-3">
-            <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
-          </b-col>
-        </div>
-        <div>
-          <b-button v-on:click="showNps" class="showNps question">Clique aqui!</b-button>
-        </div>
+        <b-col cols="9" class="showNps question">Por favor, ajude-nos a melhorar esta ferramenta! Envie seu feedback <a class="npsClick" v-on:click="showNps">clicando aqui.</a></b-col>
       </b-row>
     </b-container>
 
@@ -115,7 +105,7 @@ export default {
     ModalData
   },
   name: "Question",
-
+  
   data: () => ({
     currentQuestion: null,
     questionList: [],
@@ -123,8 +113,6 @@ export default {
     showSolution: false,
     theresNoSolution: false,
     solutionNotFound: "Não identificamos nenhum problema!",
-    feedbackNps:
-      "Gostaria de nos ajudar a melhorar essa ferramenta? envie seu feedback!",
     idStage: 1,
     isTypewriterRunning: false,
     callBack: () => {},
@@ -305,6 +293,14 @@ export default {
         border-top: 0;
         margin-top: -6px;
         margin-right: -12px;
+      }
+      .npsClick {
+        text-decoration: underline;
+        font-weight: bold;
+      }
+      .npsClick:hover{
+        text-decoration: underline;
+        cursor: pointer;
       }
     }
     .footer {
