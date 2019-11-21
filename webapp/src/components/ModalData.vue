@@ -1,6 +1,9 @@
 <template>
   <div>
-    <b-modal hide-header-close hide-footer no-close-on-backdrop no-close-on-esc id="modalData">
+    <b-modal hide-header-close hide-footer no-close-on-backdrop no-close-on-esc id="modalData"
+    title="Queremos conhecer você!"
+    :header-bg-variant = "headerBgVariant"
+    :header-text-variant = "headerTextVariant">
         <p>
           {{user.collectText}}
         </p>
@@ -64,7 +67,9 @@ export default {
       collectText:"Chegamos a um resultado, informe seus dados para que possamos compartilha-lo com você."
     },
     isNameValid: true,
-    isEmailValid: true
+    isEmailValid: true,
+    headerBgVariant: 'info',
+    headerTextVariant: 'light'
   }),
   validations: {
     user: {
