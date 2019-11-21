@@ -1,33 +1,38 @@
 <template>
   <div>
-    <b-modal hide-header-close hide-footer no-close-on-backdrop no-close-on-esc id="modalData">
-      <p>
+    <b-modal hide-header-close hide-footer no-close-on-backdrop no-close-on-esc id="modalData"
+    title="Queremos conhecer você!"
+    :header-bg-variant = "headerBgVariant"
+    :header-text-variant = "headerTextVariant">
+        <p class="mt-20">
           {{user.collectText}}
-      </p>
+        </p>
       <b-row>
         <b-col md="6" sm="12">
-            <b-form-group label-for="user-name">
-                <b-form-input
-                        id="user-name"
-                        name="user-name"
-                        v-model.trim="$v.user.name.$model"
-                        :state="$v.user.name.$dirty ? !$v.user.name.$error : null"
-                        placeholder="Informe seu nome"
-                />
-            </b-form-group>
+          <b-form-group label-for="user-name">
+            <b-form-input
+              class="mt-20"
+              id="user-name"
+              type="text"
+              v-model.trim="$v.user.name.$model"
+              :state="$v.user.name.$dirty ? !$v.user.name.$error : null"
+              placeholder="Informe seu nome"
+            />
+          </b-form-group>
         </b-col>
       </b-row>
       <b-row>
         <b-col md="6" sm="12">
-            <b-form-group label-for="user-email">
-                <b-form-input
-                        id="user-email"
-                        type="email"
-                        v-model.trim="$v.user.email.$model"
-                        :state="$v.user.email.$dirty ? !$v.user.email.$error : null"
-                        placeholder="exemplo@gmail.com"
-                />
-            </b-form-group>
+          <b-form-group label-for="user-email">
+            <b-form-input
+              class="mt-20"
+              id="user-email"
+              type="email"
+              v-model.trim="$v.user.email.$model"
+              :state="$v.user.email.$dirty ? !$v.user.email.$error : null"
+              placeholder="exemplo@gmail.com"
+            />
+          </b-form-group>
         </b-col>
       </b-row>
       <b-container fluid>
@@ -54,7 +59,7 @@ import { required, email } from "vuelidate/lib/validators";
 
 export default {
   name: "ModalData",
-   props: {
+  props: {
     callBack: { type: Function },
   },
   data: () => ({
@@ -63,6 +68,8 @@ export default {
       email: "",
       collectText:"Chegamos a um resultado, informe seus dados para que possamos compartilha-lo com você."
     },
+    headerBgVariant: 'info',
+    headerTextVariant: 'light'
   }),
   validations: {
     user: {
@@ -111,6 +118,7 @@ export default {
   border-color:$primary-color;
 }
 .mt-20{
-  margin-top: 20px;
-}
+        margin-top: 20px;
+        font-family: $primary-font-family;
+    }
 </style>

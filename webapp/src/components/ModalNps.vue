@@ -1,8 +1,11 @@
 <template>
     <div>
 
-        <b-modal hide-header-close hide-footer no-close-on-backdrop no-close-on-esc id="modalNps">
-            <p>
+        <b-modal hide-header-close hide-footer no-close-on-backdrop no-close-on-esc id="modalNps"
+            title="Ajude-nos a melhorar!"
+            :header-bg-variant= "headerBgVariant"
+            :header-text-variant = "headerTextVariant">
+            <p class="mt-20">
                 <strong>Em uma escala de 1 a 10, o quanto você recomendaria o nosso serviço para alguém?</strong>
             </p>
             <b-button
@@ -14,7 +17,7 @@
                     :key="number">{{ number }}
             </b-button>
 
-            <label class="mt-20">Qual a razão da sua nota?</label>
+            <label class="mt-20"><strong>Qual a razão da sua nota?</strong></label>
             <b-input id="input" v-model="nps.comments"></b-input>
 
             <b-container fluid>
@@ -39,8 +42,10 @@
         data: () => ({
             nps : {
                 score: 0,
-                comments: ""
-            }
+                comments: "",
+            },
+            headerBgVariant: 'info',
+            headerTextVariant: 'light'
         }),
         methods: {
             getScore(number) {
@@ -78,5 +83,6 @@
     }
     .mt-20{
         margin-top: 20px;
+        font-family: $primary-font-family;
     }
 </style>

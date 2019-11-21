@@ -25,7 +25,6 @@ export default {
 @media (min-width: 100px) {
   p {
     text-align: left;
-    font-family: "Lato, sans-serif";
     font-size: 13pt;
   }
 }
