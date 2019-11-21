@@ -25,7 +25,7 @@ header {
   justify-content: center;
   background-color: $backgound-header-color;
   padding: 5px 15px;
-  font-family: "Lato, sans-serif", serif;
+  font-family: $primary-font-family;
 }
 h2 {
   color: $text-header-color;

@@ -83,6 +83,6 @@
     }
     .mt-20{
         margin-top: 20px;
-        font-family: "Lato, sans-serif", serif;
+        font-family: $primary-font-family;
     }
 </style>
