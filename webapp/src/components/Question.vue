@@ -48,20 +48,7 @@
         <b-col cols="9" class="question">{{solutionNotFound}}</b-col>
       </b-row>
 
-      <b-row v-if="theresNoSolution" class="mb-3">
-        <b-col cols="auto" class="mb-3">
-          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
-        </b-col>
-      </b-row>
       <b-row v-if="theresNoSolution">
-        <div>
-          <b-col cols="auto" class="mb-3">
-            <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
-          </b-col>
-        </div>
-        <div>
-          <b-button v-on:click="showNps" class="showNps question">Clique aqui!</b-button>
-        </div>
       </b-row>
       <b-row v-if="showSolution" class="mb-3">
         <b-col cols="auto" class="mb-3">
