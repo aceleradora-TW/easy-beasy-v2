@@ -10,7 +10,7 @@
                 <b-form-input
                         id="user-name"
                         name="user-name"
-                        v-model="$v.user.name.$model"
+                        v-model.trim="$v.user.name.$model"
                         :state="$v.user.name.$dirty ? !$v.user.name.$error : null"
                         placeholder="Informe seu nome"
                 />
@@ -63,8 +63,6 @@ export default {
       email: "",
       collectText:"Chegamos a um resultado, informe seus dados para que possamos compartilha-lo com você."
     },
-    isNameValid: true,
-    isEmailValid: true
   }),
   validations: {
     user: {
