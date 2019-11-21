@@ -53,6 +53,7 @@
     </b-modal>
   </div>
 </template>
+
 <script>
 import userService from "@/services/user.service";
 import { required, email } from "vuelidate/lib/validators";

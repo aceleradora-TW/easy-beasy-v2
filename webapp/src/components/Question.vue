@@ -52,7 +52,6 @@
         <b-col cols="auto" class="mb-3">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
-        <b-col cols="9" class="feedback question">{{feedbackNps}}</b-col>
       </b-row>
       <b-row v-if="theresNoSolution">
         <div>
