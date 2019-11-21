@@ -54,11 +54,12 @@
         </b-col>
         <b-button v-on:click="showNps" cols="9" class="showNps question">Por favor, ajude-nos a melhorar esta ferramenta! Envie seu feedback <strong>clicando aqui</strong>!</b-button>
       </b-row>
+
       <b-row v-if="thank" class="mb-3">
-        <b-col cols="auto" class="mb-3">
+        <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
-        <b-col cols="9" class="question">estamos aqui</b-col>
+        <b-col cols="9" class="question">{{feedbackNps}}</b-col>
       </b-row>
     </b-container>
 
@@ -108,7 +109,9 @@ export default {
     callBack: () => {},
     disableButtonNotUnderstand: false,
     typewritingQuestion: "",
+    feedbackNps: "Obrigada pelo seu feedback!",
     thank: false
+    
   }),
 
   created() {
@@ -193,7 +196,8 @@ export default {
       });
     },
     showNps() {
-      this.$bvModal.show("modalNps").then(this.thank = true);
+      this.$bvModal.show("modalNps");
+      this.thank = true;
     },
     showModalData() {
       this.$bvModal.show("modalData");

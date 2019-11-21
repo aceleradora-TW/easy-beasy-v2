@@ -52,8 +52,7 @@
                 this.nps.score = number;
             },
             submitScore() {
-                netPromoterScoreService.save(this.nps).then(alert("Sua nota foi enviada com sucesso, agradecemos pelo feedback!"))
-                .catch(error => alert(error))
+                netPromoterScoreService.save(this.nps)
             },
             changeBackGroundColor(event) {
                 const allButtons = document.querySelectorAll(".nps-button");
