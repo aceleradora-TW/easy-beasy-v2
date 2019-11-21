@@ -23,8 +23,8 @@
                 <b-form-input
                         id="user-email"
                         type="email"
-                        v-model="$v.user.email.$model"
-                        :class="{ 'is-invalid': save && $v.user.email.$error }"
+                        v-model.trim="$v.user.email.$model"
+                        :state="$v.user.email.$dirty ? !$v.user.email.$error : null"
                         placeholder="exemplo@gmail.com"
                 />
             </b-form-group>
