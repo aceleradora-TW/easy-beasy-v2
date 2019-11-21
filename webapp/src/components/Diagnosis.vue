@@ -19,12 +19,13 @@ import Question from '@/components/Question.vue'
   };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '@/assets/scss/config/variables.scss';
 header {
   justify-content: center;
   background-color: $backgound-header-color;
   padding: 5px 15px;
+  font-family: "Lato, sans-serif", serif;
 }
 h2 {
   color: $text-header-color;

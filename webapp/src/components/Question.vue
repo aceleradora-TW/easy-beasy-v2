@@ -272,7 +272,6 @@ export default {
       }
       .feedback {
         text-align: left;
-        font-family: "Lato, sans-serif", serif;
         font-size: 13pt;
       }
       .answer {

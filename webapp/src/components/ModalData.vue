@@ -4,13 +4,14 @@
     title="Queremos conhecer você!"
     :header-bg-variant = "headerBgVariant"
     :header-text-variant = "headerTextVariant">
-        <p>
+        <p class="mt-20">
           {{user.collectText}}
         </p>
       <b-row>
         <b-col md="6" sm="12">
           <b-form-group label-for="user-name">
             <b-form-input
+              class="mt-20"
               id="user-name"
               type="text"
               v-model="user.name"
@@ -26,6 +27,7 @@
         <b-col md="6" sm="12">
           <b-form-group label-for="user-email">
             <b-form-input
+              class="mt-20"
               id="user-email"
               type="email"
               v-model="user.email"
@@ -57,7 +59,7 @@ import { required, email } from "vuelidate/lib/validators";
 
 export default {
   name: "ModalData",
-   props: {
+  props: {
     callBack: { type: Function },
   },
   data: () => ({
@@ -107,6 +109,7 @@ export default {
   border-color:$primary-color;
 }
 .mt-20{
-  margin-top: 20px;
-}
+        margin-top: 20px;
+        font-family: "Lato, sans-serif", serif;
+    }
 </style>
