@@ -90,7 +90,6 @@ export default {
     save() {
       userService.save(this.user);
       this.callBack();
-
     }
   }
 };

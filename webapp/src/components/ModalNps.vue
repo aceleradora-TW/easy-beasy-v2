@@ -23,8 +23,8 @@
             <b-container fluid>
                 <b-row class="mb-3">
                     <b-col md="1.5" class="ml-md-auto">
-                        <b-button squared type="submit" v-on:click="$bvModal.hide('modalNps'), submitScore()"
-                                  class="answer-btn mt-20">enviar
+                        <b-button squared type="submit" v-on:click="submitScore(), $bvModal.hide('modalNps')"
+                            class="answer-btn mt-20">Enviar
                         </b-button>
                     </b-col>
                 </b-row>
@@ -38,7 +38,9 @@
 
     export default {
         name: "ModalNps",
-
+        props: {
+            callBack: { type: Function },
+        },
         data: () => ({
             nps : {
                 score: 0,
@@ -52,7 +54,8 @@
                 this.nps.score = number;
             },
             submitScore() {
-                netPromoterScoreService.save(this.nps)
+                netPromoterScoreService.save(this.nps);
+                this.callBack();
             },
             changeBackGroundColor(event) {
                 const allButtons = document.querySelectorAll(".nps-button");

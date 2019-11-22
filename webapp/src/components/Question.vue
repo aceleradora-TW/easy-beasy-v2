@@ -1,14 +1,16 @@
 <template>
   <div class="chat">
     <ModalData :callBack="callBack" />
+    <ModalNps :callBack="callBack" />
     <b-container class="chat-box">
       <b-row align-h="start" class="mb-4">
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
         <b-col cols="9" class="question">
-          Olá, somos a Easybeasy! A nossa plataforma irá realizar o diagnóstico da sua
-          empresa a partir de perguntas e respostas de “sim” ou “não”. Vamos começar!
+          Olá, somos a Easybeasy! A nossa plataforma irá realizar o diagnóstico
+          da sua empresa a partir de perguntas e respostas de “sim” ou “não”.
+          Vamos começar!
         </b-col>
       </b-row>
       <div
@@ -20,18 +22,22 @@
           <b-col cols="auto">
             <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
           </b-col>
-          <b-col cols="9" class="question mb-3">{{answeredQuestion.description}}</b-col>
+          <b-col cols="9" class="question mb-3">{{
+            answeredQuestion.description
+          }}</b-col>
         </b-row>
 
         <b-row align-h="end">
-          <b-col cols="2" class="answer mb-3">{{answeredQuestion.response}}</b-col>
+          <b-col cols="2" class="answer mb-3">{{
+            answeredQuestion.response
+          }}</b-col>
         </b-row>
       </div>
       <b-row class="current-question" v-if="currentQuestion && !showSolution">
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
-        <b-col class="question" cols="9">{{typewritingQuestion}}</b-col>
+        <b-col class="question" cols="9">{{ typewritingQuestion }}</b-col>
       </b-row>
       <b-row v-if="showSolution" class="mb-3">
         <b-col cols="auto">
@@ -45,21 +51,27 @@
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
-        <b-col cols="9" class="question">{{solutionNotFound}}</b-col>
+        <b-col cols="9" class="question">{{ solutionNotFound }}</b-col>
       </b-row>
 
       <b-row v-if="showSolution" class="mb-3">
         <b-col cols="auto" class="mb-3">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
-        <b-button v-on:click="showNps" cols="9" class="showNps question">Por favor, ajude-nos a melhorar esta ferramenta! Envie seu feedback <strong>clicando aqui</strong>!</b-button>
+        <b-button
+          v-on:click="showNps"
+          cols="9"
+          class="showNps question"
+          >Por favor, ajude-nos a melhorar esta ferramenta! Envie seu feedback
+          <strong>clicando aqui</strong>!</b-button
+        >
       </b-row>
 
       <b-row v-if="thank" class="mb-3">
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
-        <b-col cols="9" class="question">{{feedbackNps}}</b-col>
+        <b-col cols="9" class="question">{{ feedbackNps }}</b-col>
       </b-row>
     </b-container>
 
@@ -69,13 +81,18 @@
           class="answer-btn"
           v-on:click="collectAnswer('Sim'), gotoBottom()"
           :disabled="showSolution || theresNoSolution || isTypewriterRunning"
-        >Sim</b-button>
-        <ModalQuestion class="ml-5 mr-5" :disableButtonNotUnderstand="disableButtonNotUnderstand" />
+          >Sim</b-button
+        >
+        <ModalQuestion
+          class="ml-5 mr-5"
+          :disableButtonNotUnderstand="disableButtonNotUnderstand"
+        />
         <b-button
           class="answer-btn"
           v-on:click="collectAnswer('Não'), gotoBottom()"
           :disabled="showSolution || theresNoSolution || isTypewriterRunning"
-        >Não</b-button>
+          >Não</b-button
+        >
       </div>
     </b-row>
   </div>
@@ -96,7 +113,7 @@ export default {
     ModalData
   },
   name: "Question",
-  
+
   data: () => ({
     currentQuestion: null,
     questionList: [],
@@ -111,7 +128,6 @@ export default {
     typewritingQuestion: "",
     feedbackNps: "Obrigada pelo seu feedback!",
     thank: false
-    
   }),
 
   created() {
@@ -197,6 +213,9 @@ export default {
     },
     showNps() {
       this.$bvModal.show("modalNps");
+      this.callBack = this.showThanks;
+    },
+    showThanks() {
       this.thank = true;
     },
     showModalData() {
@@ -292,7 +311,7 @@ export default {
         text-decoration: underline;
         font-weight: bold;
       }
-      .npsClick:hover{
+      .npsClick:hover {
         text-decoration: underline;
         cursor: pointer;
       }
