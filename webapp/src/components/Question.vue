@@ -39,6 +39,14 @@
         </b-col>
         <b-col class="question" cols="9">{{ typewritingQuestion }}</b-col>
       </b-row>
+
+      <b-row v-if="thankData" class="mb-3">
+        <b-col cols="auto">
+          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
+        </b-col>
+        <b-col cols="9" class="question">{{ feedbackData }}</b-col>
+      </b-row>
+
       <b-row v-if="showSolution" class="mb-3">
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
@@ -62,17 +70,18 @@
           v-on:click="showNps"
           cols="9"
           class="showNps question"
-          >Por favor, ajude-nos a melhorar esta ferramenta! Envie seu feedback
-          <strong>clicando aqui</strong>!</b-button
+          >Por favor, 
+          <strong>clique aqui</strong> e nos ajude a melhorar!</b-button
         >
       </b-row>
 
-      <b-row v-if="thank" class="mb-3">
+      <b-row v-if="thankNps" class="mb-3">
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
         <b-col cols="9" class="question">{{ feedbackNps }}</b-col>
       </b-row>
+
     </b-container>
 
     <b-row class="footer">
@@ -127,7 +136,9 @@ export default {
     disableButtonNotUnderstand: false,
     typewritingQuestion: "",
     feedbackNps: "Obrigada pelo seu feedback!",
-    thank: false
+    feedbackData: "Obrigada! Agora podemos prosseguir.",
+    thankNps: false,
+    thankData: false
   }),
 
   created() {
@@ -171,9 +182,11 @@ export default {
     },
     showSolutionMessage() {
       this.showSolution = true;
+      this.showThanksData();
     },
     showNoSolutionIndefiedMessage() {
       this.theresNoSolution = true;
+      this.showThanksData();
     },
     shouldShowSolution() {
       if (this.quantityNegativeAnswers() === 2) {
@@ -201,6 +214,9 @@ export default {
         this.nextStage();
       }
     },
+    showThanksData(){
+      this.thankData = true;
+    },
     quantityNegativeAnswers() {
       return this.chatHistory.filter(question => question.response === "Não")
         .length;
@@ -213,10 +229,10 @@ export default {
     },
     showNps() {
       this.$bvModal.show("modalNps");
-      this.callBack = this.showThanks;
+      this.callBack = this.showThanksNps;
     },
-    showThanks() {
-      this.thank = true;
+    showThanksNps() {
+      this.thankNps = true;
     },
     showModalData() {
       this.$bvModal.show("modalData");
