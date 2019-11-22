@@ -1,14 +1,16 @@
 <template>
   <div class="chat">
     <ModalData :callBack="callBack" />
+    <ModalNps :callBack="callBack" />
     <b-container class="chat-box">
       <b-row align-h="start" class="mb-4">
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
         <b-col cols="9" class="question">
-          Olá, somos a Easybeasy! A nossa plataforma irá realizar o diagnóstico da sua
-          empresa a partir de perguntas e respostas de “sim” ou “não”. Vamos começar!
+          Olá, somos a Easybeasy! A nossa plataforma irá realizar o diagnóstico
+          da sua empresa a partir de perguntas e respostas de “sim” ou “não”.
+          Vamos começar!
         </b-col>
       </b-row>
       <div
@@ -20,19 +22,31 @@
           <b-col cols="auto">
             <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
           </b-col>
-          <b-col cols="9" class="question mb-3">{{answeredQuestion.description}}</b-col>
+          <b-col cols="9" class="question mb-3">{{
+            answeredQuestion.description
+          }}</b-col>
         </b-row>
 
         <b-row align-h="end">
-          <b-col cols="2" class="answer mb-3">{{answeredQuestion.response}}</b-col>
+          <b-col cols="2" class="answer mb-3">{{
+            answeredQuestion.response
+          }}</b-col>
         </b-row>
       </div>
       <b-row class="current-question" v-if="currentQuestion && !showSolution">
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
-        <b-col class="question" cols="9">{{typewritingQuestion}}</b-col>
+        <b-col class="question" cols="9">{{ typewritingQuestion }}</b-col>
       </b-row>
+
+      <b-row v-if="thankData" class="mb-3">
+        <b-col cols="auto">
+          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
+        </b-col>
+        <b-col cols="9" class="question">{{ feedbackData }}</b-col>
+      </b-row>
+
       <b-row v-if="showSolution" class="mb-3">
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
@@ -45,31 +59,29 @@
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
-        <b-col cols="9" class="question">{{solutionNotFound}}</b-col>
+        <b-col cols="9" class="question">{{ solutionNotFound }}</b-col>
       </b-row>
 
-      <b-row v-if="theresNoSolution" class="mb-3">
-        <b-col cols="auto" class="mb-3">
-          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
-        </b-col>
-        <b-col cols="9" class="feedback question">{{feedbackNps}}</b-col>
-      </b-row>
-      <b-row v-if="theresNoSolution">
-        <div>
-          <b-col cols="auto" class="mb-3">
-            <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
-          </b-col>
-        </div>
-        <div>
-          <b-button v-on:click="showNps" class="showNps question">Clique aqui!</b-button>
-        </div>
-      </b-row>
       <b-row v-if="showSolution" class="mb-3">
         <b-col cols="auto" class="mb-3">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
-        <b-col cols="9" class="showNps question">Por favor, ajude-nos a melhorar esta ferramenta! Envie seu feedback <a class="npsClick" v-on:click="showNps">clicando aqui.</a></b-col>
+        <b-button
+          v-on:click="showNps"
+          cols="9"
+          class="showNps question"
+          >Por favor, 
+          <strong>clique aqui</strong> e nos ajude a melhorar!</b-button
+        >
       </b-row>
+
+      <b-row v-if="thankNps" class="mb-3">
+        <b-col cols="auto">
+          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
+        </b-col>
+        <b-col cols="9" class="question">{{ feedbackNps }}</b-col>
+      </b-row>
+
     </b-container>
 
     <b-row class="footer">
@@ -78,13 +90,18 @@
           class="answer-btn"
           v-on:click="collectAnswer('Sim'), gotoBottom()"
           :disabled="showSolution || theresNoSolution || isTypewriterRunning"
-        >Sim</b-button>
-        <ModalQuestion class="ml-5 mr-5" :disableButtonNotUnderstand="disableButtonNotUnderstand" />
+          >Sim</b-button
+        >
+        <ModalQuestion
+          class="ml-5 mr-5"
+          :disableButtonNotUnderstand="disableButtonNotUnderstand"
+        />
         <b-button
           class="answer-btn"
           v-on:click="collectAnswer('Não'), gotoBottom()"
           :disabled="showSolution || theresNoSolution || isTypewriterRunning"
-        >Não</b-button>
+          >Não</b-button
+        >
       </div>
     </b-row>
   </div>
@@ -105,7 +122,7 @@ export default {
     ModalData
   },
   name: "Question",
-  
+
   data: () => ({
     currentQuestion: null,
     questionList: [],
@@ -117,7 +134,11 @@ export default {
     isTypewriterRunning: false,
     callBack: () => {},
     disableButtonNotUnderstand: false,
-    typewritingQuestion: ""
+    typewritingQuestion: "",
+    feedbackNps: "Obrigada pelo seu feedback!",
+    feedbackData: "Obrigada! Agora podemos prosseguir.",
+    thankNps: false,
+    thankData: false
   }),
 
   created() {
@@ -161,9 +182,11 @@ export default {
     },
     showSolutionMessage() {
       this.showSolution = true;
+      this.showThanksData();
     },
     showNoSolutionIndefiedMessage() {
       this.theresNoSolution = true;
+      this.showThanksData();
     },
     shouldShowSolution() {
       if (this.quantityNegativeAnswers() === 2) {
@@ -191,6 +214,9 @@ export default {
         this.nextStage();
       }
     },
+    showThanksData(){
+      this.thankData = true;
+    },
     quantityNegativeAnswers() {
       return this.chatHistory.filter(question => question.response === "Não")
         .length;
@@ -203,6 +229,10 @@ export default {
     },
     showNps() {
       this.$bvModal.show("modalNps");
+      this.callBack = this.showThanksNps;
+    },
+    showThanksNps() {
+      this.thankNps = true;
     },
     showModalData() {
       this.$bvModal.show("modalData");
@@ -297,7 +327,7 @@ export default {
         text-decoration: underline;
         font-weight: bold;
       }
-      .npsClick:hover{
+      .npsClick:hover {
         text-decoration: underline;
         cursor: pointer;
       }

@@ -45,7 +45,7 @@
               squared
               type="submit"
               v-on:click="save(), $bvModal.hide('modalData')"
-              class="saveUser answer-btn mt-20" @click="toast('b-toaster-top-center')" 
+              class="saveUser answer-btn mt-20" 
             >Salvar</b-button>
           </b-col>
         </b-row>
@@ -53,6 +53,7 @@
     </b-modal>
   </div>
 </template>
+
 <script>
 import userService from "@/services/user.service";
 import { required, email } from "vuelidate/lib/validators";
@@ -80,16 +81,9 @@ export default {
     }
   },
   methods: {
-    toast(toaster) {
-    this.$bvToast.toast(`Salvo com Sucesso`, {
-      title: `EasyBeasy`,
-      toaster
-    })
-},
     save() {
       userService.save(this.user);
       this.callBack();
-
     }
   }
 };
