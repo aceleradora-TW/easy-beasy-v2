@@ -1,7 +1,6 @@
 import Question from '@/components/Question.vue'
 import Home from '@/views/Home.vue'
-export default [
-    {
+export default [{
         name: 'questions.index',
         path: '/questions',
         component: Question,
