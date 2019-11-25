@@ -69,7 +69,7 @@
         <b-button
           v-on:click="showNps"
           cols="9"
-          class="showNps question"
+          class="showNps"
           >Por favor, 
           <strong>clique aqui</strong> e nos ajude a melhorar!</b-button
         >
@@ -266,10 +266,11 @@ export default {
     width: 100%;
     height: 80%;
     overflow-y: auto;
-    .showNps {
-      background-color: #ffffff;
-      border-color: #ffffff;
-      color: rgb(54, 54, 218);
+    .question {
+      text-align: left;
+      color: $question-text-color;
+      font-family: $primary-font-family;
+      font-size: 13pt;
     }
     .chat-box {
       padding: 3rem 2rem;
@@ -278,50 +279,24 @@ export default {
         border-radius: 50%;
         width: 1.5rem;
       }
-      .question {
+      .showNps {
         position: relative;
         background: $primary-color;
-        border-radius: 0.4em;
-        padding: 1em;
+        border-radius: 2em;
+        padding: -0.2em 0.3em -0.2em 0.3em;
         color: #fff;
+        font-size: 13pt;
         text-align: start;
-      }
-      .question:after {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 50%;
-        width: 0;
-        height: 0;
-        border: 12px solid transparent;
-        border-right-color: $primary-color;
-        border-left: 0;
-        border-top: 0;
-        margin-top: -6px;
-        margin-left: -12px;
       }
       .feedback {
         text-align: left;
         font-size: 13pt;
       }
       .answer {
-        position: relative;
-        background: #e2e2e2;
-        border-radius: 0.4em;
-        color: #0e0606;
-      }
-      .answer:after {
-        position: absolute;
-        right: 0;
-        top: 50%;
-        width: 0;
-        height: 0;
-        border: 12px solid transparent;
-        border-left-color: #e2e2e2;
-        border-right: 0;
-        border-top: 0;
-        margin-top: -6px;
-        margin-right: -12px;
+        text-align: right;
+        color: $primary-font-family;
+        font-family: $primary-font-family;
+        margin-bottom: 15px;
       }
       .npsClick {
         text-decoration: underline;
