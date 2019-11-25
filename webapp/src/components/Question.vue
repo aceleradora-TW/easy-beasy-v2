@@ -33,7 +33,7 @@
           }}</b-col>
         </b-row>
       </div>
-      <b-row class="current-question" v-if="currentQuestion && !showSolution">
+      <b-row class="current-question" v-if="isThereNextQuestion">
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
@@ -138,7 +138,8 @@ export default {
     feedbackNps: "Obrigada pelo seu feedback!",
     feedbackData: "Obrigada! Agora podemos prosseguir.",
     thankNps: false,
-    thankData: false
+    thankData: false,
+    isThereNextQuestion: false,
   }),
 
   created() {
@@ -171,6 +172,7 @@ export default {
     },
     nextQuestion() {
       this.currentQuestion = this.questionList.shift();
+      this.isThereNextQuestion = true;
       this.typeWrite();
     },
     collectAnswer(answer) {
@@ -181,8 +183,8 @@ export default {
       this.shouldShowSolution();
     },
     showSolutionMessage() {
-      this.showSolution = true;
       this.showThanksData();
+      this.showSolution = true;
     },
     showNoSolutionIndefiedMessage() {
       this.theresNoSolution = true;
@@ -193,17 +195,20 @@ export default {
         this.disableButtonNotUnderstand = true;
         this.showModalData();
         this.callBack = this.showSolutionMessage;
-        this.nextStage();
+        this.isThereNextQuestion = false;
+        return;
       }
       if (!this.questionList.length && this.quantityNegativeAnswers() === 1) {
         this.disableButtonNotUnderstand = true;
         this.showModalData();
         this.callBack = this.showSolutionMessage;
-        this.showSolution = true;
-        this.nextStage();
+        this.isThereNextQuestion = false;
+        return;
       }
       this.solutionNotIdentified();
-      this.nextQuestion();
+      if(this.questionList.length){
+        this.nextQuestion();	
+      }
     },
     solutionNotIdentified() {
       if (!this.questionList.length && this.quantityNegativeAnswers() == 0) {
@@ -211,7 +216,8 @@ export default {
         this.showModalData();
         this.callBack = this.showNoSolutionIndefiedMessage;
         this.theresNoSolution = true;
-        this.nextStage();
+        this.isThereNextQuestion = false;
+        nextStage();
       }
     },
     showThanksData(){
@@ -238,7 +244,7 @@ export default {
       this.$bvModal.show("modalData");
     },
     nextStage() {
-      if (this.theresNoSolution === true || this.showSolution === true) {
+      if (this.theresNoSolution === true) {
         this.idStage++;
         this.questionList = [];
         StageService.getStageById(this.idStage)
@@ -247,6 +253,7 @@ export default {
             this.questionList = stage.questions;
             this.theresNoSolution = false;
             this.nextQuestion();
+            this.isThereNextQuestion = false;
           })
           .catch(error => {
             console.log(error);
