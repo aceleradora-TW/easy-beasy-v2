@@ -160,7 +160,7 @@ export default {
             this.typewritingQuestion += char;
             if (this.typewritingQuestion === this.currentQuestion.description)
               resolve();
-          }, 20 * index);
+          }, 40 * index);
         });
       }).then(() => {
         this.isTypewriterRunning = false;
