@@ -55,14 +55,14 @@
           <Solution />
         </b-col>
       </b-row>
-      <b-row v-if="theresNoSolution" class="mb-3">
+      <b-row v-if="endDiagnosis" class="mb-3">
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
         <b-col cols="9" class="question">{{ solutionNotFound }}</b-col>
       </b-row>
 
-      <b-row v-if="showSolution" class="mb-3">
+      <b-row v-if="showSolution || endDiagnosis" class="mb-3">
         <b-col cols="auto" class="mb-3">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
@@ -140,7 +140,7 @@ export default {
     thankNps: false,
     thankData: false,
     isThereNextQuestion: false,
-    isThereNextStage: false
+    endDiagnosis: false
   }),
 
   created() {
@@ -149,11 +149,8 @@ export default {
         let stage = response.data;
         this.questionList = stage.questions;
         this.nextQuestion();
-        this.isThereNextStage = true;
       })
-      .catch(error => {
-        this.isThereNextStage = false;
-      });
+      .catch(error => {});
   },
   methods: {
     typeWrite() {
@@ -190,11 +187,6 @@ export default {
       this.showThanksData();
       this.showSolution = true;
     },
-    // showNoSolutionIndefiedMessage() {
-    //   this.theresNoSolution = true;
-    //   this.showThanksData();
-    //   this.nextStage();
-    // },
     shouldShowSolution() {
       if (this.quantityNegativeAnswers() === 2) {
         this.disableButtonNotUnderstand = true;
@@ -213,7 +205,6 @@ export default {
       this.solutionNotIdentified();
       if(this.questionList.length){
         this.nextQuestion();
-      
       }
     },
     solutionNotIdentified() {
@@ -252,14 +243,13 @@ export default {
         StageService.getStageById(this.idStage)
           .then(response => {
             let stage = response.data;
-            this.isThereNextStage = true;
             this.questionList = stage.questions;
             this.theresNoSolution = false;
             this.nextQuestion();
           })
           .catch(error => {
-            this.isThereNextStage = false;
-            console.log(error);
+            this.endDiagnosis = true;
+            this.showModalData();
           });
       }
     }
