@@ -58,7 +58,11 @@
                     netPromoterScoreService.save(this.nps)
                     this.callBack()
                     this.$bvModal.hide('modalNps')
+                    this.getScore(0)
+                }else{
+                    this.scoreNotSelected()
                 }
+
             },
             changeBackGroundColor(event) {
                 const allButtons = document.querySelectorAll(".nps-button");
@@ -67,6 +71,23 @@
                 }
                 const button = event.currentTarget;
                 button.style.background = "#bcbcbc";
+            },
+            scoreNotSelected(){
+                const allButtons = document.querySelectorAll(".nps-button");
+                allButtons.forEach(element => {
+                    var op = 0.5;
+                    var timer = setInterval(function () {
+                        if (op > 3){
+                            element.style.borderColor = 'rgba(255, 0, 0, 0.5)'
+                            clearInterval(timer);
+                        }
+                        element.style.boxShadow = '0px 0px ' +op+ 'px red'
+                        op += op * 1.5;
+                        
+                    }, 50);
+
+                });
+
             }
         }
     };
