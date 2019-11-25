@@ -42,8 +42,7 @@
               squared
               type="submit"
               v-on:click="save(), $bvModal.hide('modalData')"
-              class="saveUser answer-btn mt-20" @click="toast('b-toaster-top-center')"
-              :disabled="$v.user.$invalid"
+              class="saveUser answer-btn mt-20"
             >Salvar</b-button>
           </b-col>
         </b-row>
@@ -51,7 +50,6 @@
     </b-modal>
   </div>
 </template>
-
 
 <script>
 import userService from "@/services/user.service";
@@ -82,12 +80,6 @@ export default {
     }
   },
   methods: {
-    toast(toaster) {
-    this.$bvToast.toast(`Salvo com Sucesso`, {
-      title: `EasyBeasy`,
-      toaster
-    })
-},
     save() {
       this.$v.user.$touch()
         if (this.$v.user.$anyError) {
@@ -100,9 +92,8 @@ export default {
     }
   }
 };
-
-
 </script>
+
 <style lang="scss" scoped>
 @import '@/assets/scss/config/variables.scss';
 .user {
