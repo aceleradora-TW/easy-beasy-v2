@@ -1,9 +1,8 @@
 package com.thoughtworks.aceleradora.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+
+import java.util.List;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -13,9 +12,12 @@ public class User {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
-
     private String name;
     private String email;
+
+    @OneToOne
+    @JoinColumn(name = "id_user")
+    NetPromoterScore netPromoterScore;
 
     public User(String name, String email) {
         this.name = name;
