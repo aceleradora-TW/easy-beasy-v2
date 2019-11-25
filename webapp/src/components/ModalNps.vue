@@ -12,7 +12,7 @@
                     class="ml-6 font nps-button"
                     squared
                     variant="outline-secondary"
-                    v-on:click="getScore(number), changeBackGroundColor($event)"
+                    v-on:click="getScore(number), changeBackGroundColor($event), resetScoreColor()"
                     v-for="number in 10"
                     :key="number">{{ number }}
             </b-button>
@@ -85,9 +85,14 @@
                         op += op * 1.5;
                         
                     }, 50);
-
                 });
-
+            },
+            resetScoreColor(){
+                const allButtons = document.querySelectorAll(".nps-button");
+                allButtons.forEach(element => {
+                        element.style.borderColor = 'rgb(108, 117, 125)'
+                        element.style.boxShadow = 'none'             
+                    });
             }
         }
     };
