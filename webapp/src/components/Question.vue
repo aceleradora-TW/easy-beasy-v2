@@ -140,6 +140,7 @@ export default {
     thankNps: false,
     thankData: false,
     isThereNextQuestion: false,
+    isThereNextStage: false
   }),
 
   created() {
@@ -148,8 +149,11 @@ export default {
         let stage = response.data;
         this.questionList = stage.questions;
         this.nextQuestion();
+        this.isThereNextStage = true;
       })
-      .catch(error => {});
+      .catch(error => {
+        this.isThereNextStage = false;
+      });
   },
   methods: {
     typeWrite() {
@@ -186,10 +190,11 @@ export default {
       this.showThanksData();
       this.showSolution = true;
     },
-    showNoSolutionIndefiedMessage() {
-      this.theresNoSolution = true;
-      this.showThanksData();
-    },
+    // showNoSolutionIndefiedMessage() {
+    //   this.theresNoSolution = true;
+    //   this.showThanksData();
+    //   this.nextStage();
+    // },
     shouldShowSolution() {
       if (this.quantityNegativeAnswers() === 2) {
         this.disableButtonNotUnderstand = true;
@@ -207,17 +212,15 @@ export default {
       }
       this.solutionNotIdentified();
       if(this.questionList.length){
-        this.nextQuestion();	
+        this.nextQuestion();
+      
       }
     },
     solutionNotIdentified() {
       if (!this.questionList.length && this.quantityNegativeAnswers() == 0) {
-        this.disableButtonNotUnderstand = true;
-        this.showModalData();
-        this.callBack = this.showNoSolutionIndefiedMessage;
         this.theresNoSolution = true;
         this.isThereNextQuestion = false;
-        nextStage();
+        this.nextStage();
       }
     },
     showThanksData(){
@@ -244,24 +247,23 @@ export default {
       this.$bvModal.show("modalData");
     },
     nextStage() {
-      if (this.theresNoSolution === true) {
         this.idStage++;
         this.questionList = [];
         StageService.getStageById(this.idStage)
           .then(response => {
             let stage = response.data;
+            this.isThereNextStage = true;
             this.questionList = stage.questions;
             this.theresNoSolution = false;
             this.nextQuestion();
-            this.isThereNextQuestion = false;
           })
           .catch(error => {
+            this.isThereNextStage = false;
             console.log(error);
           });
       }
     }
-  }
-};
+  };
 </script>
 
 <style lang="scss">
