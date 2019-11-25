@@ -138,7 +138,8 @@ export default {
     feedbackNps: "Obrigada pelo seu feedback!",
     feedbackData: "Obrigada! Agora podemos prosseguir.",
     thankNps: false,
-    thankData: false
+    thankData: false,
+    speedTyping: 50
   }),
 
   created() {
@@ -160,7 +161,7 @@ export default {
             this.typewritingQuestion += char;
             if (this.typewritingQuestion === this.currentQuestion.description)
               resolve();
-          }, 40 * index);
+          }, this.speedTyping * index);
         });
       }).then(() => {
         this.isTypewriterRunning = false;
@@ -283,6 +284,7 @@ export default {
         position: relative;
         background: $primary-color;
         border-radius: 2em;
+        border-color: $primary-color;
         padding: -0.2em 0.3em -0.2em 0.3em;
         color: #fff;
         font-size: 13pt;
