@@ -23,8 +23,8 @@
             <b-container fluid>
                 <b-row class="mb-3">
                     <b-col md="1.5" class="ml-md-auto">
-                        <b-button squared type="submit" v-on:click="submitScore(), $bvModal.hide('modalNps')"
-                            class="answer-btn mt-20">Enviar
+                        <b-button squared type="submit" v-on:click="submitScore()"
+                            class="answer-btn mt-20" >Enviar
                         </b-button>
                     </b-col>
                 </b-row>
@@ -54,8 +54,11 @@
                 this.nps.score = number;
             },
             submitScore() {
-                netPromoterScoreService.save(this.nps);
-                this.callBack();
+                if(this.nps.score !== 0){
+                    netPromoterScoreService.save(this.nps)
+                    this.callBack()
+                    this.$bvModal.hide('modalNps')
+                }
             },
             changeBackGroundColor(event) {
                 const allButtons = document.querySelectorAll(".nps-button");
