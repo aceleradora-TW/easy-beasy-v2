@@ -2,11 +2,14 @@ package functional;
 
 import com.thoughtworks.aceleradora.domain.NetPromoterScore;
 import com.thoughtworks.aceleradora.domain.User;
+import com.thoughtworks.aceleradora.service.UserService;
 import io.restassured.http.ContentType;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -15,6 +18,9 @@ public class TestRestAssured extends BaseRestAssuredTest {
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
+
+    @Autowired
+    private UserService userService;
 
     @Test
     public void shouldReturnSingleStageAtSpecifiedIndex() {
@@ -47,9 +53,15 @@ public class TestRestAssured extends BaseRestAssuredTest {
 
     @Test
     public void shouldReturnOKIfSaveValidNPS() {
+        User newUser = new User("Maria", "maria@gmail.com");
+        userService.save(newUser);
+
+        User user = userService.findByEmail(newUser.getEmail());
+
         NetPromoterScore newNPS = new NetPromoterScore();
         newNPS.setScore(10);
         newNPS.setComments("comment");
+        newNPS.setUser(user);
 
         given(aRequestToEasyBeasy())
                 .contentType(ContentType.JSON)

@@ -15,9 +15,8 @@ public class User {
     private String name;
     private String email;
 
-    @OneToOne
-    @JoinColumn(name = "id_user")
-    NetPromoterScore netPromoterScore;
+    public User() {
+    }
 
     public User(String name, String email) {
         this.name = name;

@@ -14,6 +14,17 @@ public class NetPromoterScore {
     private int score;
     private String comments;
 
+    @OneToOne()
+    @JoinColumn(name = "id_user", referencedColumnName = "id")
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public long getId(){
         return id;
