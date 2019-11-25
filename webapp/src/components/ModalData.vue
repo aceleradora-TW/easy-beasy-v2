@@ -43,6 +43,7 @@
               type="submit"
               v-on:click="save(), $bvModal.hide('modalData')"
               class="saveUser answer-btn mt-20"
+              :disabled="$v.user.$invalid"
             >Salvar</b-button>
           </b-col>
         </b-row>
