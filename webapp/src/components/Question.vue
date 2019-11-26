@@ -52,7 +52,7 @@
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
         <b-col cols="9" class="question">
-          <Solution />
+          <Solution v-bind:idStage="idStage"/>
         </b-col>
       </b-row>
       <b-row v-if="endDiagnosis" class="mb-3">
@@ -66,12 +66,9 @@
         <b-col cols="auto" class="mb-3">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
-        <b-button
-          v-on:click="showNps"
-          cols="9"
-          class="showNps"
-          >Por favor, 
-          <strong>clique aqui</strong> e nos ajude a melhorar!</b-button
+        <b-button v-on:click="showNps" cols="9" class="showNps"
+          >Por favor, <strong>clique aqui</strong> e nos ajude a
+          melhorar!</b-button
         >
       </b-row>
 
@@ -81,7 +78,6 @@
         </b-col>
         <b-col cols="9" class="question">{{ feedbackNps }}</b-col>
       </b-row>
-
     </b-container>
 
     <b-row class="footer">
@@ -204,7 +200,7 @@ export default {
         return;
       }
       this.solutionNotIdentified();
-      if(this.questionList.length){
+      if (this.questionList.length) {
         this.nextQuestion();
       }
     },
@@ -215,7 +211,7 @@ export default {
         this.nextStage();
       }
     },
-    showThanksData(){
+    showThanksData() {
       this.thankData = true;
     },
     quantityNegativeAnswers() {
@@ -239,22 +235,22 @@ export default {
       this.$bvModal.show("modalData");
     },
     nextStage() {
-        this.idStage++;
-        this.questionList = [];
-        StageService.getStageById(this.idStage)
-          .then(response => {
-            let stage = response.data;
-            this.questionList = stage.questions;
-            this.theresNoSolution = false;
-            this.nextQuestion();
-          })
-          .catch(error => {
-            this.endDiagnosis = true;
-            this.showModalData();
-          });
-      }
+      this.idStage++;
+      this.questionList = [];
+      StageService.getStageById(this.idStage)
+        .then(response => {
+          let stage = response.data;
+          this.questionList = stage.questions;
+          this.theresNoSolution = false;
+          this.nextQuestion();
+        })
+        .catch(error => {
+          this.endDiagnosis = true;
+          this.showModalData();
+        });
     }
-  };
+  }
+};
 </script>
 
 <style lang="scss">

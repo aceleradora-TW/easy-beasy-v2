@@ -10,10 +10,10 @@ import StageService from "@/services/stage.service";
 export default {
   data: () => ({
     solutionScreen: "",
-    idStage: 1
   }),
+  props: ['idStage'],
   created() {
-    StageService.getStageById(this.idStage).then(r => {
+    StageService.getStageById(this.$props.idStage).then(r => {
       const stage = r.data;
       this.solutionScreen = stage.solution;
     });
