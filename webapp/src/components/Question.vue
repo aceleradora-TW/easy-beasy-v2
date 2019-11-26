@@ -33,7 +33,7 @@
           }}</b-col>
         </b-row>
       </div>
-      <b-row class="current-question" v-if="currentQuestion && !showSolution">
+      <b-row class="current-question" v-if="isThereNextQuestion">
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
@@ -55,14 +55,14 @@
           <Solution />
         </b-col>
       </b-row>
-      <b-row v-if="theresNoSolution" class="mb-3">
+      <b-row v-if="endDiagnosis" class="mb-3">
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
         <b-col cols="9" class="question">{{ solutionNotFound }}</b-col>
       </b-row>
 
-      <b-row v-if="showSolution" class="mb-3">
+      <b-row v-if="showSolution || endDiagnosis" class="mb-3">
         <b-col cols="auto" class="mb-3">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
@@ -139,6 +139,8 @@ export default {
     feedbackData: "Obrigada! Agora podemos prosseguir.",
     thankNps: false,
     thankData: false,
+    isThereNextQuestion: false,
+    endDiagnosis: false,
     speedTyping: 50
   }),
 
@@ -172,6 +174,7 @@ export default {
     },
     nextQuestion() {
       this.currentQuestion = this.questionList.shift();
+      this.isThereNextQuestion = true;
       this.typeWrite();
     },
     collectAnswer(answer) {
@@ -182,36 +185,33 @@ export default {
       this.shouldShowSolution();
     },
     showSolutionMessage() {
+      this.showThanksData();
       this.showSolution = true;
-      this.showThanksData();
-    },
-    showNoSolutionIndefiedMessage() {
-      this.theresNoSolution = true;
-      this.showThanksData();
     },
     shouldShowSolution() {
       if (this.quantityNegativeAnswers() === 2) {
         this.disableButtonNotUnderstand = true;
         this.showModalData();
         this.callBack = this.showSolutionMessage;
-        this.nextStage();
+        this.isThereNextQuestion = false;
+        return;
       }
       if (!this.questionList.length && this.quantityNegativeAnswers() === 1) {
         this.disableButtonNotUnderstand = true;
         this.showModalData();
         this.callBack = this.showSolutionMessage;
-        this.showSolution = true;
-        this.nextStage();
+        this.isThereNextQuestion = false;
+        return;
       }
       this.solutionNotIdentified();
-      this.nextQuestion();
+      if(this.questionList.length){
+        this.nextQuestion();
+      }
     },
     solutionNotIdentified() {
       if (!this.questionList.length && this.quantityNegativeAnswers() == 0) {
-        this.disableButtonNotUnderstand = true;
-        this.showModalData();
-        this.callBack = this.showNoSolutionIndefiedMessage;
         this.theresNoSolution = true;
+        this.isThereNextQuestion = false;
         this.nextStage();
       }
     },
@@ -239,7 +239,6 @@ export default {
       this.$bvModal.show("modalData");
     },
     nextStage() {
-      if (this.theresNoSolution === true || this.showSolution === true) {
         this.idStage++;
         this.questionList = [];
         StageService.getStageById(this.idStage)
@@ -250,12 +249,12 @@ export default {
             this.nextQuestion();
           })
           .catch(error => {
-            console.log(error);
+            this.endDiagnosis = true;
+            this.showModalData();
           });
       }
     }
-  }
-};
+  };
 </script>
 
 <style lang="scss">
