@@ -75,14 +75,14 @@
             scoreNotSelected(){
                 const allButtons = document.querySelectorAll(".nps-button");
                 allButtons.forEach(element => {
-                    var op = 0.5;
+                    var opacity = 0.5;
                     var timer = setInterval(function () {
-                        if (op > 3){
+                        if (opacity > 3){
                             element.style.borderColor = 'rgba(255, 0, 0, 0.5)'
                             clearInterval(timer);
                         }
-                        element.style.boxShadow = '0px 0px ' +op+ 'px red'
-                        op += op * 1.5;
+                        element.style.boxShadow = '0px 0px ' + opacity + 'px red'
+                        opacity += opacity * 1.5;
                         
                     }, 50);
                 });
