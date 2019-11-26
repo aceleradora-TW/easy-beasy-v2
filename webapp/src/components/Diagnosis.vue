@@ -3,24 +3,23 @@
     <header>
       <h2>Diagnóstico</h2>
     </header>
-    <Question/>
+    <Question />
   </div>
 </template>
 
 <script>
-import Question from '@/components/Question.vue'
+import Question from "@/components/Question.vue";
 
-  export default {
-    name: "Diagnosis",
-    components: {
-      Question,
-    }
-
-  };
+export default {
+  name: "Diagnosis",
+  components: {
+    Question
+  }
+};
 </script>
 
 <style lang="scss">
-@import '@/assets/scss/config/variables.scss';
+@import "@/assets/scss/config/variables.scss";
 header {
   justify-content: center;
   background-color: $backgound-header-color;
