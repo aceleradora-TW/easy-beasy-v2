@@ -14,6 +14,10 @@ public class NetPromoterScoreService {
     }
 
     public NetPromoterScore save(NetPromoterScore netPromoterScore) {
-        return repository.save(netPromoterScore);
+        if (netPromoterScore.getScore() >= 1){
+            return repository.save(netPromoterScore);
+        }
+        return null;
+
     }
 }
