@@ -74,8 +74,8 @@
             scoreNotSelected(){
                 const allButtons = document.querySelectorAll(".nps-button");
                 allButtons.forEach(element => {
-                    var opacity = 0.5;
-                    var timer = setInterval(function () {
+                    let opacity = 0.5;
+                    const timer = setInterval(function () {
                         if (opacity > 3){
                             element.style.borderColor = 'rgba(255, 0, 0, 0.5)'
                             clearInterval(timer);
