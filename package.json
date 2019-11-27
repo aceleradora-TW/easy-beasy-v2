@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@vue/cli-service": "^4.1.1",
+    "vue-analytics": "^5.18.0"
+  }
+}
