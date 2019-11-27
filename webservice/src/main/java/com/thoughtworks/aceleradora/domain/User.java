@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -17,7 +19,9 @@ public class User {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
+    @NotBlank(message = "Insira seu nome completo.")
     private String name;
+    @Email(message = "Insira um e-mail válido.")
     private String email;
 
     public User(String name, String email) {
