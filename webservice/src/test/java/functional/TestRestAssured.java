@@ -2,10 +2,13 @@ package functional;
 
 import com.thoughtworks.aceleradora.domain.NetPromoterScore;
 import com.thoughtworks.aceleradora.domain.User;
+import com.thoughtworks.aceleradora.service.UserService;
 import io.restassured.http.ContentType;
+import org.junit.After;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
 import static io.restassured.RestAssured.given;
@@ -15,6 +18,9 @@ public class TestRestAssured extends BaseRestAssuredTest {
 
     @Rule
     public ExpectedException exception = ExpectedException.none();
+
+    @Autowired
+    private UserService userService;
 
     @Test
     public void shouldReturnSingleStageAtSpecifiedIndex() {
@@ -33,8 +39,17 @@ public class TestRestAssured extends BaseRestAssuredTest {
     }
 
     @Test
+    public void shouldThrowExceptionIfRequestInvalidStage() {
+        given(aRequestToEasyBeasy())
+                .when()
+                .get("/stage/-1")
+                .then()
+                .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+    }
+
+    @Test
     public void shouldReturnOKIfSaveValidUser() {
-        User newUser = new User("Maria", "maria@gmail.com");
+        User newUser = new User(1L, "Maria", "maria@gmail.com");
 
         given(aRequestToEasyBeasy())
                 .contentType(ContentType.JSON)
@@ -47,9 +62,15 @@ public class TestRestAssured extends BaseRestAssuredTest {
 
     @Test
     public void shouldReturnOKIfSaveValidNPS() {
+        User newUser = new User( "Nicole", "nicole@gmail.com");
+        userService.save(newUser);
+
+        User user = userService.findById(newUser.getId());
+
         NetPromoterScore newNPS = new NetPromoterScore();
         newNPS.setScore(10);
         newNPS.setComments("comment");
+        newNPS.setUser(user);
 
         given(aRequestToEasyBeasy())
                 .contentType(ContentType.JSON)
@@ -58,14 +79,5 @@ public class TestRestAssured extends BaseRestAssuredTest {
                 .post("/net-promoter-score/")
                 .then()
                 .statusCode(HttpStatus.OK.value());
-    }
-
-    @Test
-    public void shouldThrowExceptionIfRequestInvalidStage() {
-        given(aRequestToEasyBeasy())
-                .when()
-                .get("/stage/-1")
-                .then()
-                .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
     }
 }

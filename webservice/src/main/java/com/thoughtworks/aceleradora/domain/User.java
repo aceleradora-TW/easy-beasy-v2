@@ -24,6 +24,14 @@ public class User {
     @Email(message = "Insira um e-mail válido.")
     private String email;
 
+    public User() {
+    }
+
+    public User (Long id, String name, String email){
+        this(name, email);
+        this.id = id;
+    }
+
     public User(String name, String email) {
         this.name = name;
         this.email = email;
