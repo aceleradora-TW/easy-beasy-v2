@@ -4,6 +4,8 @@ import com.thoughtworks.aceleradora.domain.NetPromoterScore;
 import com.thoughtworks.aceleradora.repository.NetPromoterScoreRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class NetPromoterScoreService {
 
@@ -13,7 +15,10 @@ public class NetPromoterScoreService {
         this.repository = repository;
     }
 
-    public NetPromoterScore save(NetPromoterScore netPromoterScore) {
-        return repository.save(netPromoterScore);
+    public Optional<NetPromoterScore> save(NetPromoterScore netPromoterScore) {
+        return netPromoterScore.hasMinimalAcceptableScore()
+                ? Optional.ofNullable(repository.save(netPromoterScore))
+                : Optional.empty();
+
     }
 }
