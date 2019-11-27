@@ -16,7 +16,7 @@ public class NetPromoterScoreService {
     }
 
     public Optional<NetPromoterScore> save(NetPromoterScore netPromoterScore) {
-        return netPromoterScore.getScore() >= 1
+        return netPromoterScore.hasMinimalAcceptableScore()
                 ? Optional.ofNullable(repository.save(netPromoterScore))
                 : Optional.empty();
 

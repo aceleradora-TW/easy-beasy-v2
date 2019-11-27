@@ -34,4 +34,8 @@ public class NetPromoterScore {
     public void setComments(String comments) {
         this.comments = comments;
     }
+
+    public boolean hasMinimalAcceptableScore() {
+        return this.score > 0;
+    }
 }
