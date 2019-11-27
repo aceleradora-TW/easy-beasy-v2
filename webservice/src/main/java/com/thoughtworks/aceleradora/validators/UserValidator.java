@@ -20,23 +20,22 @@ public class UserValidator implements ConstraintValidator<UserValid, User> {
     @Override
     public boolean isValid(User user, ConstraintValidatorContext context) {
         context.disableDefaultConstraintViolation();
-        return nomeNaoEstaVazio(user, context) &&
-                emailNaoEstaVazio(user, context);
+        return isNameValid(user, context) &&
+                isEmailValid(user, context);
     }
 
-    private boolean nomeNaoEstaVazio(User user, ConstraintValidatorContext context) {
+    private boolean isNameValid(User user, ConstraintValidatorContext context) {
         if (user.getName().trim().isEmpty()) {
-            context.buildConstraintViolationWithTemplate("insira seu nome completo.")
+            context.buildConstraintViolationWithTemplate("Insira seu nome completo.")
                     .addConstraintViolation();
-
             return false;
         }
         return true;
     }
 
-    private boolean emailNaoEstaVazio(User user, ConstraintValidatorContext context) {
+    private boolean isEmailValid(User user, ConstraintValidatorContext context) {
         if (user.getEmail().trim().isEmpty()) {
-            context.buildConstraintViolationWithTemplate("insira seu email completo.")
+            context.buildConstraintViolationWithTemplate("Insira seu email completo.")
                     .addConstraintViolation();
 
             return false;
