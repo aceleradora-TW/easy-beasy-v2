@@ -14,6 +14,17 @@ public class NetPromoterScore {
     private int score;
     private String comments;
 
+    @OneToOne
+    @JoinColumn(name = "id_user", referencedColumnName = "id")
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public long getId(){
         return id;
@@ -33,5 +44,9 @@ public class NetPromoterScore {
 
     public void setComments(String comments) {
         this.comments = comments;
+    }
+
+    public boolean hasMinimalAcceptableScore() {
+        return this.score > 0;
     }
 }

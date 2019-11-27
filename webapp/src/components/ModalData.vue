@@ -14,12 +14,10 @@
               class="mt-20"
               id="user-name"
               type="text"
-              v-model="user.name"
-              :state="null"
-              required
+              v-model.trim="$v.user.name.$model"
+              :state="$v.user.name.$dirty ? !$v.user.name.$error : null"
               placeholder="Informe seu nome"
             />
-            <span class="invalidName" v-if="!isNameValid">Nome invalido/vazio!</span>
           </b-form-group>
         </b-col>
       </b-row>
@@ -30,11 +28,10 @@
               class="mt-20"
               id="user-email"
               type="email"
-              v-model="user.email"
-              required
+              v-model.trim="$v.user.email.$model"
+              :state="$v.user.email.$dirty ? !$v.user.email.$error : null"
               placeholder="exemplo@gmail.com"
             />
-            <span v-if="!isEmailValid">Informe seu email!</span>
           </b-form-group>
         </b-col>
       </b-row>
@@ -45,7 +42,8 @@
               squared
               type="submit"
               v-on:click="save(), $bvModal.hide('modalData')"
-              class="saveUser answer-btn mt-20" 
+              class="saveUser answer-btn mt-20"
+              :disabled="$v.user.$invalid"
             >Salvar</b-button>
           </b-col>
         </b-row>
@@ -69,25 +67,34 @@ export default {
       email: "",
       collectText:"Chegamos a um resultado, informe seus dados para que possamos compartilha-lo com você."
     },
-    isNameValid: true,
-    isEmailValid: true,
     headerBgVariant: 'info',
     headerTextVariant: 'light'
   }),
   validations: {
     user: {
-      name: { required },
-      email: { required, email }
+      name: {
+        required
+      },
+      email: {
+        required, email
+      }
     }
   },
   methods: {
     save() {
-      userService.save(this.user);
-      this.callBack();
+      this.$v.user.$touch()
+        if (this.$v.user.$anyError) {
+        return
+      }
+      userService.save(this.user).then(/*somente sucesso*/() => {
+                this.callBack();
+      }).catch(/*todos os erros*/errors => console.log(errors));
+
     }
   }
 };
 </script>
+
 <style lang="scss" scoped>
 @import '@/assets/scss/config/variables.scss';
 .user {

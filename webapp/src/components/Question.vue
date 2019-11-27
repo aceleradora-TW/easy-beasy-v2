@@ -66,10 +66,9 @@
         <b-col cols="auto" class="mb-3">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
-        <b-button v-on:click="showNps" cols="9" class="showNps"
+        <b-button :disabled ="npsDisabled" v-on:click="showNps" cols="9" class="showNps"
           >Por favor, <strong>clique aqui</strong> e nos ajude a
-          melhorar!</b-button
-        >
+          melhorar!</b-button>
       </b-row>
 
       <b-row v-if="thankNps" class="mb-3">
@@ -137,7 +136,8 @@ export default {
     thankData: false,
     isThereNextQuestion: false,
     endDiagnosis: false,
-    speedTyping: 50
+    speedTyping: 50,
+    npsDisabled: false
   }),
 
   created() {
@@ -225,8 +225,12 @@ export default {
       });
     },
     showNps() {
-      this.$bvModal.show("modalNps");
-      this.callBack = this.showThanksNps;
+      if(!this.npsDisabled){
+        this.$bvModal.show("modalNps");
+        this.npsDisabled = true;
+        this.callBack = this.showThanksNps;
+      }
+
     },
     showThanksNps() {
       this.thankNps = true;
