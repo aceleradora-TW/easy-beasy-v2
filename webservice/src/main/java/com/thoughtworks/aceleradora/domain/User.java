@@ -1,18 +1,27 @@
 package com.thoughtworks.aceleradora.domain;
 
-import javax.persistence.*;
+import com.thoughtworks.aceleradora.validators.annotations.UserValid;
 
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "users")
+@UserValid
 public class User {
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    private long id;
+    private Long id;
+
+    @NotBlank(message = "Insira seu nome completo.")
     private String name;
+    @Email(message = "Insira um e-mail válido.")
     private String email;
 
     public User() {
