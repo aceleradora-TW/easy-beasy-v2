@@ -9,7 +9,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.test.util.ReflectionTestUtils;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -39,8 +38,18 @@ public class TestRestAssured extends BaseRestAssuredTest {
     }
 
     @Test
+    public void shouldThrowExceptionIfRequestInvalidStage() {
+        given(aRequestToEasyBeasy())
+                .when()
+                .get("/stage/-1")
+                .then()
+                .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+    }
+
+
+    @Test
     public void shouldReturnOKIfSaveValidUser() {
-        User newUser = new User("Maria", "maria@gmail.com");
+        User newUser = new User(1L, "Maria", "maria@gmail.com");
 
         given(aRequestToEasyBeasy())
                 .contentType(ContentType.JSON)
@@ -53,7 +62,7 @@ public class TestRestAssured extends BaseRestAssuredTest {
 
     @Test
     public void shouldReturnOKIfSaveValidNPS() {
-        User newUser = new User("Maria", "maria@gmail.com");
+        User newUser = new User( "Nicole", "nicole@gmail.com");
         userService.save(newUser);
 
         User user = userService.findByEmail(newUser.getEmail());
@@ -70,14 +79,5 @@ public class TestRestAssured extends BaseRestAssuredTest {
                 .post("/net-promoter-score/")
                 .then()
                 .statusCode(HttpStatus.OK.value());
-    }
-
-    @Test
-    public void shouldThrowExceptionIfRequestInvalidStage() {
-        given(aRequestToEasyBeasy())
-                .when()
-                .get("/stage/-1")
-                .then()
-                .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
     }
 }

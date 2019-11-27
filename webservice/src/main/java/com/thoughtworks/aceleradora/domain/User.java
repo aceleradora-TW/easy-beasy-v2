@@ -11,11 +11,16 @@ import static javax.persistence.GenerationType.IDENTITY;
 public class User {
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    private Long id;
+    private long id;
     private String name;
     private String email;
 
     public User() {
+    }
+
+    public User (Long id, String name, String email){
+        this(name, email);
+        this.id = id;
     }
 
     public User(String name, String email) {
