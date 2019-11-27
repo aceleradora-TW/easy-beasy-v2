@@ -19,6 +19,6 @@ public class UserService {
     }
 
     public User findById(Long id) {
-        return this.repository.findById(id).stream().findFirst().get();
+        return this.repository.findById(id).get();
     }
 }
