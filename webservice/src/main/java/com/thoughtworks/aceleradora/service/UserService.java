@@ -18,7 +18,7 @@ public class UserService {
         return repository.save(user);
     }
 
-    public User findByEmail(String email) {
-        return this.repository.findByEmail(email).stream().findFirst().get();
+    public User findById(Long id) {
+        return this.repository.findById(id).stream().findFirst().get();
     }
 }

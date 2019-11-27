@@ -4,6 +4,7 @@ import com.thoughtworks.aceleradora.domain.NetPromoterScore;
 import com.thoughtworks.aceleradora.domain.User;
 import com.thoughtworks.aceleradora.service.UserService;
 import io.restassured.http.ContentType;
+import org.junit.After;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -20,6 +21,9 @@ public class TestRestAssured extends BaseRestAssuredTest {
 
     @Autowired
     private UserService userService;
+
+    @After
+
 
     @Test
     public void shouldReturnSingleStageAtSpecifiedIndex() {
@@ -46,7 +50,6 @@ public class TestRestAssured extends BaseRestAssuredTest {
                 .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
     }
 
-
     @Test
     public void shouldReturnOKIfSaveValidUser() {
         User newUser = new User(1L, "Maria", "maria@gmail.com");
@@ -65,7 +68,7 @@ public class TestRestAssured extends BaseRestAssuredTest {
         User newUser = new User( "Nicole", "nicole@gmail.com");
         userService.save(newUser);
 
-        User user = userService.findByEmail(newUser.getEmail());
+        User user = userService.findById(newUser.getId());
 
         NetPromoterScore newNPS = new NetPromoterScore();
         newNPS.setScore(10);
