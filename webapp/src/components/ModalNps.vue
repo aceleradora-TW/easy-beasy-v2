@@ -12,7 +12,7 @@
                     class="ml-6 font nps-button"
                     squared
                     variant="outline-secondary"
-                    v-on:click="getScore(number), changeBackGroundColor($event)"
+                    v-on:click="setScore(number), changeBackGroundColor($event), resetScoreColor()"
                     v-for="number in 10"
                     :key="number">{{ number }}
             </b-button>
@@ -23,8 +23,8 @@
             <b-container fluid>
                 <b-row class="mb-3">
                     <b-col md="1.5" class="ml-md-auto">
-                        <b-button squared type="submit" v-on:click="submitScore(), $bvModal.hide('modalNps')"
-                            class="answer-btn mt-20">Enviar
+                        <b-button squared type="submit" v-on:click="submitScore()"
+                            class="answer-btn mt-20" >Enviar
                         </b-button>
                     </b-col>
                 </b-row>
@@ -50,12 +50,18 @@
             headerTextVariant: 'light'
         }),
         methods: {
-            getScore(number) {
+            setScore(number) {
                 this.nps.score = number;
             },
             submitScore() {
-                netPromoterScoreService.save(this.nps);
-                this.callBack();
+                if(this.nps.score !== 0){
+                    netPromoterScoreService.save(this.nps)
+                    this.callBack()
+                    this.$bvModal.hide('modalNps')
+                }else{
+                    this.scoreNotSelected()
+                }
+
             },
             changeBackGroundColor(event) {
                 const allButtons = document.querySelectorAll(".nps-button");
@@ -64,6 +70,28 @@
                 }
                 const button = event.currentTarget;
                 button.style.background = "#bcbcbc";
+            },
+            scoreNotSelected(){
+                const allButtons = document.querySelectorAll(".nps-button");
+                allButtons.forEach(element => {
+                    let opacity = 0.5;
+                    const timer = setInterval(function () {
+                        if (opacity > 3){
+                            element.style.borderColor = 'rgba(255, 0, 0, 0.5)'
+                            clearInterval(timer);
+                        }
+                        element.style.boxShadow = '0px 0px ' + opacity + 'px red'
+                        opacity += opacity * 1.5;
+                        
+                    }, 50);
+                });
+            },
+            resetScoreColor(){
+                const allButtons = document.querySelectorAll(".nps-button");
+                allButtons.forEach(element => {
+                        element.style.borderColor = 'rgb(108, 117, 125)'
+                        element.style.boxShadow = 'none'             
+                    });
             }
         }
     };
