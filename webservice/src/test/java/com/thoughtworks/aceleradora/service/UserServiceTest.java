@@ -23,7 +23,7 @@ public class UserServiceTest {
 
     @Test
     public void shouldReturnOkIfRepositorySaveValidUser(){
-        User userExpected = new User("Lucilaine", "lucilaine@email.com");
+        User userExpected = new User(1L,"Lucilaine", "lucilaine@email.com");
 
         Mockito.when(userRepository.save(userExpected)).thenReturn(userExpected);
 
