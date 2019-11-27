@@ -22,9 +22,6 @@ public class TestRestAssured extends BaseRestAssuredTest {
     @Autowired
     private UserService userService;
 
-    @After
-
-
     @Test
     public void shouldReturnSingleStageAtSpecifiedIndex() {
         given(aRequestToEasyBeasy())
