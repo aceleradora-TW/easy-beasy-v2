@@ -12,7 +12,7 @@
                     class="ml-6 font nps-button"
                     squared
                     variant="outline-secondary"
-                    v-on:click="getScore(number), changeBackGroundColor($event), resetScoreColor()"
+                    v-on:click="setScore(number), changeBackGroundColor($event), resetScoreColor()"
                     v-for="number in 10"
                     :key="number">{{ number }}
             </b-button>
@@ -50,7 +50,7 @@
             headerTextVariant: 'light'
         }),
         methods: {
-            getScore(number) {
+            setScore(number) {
                 this.nps.score = number;
             },
             submitScore() {
@@ -58,7 +58,6 @@
                     netPromoterScoreService.save(this.nps)
                     this.callBack()
                     this.$bvModal.hide('modalNps')
-                    this.getScore(0)
                 }else{
                     this.scoreNotSelected()
                 }
