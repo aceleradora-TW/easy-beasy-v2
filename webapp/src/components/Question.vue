@@ -69,14 +69,7 @@
           <strong>clique aqui</strong> e nos ajude a melhorar!</b-button
         >
       </b-row>
-
-      <b-row v-if="thankNps" class="mb-3">
-        <b-col cols="auto">
-          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
-        </b-col>
-        <b-col cols="9" class="question">{{ feedbackNps }}</b-col>
-      </b-row>
-
+      
     </b-container>
 
     <b-row class="footer">
@@ -211,6 +204,22 @@ export default {
         this.nextStage();
       }
     },
+    showNps() {
+      if(!this.npsDisabled){
+        this.$bvModal.show("modalNps");
+        this.npsDisabled = true;
+        this.callBack = this.showThanksNps;
+      }
+      
+    },
+    showModalData() {
+      this.$bvModal.show("modalData");
+    },
+    showThanksNps() {
+      this.chatHistory.push({
+        description: this.feedbackNps
+      });
+    },
     showThanksData(){
       this.chatHistory.push({
         description: this.feedbackData
@@ -225,20 +234,6 @@ export default {
         const element = this.$el.querySelector(".chat-box");
         element.scrollIntoView({ behavior: "smooth", block: "end" });
       });
-    },
-    showNps() {
-      if(!this.npsDisabled){
-        this.$bvModal.show("modalNps");
-        this.npsDisabled = true;
-        this.callBack = this.showThanksNps;
-      }
-      
-    },
-    showThanksNps() {
-      this.thankNps = true;
-    },
-    showModalData() {
-      this.$bvModal.show("modalData");
     },
     nextStage() {
         this.idStage++;
