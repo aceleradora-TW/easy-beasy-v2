@@ -15,36 +15,30 @@
       </b-row>
       <div
         class="question-history"
-        v-for="answeredQuestion in chatHistory"
-        v-bind:key="answeredQuestion.description"
+        v-for="chatContent in chatHistory"
+        v-bind:key="chatContent.description"
       >
         <b-row>
           <b-col cols="auto">
             <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
           </b-col>
           <b-col cols="9" class="question mb-3">{{
-            answeredQuestion.description
+            chatContent.description
           }}</b-col>
         </b-row>
 
-        <b-row align-h="end">
+        <b-row v-if="chatContent.response" align-h="end">
           <b-col cols="2" class="answer mb-3">{{
-            answeredQuestion.response
+            chatContent.response
           }}</b-col>
         </b-row>
+
       </div>
       <b-row class="current-question" v-if="isThereNextQuestion">
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
         <b-col class="question" cols="9">{{ typewritingQuestion }}</b-col>
-      </b-row>
-
-      <b-row v-if="thankData" class="mb-3">
-        <b-col cols="auto">
-          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
-        </b-col>
-        <b-col cols="9" class="question">{{ feedbackData }}</b-col>
       </b-row>
 
       <b-row v-if="showSolution" class="mb-3">
@@ -218,7 +212,9 @@ export default {
       }
     },
     showThanksData(){
-      this.thankData = true;
+      this.chatHistory.push({
+        description: this.feedbackData
+      });
     },
     quantityNegativeAnswers() {
       return this.chatHistory.filter(question => question.response === "Não")
