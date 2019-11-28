@@ -5,27 +5,34 @@
     </header>
     <b-container fluid class="containerInputs">
       <b-row align-h="center">
+      <b-col align-h="center" cols="1">{{area}}</b-col>
         <b-col cols="4">
           <b-form-group label-for="input-area">
             <b-form-input id="input-area"></b-form-input>
           </b-form-group>
         </b-col>
+
+      <b-col align-h="center" cols="1">{{stage}}</b-col>
         <b-col cols="4">
           <b-form-group label-for="input-stage">
             <b-form-input id="input-stage"></b-form-input>
           </b-form-group>
         </b-col>
       </b-row>
+
       <b-row align-h="center">
+      <b-col align-h="center" cols="1">{{question}}</b-col>
         <b-col cols="4">
           <b-form-group label-for="input-question">
             <b-form-input id="input-question"></b-form-input>
           </b-form-group>
         </b-col>
+
+      <b-col align-h="center" cols="1">{{notUnderstand}}</b-col>
         <b-col cols="4">
-          <b-form-group label-for="input-dont-understand">
-            <b-form-input id="input-dont-understand"></b-form-input>
-          </b-form-group>
+          <b-form-grouplabel-for id="input-not-understand">
+          <b-form-input id="input-not-understand"></b-form-input>
+          </b-form-grouplabel-for>
         </b-col>
       </b-row>
     </b-container>
@@ -34,7 +41,17 @@
 
 <script>
 export default {
-  name: "RegisterQuestions"
+  components: {
+
+  },
+  name: "RegisterQuestions",
+
+  data: () => ({
+    area: "Área",
+    stage: "Estágio",
+    question: "Pergunta",
+    notUnderstand: "Explicação botão Não Entendi "
+  })
 };
 </script>
 
