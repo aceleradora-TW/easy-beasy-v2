@@ -77,7 +77,7 @@
                     let opacity = 0.5;
                     const timer = setInterval(function () {
                         if (opacity > 3){
-                            element.style.borderColor = 'rgba(255, 0, 0, 0.5)'
+                            element.classList.add("scoreNotSelected")
                             clearInterval(timer);
                         }
                         element.style.boxShadow = '0px 0px ' + opacity + 'px red'
@@ -89,8 +89,9 @@
             resetScoreColor(){
                 const allButtons = document.querySelectorAll(".nps-button");
                 allButtons.forEach(element => {
-                        element.style.borderColor = 'rgb(108, 117, 125)'
-                        element.style.boxShadow = 'none'             
+                    element.classList.remove("scoreNotSelected");
+                    element.classList.add("resetScoreColor");
+                    element.style.boxShadow = 'none';          
                     });
             }
         }
@@ -114,5 +115,12 @@
     .mt-20{
         margin-top: 20px;
         font-family: $primary-font-family;
+    }
+    .scoreNotSelected{
+        border-color: rgba(255, 0, 0, 0.5);
+        opacity: 0px 0px 3px red;
+    }
+    .resetScoreColor{
+        border-color: rgb(108, 117, 125);
     }
 </style>
