@@ -19,13 +19,20 @@ public class Question {
 
     private String description;
 
+    private Long id_stage;
+
     @JsonCreator
-    public Question(@JsonProperty("description") String description) {
+    public Question(@JsonProperty("description") String description, @JsonProperty("id_stage") Long id_stage) {
         this.description = description;
+        this.id_stage = id_stage;
     }
 
     @JsonCreator
     public Question() {
+    }
+
+    public Question(String question) {
+
     }
 
     public String getDescription() {
