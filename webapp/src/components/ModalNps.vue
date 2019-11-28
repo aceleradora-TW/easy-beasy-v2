@@ -76,22 +76,14 @@
                 allButtons.forEach(element => {
                     let opacity = 0.5;
                     const timer = setInterval(function () {
-                        if (opacity > 3){
-                            element.classList.add("scoreNotSelected")
-                            clearInterval(timer);
-                        }
-                        element.style.boxShadow = '0px 0px ' + opacity + 'px red'
-                        opacity += opacity * 1.5;
-                        
+                        element.classList.add("scoreNotSelected");                        
                     }, 50);
                 });
             },
             resetScoreColor(){
                 const allButtons = document.querySelectorAll(".nps-button");
                 allButtons.forEach(element => {
-                    element.classList.remove("scoreNotSelected");
                     element.classList.add("resetScoreColor");
-                    element.style.boxShadow = 'none';          
                     });
             }
         }
@@ -118,9 +110,10 @@
     }
     .scoreNotSelected{
         border-color: rgba(255, 0, 0, 0.5);
-        opacity: 0px 0px 3px red;
+        box-shadow: 0px 0px 3px red;
     }
     .resetScoreColor{
         border-color: rgb(108, 117, 125);
+        box-shadow: none;
     }
 </style>
