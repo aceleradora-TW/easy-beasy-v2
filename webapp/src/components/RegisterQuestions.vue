@@ -1,21 +1,33 @@
 <template>
   <div>
-    <header>
+    <header mb-5>
       <h2>Cadastro de perguntas</h2>
     </header>
-    <b-container fluid>
+    <b-container fluid class="containerInputs">
       <b-row align-h="center">
-          <b-col cols="4">
-            <b-form-group label-for="input-default">
-              <b-form-input id="input-default"></b-form-input>
-            </b-form-group>      
-          </b-col>
-          <b-col cols="4">
-            <b-form-group label-for="input-default">
-              <b-form-input id="input-default"></b-form-input>
-            </b-form-group>
-          </b-col>  
-      </b-row>   
+        <b-col cols="4">
+          <b-form-group label-for="input-area">
+            <b-form-input id="input-area"></b-form-input>
+          </b-form-group>
+        </b-col>
+        <b-col cols="4">
+          <b-form-group label-for="input-stage">
+            <b-form-input id="input-stage"></b-form-input>
+          </b-form-group>
+        </b-col>
+      </b-row>
+      <b-row align-h="center">
+        <b-col cols="4">
+          <b-form-group label-for="input-question">
+            <b-form-input id="input-question"></b-form-input>
+          </b-form-group>
+        </b-col>
+        <b-col cols="4">
+          <b-form-group label-for="input-dont-understand">
+            <b-form-input id="input-dont-understand"></b-form-input>
+          </b-form-group>
+        </b-col>
+      </b-row>
     </b-container>
   </div>
 </template>
@@ -36,5 +48,13 @@ header {
 }
 h2 {
   color: $text-header-color;
+}
+.lineTop {
+  background-color: $secondary-color;
+  color: $secondary-color;
+  height: 2rem;
+}
+.containerInputs {
+  padding: 0.5rem;
 }
 </style>
