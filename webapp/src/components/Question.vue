@@ -28,11 +28,17 @@
         </b-row>
 
         <b-row v-if="chatContent.response" align-h="end">
-          <b-col cols="2" class="answer mb-3">{{
-            chatContent.response
-          }}</b-col>
+          <b-col cols="2" class="answer mb-3">{{ chatContent.response }}</b-col>
         </b-row>
 
+        <b-row v-if="chatContent.hasSolution" class="mb-3">
+          <b-col cols="auto">
+            <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
+          </b-col>
+          <b-col cols="9" class="question">
+            <Solution v-bind:idStage="idStage" />
+          </b-col>
+        </b-row>
       </div>
       <b-row class="current-question" v-if="isThereNextQuestion">
         <b-col cols="auto">
@@ -41,15 +47,6 @@
         <b-col class="question" cols="9">{{ typewritingQuestion }}</b-col>
       </b-row>
 
-      <b-row v-if="showSolution" class="mb-3">
-        <b-col cols="auto">
-          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
-        </b-col>
-        <b-col cols="9" class="question">
-          <Solution v-bind:idStage="idStage"/>
-        </b-col>
-      </b-row>
-      
       <b-row v-if="endDiagnosis" class="mb-3">
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
@@ -61,16 +58,15 @@
         <b-col cols="auto" class="mb-3">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
-        <b-button 
-          :disabled ="npsDisabled"
+        <b-button
+          :disabled="npsDisabled"
           v-on:click="showNps"
           cols="9"
           class="showNps"
-          >Por favor, 
-          <strong>clique aqui</strong> e nos ajude a melhorar!</b-button
+          >Por favor, <strong>clique aqui</strong> e nos ajude a
+          melhorar!</b-button
         >
       </b-row>
-
     </b-container>
 
     <b-row class="footer">
@@ -131,7 +127,8 @@ export default {
     isThereNextQuestion: false,
     endDiagnosis: false,
     speedTyping: 50,
-    npsDisabled: false
+    npsDisabled: false,
+    currentHistory: {}
   }),
 
   created() {
@@ -167,36 +164,44 @@ export default {
       this.isThereNextQuestion = true;
       this.typeWrite();
     },
-    collectAnswer(answer) {
-      this.chatHistory.push({
+    async collectAnswer(answer) {
+      this.currentHistory = {
         description: this.currentQuestion.description,
-        response: answer
-      });
-      this.shouldShowSolution();
+        response: answer,
+        hasSolution: null
+      };
+    this.chatHistory.push(this.currentHistory);
+    await this.shouldShowSolution();
+
+      
     },
     showSolutionMessage() {
       this.showThanksData();
-      this.showSolution = true;
+      this.isThereNextQuestion = false;
+      this.currentHistory.hasSolution = true;
+      //this.showSolution = true;
     },
-    shouldShowSolution() {
+    async shouldShowSolution() {
       if (this.quantityNegativeAnswers() === 2) {
         this.disableButtonNotUnderstand = true;
-        this.showModalData();
         this.callBack = this.showSolutionMessage;
-        this.isThereNextQuestion = false;
-        return;
+        this.showModalData();
+        return true;
       }
       if (!this.questionList.length && this.quantityNegativeAnswers() === 1) {
         this.disableButtonNotUnderstand = true;
         this.showModalData();
         this.callBack = this.showSolutionMessage;
         this.isThereNextQuestion = false;
-        return;
+        this.currentQuestion = "";
+
+        return true;
       }
       this.solutionNotIdentified();
       if (this.questionList.length) {
         this.nextQuestion();
       }
+      return null;
     },
     solutionNotIdentified() {
       if (!this.questionList.length && this.quantityNegativeAnswers() == 0) {
@@ -206,12 +211,11 @@ export default {
       }
     },
     showNps() {
-      if(!this.npsDisabled){
+      if (!this.npsDisabled) {
         this.$bvModal.show("modalNps");
         this.npsDisabled = true;
         this.callBack = this.showThanksNps;
       }
-
     },
     showModalData() {
       this.$bvModal.show("modalData");
@@ -221,7 +225,7 @@ export default {
         description: this.feedbackNps
       });
     },
-    showThanksData(){
+    showThanksData() {
       this.chatHistory.push({
         description: this.feedbackData
       });
