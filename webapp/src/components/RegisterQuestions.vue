@@ -17,6 +17,19 @@
             </b-form-input>
           </b-form-group>
         </b-col>
+
+        <b-col align-h="center" cols="1">{{notUnderstand}}</b-col>
+        <b-col cols="4">
+          <b-form-group label-for="input-notUnderstand">
+            <b-form-input 
+            id="input-notUnderstand"
+            type="text"
+            v-model.trim="$v.question.notUnderstand.$model"
+            :state="$v.question.notUnderstand.$dirty ? !$v.question.notUnderstand.$error : null"
+            >            
+            </b-form-input>
+          </b-form-group>
+        </b-col>
       </b-row>
     </b-container>
     <b-container fluid>
@@ -27,7 +40,7 @@
             type="submit"
             v-on:click="save()"
             class="saveQuestion answer-btn mt-20"
-            :disabled="$v.question.areaInput.$invalid"
+            :disabled="$v.question.$invalid"
           >Salvar</b-button>
         </b-col>
       </b-row>
@@ -46,16 +59,20 @@ export default {
 
   data: () => ({
     question: {
-      areaInput: ""
-    
+      areaInput: "",
+      notUnderstand:""
     },
-    area: "Área"
+   area: "Área",
+    notUnderstand: "Não entendi"
   }),
    validations: {
      question:{
-      areaInput: {
+     areaInput: {
+       required,
+     },
+      notUnderstand:{
         required,
-      },
+      }
      }
   },
   methods: {
