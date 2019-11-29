@@ -8,31 +8,27 @@
       <b-col align-h="center" cols="1">{{area}}</b-col>
         <b-col cols="4">
           <b-form-group label-for="input-area">
-            <b-form-input id="input-area"></b-form-input>
-          </b-form-group>
-        </b-col>
-
-      <b-col align-h="center" cols="1">{{stage}}</b-col>
-        <b-col cols="4">
-          <b-form-group label-for="input-stage">
-            <b-form-input id="input-stage"></b-form-input>
+            <b-form-input 
+            id="input-area"
+            type="text"
+            v-model.trim="$v.question.areaInput.$model"
+            :state="$v.question.areaInput.$dirty ? !$v.question.areaInput.$error : null"
+            >            
+            </b-form-input>
           </b-form-group>
         </b-col>
       </b-row>
-
-      <b-row align-h="center">
-      <b-col align-h="center" cols="1">{{question}}</b-col>
-        <b-col cols="4">
-          <b-form-group label-for="input-question">
-            <b-form-input id="input-question"></b-form-input>
-          </b-form-group>
-        </b-col>
-
-      <b-col align-h="center" cols="1">{{notUnderstand}}</b-col>
-        <b-col cols="4">
-          <b-form-grouplabel-for id="input-not-understand">
-          <b-form-input id="input-not-understand"></b-form-input>
-          </b-form-grouplabel-for>
+    </b-container>
+    <b-container fluid>
+      <b-row class="mb-3">
+        <b-col md="1.5" class="ml-md-auto">
+          <b-button
+            squared
+            type="submit"
+            v-on:click="save()"
+            class="saveQuestion answer-btn mt-20"
+            :disabled="$v.question.areaInput.$invalid"
+          >Salvar</b-button>
         </b-col>
       </b-row>
     </b-container>
@@ -40,6 +36,8 @@
 </template>
 
 <script>
+import { required } from "vuelidate/lib/validators";
+
 export default {
   components: {
 
@@ -47,14 +45,31 @@ export default {
   name: "RegisterQuestions",
 
   data: () => ({
-    area: "Área",
-    stage: "Estágio",
-    question: "Pergunta",
-    notUnderstand: "Explicação botão Não Entendi "
-  })
+    question: {
+      areaInput: ""
+    
+    },
+    area: "Área"
+  }),
+   validations: {
+     question:{
+      areaInput: {
+        required,
+      },
+     }
+  },
+  methods: {
+    save(){
+     this.$v.question.$touch()
+        if (this.$v.question.$anyError) {
+        return
+      }
+      alert("Deuu Certo!!")
+    }
+  }
 };
 </script>
-
+ 
 <style lang="scss">
 @import "@/assets/scss/config/variables.scss";
 header {
@@ -73,5 +88,8 @@ h2 {
 }
 .containerInputs {
   padding: 0.5rem;
+  background-color: $secondary-color;
+  font-family: $primary-font-family;
+  color: $answer-text-color;
 }
 </style>
