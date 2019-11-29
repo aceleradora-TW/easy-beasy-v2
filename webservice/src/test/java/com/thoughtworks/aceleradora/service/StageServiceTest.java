@@ -39,7 +39,7 @@ public class StageServiceTest {
 
     @Before
     public  void setup(){
-        expectedStage = new Stage("solution", 1, "hint", asList(new Question("question")));
+        expectedStage = new Stage("solution", 1, "hint", asList(new Question("question", 1L)));
     }
 
     @Test
@@ -72,7 +72,7 @@ public class StageServiceTest {
 
     @Test
     public void shouldTrowExceptionIfSolutionNull() {
-        Stage stage = new Stage(null, 1, "hint", asList(new Question("question")));
+        Stage stage = new Stage(null, 1, "hint", asList(new Question("question",1L)));
 
         expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage("The stage solution cannot be null.");
@@ -83,7 +83,7 @@ public class StageServiceTest {
 
     @Test
     public void shouldTrowExceptionIfDoubtNull() {
-        Stage stage = new Stage("solution", 1, null, asList(new Question("question")));
+        Stage stage = new Stage("solution", 1, null, asList(new Question("question",1L)));
 
         expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage("The stage doubt cannot be null.");
@@ -94,7 +94,7 @@ public class StageServiceTest {
 
     @Test
     public void shouldTrowExceptionIfSolutionStartsWithSpace() {
-        Stage stage = new Stage(" solution", 1, "doubt", asList(new Question("question")));
+        Stage stage = new Stage(" solution", 1, "doubt", asList(new Question("question",1L)));
 
         expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage("The stage solution cannot starts with space.");
@@ -105,7 +105,7 @@ public class StageServiceTest {
 
     @Test
     public void shouldTrowExceptionIfDoubtStartsWithSpace() {
-        Stage stage = new Stage("solution", 1, " hint", asList(new Question("question")));
+        Stage stage = new Stage("solution", 1, " hint", asList(new Question("question",1L)));
 
         expectedException.expect(IllegalArgumentException.class);
         expectedException.expectMessage("The stage doubt cannot starts with space.");
