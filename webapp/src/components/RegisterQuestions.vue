@@ -4,33 +4,39 @@
       <h2>Cadastro de perguntas</h2>
     </header>
     <b-container fluid class="containerInputs">
-      <b-row align-h="center">
-      <b-col align-h="center" cols="1">{{area}}</b-col>
-        <b-col cols="4">
-          <b-form-group label-for="input-area">
-            <b-form-input 
-            id="input-area"
-            type="text"
-            v-model.trim="$v.question.areaInput.$model"
-            :state="$v.question.areaInput.$dirty ? !$v.question.areaInput.$error : null"
-            >            
-            </b-form-input>
-          </b-form-group>
-        </b-col>
-
-        <b-col align-h="center" cols="1">{{notUnderstand}}</b-col>
-        <b-col cols="4">
-          <b-form-group label-for="input-notUnderstand">
-            <b-form-input 
-            id="input-notUnderstand"
-            type="text"
-            v-model.trim="$v.question.notUnderstand.$model"
-            :state="$v.question.notUnderstand.$dirty ? !$v.question.notUnderstand.$error : null"
-            >            
-            </b-form-input>
-          </b-form-group>
-        </b-col>
-      </b-row>
+        <b-row>
+            <b-col class="border-col-1">{{ questionInput}}</b-col>
+            <b-col class="border-col-1">{{ notUnderstand }}</b-col>
+        </b-row>
+        
+        <b-row align-h="center">
+          <b-col>
+            <b-form-group label-for="input-questionInput">
+              <b-form-input
+                id="input-questionInput"
+                type="text"
+                v-model.trim="$v.question.questionInput.$model"
+                :state="
+                  $v.question.questionInput.$dirty
+                    ? !$v.question.questionInput.$error
+                    : null">
+              </b-form-input>
+            </b-form-group> 
+          </b-col>
+          <b-col>
+            <b-form-group label-for="input-notUnderstand">
+              <b-form-input
+                id="input-notUnderstand"
+                type="text"
+                v-model.trim="$v.question.notUnderstand.$model"
+                :state="
+                  $v.question.notUnderstand.$dirty
+                    ? !$v.question.notUnderstand.$error
+                    : null">
+              </b-form-input>
+            </b-form-group>
+          </b-col>  
+        </b-row>
     </b-container>
     <b-container fluid>
       <b-row class="mb-3">
@@ -41,7 +47,8 @@
             v-on:click="save()"
             class="saveQuestion answer-btn mt-20"
             :disabled="$v.question.$invalid"
-          >Salvar</b-button>
+            >Salvar</b-button
+          >
         </b-col>
       </b-row>
     </b-container>
@@ -52,41 +59,40 @@
 import { required } from "vuelidate/lib/validators";
 
 export default {
-  components: {
-
-  },
+  components: {},
   name: "RegisterQuestions",
 
   data: () => ({
     question: {
-      areaInput: "",
-      notUnderstand:""
+      questionInput: "",
+      notUnderstand: ""
     },
-   area: "Área",
+    area: "Área",
+    questionInput: "Pergunta",
     notUnderstand: "Não entendi"
   }),
-   validations: {
-     question:{
-     areaInput: {
-       required,
-     },
-      notUnderstand:{
-        required,
+  validations: {
+    question: {
+      questionInput: {
+        required
+      },
+      notUnderstand: {
+        required
       }
-     }
+    }
   },
   methods: {
-    save(){
-     this.$v.question.$touch()
-        if (this.$v.question.$anyError) {
-        return
+    save() {
+      this.$v.question.$touch();
+      if (this.$v.question.$anyError) {
+        return;
       }
-      alert("Deuu Certo!!")
+      alert("Deuu Certo!!");
     }
   }
 };
 </script>
- 
+
 <style lang="scss">
 @import "@/assets/scss/config/variables.scss";
 header {
