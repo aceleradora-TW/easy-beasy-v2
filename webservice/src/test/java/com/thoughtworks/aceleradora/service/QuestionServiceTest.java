@@ -13,6 +13,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.util.List;
+
 import static java.util.Arrays.asList;
 import static org.mockito.Mockito.when;
 
@@ -45,5 +47,11 @@ public class QuestionServiceTest {
         Assert.assertEquals(expectedQuestion.getDescription(), questions.getDescription());
 
         Mockito.verify(repository, Mockito.times(1)).save(expectedQuestion);
+    }
+    @Test
+    public void shouldReturnAListOfQuestions(){
+        when(repository.findAll()).thenReturn(List.of(expectedQuestion));
+
+        Assert.assertEquals(List.of(expectedQuestion), questionService.getAllQuestions());
     }
 }

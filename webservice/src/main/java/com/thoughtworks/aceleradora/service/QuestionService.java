@@ -5,6 +5,9 @@ import com.thoughtworks.aceleradora.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.List;
+
 @Service
 public class QuestionService {
     private QuestionRepository repository;
@@ -18,4 +21,7 @@ public class QuestionService {
         return repository.save(question);
     }
 
+    public List<Question> getAllQuestions() {
+        return repository.findAll();
+    }
 }
