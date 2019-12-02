@@ -4,39 +4,74 @@
       <h2>Cadastro de perguntas</h2>
     </header>
     <b-container fluid class="containerInputs">
-        <b-row>
-            <b-col class="border-col-1">{{ questionInput}}</b-col>
-            <b-col class="border-col-1">{{ notUnderstand }}</b-col>
-        </b-row>
-        
-        <b-row align-h="center">
-          <b-col>
-            <b-form-group label-for="input-questionInput">
-              <b-form-input
-                id="input-questionInput"
-                type="text"
-                v-model.trim="$v.question.questionInput.$model"
-                :state="
-                  $v.question.questionInput.$dirty
-                    ? !$v.question.questionInput.$error
-                    : null">
-              </b-form-input>
-            </b-form-group> 
-          </b-col>
-          <b-col>
-            <b-form-group label-for="input-notUnderstand">
-              <b-form-input
-                id="input-notUnderstand"
-                type="text"
-                v-model.trim="$v.question.notUnderstand.$model"
-                :state="
-                  $v.question.notUnderstand.$dirty
-                    ? !$v.question.notUnderstand.$error
-                    : null">
-              </b-form-input>
-            </b-form-group>
-          </b-col>  
-        </b-row>
+      <b-row>
+        <b-col class="border-col-1 inputTitle">{{ questionText }}</b-col>
+        <b-col class="border-col-1 inputTitle">{{ notUnderstandText }}</b-col>
+      </b-row>
+      <b-row align-h="center">
+        <b-col>
+          <b-form-group label-for="input-questionInput">
+            <b-form-input
+              id="input-questionInput"
+              type="text"
+              v-model.trim="$v.question.questionInput.$model"
+              :state="
+                $v.question.questionInput.$dirty
+                  ? !$v.question.questionInput.$error
+                  : null
+              ">
+            </b-form-input>
+          </b-form-group>
+        </b-col>
+        <b-col>
+          <b-form-group label-for="input-notUnderstandInput">
+            <b-form-input
+              id="input-notUnderstandInput"
+              type="text"
+              v-model.trim="$v.question.notUnderstandInput.$model"
+              :state="
+                $v.question.notUnderstandInput.$dirty
+                  ? !$v.question.notUnderstandInput.$error
+                  : null
+              ">
+            </b-form-input>
+          </b-form-group>
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col class="border-col-1 inputTitle">{{ areaText }}</b-col>
+        <b-col class="border-col-1 inputTitle">{{ stageText }}</b-col>
+      </b-row>
+      <b-row align-h="center">
+        <b-col>
+          <b-form-group label-for="input-areaInput">
+            <b-form-input
+              id="input-areaInput"
+              type="text"
+              v-model.trim="$v.question.areaInput.$model"
+              :state="
+                $v.question.areaInput.$dirty
+                  ? !$v.question.areaInput.$error
+                  : null
+              ">
+            </b-form-input>
+          </b-form-group>
+        </b-col>
+        <b-col>
+          <b-form-group label-for="input-stageInput">
+            <b-form-input
+              id="input-stageInput"
+              type="text"
+              v-model.trim="$v.question.stageInput.$model"
+              :state="
+                $v.question.stageInput.$dirty
+                  ? !$v.question.stageInput.$error
+                  : null
+              ">
+            </b-form-input>
+          </b-form-group>
+        </b-col>
+      </b-row>
     </b-container>
     <b-container fluid>
       <b-row class="mb-3">
@@ -47,8 +82,8 @@
             v-on:click="save()"
             class="saveQuestion answer-btn mt-20"
             :disabled="$v.question.$invalid"
-            >Salvar</b-button
-          >
+            >Salvar
+          </b-button>
         </b-col>
       </b-row>
     </b-container>
@@ -65,18 +100,27 @@ export default {
   data: () => ({
     question: {
       questionInput: "",
-      notUnderstand: ""
+      notUnderstandInput: "",
+      areaInput: "",
+      stageInput: ""
     },
-    area: "Área",
-    questionInput: "Pergunta",
-    notUnderstand: "Não entendi"
+    areaText: "Área",
+    questionText: "Pergunta",
+    notUnderstandText: "Não entendi",
+    stageText: "Estágio"
   }),
   validations: {
     question: {
       questionInput: {
         required
       },
-      notUnderstand: {
+      notUnderstandInput: {
+        required
+      },
+      areaInput: {
+        required
+      },
+      stageInput: {
         required
       }
     }
@@ -114,5 +158,8 @@ h2 {
   background-color: $secondary-color;
   font-family: $primary-font-family;
   color: $answer-text-color;
+}
+.inputTitle {
+  text-align: left;
 }
 </style>
