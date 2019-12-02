@@ -44,36 +44,28 @@
       </b-row>
       <b-row align-h="center">
         <b-col>
-          <b-form-group label-for="input-areaInput">
-            <b-form-input
-              id="input-areaInput"
-              type="text"
-              v-model.trim="$v.question.areaInput.$model"
-              :state="
-                $v.question.areaInput.$dirty
-                  ? !$v.question.areaInput.$error
-                  : null
-              ">
-            </b-form-input>
+          <b-form-group label-for="dropdown-areaDropdown">
+            <select class="form-control">
+              <option value="" selected disabled>---Selecione uma opção---</option>
+              <option>opção 1</option>
+              <option>opção 2</option>
+              <option>{{opção3}}</option>
+            </select>
           </b-form-group>
         </b-col>
         <b-col>
-          <b-form-group label-for="input-stageInput">
-            <b-form-input
-              id="input-stageInput"
-              type="text"
-              v-model.trim="$v.question.stageInput.$model"
-              :state="
-                $v.question.stageInput.$dirty
-                  ? !$v.question.stageInput.$error
-                  : null
-              ">
-            </b-form-input>
+          <b-form-group label-for="dropdown-stageDropdown">
+            <select class="form-control">
+              <option value="" selected disabled>---Selecione uma opção---</option>
+              <option>opção 1</option>
+              <option>opção 2</option>
+              <option>{{opção3}}</option>
+            </select>
           </b-form-group>
         </b-col>
       </b-row>
     </b-container>
-    <b-container fluid>
+    <b-container>
       <b-row class="mb-3">
         <b-col md="1.5" class="ml-md-auto">
           <b-button
@@ -101,13 +93,14 @@ export default {
     question: {
       questionInput: "",
       notUnderstandInput: "",
-      areaInput: "",
-      stageInput: ""
+      areaDropdown: "",
+      stageDropdown: ""
     },
     areaText: "Área",
     questionText: "Pergunta",
     notUnderstandText: "Não entendi",
-    stageText: "Estágio"
+    stageText: "Estágio",
+    opção3: "opção 3 - por atributo"
   }),
   validations: {
     question: {
@@ -117,10 +110,10 @@ export default {
       notUnderstandInput: {
         required
       },
-      areaInput: {
+      areaDropdown: {
         required
       },
-      stageInput: {
+      stageDropdown: {
         required
       }
     }
