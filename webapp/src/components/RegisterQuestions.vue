@@ -110,12 +110,12 @@ export default {
       notUnderstandInput: {
         required
       },
-      areaDropdown: {
-        required
-      },
-      stageDropdown: {
-        required
-      }
+      // areaDropdown: {
+      //   required
+      // },
+      // stageDropdown: {
+      //   required
+      // }
     }
   },
   methods: {
