@@ -20,6 +20,7 @@
           <b-form-input
             id="input-3"
             v-model="form.password"
+            type="password"
             required
           ></b-form-input>
         </b-form-group>
