@@ -10,18 +10,17 @@
           label="Nome do usuário:"
           label-for="input-2"
           class="format"
+          v-model="form.username"
         >
-          <b-form-input v-model="form.name" required></b-form-input>
+          <b-form-input v-model="form.username" required></b-form-input>
         </b-form-group>
       </b-col>
 
       <b-col>
         <b-form-group label="Senha:" label-for="input-3" class="format">
           <b-form-input
-            id="input-3"
             v-model="form.password"
             type="password"
-            required
           ></b-form-input>
         </b-form-group>
       </b-col>
