@@ -31,9 +31,6 @@ public class Question {
     public Question() {
     }
 
-    public Question(String question) {
-
-    }
 
     public String getDescription() {
         return description;
