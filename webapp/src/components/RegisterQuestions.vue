@@ -124,7 +124,7 @@ export default {
       if (this.$v.question.$anyError) {
         return;
       }
-      alert("Deuu Certo!!");
+      alert("Pergunta cadastrada com sucesso!");
     }
   }
 };
