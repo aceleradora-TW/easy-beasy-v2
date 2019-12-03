@@ -32,7 +32,7 @@ public class QuestionServiceTest {
 
     @Before
     public  void setup(){
-        expectedQuestion = new Question("description");
+        expectedQuestion = new Question("description", 1L);
     }
 
     @Test
