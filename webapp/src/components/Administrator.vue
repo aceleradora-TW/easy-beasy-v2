@@ -10,16 +10,16 @@
           label="Nome do usuário:"
           label-for="input-2"
           class="format"
-          v-model="form.username"
+          v-model="administrator.username"
         >
-          <b-form-input v-model="form.username" required></b-form-input>
+          <b-form-input v-model="administrator.username" required></b-form-input>
         </b-form-group>
       </b-col>
 
       <b-col>
         <b-form-group label="Senha:" label-for="input-3" class="format">
           <b-form-input
-            v-model="form.password"
+            v-model="administrator.password"
             type="password"
           ></b-form-input>
         </b-form-group>
@@ -35,14 +35,14 @@ import administratorService from "@/services/administrator.service";
 
 export default {
   data:() => ({
-    form: {
+    administrator: {
       username: "",
       password: ""
       }
   }),
   methods: {
     save () {
-      administratorService.save(this.form).then(() => {
+      administratorService.save(this.administrator).then(() => {
         alert("Cadastrado com sucesso")
       }).catch(errors => console.log(errors));
     }
