@@ -1,10 +1,10 @@
 package functional;
 
+import com.thoughtworks.aceleradora.domain.Administrator;
 import com.thoughtworks.aceleradora.domain.NetPromoterScore;
 import com.thoughtworks.aceleradora.domain.User;
 import com.thoughtworks.aceleradora.service.UserService;
 import io.restassured.http.ContentType;
-import org.junit.After;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -77,6 +77,19 @@ public class TestRestAssured extends BaseRestAssuredTest {
                 .body(newNPS)
                 .when()
                 .post("/net-promoter-score/")
+                .then()
+                .statusCode(HttpStatus.OK.value());
+    }
+
+    @Test
+    public void shouldOkIfSaveValidAdministrator(){
+        Administrator newAdministrator = new Administrator("Maria", "123456");
+
+        given(aRequestToEasyBeasy())
+                .contentType(ContentType.JSON)
+                .body(newAdministrator)
+                .when()
+                .post("/cadastrar/")
                 .then()
                 .statusCode(HttpStatus.OK.value());
     }
