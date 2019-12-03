@@ -28,6 +28,7 @@ header {
   font-family: $primary-font-family;
 }
 h2 {
+    text-align: center;
   color: $text-header-color;
 }
 </style>
