@@ -4,7 +4,7 @@
       <h3 class="header">Cadastro do Administrador</h3>
     </b-col>
 
-    <b-form @submit="onSubmit">
+    <b-form>
       <b-col>
         <b-form-group
           label="Nome do usuário:"
@@ -12,18 +12,6 @@
           class="format"
         >
           <b-form-input v-model="form.name" required></b-form-input>
-        </b-form-group>
-      </b-col>
-
-      <b-col>
-        <b-form-group id="input-group-1" label="Email:" label-for="input-1" class="format">
-          <b-form-input
-            id="input-1"
-            v-model="form.email"
-            type="email"
-            required
-            placeholder="exemplo@email.com"
-          ></b-form-input>
         </b-form-group>
       </b-col>
 
@@ -37,22 +25,29 @@
         </b-form-group>
       </b-col>
 
-      <b-button class="btn" type="submit">Acessar</b-button>
+      <b-button class="btn" type="submit" v-on:click="save()">Acessar</b-button>
     </b-form>
   </div>
 </template>
 
 <script>
+import administratorService from "@/services/administrator.service";
+
 export default {
-  data() {
-    return {
-      form: {
-        email: "",
-        name: ""
+  data:() => ({
+    form: {
+      username: "",
+      password: ""
       }
-    };
-  },
-  methods: {}
+  }),
+  methods: {
+    save () {
+      administratorService.save(this.form).then(() => {
+        alert("Cadastrado com sucesso")
+      }).catch(errors => console.log(errors));
+    }
+
+  }
 };
 </script>
 
