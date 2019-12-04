@@ -40,7 +40,7 @@
         </b-col>
         <b-col class="question" cols="9">{{ typewritingQuestion }}</b-col>
       </b-row>
-
+<!-- 
       <b-row v-if="showSolution" class="mb-3">
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
@@ -55,11 +55,13 @@
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
         <b-col cols="9" class="question">{{ solutionNotFound }}</b-col>
-      </b-row>
+      </b-row> -->
 
       <b-row v-if="showSolution || endDiagnosis" class="mb-3">
-        <b-col cols="auto" class="mb-3">
-          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
+        <b-col cols="auto">
+          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" /></b-col>
+        <b-col cols="9" class="question">
+          <Solution v-bind:idStage="idStage"/>
         </b-col>
         <b-button 
           :disabled ="npsDisabled"
@@ -70,7 +72,6 @@
           <strong>clique aqui</strong> e nos ajude a melhorar!</b-button
         >
       </b-row>
-
     </b-container>
 
     <b-row class="footer">
@@ -133,7 +134,6 @@ export default {
     speedTyping: 50,
     npsDisabled: false
   }),
-
   created() {
     StageService.getStageById(this.idStage)
       .then(response => {
@@ -211,7 +211,6 @@ export default {
         this.npsDisabled = true;
         this.callBack = this.showThanksNps;
       }
-
     },
     showModalData() {
       this.$bvModal.show("modalData");
