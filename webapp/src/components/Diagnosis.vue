@@ -1,19 +1,22 @@
 <template>
   <div>
-    <header>
+    <!-- <header>
       <h2>Diagnóstico</h2>
     </header>
-    <Question />
+    <Question />-->
+    <ViewQuestions />
   </div>
 </template>
 
 <script>
 import Question from "@/components/Question.vue";
+import ViewQuestions from "@/components/ViewQuestions.vue";
 
 export default {
   name: "Diagnosis",
   components: {
-    Question
+    Question,
+    ViewQuestions
   }
 };
 </script>
@@ -27,7 +30,7 @@ header {
   font-family: $primary-font-family;
 }
 h2 {
-    text-align: center;
+  text-align: center;
   color: $text-header-color;
 }
 </style>
