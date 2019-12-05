@@ -16,8 +16,8 @@
       <div
         class="question-history"
         v-for="chatContent in chatHistory"
-        v-bind:key="chatContent.description"
-      >
+        v-bind:key="chatContent.description">
+
         <b-row>
           <b-col cols="auto">
             <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
@@ -33,45 +33,30 @@
           }}</b-col>
         </b-row>
 
-      </div>
-      <b-row class="current-question" v-if="isThereNextQuestion">
+        <b-row class="current-question" v-if="chatContent.isThereNextQuestion">
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
         <b-col class="question" cols="9">{{ typewritingQuestion }}</b-col>
       </b-row>
-<!-- 
-      <b-row v-if="showSolution" class="mb-3">
-        <b-col cols="auto">
-          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
-        </b-col>
-        <b-col cols="9" class="question">
-          <Solution v-bind:idStage="idStage"/>
-        </b-col>
-      </b-row>
-      
-      <b-row v-if="endDiagnosis" class="mb-3">
-        <b-col cols="auto">
-          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
-        </b-col>
-        <b-col cols="9" class="question">{{ solutionNotFound }}</b-col>
-      </b-row> -->
 
-      <b-row v-if="showSolution || endDiagnosis" class="mb-3">
+      <b-row v-if="chatContent.showSolution || chatContent.endDiagnosis" class="mb-3">
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" /></b-col>
         <b-col cols="9" class="question">
           <Solution v-bind:idStage="idStage"/>
         </b-col>
+
         <b-button 
           :disabled ="npsDisabled"
           v-on:click="showNps"
           cols="9"
           class="showNps"
           >Por favor, 
-          <strong>clique aqui</strong> e nos ajude a melhorar!</b-button
-        >
+          <strong>clique aqui</strong> e nos ajude a melhorar!</b-button>
+
       </b-row>
+      </div>
     </b-container>
 
     <b-row class="footer">
@@ -80,18 +65,16 @@
           class="answer-btn"
           v-on:click="collectAnswer('Sim'), gotoBottom()"
           :disabled="showSolution || theresNoSolution || isTypewriterRunning"
-          >Sim</b-button
-        >
+          >Sim</b-button>
+
         <ModalQuestion
           class="ml-5 mr-5"
-          :disableButtonNotUnderstand="disableButtonNotUnderstand"
-        />
+          :disableButtonNotUnderstand="disableButtonNotUnderstand"/>
         <b-button
           class="answer-btn"
           v-on:click="collectAnswer('Não'), gotoBottom()"
           :disabled="showSolution || theresNoSolution || isTypewriterRunning"
-          >Não</b-button
-        >
+          >Não</b-button>
       </div>
     </b-row>
   </div>
@@ -117,7 +100,6 @@ export default {
     currentQuestion: null,
     questionList: [],
     chatHistory: [],
-    showSolution: false,
     theresNoSolution: false,
     solutionNotFound: "Não identificamos nenhum problema!",
     idStage: 1,
@@ -129,8 +111,6 @@ export default {
     feedbackData: "Obrigada! Agora podemos prosseguir.",
     thankNps: false,
     thankData: false,
-    isThereNextQuestion: false,
-    endDiagnosis: false,
     speedTyping: 50,
     npsDisabled: false
   }),
@@ -170,13 +150,13 @@ export default {
     collectAnswer(answer) {
       this.chatHistory.push({
         description: this.currentQuestion.description,
-        response: answer
+        response: answer,
+        showSolution: false ||  chatContent.endDiagnosis
       });
-      this.shouldShowSolution();
     },
     showSolutionMessage() {
       this.showThanksData();
-      this.showSolution = true;
+      this.chatContent.showSolution = true;
     },
     shouldShowSolution() {
       if (this.quantityNegativeAnswers() === 2) {
@@ -246,7 +226,7 @@ export default {
           this.nextQuestion();
         })
         .catch(error => {
-          this.endDiagnosis = true;
+          this.chatContent.endDiagnosis = true;
           this.showModalData();
         });
     }
