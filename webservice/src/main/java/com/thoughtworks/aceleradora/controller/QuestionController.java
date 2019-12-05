@@ -2,9 +2,12 @@ package com.thoughtworks.aceleradora.controller;
 
 import com.thoughtworks.aceleradora.domain.Question;
 import com.thoughtworks.aceleradora.service.QuestionService;
-import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @RestController
 @RequestMapping("/question")
@@ -21,7 +24,7 @@ public class QuestionController {
         return questionService.save(question);
     }
 
-    @GetMapping
+    @GetMapping(path = "")
     public List<Question> getQuestions(){
         return questionService.getAllQuestions();
     }

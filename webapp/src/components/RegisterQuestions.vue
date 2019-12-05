@@ -79,15 +79,26 @@
         </b-col>
       </b-row>
     </b-container>
+    <b-container>
+      <b-row>
+        <b-col>
+          <view-questions/>
+        </b-col>
+      </b-row>
+    </b-container>
   </div>
 </template>
 
 <script>
 import { required } from "vuelidate/lib/validators";
+import ViewQuestions from './ViewQuestions.vue';
 
 export default {
-  components: {},
+  components: {
+    ViewQuestions
+  },
   name: "RegisterQuestions",
+
 
   data: () => ({
     question: {

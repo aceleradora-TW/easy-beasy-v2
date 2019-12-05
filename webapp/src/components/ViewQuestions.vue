@@ -1,22 +1,24 @@
 <template>
   <div>
-    <div v-for="question in stageList" v-bind:key="question.description">{{question.description}}</div>
+    <b-table striped hover :items="questionList"></b-table>
   </div>
 </template>
 
 <script>
-import StageService from "@/services/stage.service.js";
+import QuestionService from "@/services/question.service.js";
 
 export default {
+    components: {},
+    name: "ViewQuestions",
+
   data: () => ({
-    stageList: []
+    questionList: []
   }),
   created() {
-    StageService.getStages()
+    QuestionService.getQuestions()
       .then(response => {
-        console.log(response.data);
-        let stages = response.data;
-        this.stageList = stage.questions;
+        this.questionList = response.data;
+        console.log(this.questionList);
       })
       .catch(error => {});
   }
