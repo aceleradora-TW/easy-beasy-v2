@@ -91,7 +91,7 @@
         <b-button
           class="answer-btn"
           v-on:click="collectAnswer('Sim'), gotoBottom()"
-          :disabled="showSolution || theresNoSolution || isTypewriterRunning"
+          :disabled="(showSolution || theresNoSolution || isTypewriterRunning) && !showQuestionContinueDiagnosis "
           >Sim</b-button
         >
         <ModalQuestion
@@ -101,7 +101,7 @@
         <b-button
           class="answer-btn"
           v-on:click="collectAnswer('Não'), gotoBottom()"
-          :disabled="showSolution || theresNoSolution || isTypewriterRunning"
+          :disabled="(showSolution || theresNoSolution || isTypewriterRunning) && !showQuestionContinueDiagnosis "
           >Não</b-button
         >
       </div>
