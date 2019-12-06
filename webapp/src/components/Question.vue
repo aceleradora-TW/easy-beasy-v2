@@ -77,6 +77,13 @@
         </b-col>
         <b-col cols="9" class="question">{{ feedbackNps }}</b-col>
       </b-row>
+
+      <b-row v-if="showQuestionContinueDiagnosis" class="mb-3">
+        <b-col cols="auto">
+          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
+        </b-col>
+        <b-col cols="9" class="question">{{ continuingDiagnosisQuestion }}</b-col>
+      </b-row>
     </b-container>
 
     <b-row class="footer">
@@ -137,7 +144,11 @@ export default {
     isThereNextQuestion: false,
     endDiagnosis: false,
     speedTyping: 50,
-    npsDisabled: false
+    npsDisabled: false,
+    continuingDiagnosisQuestion: "Agora que você já recebeu uma solução, gostaria de continuar o seu diagnóstico?",
+    continuingDiagnosis: "Ok, então vamos prosseguir!",
+    endingDiagnosis: "Obrigada, por usar a nossa plataforma! Esperamos que você tenha tido uma boa experiência!",
+    showQuestionContinueDiagnosis: false
   }),
 
   created() {
@@ -234,6 +245,7 @@ export default {
     },
     showThanksNps() {
       this.thankNps = true;
+      this.continueDiagnosis();
     },
     showModalData() {
       this.$bvModal.show("modalData");
@@ -252,6 +264,9 @@ export default {
           this.endDiagnosis = true;
           this.showModalData();
         });
+    },
+    continueDiagnosis() {
+        this.showQuestionContinueDiagnosis = true;
     }
   }
 };
