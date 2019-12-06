@@ -32,8 +32,19 @@
             answeredQuestion.response
           }}</b-col>
         </b-row>
+
+      <b-row v-if="chatContent.showSolution || chatContent.endDiagnosis" class="mb-3">
+        <b-col cols="auto" class="mb-3">
+          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
+          <Solution v-bind:idStage="idStage"/>
+        </b-col>
+        
+        <b-button :disabled ="npsDisabled" v-on:click="showNps" cols="9" class="showNps"
+          >Por favor, <strong>clique aqui</strong> e nos ajude a
+          melhorar!</b-button>
+      </b-row>
       </div>
-      <b-row class="current-question" v-if="isThereNextQuestion">
+      <b-row class="current-question" v-if="chatContent.isThereNextQuestion">
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
@@ -47,30 +58,6 @@
         <b-col cols="9" class="question">{{ feedbackData }}</b-col>
       </b-row>
 
-      <b-row v-if="showSolution" class="mb-3">
-        <b-col cols="auto">
-          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
-        </b-col>
-        <b-col cols="9" class="question">
-          <Solution v-bind:idStage="idStage"/>
-        </b-col>
-      </b-row>
-      <b-row v-if="endDiagnosis" class="mb-3">
-        <b-col cols="auto">
-          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
-        </b-col>
-        <b-col cols="9" class="question">{{ solutionNotFound }}</b-col>
-      </b-row>
-
-      <b-row v-if="showSolution || endDiagnosis" class="mb-3">
-        <b-col cols="auto" class="mb-3">
-          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
-        </b-col>
-        <b-button :disabled ="npsDisabled" v-on:click="showNps" cols="9" class="showNps"
-          >Por favor, <strong>clique aqui</strong> e nos ajude a
-          melhorar!</b-button>
-      </b-row>
-
       <b-row v-if="thankNps" class="mb-3">
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
@@ -78,14 +65,13 @@
         <b-col cols="9" class="question">{{ feedbackNps }}</b-col>
       </b-row>
 
-      <b-row v-if="showQuestionContinueDiagnosis" class="mb-3">
+      <b-row v-if="chatContent.showQuestionContinueDiagnosis" class="mb-3">
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
         <b-col cols="9" class="question">{{ continuingDiagnosisQuestion }}</b-col>
       </b-row>
     </b-container>
-
     <b-row class="footer">
       <div id="container" class="answer-buttons">
         <b-button
@@ -129,7 +115,6 @@ export default {
     currentQuestion: null,
     questionList: [],
     chatHistory: [],
-    showSolution: false,
     theresNoSolution: false,
     solutionNotFound: "Não identificamos nenhum problema!",
     idStage: 1,
@@ -142,7 +127,6 @@ export default {
     thankNps: false,
     thankData: false,
     isThereNextQuestion: false,
-    endDiagnosis: false,
     speedTyping: 50,
     npsDisabled: false,
     continuingDiagnosisQuestion: "Agora que você já recebeu uma solução, gostaria de continuar o seu diagnóstico?",
@@ -187,13 +171,14 @@ export default {
     collectAnswer(answer) {
       this.chatHistory.push({
         description: this.currentQuestion.description,
-        response: answer
+        response: answer,
+        showSolution: false ||  chatContent.endDiagnosis
       });
       this.shouldShowSolution();
     },
     showSolutionMessage() {
       this.showThanksData();
-      this.showSolution = true;
+      this.chatContent.showSolution = true;
     },
     shouldShowSolution() {
       if (this.quantityNegativeAnswers() === 2) {
@@ -261,7 +246,7 @@ export default {
           this.nextQuestion();
         })
         .catch(error => {
-          this.endDiagnosis = true;
+          this.chatContent.endDiagnosis = true;
           this.showModalData();
         });
     },
