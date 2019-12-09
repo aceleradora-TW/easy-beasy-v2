@@ -49,13 +49,23 @@
             melhorar!
           </b-button>
         </b-row>
+
+        <b-row v-if="showQuestionContinueDiagnosis" class="mb-3">
+          <b-col cols="auto">
+            <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
+          </b-col>
+          <b-col cols="9" class="question">{{ continuingDiagnosisQuestion }}</b-col>
+        </b-row>
       </div>
-      <b-row class="current-question" v-if="isThereNextQuestion">
-        <b-col cols="auto">
-          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
-        </b-col>
-        <b-col class="question" cols="9">{{ typewritingQuestion }}</b-col>
-      </b-row>
+
+      <div>
+        <b-row v-if="isThereNextQuestion" class="mb-3">
+          <b-col cols="auto">
+            <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
+          </b-col>
+          <b-col cols="9" class="question">{{ typewritingQuestion }}</b-col>
+        </b-row>
+      </div>
 
       <b-row v-if="thankData" class="mb-3">
         <b-col cols="auto">
@@ -70,14 +80,8 @@
         </b-col>
         <b-col cols="9" class="question">{{ feedbackNps }}</b-col>
       </b-row>
-
-      <b-row v-if="showQuestionContinueDiagnosis" class="mb-3">
-        <b-col cols="auto">
-          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
-        </b-col>
-        <b-col cols="9" class="question">{{ continuingDiagnosisQuestion }}</b-col>
-      </b-row>
     </b-container>
+
     <b-row class="footer">
       <div id="container" class="answer-buttons">
         <b-button
