@@ -37,7 +37,7 @@
           </b-col>
         </b-row>
 
-        <b-row v-if=" showSolution || endDiagnosis" class="mb-3">
+        <b-row v-if="answeredQuestion.showSolution || answeredQuestion.endDiagnosis" class="mb-3">
           <b-col cols="auto" class="mb-3">
             <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
             <Solution v-bind:idStage="idStage" />
@@ -105,6 +105,7 @@ import ModalData from "@/components/ModalData";
 
 export default {
   components: {
+    StageService,
     ModalQuestion,
     Solution,
     ModalNps,
@@ -173,13 +174,13 @@ export default {
       this.isThereNextQuestion = true;
       this.typeWrite();
     },
-    collectAnswer(answer) {
+    async collectAnswer(answer) {
       this.chatHistory.push({
         description: this.currentQuestion.description,
         response: answer,
-        showSolution: false
+        showSolution: await this.shouldShowSolution(),
+        endDiagnosis: false
       });
-      this.shouldShowSolution();
     },
     showSolutionMessage() {
       this.showThanksData();
@@ -191,7 +192,7 @@ export default {
         this.showModalData();
         this.callBack = this.showSolutionMessage;
         this.isThereNextQuestion = false;
-        return;
+        return true;
       }
       if (!this.questionList.length && this.quantityNegativeAnswers() === 1) {
         this.disableButtonNotUnderstand = true;
