@@ -22,29 +22,35 @@
           <b-col cols="auto">
             <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
           </b-col>
-          <b-col cols="9" class="question mb-3">{{
+          <b-col cols="9" class="question mb-3">
+            {{
             answeredQuestion.description
-          }}</b-col>
+            }}
+          </b-col>
         </b-row>
 
         <b-row align-h="end">
-          <b-col cols="2" class="answer mb-3">{{
+          <b-col cols="2" class="answer mb-3">
+            {{
             answeredQuestion.response
-          }}</b-col>
+            }}
+          </b-col>
         </b-row>
 
-      <b-row v-if="chatContent.showSolution || chatContent.endDiagnosis" class="mb-3">
-        <b-col cols="auto" class="mb-3">
-          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
-          <Solution v-bind:idStage="idStage"/>
-        </b-col>
-        
-        <b-button :disabled ="npsDisabled" v-on:click="showNps" cols="9" class="showNps"
-          >Por favor, <strong>clique aqui</strong> e nos ajude a
-          melhorar!</b-button>
-      </b-row>
+        <b-row v-if=" showSolution || endDiagnosis" class="mb-3">
+          <b-col cols="auto" class="mb-3">
+            <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
+            <Solution v-bind:idStage="idStage" />
+          </b-col>
+
+          <b-button :disabled="npsDisabled" v-on:click="showNps" cols="9" class="showNps">
+            Por favor,
+            <strong>clique aqui</strong> e nos ajude a
+            melhorar!
+          </b-button>
+        </b-row>
       </div>
-      <b-row class="current-question" v-if="chatContent.isThereNextQuestion">
+      <b-row class="current-question" v-if="isThereNextQuestion">
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
@@ -65,7 +71,7 @@
         <b-col cols="9" class="question">{{ feedbackNps }}</b-col>
       </b-row>
 
-      <b-row v-if="chatContent.showQuestionContinueDiagnosis" class="mb-3">
+      <b-row v-if="showQuestionContinueDiagnosis" class="mb-3">
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
@@ -77,19 +83,14 @@
         <b-button
           class="answer-btn"
           v-on:click="collectAnswer('Sim'), gotoBottom()"
-          :disabled="(showSolution || theresNoSolution || isTypewriterRunning) && !showQuestionContinueDiagnosis "
-          >Sim</b-button
-        >
-        <ModalQuestion
-          class="ml-5 mr-5"
-          :disableButtonNotUnderstand="disableButtonNotUnderstand"
-        />
+          :disabled="(showSolution || theresNoSolution || isTypewriterRunning) && !showQuestionContinueDiagnosis"
+        >Sim</b-button>
+        <ModalQuestion class="ml-5 mr-5" :disableButtonNotUnderstand="disableButtonNotUnderstand" />
         <b-button
           class="answer-btn"
           v-on:click="collectAnswer('Não'), gotoBottom()"
-          :disabled="(showSolution || theresNoSolution || isTypewriterRunning) && !showQuestionContinueDiagnosis "
-          >Não</b-button
-        >
+          :disabled="(showSolution || theresNoSolution || isTypewriterRunning) && !showQuestionContinueDiagnosis"
+        >Não</b-button>
       </div>
     </b-row>
   </div>
@@ -127,12 +128,16 @@ export default {
     thankNps: false,
     thankData: false,
     isThereNextQuestion: false,
+    endDiagnosis: false,
     speedTyping: 50,
     npsDisabled: false,
-    continuingDiagnosisQuestion: "Agora que você já recebeu uma solução, gostaria de continuar o seu diagnóstico?",
+    continuingDiagnosisQuestion:
+      "Agora que você já recebeu uma solução, gostaria de continuar o seu diagnóstico?",
     continuingDiagnosis: "Ok, então vamos prosseguir!",
-    endingDiagnosis: "Obrigada, por usar a nossa plataforma! Esperamos que você tenha tido uma boa experiência!",
-    showQuestionContinueDiagnosis: false
+    endingDiagnosis:
+      "Obrigada, por usar a nossa plataforma! Esperamos que você tenha tido uma boa experiência!",
+    showQuestionContinueDiagnosis: false,
+    showSolution: false
   }),
 
   created() {
@@ -172,13 +177,13 @@ export default {
       this.chatHistory.push({
         description: this.currentQuestion.description,
         response: answer,
-        showSolution: false ||  chatContent.endDiagnosis
+        showSolution: false
       });
       this.shouldShowSolution();
     },
     showSolutionMessage() {
       this.showThanksData();
-      this.chatContent.showSolution = true;
+      this.showSolution = true;
     },
     shouldShowSolution() {
       if (this.quantityNegativeAnswers() === 2) {
@@ -221,12 +226,11 @@ export default {
       });
     },
     showNps() {
-      if(!this.npsDisabled){
+      if (!this.npsDisabled) {
         this.$bvModal.show("modalNps");
         this.npsDisabled = true;
         this.callBack = this.showThanksNps;
       }
-
     },
     showThanksNps() {
       this.thankNps = true;
@@ -246,12 +250,12 @@ export default {
           this.nextQuestion();
         })
         .catch(error => {
-          this.chatContent.endDiagnosis = true;
+          this.endDiagnosis = true;
           this.showModalData();
         });
     },
     continueDiagnosis() {
-        this.showQuestionContinueDiagnosis = true;
+      this.showQuestionContinueDiagnosis = true;
     }
   }
 };

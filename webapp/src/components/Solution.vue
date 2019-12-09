@@ -1,6 +1,9 @@
 <template>
   <div>
-    <p>{{solutionDescription}} <a v-bind:href=solutionLink target="_blank"> Clique aqui </a></p>
+    <p>
+      {{solutionDescription}}
+      <a v-bind:href="solutionLink" target="_blank">Clique aqui</a>
+    </p>
   </div>
 </template>
 
@@ -11,10 +14,9 @@ export default {
   data: () => ({
     solutionScreen: "",
     solutionDescription: "",
-    solutionLink: "",
-    idStage: 1
+    solutionLink: ""
   }),
-  props: ['idStage'],
+  props: ["idStage"],
   created() {
     StageService.getStageById(this.$props.idStage).then(r => {
       const stage = r.data;
@@ -24,15 +26,15 @@ export default {
   },
   methods: {
     splitSolution() {
-      let splittedSolution = this.solutionScreen.split(' ');
+      let splittedSolution = this.solutionScreen.split(" ");
       console.log(splittedSolution);
-      this.solutionLink = splittedSolution[splittedSolution.length -1];
+      this.solutionLink = splittedSolution[splittedSolution.length - 1];
       console.log(this.solutionLink);
       splittedSolution.forEach(element => {
-        if(element === this.solutionLink) return;
+        if (element === this.solutionLink) return;
         this.solutionDescription += element + " ";
       });
-      console.log(this.solutionDescription)
+      console.log(this.solutionDescription);
     }
   }
 };
