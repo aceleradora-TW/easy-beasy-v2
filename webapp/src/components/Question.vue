@@ -40,14 +40,23 @@
         <b-row v-if="answeredQuestion.showSolution || answeredQuestion.endDiagnosis" class="mb-3">
           <b-col cols="auto" class="mb-3">
             <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
+          </b-col>
+          <b-col cols="9" class="question">
             <Solution v-bind:idStage="idStage" />
           </b-col>
+        </b-row>
 
-          <b-button :disabled="npsDisabled" v-on:click="showNps" cols="9" class="showNps">
-            Por favor,
-            <strong>clique aqui</strong> e nos ajude a
-            melhorar!
-          </b-button>
+        <b-row v-if="answeredQuestion.showSolution" class="mb-3">
+          <b-col cols="auto" class="mb-3">
+            <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
+          </b-col>
+          <b-col cols="9" class="question">
+            <b-button :disabled="npsDisabled" v-on:click="showNps" cols="9" class="showNps">
+              Por favor,
+              <strong>clique aqui</strong> e nos ajude a
+              melhorar!
+            </b-button>
+          </b-col>
         </b-row>
 
         <b-row v-if="showQuestionContinueDiagnosis" class="mb-3">
