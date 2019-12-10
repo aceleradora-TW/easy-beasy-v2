@@ -58,13 +58,6 @@
             </b-button>
           </b-col>
         </b-row>
-
-        <b-row v-if="showQuestionContinueDiagnosis" class="mb-3">
-          <b-col cols="auto">
-            <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
-          </b-col>
-          <b-col cols="9" class="question">{{ continuingDiagnosisQuestion }}</b-col>
-        </b-row>
       </div>
 
       <div>
@@ -76,19 +69,30 @@
         </b-row>
       </div>
 
-      <b-row v-if="thankData" class="mb-3">
-        <b-col cols="auto">
-          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
-        </b-col>
-        <b-col cols="9" class="question">{{ feedbackData }}</b-col>
-      </b-row>
+      <div>
+        <b-row v-if="thankNps" class="mb-3">
+          <b-col cols="auto">
+            <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
+          </b-col>
+          <b-col cols="9" class="question">{{ feedbackNps }}</b-col>
+        </b-row>
 
-      <b-row v-if="thankNps" class="mb-3">
-        <b-col cols="auto">
-          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
-        </b-col>
-        <b-col cols="9" class="question">{{ feedbackNps }}</b-col>
-      </b-row>
+        <b-row v-if="thankData" class="mb-3">
+          <b-col cols="auto">
+            <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
+          </b-col>
+          <b-col cols="9" class="question">{{ feedbackData }}</b-col>
+        </b-row>
+      </div>
+
+      <div>
+        <b-row v-if="showQuestionContinueDiagnosis" class="mb-3">
+          <b-col cols="auto">
+            <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
+          </b-col>
+          <b-col cols="9" class="question">{{ continuingDiagnosisQuestion }}</b-col>
+        </b-row>
+      </div>
     </b-container>
 
     <b-row class="footer">
@@ -163,6 +167,7 @@ export default {
       })
       .catch(error => {});
   },
+
   methods: {
     typeWrite() {
       this.clearTypewriter();
