@@ -15,10 +15,12 @@ import './assets/scss/config/vendors.scss'
 Vue.config.productionTip = false
 
 const isProd = process.env.NODE_ENV === 'production'
+const googleAnalyticsId = process.env.EASY_BEASY_GOOGLE_ANALYTICS_ID
 
+console.log(googleAnalyticsId)
 
 Vue.use(VueAnalytics, {
-    id:"UA-152951201-1",
+    id:googleAnalyticsId,
     router,
     debug: {
         enabled: !isProd,
