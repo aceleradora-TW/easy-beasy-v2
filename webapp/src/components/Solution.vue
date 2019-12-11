@@ -27,9 +27,7 @@ export default {
   methods: {
     splitSolution() {
       let splittedSolution = this.solutionScreen.split(" ");
-      console.log(splittedSolution);
       this.solutionLink = splittedSolution[splittedSolution.length - 1];
-      console.log(this.solutionLink);
       splittedSolution.forEach(element => {
         if (element === this.solutionLink) return;
         this.solutionDescription += element + " ";

@@ -32,6 +32,16 @@
             answeredQuestion.response
           }}</b-col>
         </b-row>
+
+      <b-row v-if="answeredQuestion.hasSolution" class="mb-3">
+        <b-col cols="auto">
+          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
+        </b-col>
+        <b-col cols="9" class="question">
+          <Solution v-bind:idStage="idStage" />
+          <b-button v-on:click="nextStage">Próximo estágio</b-button>
+        </b-col>
+      </b-row>
       </div>
       
         <b-row v-if="thankNps" class="mb-3">
@@ -55,15 +65,6 @@
         <b-col class="question" cols="9">{{ typewritingQuestion }}</b-col>
       </b-row>
 
-      <b-row v-if="showSolution" class="mb-3">
-        <b-col cols="auto">
-          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
-        </b-col>
-        <b-col cols="9" class="question">
-          <Solution v-bind:idStage="idStage" />
-          <b-button v-on:click="nextStage">Próximo estágio</b-button>
-        </b-col>
-      </b-row>
       <b-row v-if="endDiagnosis" class="mb-3">
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
@@ -181,18 +182,15 @@ export default {
       this.isThereNextQuestion = true;
       this.typeWrite();
     },
-    collectAnswer(answer) {
+    async collectAnswer(answer) {
       this.chatHistory.push({
         description: this.currentQuestion.description,
         response: answer,
-        hasSolution: false
+        hasSolution: await this.shouldShowSolution()
       });
-
       if(answer === 'Não'){
         this.quantityNegativeAnswers++;
       }
-      
-      this.shouldShowSolution();
     },
     showSolutionMessage() {
       this.showThanksData();
@@ -204,19 +202,20 @@ export default {
         this.showModalData();
         this.callBack = this.showSolutionMessage;
         this.isThereNextQuestion = false;
-        return;
+        return true;
       }
       if (!this.questionList.length && this.quantityNegativeAnswers === 1) {
         this.disableButtonNotUnderstand = true;
         this.showModalData();
         this.callBack = this.showSolutionMessage;
         this.isThereNextQuestion = false;
-        return;
+        return true;
       }
       this.solutionNotIdentified();
       if (this.questionList.length) {
         this.nextQuestion();
       }
+      return null;
     },
     solutionNotIdentified() {
       if (!this.questionList.length && this.quantityNegativeAnswers == 0) {
