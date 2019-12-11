@@ -22,77 +22,68 @@
           <b-col cols="auto">
             <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
           </b-col>
-          <b-col cols="9" class="question mb-3">
-            {{
+          <b-col cols="9" class="question mb-3">{{
             answeredQuestion.description
-            }}
-          </b-col>
+          }}</b-col>
         </b-row>
 
         <b-row align-h="end">
-          <b-col cols="2" class="answer mb-3">
-            {{
+          <b-col cols="2" class="answer mb-3">{{
             answeredQuestion.response
-            }}
-          </b-col>
-        </b-row>
-
-        <b-row v-if="answeredQuestion.showSolution || answeredQuestion.endDiagnosis" class="mb-3">
-          <b-col cols="auto" class="mb-3">
-            <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
-          </b-col>
-          <b-col cols="9" class="question">
-            <Solution v-bind:idStage="idStage" />
-          </b-col>
-        </b-row>
-
-        <b-row v-if="answeredQuestion.showSolution" class="mb-3">
-          <b-col cols="auto" class="mb-3">
-            <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
-          </b-col>
-          <b-col cols="9" class="question">
-            <b-button :disabled="npsDisabled" v-on:click="showNps" cols="9" class="showNps">
-              Por favor,
-              <strong>clique aqui</strong> e nos ajude a
-              melhorar!
-            </b-button>
-          </b-col>
+          }}</b-col>
         </b-row>
       </div>
-
-      <div>
-        <b-row v-if="isThereNextQuestion" class="mb-3">
-          <b-col cols="auto">
-            <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
-          </b-col>
-          <b-col cols="9" class="question">{{ typewritingQuestion }}</b-col>
-        </b-row>
-      </div>
-
-      <div>
+      
         <b-row v-if="thankNps" class="mb-3">
-          <b-col cols="auto">
-            <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
-          </b-col>
-          <b-col cols="9" class="question">{{ feedbackNps }}</b-col>
-        </b-row>
+        <b-col cols="auto">
+          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
+        </b-col>
+        <b-col cols="9" class="question">{{ feedbackNps }}</b-col>
+      </b-row>
 
-        <b-row v-if="thankData" class="mb-3">
-          <b-col cols="auto">
-            <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
-          </b-col>
-          <b-col cols="9" class="question">{{ feedbackData }}</b-col>
-        </b-row>
-      </div>
+      <b-row v-if="thankData" class="mb-3">
+        <b-col cols="auto">
+          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
+        </b-col>
+        <b-col cols="9" class="question">{{ feedbackData }}</b-col>
+      </b-row>
 
-      <div>
-        <b-row v-if="showQuestionContinueDiagnosis" class="mb-3">
-          <b-col cols="auto">
-            <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
-          </b-col>
-          <b-col cols="9" class="question">{{ continuingDiagnosisQuestion }}</b-col>
-        </b-row>
-      </div>
+      <b-row class="current-question" v-if="isThereNextQuestion">
+        <b-col cols="auto">
+          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
+        </b-col>
+        <b-col class="question" cols="9">{{ typewritingQuestion }}</b-col>
+      </b-row>
+
+      <b-row v-if="showSolution" class="mb-3">
+        <b-col cols="auto">
+          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
+        </b-col>
+        <b-col cols="9" class="question">
+          <Solution v-bind:idStage="idStage" />
+          <b-button v-on:click="nextStage">Próximo estágio</b-button>
+        </b-col>
+      </b-row>
+      <b-row v-if="endDiagnosis" class="mb-3">
+        <b-col cols="auto">
+          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
+        </b-col>
+        <b-col cols="9" class="question">{{ solutionNotFound }}</b-col>
+      </b-row>
+
+      <b-row v-if="showSolution || endDiagnosis" class="mb-3">
+        <b-col cols="auto" class="mb-3">
+          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
+        </b-col>
+        <b-button
+          :disabled="npsDisabled"
+          v-on:click="showNps"
+          cols="9"
+          class="showNps"
+          >Por favor, <strong>clique aqui</strong> e nos ajude a
+          melhorar!</b-button
+        >
+      </b-row>
     </b-container>
 
     <b-row class="footer">
@@ -100,14 +91,19 @@
         <b-button
           class="answer-btn"
           v-on:click="collectAnswer('Sim'), gotoBottom()"
-          :disabled="(showSolution || theresNoSolution || isTypewriterRunning) && !showQuestionContinueDiagnosis"
-        >Sim</b-button>
-        <ModalQuestion class="ml-5 mr-5" :disableButtonNotUnderstand="disableButtonNotUnderstand" />
+          :disabled="showSolution || theresNoSolution || isTypewriterRunning"
+          >Sim</b-button
+        >
+        <ModalQuestion
+          class="ml-5 mr-5"
+          :disableButtonNotUnderstand="disableButtonNotUnderstand"
+        />
         <b-button
           class="answer-btn"
           v-on:click="collectAnswer('Não'), gotoBottom()"
-          :disabled="(showSolution || theresNoSolution || isTypewriterRunning) && !showQuestionContinueDiagnosis"
-        >Não</b-button>
+          :disabled="showSolution || theresNoSolution || isTypewriterRunning"
+          >Não</b-button
+        >
       </div>
     </b-row>
   </div>
@@ -122,7 +118,6 @@ import ModalData from "@/components/ModalData";
 
 export default {
   components: {
-    StageService,
     ModalQuestion,
     Solution,
     ModalNps,
@@ -134,6 +129,7 @@ export default {
     currentQuestion: null,
     questionList: [],
     chatHistory: [],
+    showSolution: false,
     theresNoSolution: false,
     solutionNotFound: "Não identificamos nenhum problema!",
     idStage: 1,
@@ -149,13 +145,7 @@ export default {
     endDiagnosis: false,
     speedTyping: 50,
     npsDisabled: false,
-    continuingDiagnosisQuestion:
-      "Agora que você já recebeu uma solução, gostaria de continuar o seu diagnóstico?",
-    continuingDiagnosis: "Ok, então vamos prosseguir!",
-    endingDiagnosis:
-      "Obrigada, por usar a nossa plataforma! Esperamos que você tenha tido uma boa experiência!",
-    showQuestionContinueDiagnosis: false,
-    showSolution: false
+    quantityNegativeAnswers: 0
   }),
 
   created() {
@@ -167,7 +157,6 @@ export default {
       })
       .catch(error => {});
   },
-
   methods: {
     typeWrite() {
       this.clearTypewriter();
@@ -192,27 +181,32 @@ export default {
       this.isThereNextQuestion = true;
       this.typeWrite();
     },
-    async collectAnswer(answer) {
+    collectAnswer(answer) {
       this.chatHistory.push({
         description: this.currentQuestion.description,
         response: answer,
-        showSolution: await this.shouldShowSolution(),
-        endDiagnosis: false
+        hasSolution: false
       });
+
+      if(answer === 'Não'){
+        this.quantityNegativeAnswers++;
+      }
+      
+      this.shouldShowSolution();
     },
     showSolutionMessage() {
       this.showThanksData();
       this.showSolution = true;
     },
     shouldShowSolution() {
-      if (this.quantityNegativeAnswers() === 2) {
+      if (this.quantityNegativeAnswers === 2) {
         this.disableButtonNotUnderstand = true;
         this.showModalData();
         this.callBack = this.showSolutionMessage;
         this.isThereNextQuestion = false;
-        return true;
+        return;
       }
-      if (!this.questionList.length && this.quantityNegativeAnswers() === 1) {
+      if (!this.questionList.length && this.quantityNegativeAnswers === 1) {
         this.disableButtonNotUnderstand = true;
         this.showModalData();
         this.callBack = this.showSolutionMessage;
@@ -225,7 +219,7 @@ export default {
       }
     },
     solutionNotIdentified() {
-      if (!this.questionList.length && this.quantityNegativeAnswers() == 0) {
+      if (!this.questionList.length && this.quantityNegativeAnswers == 0) {
         this.theresNoSolution = true;
         this.isThereNextQuestion = false;
         this.nextStage();
@@ -233,10 +227,6 @@ export default {
     },
     showThanksData() {
       this.thankData = true;
-    },
-    quantityNegativeAnswers() {
-      return this.chatHistory.filter(question => question.response === "Não")
-        .length;
     },
     gotoBottom() {
       this.$nextTick(() => {
@@ -253,7 +243,6 @@ export default {
     },
     showThanksNps() {
       this.thankNps = true;
-      this.continueDiagnosis();
     },
     showModalData() {
       this.$bvModal.show("modalData");
@@ -261,6 +250,8 @@ export default {
     nextStage() {
       this.idStage++;
       this.questionList = [];
+      this.showSolution = false;
+      this.quantityNegativeAnswers = 0;
       StageService.getStageById(this.idStage)
         .then(response => {
           let stage = response.data;
@@ -272,9 +263,6 @@ export default {
           this.endDiagnosis = true;
           this.showModalData();
         });
-    },
-    continueDiagnosis() {
-      this.showQuestionContinueDiagnosis = true;
     }
   }
 };
