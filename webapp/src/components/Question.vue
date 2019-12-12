@@ -18,7 +18,7 @@
         v-for="answeredQuestion in chatHistory"
         v-bind:key="answeredQuestion.description"
       >
-        <b-row>
+        <b-row v-if="answeredQuestion.description">
           <b-col cols="auto">
             <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
           </b-col>
@@ -29,7 +29,7 @@
           </b-col>
         </b-row>
 
-        <b-row align-h="end">
+        <b-row v-if="answeredQuestion.response" align-h="end">
           <b-col cols="2" class="answer mb-3">
             {{
             answeredQuestion.response
@@ -46,23 +46,23 @@
             <b-button v-on:click="nextStage">Próximo estágio</b-button>
           </b-col>
         </b-row>
+
+        <b-row v-if="answeredQuestion.thankData" class="mb-3">
+          <b-col cols="auto">
+            <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
+          </b-col>
+          <b-col cols="9" class="question">{{ feedbackData }}</b-col>
+        </b-row>
+
+        <b-row v-if="answeredQuestion.thankNps" class="mb-3">
+          <b-col cols="auto">
+            <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
+          </b-col>
+          <b-col cols="9" class="question">{{ feedbackNps }}</b-col>
+        </b-row>
       </div>
 
-      <b-row v-if="thankNps" class="mb-3">
-        <b-col cols="auto">
-          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
-        </b-col>
-        <b-col cols="9" class="question">{{ feedbackNps }}</b-col>
-      </b-row>
-
-      <b-row v-if="thankData" class="mb-3">
-        <b-col cols="auto">
-          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
-        </b-col>
-        <b-col cols="9" class="question">{{ feedbackData }}</b-col>
-      </b-row>
-
-      <b-row class="current-question" v-if="isThereNextQuestion">
+      <b-row v-if="isThereNextQuestion" class="current-question">
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
@@ -136,8 +136,6 @@ export default {
     typewritingQuestion: "",
     feedbackNps: "Obrigada pelo seu feedback!",
     feedbackData: "Obrigada! Agora podemos prosseguir.",
-    thankNps: false,
-    thankData: false,
     isThereNextQuestion: false,
     endDiagnosis: false,
     speedTyping: 50,
@@ -225,7 +223,9 @@ export default {
       }
     },
     showThanksData() {
-      this.thankData = true;
+      this.chatHistory.push({
+        thankData: this.feedbackData
+      });
     },
     gotoBottom() {
       this.$nextTick(() => {
@@ -241,7 +241,9 @@ export default {
       }
     },
     showThanksNps() {
-      this.thankNps = true;
+      this.chatHistory.push({
+        thankNps: this.feedbackNps
+      });
     },
     showModalData() {
       if (!this.dataDisabled) {
