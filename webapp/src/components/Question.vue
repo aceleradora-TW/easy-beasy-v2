@@ -92,13 +92,13 @@
       <div id="container" class="answer-buttons">
         <b-button
           class="answer-btn"
-          v-on:click="collectAnswer('Sim'), gotoBottom()"
+          v-on:click="collectAnswer('Sim')"
           :disabled="showSolution || theresNoSolution || isTypewriterRunning"
         >Sim</b-button>
         <ModalQuestion class="ml-5 mr-5" :disableButtonNotUnderstand="disableButtonNotUnderstand" />
         <b-button
           class="answer-btn"
-          v-on:click="collectAnswer('Não'), gotoBottom()"
+          v-on:click="collectAnswer('Não')"
           :disabled="showSolution || theresNoSolution || isTypewriterRunning"
         >Não</b-button>
       </div>
@@ -144,7 +144,11 @@ export default {
     npsDisabled: false,
     quantityNegativeAnswers: 0
   }),
-
+  watch: {
+    chatHistory: function() {
+      this.gotoBottom();
+    }
+  },
   created() {
     StageService.getStageById(this.idStage)
       .then(response => {
