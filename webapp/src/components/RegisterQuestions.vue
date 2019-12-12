@@ -53,14 +53,16 @@
     <b-container>
       <b-row class="mb-3">
         <b-col md="1.5" class="ml-md-auto">
-          <b-button
-            squared
-            type="submit"
-            v-on:click="save()"
-            class="saveQuestion answer-btn mt-20"
-            :disabled="$v.question.$invalid"
-            >Salvar
-          </b-button>
+          <div id="container" class="answer-buttons">
+            <b-button
+              squared
+              type="submit"
+              v-on:click="save()"
+              class="saveQuestion answer-btn mt-20"
+              :disabled="$v.question.$invalid"
+              >Salvar
+            </b-button>
+          </div>
         </b-col>
       </b-row>
     </b-container>
@@ -129,5 +131,21 @@ h2 {
 }
 .inputTitle {
   text-align: left;
+}
+#container {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0.5rem 30px 0.5rem;
+
+  .answer-btn {
+    background-color: $primary-color;
+    border-color: $primary-color;
+  }
+  .answer-buttons {
+    max-width: 200px;
+    margin: 0 auto;
+    padding: 0.5rem;
+    bottom: 10px;
+  }
 }
 </style>
