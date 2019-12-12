@@ -37,7 +37,14 @@
           </b-col>
         </b-row>
 
-        <b-row v-if="answeredQuestion.hasSolution" class="mb-3">
+        <b-row v-if="answeredQuestion.thankData" class="mb-3">
+          <b-col cols="auto">
+            <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
+          </b-col>
+          <b-col cols="9" class="question">{{ feedbackData }}</b-col>
+        </b-row>
+
+        <b-row v-if="answeredQuestion.hasSolution && firstSolution" class="mb-3">
           <b-col cols="auto">
             <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
           </b-col>
@@ -45,13 +52,6 @@
             <Solution v-bind:idStage="idStage" />
             <b-button v-on:click="nextStage">Próximo estágio</b-button>
           </b-col>
-        </b-row>
-
-        <b-row v-if="answeredQuestion.thankData" class="mb-3">
-          <b-col cols="auto">
-            <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
-          </b-col>
-          <b-col cols="9" class="question">{{ feedbackData }}</b-col>
         </b-row>
 
         <b-row v-if="answeredQuestion.thankNps" class="mb-3">
@@ -140,7 +140,8 @@ export default {
     endDiagnosis: false,
     speedTyping: 50,
     npsDisabled: false,
-    quantityNegativeAnswers: 0
+    quantityNegativeAnswers: 0,
+    firstSolution: false
   }),
   watch: {
     chatHistory: function() {
@@ -192,6 +193,7 @@ export default {
     },
     showSolutionMessage() {
       this.showThanksData();
+      this.firstSolution = true;
       this.showSolution = true;
     },
     shouldShowSolution() {
