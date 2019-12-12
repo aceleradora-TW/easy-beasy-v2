@@ -6,7 +6,6 @@
     <b-container fluid class="containerInputs">
       <b-row>
         <b-col class="border-col-1 inputTitle">{{ questionText }}</b-col>
-        <b-col class="border-col-1 inputTitle">{{ notUnderstandText }}</b-col>
       </b-row>
       <b-row align-h="center">
         <b-col>
@@ -18,20 +17,6 @@
               :state="
                 $v.question.questionInput.$dirty
                   ? !$v.question.questionInput.$error
-                  : null
-              ">
-            </b-form-input>
-          </b-form-group>
-        </b-col>
-        <b-col>
-          <b-form-group label-for="input-notUnderstandInput">
-            <b-form-input
-              id="input-notUnderstandInput"
-              type="text"
-              v-model.trim="$v.question.notUnderstandInput.$model"
-              :state="
-                $v.question.notUnderstandInput.$dirty
-                  ? !$v.question.notUnderstandInput.$error
                   : null
               ">
             </b-form-input>
@@ -98,16 +83,12 @@ export default {
     },
     areaText: "Área",
     questionText: "Pergunta",
-    notUnderstandText: "Não entendi",
     stageText: "Estágio",
     opção3: "opção 3 - por atributo"
   }),
   validations: {
     question: {
       questionInput: {
-        required
-      },
-      notUnderstandInput: {
         required
       },
     }
