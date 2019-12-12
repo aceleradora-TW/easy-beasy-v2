@@ -22,29 +22,33 @@
           <b-col cols="auto">
             <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
           </b-col>
-          <b-col cols="9" class="question mb-3">{{
+          <b-col cols="9" class="question mb-3">
+            {{
             answeredQuestion.description
-          }}</b-col>
+            }}
+          </b-col>
         </b-row>
 
         <b-row align-h="end">
-          <b-col cols="2" class="answer mb-3">{{
+          <b-col cols="2" class="answer mb-3">
+            {{
             answeredQuestion.response
-          }}</b-col>
+            }}
+          </b-col>
         </b-row>
 
-      <b-row v-if="answeredQuestion.hasSolution" class="mb-3">
-        <b-col cols="auto">
-          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
-        </b-col>
-        <b-col cols="9" class="question">
-          <Solution v-bind:idStage="idStage" />
-          <b-button v-on:click="nextStage">Próximo estágio</b-button>
-        </b-col>
-      </b-row>
+        <b-row v-if="answeredQuestion.hasSolution" class="mb-3">
+          <b-col cols="auto">
+            <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
+          </b-col>
+          <b-col cols="9" class="question">
+            <Solution v-bind:idStage="idStage" />
+            <b-button v-on:click="nextStage">Próximo estágio</b-button>
+          </b-col>
+        </b-row>
       </div>
-      
-        <b-row v-if="thankNps" class="mb-3">
+
+      <b-row v-if="thankNps" class="mb-3">
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
@@ -76,14 +80,11 @@
         <b-col cols="auto" class="mb-3">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
-        <b-button
-          :disabled="npsDisabled"
-          v-on:click="showNps"
-          cols="9"
-          class="showNps"
-          >Por favor, <strong>clique aqui</strong> e nos ajude a
-          melhorar!</b-button
-        >
+        <b-button :disabled="npsDisabled" v-on:click="showNps" cols="9" class="showNps">
+          Por favor,
+          <strong>clique aqui</strong> e nos ajude a
+          melhorar!
+        </b-button>
       </b-row>
     </b-container>
 
@@ -93,18 +94,13 @@
           class="answer-btn"
           v-on:click="collectAnswer('Sim'), gotoBottom()"
           :disabled="showSolution || theresNoSolution || isTypewriterRunning"
-          >Sim</b-button
-        >
-        <ModalQuestion
-          class="ml-5 mr-5"
-          :disableButtonNotUnderstand="disableButtonNotUnderstand"
-        />
+        >Sim</b-button>
+        <ModalQuestion class="ml-5 mr-5" :disableButtonNotUnderstand="disableButtonNotUnderstand" />
         <b-button
           class="answer-btn"
           v-on:click="collectAnswer('Não'), gotoBottom()"
           :disabled="showSolution || theresNoSolution || isTypewriterRunning"
-          >Não</b-button
-        >
+        >Não</b-button>
       </div>
     </b-row>
   </div>
@@ -183,14 +179,14 @@ export default {
       this.typeWrite();
     },
     async collectAnswer(answer) {
+      if (answer === "Não") {
+        this.quantityNegativeAnswers++;
+      }
       this.chatHistory.push({
         description: this.currentQuestion.description,
         response: answer,
         hasSolution: await this.shouldShowSolution()
       });
-      if(answer === 'Não'){
-        this.quantityNegativeAnswers++;
-      }
     },
     showSolutionMessage() {
       this.showThanksData();
@@ -244,7 +240,11 @@ export default {
       this.thankNps = true;
     },
     showModalData() {
-      this.$bvModal.show("modalData");
+      if (!this.dataDisabled) {
+        this.$bvModal.show("modalData");
+        this.dataDisabled = true;
+        this.callBack = this.showThanksData;
+      }
     },
     nextStage() {
       this.idStage++;
