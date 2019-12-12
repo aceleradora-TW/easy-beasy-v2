@@ -71,6 +71,7 @@
 
 <script>
 import { required } from "vuelidate/lib/validators";
+import StageService from "@/services/stage.service.js";
 
 export default {
   components: {},
@@ -79,7 +80,6 @@ export default {
   data: () => ({
     question: {
       questionInput: "",
-      notUnderstandInput: "",
       areaDropdown: "",
       stageDropdown: ""
     },
@@ -87,13 +87,24 @@ export default {
     questionText: "Pergunta",
     stageText: "Estágio",
     opção3: "opção 3 - por atributo"
-  }),
-  validations: {
-    question: {
+    }),
+    validations: {
+      question: {
       questionInput: {
-        required
-      },
-    }
+          required
+          },
+    },
+    idStage: 1,
+    stageList: [],
+    stageNumber: [],
+    stageListCounter: 0
+  },
+  created() {
+    StageService.getStages()
+      .then(response => {
+        this.stageList = response.data;
+      })
+      .catch(error => {});
   },
   methods: {
     save() {
@@ -102,6 +113,13 @@ export default {
         return;
       }
       alert("Pergunta cadastrada com sucesso!");
+    },
+    goThroughStageList() {
+      this.stageList.forEach((idStage, stageNumber) => {
+        this.stageNumber[this.stageListCounter] = StageService.getStageById(idStage).getNumber,
+        this.idStage++,
+        this.stageListCounter++
+      });
     }
   }
 };
