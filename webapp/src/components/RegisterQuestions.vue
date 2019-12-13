@@ -18,7 +18,8 @@
                 $v.question.questionInput.$dirty
                   ? !$v.question.questionInput.$error
                   : null
-              ">
+              "
+            >
             </b-form-input>
           </b-form-group>
         </b-col>
@@ -31,7 +32,9 @@
         <b-col>
           <b-form-group label-for="dropdown-areaDropdown">
             <select class="form-control">
-              <option value="" selected disabled>---Selecione uma opção---</option>
+              <option value="" selected disabled
+                >---Selecione uma opção---</option
+              >
               <option>opção 1</option>
               <option>opção 2</option>
             </select>
@@ -41,9 +44,10 @@
           <b-form-group label-for="dropdown-stageDropdown">
             <select class="form-control">
               <option value="" selected disabled>Selecione uma opção</option>
-                <option v-for="stage in stageList"
-                v-bind:key="stage.number">{{ stage.number }}</option>
-              </select>
+              <option v-for="stage in stageList" v-bind:key="stage.number">{{
+                stage.number
+              }}</option>
+            </select>
           </b-form-group>
         </b-col>
       </b-row>
@@ -112,12 +116,7 @@ export default {
         return;
       }
       alert("Pergunta cadastrada com sucesso!");
-    },
-    goThroughStageList() {
-      this.stageList.forEach(stage => {
-        this.currentStage = StageService.getStageById(this.idStage).getNumber;
-        idStage++;
-      });
+      }
     }
   }
 };
