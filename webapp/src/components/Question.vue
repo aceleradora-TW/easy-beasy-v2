@@ -50,7 +50,6 @@
           </b-col>
           <b-col cols="9" class="question">
             <Solution v-bind:idStage="idStage" />
-            <b-button v-on:click="nextStage">Próximo estágio</b-button>
           </b-col>
         </b-row>
 
@@ -141,7 +140,8 @@ export default {
     speedTyping: 50,
     npsDisabled: false,
     quantityNegativeAnswers: 0,
-    firstSolution: false
+    firstSolution: false,
+    continueMessage: 'Deseja prosseguir?'
   }),
   watch: {
     chatHistory: function() {
@@ -187,12 +187,15 @@ export default {
       }
       this.chatHistory.push({
         description: this.currentQuestion.description,
-        response: answer,
-        hasSolution: await this.shouldShowSolution()
+        response: answer
       });
+      this.shouldShowSolution()
     },
     showSolutionMessage() {
       this.showThanksData();
+      this.chatHistory.push({
+        hasSolution: true
+      })
       this.firstSolution = true;
       this.showSolution = true;
     },
