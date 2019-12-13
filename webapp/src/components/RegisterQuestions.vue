@@ -34,7 +34,6 @@
               <option value="" selected disabled>---Selecione uma opção---</option>
               <option>opção 1</option>
               <option>opção 2</option>
-              <option>{{opção3}}</option>
             </select>
           </b-form-group>
         </b-col>
@@ -42,10 +41,12 @@
           <b-form-group label-for="dropdown-stageDropdown">
             <select class="form-control">
               <option value="" selected disabled>---Selecione uma opção---</option>
-              <option>opção 1</option>
-              <option>opção 2</option>
-              <option>{{opção3}}</option>
-            </select>
+              <div
+                v-for="stage in stageList"
+                v-bind:key="stage.number" >
+                <option>{{ idStage }}</option>
+                </div>
+              </select>
           </b-form-group>
         </b-col>
       </b-row>
@@ -72,6 +73,7 @@
 <script>
 import { required } from "vuelidate/lib/validators";
 import StageService from "@/services/stage.service.js";
+import { slategray } from 'color-name';
 
 export default {
   components: {},
@@ -86,18 +88,18 @@ export default {
     areaText: "Área",
     questionText: "Pergunta",
     stageText: "Estágio",
-    opção3: "opção 3 - por atributo"
+    idStage: 1,
+    stageList: [],
+    stageNumber: [],
+    currentStage: "",
+    isThereNextStage: false
     }),
     validations: {
       question: {
       questionInput: {
           required
           },
-    },
-    idStage: 1,
-    stageList: [],
-    stageNumber: [],
-    stageListCounter: 0
+    }
   },
   created() {
     StageService.getStages()
@@ -115,10 +117,9 @@ export default {
       alert("Pergunta cadastrada com sucesso!");
     },
     goThroughStageList() {
-      this.stageList.forEach((idStage, stageNumber) => {
-        this.stageNumber[this.stageListCounter] = StageService.getStageById(idStage).getNumber,
-        this.idStage++,
-        this.stageListCounter++
+      this.stageList.forEach(stage => {
+        this.currentStage = StageService.getStageById(this.idStage).getNumber;
+        idStage++;
       });
     }
   }
