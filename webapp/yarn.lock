@@ -8382,6 +8382,11 @@ vm-browserify@^1.0.1:
   resolved "https://registry.yarnpkg.com/vm-browserify/-/vm-browserify-1.1.0.tgz#bd76d6a23323e2ca8ffa12028dc04559c75f9019"
   integrity sha512-iq+S7vZJE60yejDYM0ek6zg308+UZsdtPExWP9VZoCFCz1zkJoXFnAX7aZfd/ZwrkidzdUZL0C/ryW+JwAiIGw==
 
+vue-analytics@^5.18.0:
+  version "5.19.1"
+  resolved "https://registry.yarnpkg.com/vue-analytics/-/vue-analytics-5.19.1.tgz#ee1504328d44b2990bbcf3a191608a73758f39f4"
+  integrity sha512-vNMgKJn85sHw+7Q/iat+yVcUnHLd3sgXiFJvm7+NuyN3Wa+6TQY8G0yK/pUCJFW0bA+3QNAe6tPtUvq8mapG7A==
+
 vue-awesome@^3.5.4:
   version "3.5.4"
   resolved "https://registry.yarnpkg.com/vue-awesome/-/vue-awesome-3.5.4.tgz#da14ca20a3c6415c72823a7f743022f2dbd0183f"
