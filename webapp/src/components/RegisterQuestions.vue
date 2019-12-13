@@ -40,12 +40,9 @@
         <b-col>
           <b-form-group label-for="dropdown-stageDropdown">
             <select class="form-control">
-              <option value="" selected disabled>---Selecione uma opção---</option>
-              <div
-                v-for="stage in stageList"
-                v-bind:key="stage.number" >
-                <option>{{ idStage }}</option>
-                </div>
+              <option value="" selected disabled>Selecione uma opção</option>
+                <option v-for="stage in stageList"
+                v-bind:key="stage.number">{{ stage.number }}</option>
               </select>
           </b-form-group>
         </b-col>
