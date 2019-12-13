@@ -22,29 +22,21 @@
           <b-col cols="auto">
             <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
           </b-col>
-          <b-col cols="9" class="question mb-3">
-            {{
-            answeredQuestion.description
-            }}
-          </b-col>
+          <b-col cols="9" class="question mb-3">{{ answeredQuestion.description }}</b-col>
         </b-row>
 
         <b-row v-if="answeredQuestion.response" align-h="end">
-          <b-col cols="2" class="answer mb-3">
-            {{
-            answeredQuestion.response
-            }}
-          </b-col>
+          <b-col cols="2" class="answer mb-3">{{ answeredQuestion.response }}</b-col>
         </b-row>
 
         <b-row v-if="answeredQuestion.thankData" class="mb-3">
           <b-col cols="auto">
             <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
           </b-col>
-          <b-col cols="9" class="question">{{ feedbackData }}</b-col>
+          <b-col cols="9" class="question">{{ answeredQuestion.thankData }}</b-col>
         </b-row>
 
-        <b-row v-if="answeredQuestion.hasSolution && firstSolution" class="mb-3">
+        <b-row v-if="answeredQuestion.hasSolution" class="mb-3">
           <b-col cols="auto">
             <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
           </b-col>
@@ -57,8 +49,19 @@
           <b-col cols="auto">
             <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
           </b-col>
-          <b-col cols="9" class="question">{{ feedbackNps }}</b-col>
+          <b-col cols="9" class="question">{{ answeredQuestion.thankNps }}</b-col>
         </b-row>
+
+        <b-row v-if="answeredQuestion.showNps" class="mb-3">
+        <b-col cols="auto" class="mb-3">
+          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
+        </b-col>
+        <b-button :disabled="npsDisabled" v-on:click="showNps" cols="9" class="showNps">
+          Por favor,
+          <strong>clique aqui</strong> e nos ajude a
+          melhorar!
+        </b-button>
+      </b-row>
       </div>
 
       <b-row v-if="isThereNextQuestion" class="current-question">
@@ -75,16 +78,6 @@
         <b-col cols="9" class="question">{{ solutionNotFound }}</b-col>
       </b-row>
 
-      <b-row v-if="showSolution || endDiagnosis" class="mb-3">
-        <b-col cols="auto" class="mb-3">
-          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
-        </b-col>
-        <b-button :disabled="npsDisabled" v-on:click="showNps" cols="9" class="showNps">
-          Por favor,
-          <strong>clique aqui</strong> e nos ajude a
-          melhorar!
-        </b-button>
-      </b-row>
     </b-container>
 
     <b-row class="footer">
@@ -140,8 +133,6 @@ export default {
     speedTyping: 50,
     npsDisabled: false,
     quantityNegativeAnswers: 0,
-    firstSolution: false,
-    continueMessage: 'Deseja prosseguir?'
   }),
   watch: {
     chatHistory: function() {
@@ -158,6 +149,11 @@ export default {
       .catch(error => {});
   },
   methods: {
+    nextQuestion() {
+      this.currentQuestion = this.questionList.shift();
+      this.isThereNextQuestion = true;
+      this.typeWrite();
+    },
     typeWrite() {
       this.clearTypewriter();
       this.isTypewriterRunning = true;
@@ -176,11 +172,6 @@ export default {
     clearTypewriter() {
       this.typewritingQuestion = "";
     },
-    nextQuestion() {
-      this.currentQuestion = this.questionList.shift();
-      this.isThereNextQuestion = true;
-      this.typeWrite();
-    },
     async collectAnswer(answer) {
       if (answer === "Não") {
         this.quantityNegativeAnswers++;
@@ -189,15 +180,31 @@ export default {
         description: this.currentQuestion.description,
         response: answer
       });
-      this.shouldShowSolution()
+      this.shouldShowSolution();
     },
     showSolutionMessage() {
       this.showThanksData();
       this.chatHistory.push({
         hasSolution: true
-      })
-      this.firstSolution = true;
+      });
+
+      this.npsButton();
       this.showSolution = true;
+    },
+    npsButton() {
+      this.chatHistory.push({
+        showNps: true
+      });
+    },
+    showThanksData() {
+      this.chatHistory.push({
+        thankData: this.feedbackData
+      });
+    },
+    showThanksNps() {
+      this.chatHistory.push({
+        thankNps: this.feedbackNps
+      });
     },
     shouldShowSolution() {
       if (this.quantityNegativeAnswers === 2) {
@@ -227,11 +234,6 @@ export default {
         this.nextStage();
       }
     },
-    showThanksData() {
-      this.chatHistory.push({
-        thankData: this.feedbackData
-      });
-    },
     gotoBottom() {
       this.$nextTick(() => {
         const element = this.$el.querySelector(".chat-box");
@@ -244,11 +246,6 @@ export default {
         this.npsDisabled = true;
         this.callBack = this.showThanksNps;
       }
-    },
-    showThanksNps() {
-      this.chatHistory.push({
-        thankNps: this.feedbackNps
-      });
     },
     showModalData() {
       if (!this.dataDisabled) {
@@ -272,6 +269,7 @@ export default {
         .catch(error => {
           this.endDiagnosis = true;
           this.showModalData();
+          this.npsButton();
         });
     }
   }
