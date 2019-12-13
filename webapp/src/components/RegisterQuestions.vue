@@ -31,9 +31,9 @@
         <b-col>
           <b-form-group label-for="dropdown-areaDropdown">
             <select class="form-control">
-              <option value="" selected disabled>---Selecione uma opção---</option>
-              <option>opção 1</option>
-              <option>opção 2</option>
+              <option value="" selected disabled>Selecione uma opção</option>
+              <option v-for="area in areaList"
+              v-bind:key="area.name">{{ area.name }}</option>
             </select>
           </b-form-group>
         </b-col>
@@ -70,6 +70,7 @@
 <script>
 import { required } from "vuelidate/lib/validators";
 import StageService from "@/services/stage.service.js";
+import AreaService from "@/services/area.service.js";
 import { slategray } from 'color-name';
 
 export default {
@@ -87,21 +88,25 @@ export default {
     stageText: "Estágio",
     idStage: 1,
     stageList: [],
-    stageNumber: [],
-    currentStage: "",
-    isThereNextStage: false
+    areaList: []
     }),
     validations: {
       question: {
       questionInput: {
-          required
-          },
+        required
+        },
     }
   },
   created() {
     StageService.getStages()
       .then(response => {
         this.stageList = response.data;
+      })
+      .catch(error => {});
+
+    AreaService.getAreas()
+      .then(response => {
+        this.areaList = response.data;
       })
       .catch(error => {});
   },
