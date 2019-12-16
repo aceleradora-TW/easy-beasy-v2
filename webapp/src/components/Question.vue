@@ -52,6 +52,13 @@
           <b-col cols="9" class="question">{{ answeredQuestion.thankNps }}</b-col>
         </b-row>
 
+           <b-row v-if="continueMessage" class="mb-3">
+        <b-col cols="auto">
+          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
+        </b-col>
+        <b-col cols="9" class="question">{{ continueMessage }}</b-col>
+      </b-row>
+
         <b-row v-if="answeredQuestion.showNps" class="mb-3">
         <b-col cols="auto" class="mb-3">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
@@ -61,6 +68,13 @@
           <strong>clique aqui</strong> e nos ajude a
           melhorar!
         </b-button>
+        </b-row>
+
+        <b-row v-if="endDiagnosis" class="mb-3">
+        <b-col cols="auto">
+          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
+        </b-col>
+        <b-col cols="9" class="question">{{ solutionNotFound }}</b-col>
       </b-row>
       </div>
 
@@ -71,12 +85,12 @@
         <b-col class="question" cols="9">{{ typewritingQuestion }}</b-col>
       </b-row>
 
-      <b-row v-if="endDiagnosis" class="mb-3">
+      <!-- <b-row v-if="continueMessage" class="mb-3">
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
-        <b-col cols="9" class="question">{{ solutionNotFound }}</b-col>
-      </b-row>
+        <b-col cols="9" class="question">{{ continueMessage }}</b-col>
+      </b-row> -->
 
     </b-container>
 
@@ -85,13 +99,13 @@
         <b-button
           class="answer-btn"
           v-on:click="collectAnswer('Sim')"
-          :disabled="showSolution || theresNoSolution || isTypewriterRunning"
+          :disabled="theresNoSolution || isTypewriterRunning"
         >Sim</b-button>
         <ModalQuestion class="ml-5 mr-5" :disableButtonNotUnderstand="disableButtonNotUnderstand" />
         <b-button
           class="answer-btn"
           v-on:click="collectAnswer('Não')"
-          :disabled="showSolution || theresNoSolution || isTypewriterRunning"
+          :disabled="theresNoSolution || isTypewriterRunning"
         >Não</b-button>
       </div>
     </b-row>
@@ -128,6 +142,7 @@ export default {
     typewritingQuestion: "",
     feedbackNps: "Obrigada pelo seu feedback!",
     feedbackData: "Obrigada! Agora podemos prosseguir.",
+    continueMessage: "Sabemos que essa solução pode não ser o suficiente, deseja continuar?",
     isThereNextQuestion: false,
     endDiagnosis: false,
     speedTyping: 50,
@@ -206,6 +221,7 @@ export default {
       this.chatHistory.push({
         thankNps: this.feedbackNps
       });
+       this.continueMessage();
     },
     shouldShowSolution() {
       if (this.quantityNegativeAnswers === 2) {
