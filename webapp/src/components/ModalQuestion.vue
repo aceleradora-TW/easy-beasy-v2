@@ -3,14 +3,14 @@
     <b-button
       class="modal-question-btn"
       id="show-btn"
-      v-on:click="$bvModal.show('bv-modal-example')" :disabled="disableButtonNotUnderstand"
+      v-on:click="$bvModal.show('bv-modal-example'), getHint()" :disabled="disableButtonNotUnderstand"
     >Não entendi</b-button>
 
     <b-modal id="bv-modal-example" hide-footer>
       <template v-slot:modal-title>Prioridade</template>
       <div class="ml-3 mr-3">
         <p>
-          {{ idStage }}
+          {{ hint }}
         </p>
       </div>
       <b-container fluid>
@@ -39,16 +39,17 @@ export default {
   idStage: { type: Number }
   },
   data: () => ({
-    hint: ""
+    hint: "",
+    stage: ""
   }),
-  // methods: {
-  //   created() {
-  //     StageService.getStageById(this.idStage)
-  //     .then(response => {
-  //       this.hint = response.data.stage.hint
-  //     })
-  //   }
-  // },
+  methods: {
+    getHint() {
+      StageService.getStageById(this.idStage)
+      .then(response => {
+        this.hint = response.data.hint
+      });
+    }
+  },
 };
 </script>
 
