@@ -1,7 +1,7 @@
 import RegisterQuestions from '@/components/RegisterQuestions.vue'
 export default [{
     name: 'registerQuestions.index',
-    path: '/registrarPergunta',
+    path: '/registerQuestions',
     component: RegisterQuestions,
     children: []
 }, ]

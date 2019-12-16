@@ -1,18 +1,12 @@
 <template>
   <div>
-    <b-modal
-      hide-header-close
-      hide-footer
-      no-close-on-backdrop
-      no-close-on-esc
-      id="modalData"
-      title="Queremos conhecer você!"
-      :header-bg-variant="headerBgVariant"
-      :header-text-variant="headerTextVariant"
-    >
-      <p class="mt-20">
-        {{ user.collectText }}
-      </p>
+    <b-modal hide-header-close hide-footer no-close-on-backdrop no-close-on-esc id="modalData"
+    title="Queremos conhecer você!"
+    :header-bg-variant = "headerBgVariant"
+    :header-text-variant = "headerTextVariant">
+        <p class="mt-20">
+          {{user.collectText}}
+        </p>
       <b-row>
         <b-col md="6" sm="12">
           <b-form-group label-for="user-name">
@@ -48,10 +42,9 @@
               squared
               type="submit"
               v-on:click="save(), $bvModal.hide('modalData')"
-              class="answer-btn"
+              class="saveUser answer-btn mt-20"
               :disabled="$v.user.$invalid"
-              >Salvar</b-button
-            >
+            >Salvar</b-button>
           </b-col>
         </b-row>
       </b-container>
@@ -66,17 +59,16 @@ import { required, email } from "vuelidate/lib/validators";
 export default {
   name: "ModalData",
   props: {
-    callBack: { type: Function }
+    callBack: { type: Function },
   },
   data: () => ({
     user: {
       name: "",
       email: "",
-      collectText:
-        "Chegamos a um resultado, informe seus dados para que possamos compartilha-lo com você."
+      collectText:"Chegamos a um resultado, informe seus dados para que possamos compartilha-lo com você."
     },
-    headerBgVariant: "info",
-    headerTextVariant: "light"
+    headerBgVariant: 'info',
+    headerTextVariant: 'light'
   }),
   validations: {
     user: {
@@ -84,32 +76,27 @@ export default {
         required
       },
       email: {
-        required,
-        email
+        required, email
       }
     }
   },
   methods: {
     save() {
-      this.$v.user.$touch();
-      if (this.$v.user.$anyError) {
-        return;
+      this.$v.user.$touch()
+        if (this.$v.user.$anyError) {
+        return
       }
-      userService
-        .save(this.user)
-        .then(
-          /*somente sucesso*/ () => {
-            this.callBack();
-          }
-        )
-        .catch(/*todos os erros*/ errors => console.log(errors));
+      userService.save(this.user).then(/*somente sucesso*/() => {
+                this.callBack();
+      }).catch(/*todos os erros*/errors => console.log(errors));
+
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/scss/config/variables.scss";
+@import '@/assets/scss/config/variables.scss';
 .user {
   text-align: justify;
   background-color: white;
@@ -122,8 +109,8 @@ export default {
   background-color:$primary-color;
   border-color:$primary-color;
 }
-.mt-20 {
-  margin-top: 20px;
-  font-family: $primary-font-family;
-}
+.mt-20{
+        margin-top: 20px;
+        font-family: $primary-font-family;
+    }
 </style>
