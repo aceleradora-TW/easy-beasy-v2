@@ -6,7 +6,9 @@
       v-on:click="$bvModal.show('bv-modal-example'), getHint()" :disabled="disableButtonNotUnderstand"
     >Não entendi</b-button>
 
-    <b-modal id="bv-modal-example" hide-footer>
+    <b-modal id="bv-modal-example" hide-footer 
+      :header-bg-variant= "headerBgVariant" 
+      :header-text-variant = "headerTextVariant">
       <template v-slot:modal-title>Prioridade</template>
       <div class="ml-3 mr-3">
         <p>
@@ -40,7 +42,9 @@ export default {
   },
   data: () => ({
     hint: "",
-    stage: ""
+    stage: "",
+    headerBgVariant: 'info',
+    headerTextVariant: 'light'
   }),
   methods: {
     getHint() {
