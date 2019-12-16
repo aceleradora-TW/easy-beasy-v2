@@ -190,6 +190,7 @@ export default {
 
       this.npsButton();
       this.showSolution = true;
+      this.gotoBottom();
     },
     npsButton() {
       this.chatHistory.push({
@@ -267,10 +268,14 @@ export default {
           this.nextQuestion();
         })
         .catch(error => {
-          this.endDiagnosis = true;
+          this.callBack = this.showNoSolution;
           this.showModalData();
           this.npsButton();
         });
+    },
+    showNoSolution(){
+      this.endDiagnosis = true;
+      this.gotoBottom();   
     }
   }
 };
