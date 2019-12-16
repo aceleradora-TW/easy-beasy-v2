@@ -10,9 +10,7 @@
       <template v-slot:modal-title>Prioridade</template>
       <div class="ml-3 mr-3">
         <p>
-          Pense no seu dia a dia,
-          se você sabe qual o próximo passo que deve ser tomado e para onde está indo,
-          se tem esclarecido quais e quando suas tarefas devem ser feitas.
+          {{ idStage }}
         </p>
       </div>
       <b-container fluid>
@@ -32,11 +30,25 @@
 </template>
 
 <script>
+import StageService from "@/services/stage.service.js";
+
 export default {
   name: "ModalQuestion",
-   props: {
-   disableButtonNotUnderstand: { type: Boolean },
+  props: {
+  disableButtonNotUnderstand: { type: Boolean },
+  idStage: { type: Number }
   },
+  data: () => ({
+    hint: ""
+  }),
+  // methods: {
+  //   created() {
+  //     StageService.getStageById(this.idStage)
+  //     .then(response => {
+  //       this.hint = response.data.stage.hint
+  //     })
+  //   }
+  // },
 };
 </script>
 
