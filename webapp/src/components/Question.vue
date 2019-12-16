@@ -184,6 +184,7 @@ export default {
     showSolutionMessage() {
       this.showThanksData();
       this.showSolution = true;
+      this.gotoBottom();
     },
     shouldShowSolution() {
       if (this.quantityNegativeAnswers() === 2) {
@@ -250,9 +251,13 @@ export default {
           this.nextQuestion();
         })
         .catch(error => {
-          this.endDiagnosis = true;
+          this.callBack = this.showNoSolution;
           this.showModalData();
         });
+    },
+    showNoSolution(){
+      this.endDiagnosis = true;
+      this.gotoBottom();   
     }
   }
 };
