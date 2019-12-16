@@ -9,7 +9,7 @@
     <b-modal id="bv-modal-example" hide-footer 
       :header-bg-variant= "headerBgVariant" 
       :header-text-variant = "headerTextVariant">
-      <template v-slot:modal-title>Prioridade</template>
+      <template v-slot:modal-title>Sugestão:</template>
       <div class="ml-3 mr-3">
         <p>
           {{ hint }}
