@@ -31,7 +31,6 @@
         <b-col>
           <b-form-group label-for="dropdown-areaDropdown">
             <select class="form-control">
-              <option value="" selected disabled>Selecione uma opção</option>
               <option v-for="area in areaList"
               v-bind:key="area.name">{{ area.name }}</option>
             </select>
@@ -39,10 +38,9 @@
         </b-col>
         <b-col>
           <b-form-group label-for="dropdown-stageDropdown">
-            <select class="form-control">
-              <option value="" selected disabled>Selecione uma opção</option>
+            <select class="form-control" :options="stages">
                 <option v-for="stage in stageList"
-                v-bind:key="stage.number">{{ stage.number }}</option>
+                v-bind:key="stage.number" value="stage.number">{{ stage.number }}</option>
               </select>
           </b-form-group>
         </b-col>
@@ -57,7 +55,7 @@
               type="submit"
               v-on:click="save()"
               class="saveQuestion answer-btn mt-20"
-              :disabled="$v.question.$invalid"
+              :disabled="$v.question.$invalid" 
               >Salvar
             </b-button>
           </div>
@@ -94,7 +92,7 @@ export default {
       question: {
       questionInput: {
         required
-        },
+      },
     }
   },
   created() {
