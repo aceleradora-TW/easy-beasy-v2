@@ -6,6 +6,7 @@
     <b-container fluid class="containerInputs">
       <b-row>
         <b-col class="border-col-1 inputTitle">{{ questionText }}</b-col>
+        <b-col class="border-col-1 inputTitle">{{ notUnderstandText }}</b-col>
       </b-row>
       <b-row align-h="center">
         <b-col>
@@ -22,6 +23,20 @@
             </b-form-input>
           </b-form-group>
         </b-col>
+        <b-col>
+          <b-form-group label-for="input-notUnderstandInput">
+            <b-form-input
+              id="input-notUnderstandInput"
+              type="text"
+              v-model.trim="$v.question.notUnderstandInput.$model"
+              :state="
+                $v.question.notUnderstandInput.$dirty
+                  ? !$v.question.notUnderstandInput.$error
+                  : null
+              ">
+            </b-form-input>
+          </b-form-group>
+        </b-col>
       </b-row>
       <b-row>
         <b-col class="border-col-1 inputTitle">{{ areaText }}</b-col>
@@ -31,17 +46,21 @@
         <b-col>
           <b-form-group label-for="dropdown-areaDropdown">
             <select class="form-control">
-              <option v-for="area in areaList"
-              v-bind:key="area.name">{{ area.name }}</option>
+              <option value="" selected disabled>---Selecione uma opção---</option>
+              <option>opção 1</option>
+              <option>opção 2</option>
+              <option>{{opção3}}</option>
             </select>
           </b-form-group>
         </b-col>
         <b-col>
           <b-form-group label-for="dropdown-stageDropdown">
-            <select class="form-control" :options="stages">
-                <option v-for="stage in stageList"
-                v-bind:key="stage.number" value="stage.number">{{ stage.number }}</option>
-              </select>
+            <select class="form-control">
+              <option value="" selected disabled>---Selecione uma opção---</option>
+              <option>opção 1</option>
+              <option>opção 2</option>
+              <option>{{opção3}}</option>
+            </select>
           </b-form-group>
         </b-col>
       </b-row>
@@ -49,16 +68,14 @@
     <b-container>
       <b-row class="mb-3">
         <b-col md="1.5" class="ml-md-auto">
-          <div id="container" class="answer-buttons">
-            <b-button
-              squared
-              type="submit"
-              v-on:click="save()"
-              class="saveQuestion answer-btn mt-20"
-              :disabled="$v.question.$invalid" 
-              >Salvar
-            </b-button>
-          </div>
+          <b-button
+            squared
+            type="submit"
+            v-on:click="save()"
+            class="saveQuestion answer-btn mt-20"
+            :disabled="$v.question.$invalid"
+            >Salvar
+          </b-button>
         </b-col>
       </b-row>
     </b-container>
@@ -67,9 +84,6 @@
 
 <script>
 import { required } from "vuelidate/lib/validators";
-import StageService from "@/services/stage.service.js";
-import AreaService from "@/services/area.service.js";
-import { slategray } from 'color-name';
 
 export default {
   components: {},
@@ -78,35 +92,25 @@ export default {
   data: () => ({
     question: {
       questionInput: "",
+      notUnderstandInput: "",
       areaDropdown: "",
       stageDropdown: ""
     },
     areaText: "Área",
     questionText: "Pergunta",
+    notUnderstandText: "Não entendi",
     stageText: "Estágio",
-    idStage: 1,
-    stageList: [],
-    areaList: []
-    }),
-    validations: {
-      question: {
+    opção3: "opção 3 - por atributo"
+  }),
+  validations: {
+    question: {
       questionInput: {
         required
       },
+      notUnderstandInput: {
+        required
+      },
     }
-  },
-  created() {
-    StageService.getStages()
-      .then(response => {
-        this.stageList = response.data;
-      })
-      .catch(error => {});
-
-    AreaService.getAreas()
-      .then(response => {
-        this.areaList = response.data;
-      })
-      .catch(error => {});
   },
   methods: {
     save() {
@@ -144,21 +148,5 @@ h2 {
 }
 .inputTitle {
   text-align: left;
-}
-#container {
-  display: flex;
-  justify-content: space-between;
-  padding: 0.5rem 0.5rem 30px 0.5rem;
-
-  .answer-btn {
-    background-color: $primary-color;
-    border-color: $primary-color;
-  }
-  .answer-buttons {
-    max-width: 200px;
-    margin: 0 auto;
-    padding: 0.5rem;
-    bottom: 10px;
-  }
 }
 </style>
