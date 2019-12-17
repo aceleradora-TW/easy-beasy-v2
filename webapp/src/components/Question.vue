@@ -141,6 +141,7 @@ export default {
     endDiagnosis: false,
     speedTyping: 50,
     npsDisabled: false,
+    firstSolution: true,
     quantityNegativeAnswers: 0
   }),
   watch: {
@@ -234,8 +235,14 @@ export default {
     shouldShowSolution() {
       if (this.quantityNegativeAnswers === 2 || (!this.questionList.length && this.quantityNegativeAnswers === 1)) {
         this.disableButtonNotUnderstand = true;
-        this.showModalData();
-        this.callBack = this.showSolutionMessage;
+        if(this.firstSolution){
+          this.showModalData();
+          this.callBack = this.showSolutionMessage;
+          this.firstSolution = false
+        } else {
+          this.showSolutionMessage();
+        }
+        
         this.isThereNextQuestion = false;
         return true;
       }
