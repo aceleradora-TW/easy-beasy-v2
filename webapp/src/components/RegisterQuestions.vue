@@ -9,14 +9,14 @@
       </b-row>
       <b-row align-h="center">
         <b-col>
-          <b-form-group label-for="input-questionInput">
+          <b-form-group label-for="input-description">
             <b-form-input
-              id="input-questionInput"
+              id="input-description"
               type="text"
-              v-model.trim="$v.question.questionInput.$model"
+              v-model.trim="$v.question.description.$model"
               :state="
-                $v.question.questionInput.$dirty
-                  ? !$v.question.questionInput.$error
+                $v.question.description.$dirty
+                  ? !$v.question.description.$error
                   : null
               ">
             </b-form-input>
@@ -37,10 +37,10 @@
           </b-form-group>
         </b-col>
         <b-col>
-          <b-form-group label-for="dropdown-stageDropdown">
+          <b-form-group label-for="dropdown-id_stage">
             <select class="form-control" :options="stages">
                 <option v-for="stage in stageList"
-                v-bind:key="stage.number" value="stage.number">{{ stage.number }}</option>
+                v-bind:key="stage.number" value="stage.number" v-on:click="setIdStage(stage.number)">{{ stage.number }}</option>
               </select>
           </b-form-group>
         </b-col>
@@ -53,7 +53,7 @@
             <b-button
               squared
               type="submit"
-              v-on:click="save()"
+              v-on:click="save(question)"
               class="saveQuestion answer-btn mt-20"
               :disabled="$v.question.$invalid" 
               >Salvar
@@ -69,7 +69,7 @@
 import { required } from "vuelidate/lib/validators";
 import StageService from "@/services/stage.service.js";
 import AreaService from "@/services/area.service.js";
-import { slategray } from 'color-name';
+import QuestionService from "@/services/question.service.js";
 
 export default {
   components: {},
@@ -77,20 +77,18 @@ export default {
 
   data: () => ({
     question: {
-      questionInput: "",
-      areaDropdown: "",
-      stageDropdown: ""
+      description: "",
+      id_stage: 0
     },
     areaText: "Área",
     questionText: "Pergunta",
     stageText: "Estágio",
-    idStage: 1,
     stageList: [],
     areaList: []
     }),
     validations: {
       question: {
-      questionInput: {
+        description: {
         required
       },
     }
@@ -109,11 +107,15 @@ export default {
       .catch(error => {});
   },
   methods: {
+    setIdStage(number) {
+      this.question.id_stage = number;
+    },
     save() {
       this.$v.question.$touch();
       if (this.$v.question.$anyError) {
         return;
       }
+      QuestionService.save(this.question);
       alert("Pergunta cadastrada com sucesso!");
     }
   }
