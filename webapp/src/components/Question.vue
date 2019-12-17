@@ -16,8 +16,8 @@
       <div
         class="question-history"
         v-for="answeredQuestion in chatHistory"
-        v-bind:key="answeredQuestion.description">
-
+        v-bind:key="answeredQuestion.description"
+      >
         <b-row v-if="answeredQuestion.description">
           <b-col cols="auto">
             <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
@@ -77,7 +77,7 @@
           <b-col cols="9" class="question">{{ solutionNotFound }}</b-col>
         </b-row>
 
-          <b-row v-if="answeredQuestion.endDiagnosis" class="mb-3">
+        <b-row v-if="answeredQuestion.endDiagnosis" class="mb-3">
           <b-col cols="auto">
             <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
           </b-col>
@@ -131,7 +131,6 @@ export default {
     currentQuestion: null,
     questionList: [],
     chatHistory: [],
-    showSolution: false,
     theresNoSolution: false,
     solutionNotFound: "Não identificamos nenhum problema!",
     idStage: 1,
@@ -144,7 +143,8 @@ export default {
     continueMessage:
       "Sabemos que essa solução pode não ser o suficiente, deseja continuar?",
     solutionGiven: false,
-    endDiagnosisMessege: "Foi um prazer te ajudar. Obrigado por testar o diagnóstico da Easybeasy!",
+    endDiagnosisMessege:
+      "Foi um prazer te ajudar. Obrigado por testar o diagnóstico da Easybeasy!",
     isThereNextQuestion: false,
     endDiagnosis: false,
     speedTyping: 50,
@@ -191,17 +191,16 @@ export default {
       this.typewritingQuestion = "";
     },
     async collectAnswer(answer) {
-      if (this.solutionGiven){
+      if (this.solutionGiven) {
         this.chatHistory.push({
           response: answer
         });
-        if(answer === 'Sim'){
+        if (answer === "Sim") {
           this.nextStage();
-        }
-        else {
+        } else {
           this.chatHistory.push({
             endDiagnosis: this.endDiagnosisMessege
-          })
+          });
           this.theresNoSolution = true;
         }
         this.solutionGiven = false;
@@ -223,17 +222,19 @@ export default {
       });
       this.solutionGiven = true;
       this.npsButton();
+      this.firstSolution = false;
       this.chatHistory.push({
         continueMessage: this.continueMessage
       });
-    
-      this.showSolution = true;
+
       this.gotoBottom();
     },
     npsButton() {
-      this.chatHistory.push({
-        showNps: true
-      });
+      if (this.firstSolution) {
+        this.chatHistory.push({
+          showNps: true
+        });
+      }
     },
     showThanksData() {
       this.chatHistory.push({
@@ -243,20 +244,21 @@ export default {
     showThanksNps() {
       this.chatHistory.push({
         thankNps: this.feedbackNps
-      
       });
     },
     shouldShowSolution() {
-      if (this.quantityNegativeAnswers === 2 || (!this.questionList.length && this.quantityNegativeAnswers === 1)) {
+      if (
+        this.quantityNegativeAnswers === 2 ||
+        (!this.questionList.length && this.quantityNegativeAnswers === 1)
+      ) {
         this.disableButtonNotUnderstand = true;
-        if(this.firstSolution){
+        if (this.firstSolution) {
           this.showModalData();
           this.callBack = this.showSolutionMessage;
-          this.firstSolution = false
         } else {
           this.showSolutionMessage();
         }
-        
+
         this.isThereNextQuestion = false;
         return true;
       }
@@ -266,7 +268,7 @@ export default {
       }
       return null;
     },
-    
+
     solutionNotIdentified() {
       if (!this.questionList.length && this.quantityNegativeAnswers == 0) {
         this.theresNoSolution = true;
@@ -297,7 +299,6 @@ export default {
     nextStage() {
       this.idStage++;
       this.questionList = [];
-      this.showSolution = false;
       this.quantityNegativeAnswers = 0;
       StageService.getStageById(this.idStage)
         .then(response => {
