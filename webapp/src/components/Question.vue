@@ -76,6 +76,13 @@
           </b-col>
           <b-col cols="9" class="question">{{ solutionNotFound }}</b-col>
         </b-row>
+
+          <b-row v-if="answeredQuestion.endDiagnosis" class="mb-3">
+          <b-col cols="auto">
+            <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
+          </b-col>
+          <b-col cols="9" class="question">{{ answeredQuestion.endDiagnosis }}</b-col>
+        </b-row>
       </div>
 
       <b-row v-if="isThereNextQuestion" class="current-question">
@@ -137,6 +144,7 @@ export default {
     continueMessage:
       "Sabemos que essa solução pode não ser o suficiente, deseja continuar?",
     solutionGiven: false,
+    endDiagnosisMessege: "Okay... Obrigado por usar a plataforma EasyBeasy",
     isThereNextQuestion: false,
     endDiagnosis: false,
     speedTyping: 50,
@@ -190,6 +198,12 @@ export default {
         if(answer === 'Sim'){
           this.nextStage();
         }
+        else {
+          this.chatHistory.push({
+            endDiagnosis: this.endDiagnosisMessege
+          })
+          this.theresNoSolution = true;
+        }
         this.solutionGiven = false;
         return;
       }
@@ -212,7 +226,7 @@ export default {
       this.chatHistory.push({
         continueMessage: this.continueMessage
       });
-
+    
       this.showSolution = true;
       this.gotoBottom();
     },
