@@ -144,7 +144,7 @@ export default {
     continueMessage:
       "Sabemos que essa solução pode não ser o suficiente, deseja continuar?",
     solutionGiven: false,
-    endDiagnosisMessege: "Okay... Obrigado por usar a plataforma EasyBeasy",
+    endDiagnosisMessege: "Foi um prazer te ajudar. Obrigado por testar o diagnóstico da Easybeasy!",
     isThereNextQuestion: false,
     endDiagnosis: false,
     speedTyping: 50,
