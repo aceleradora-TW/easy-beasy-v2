@@ -100,7 +100,7 @@
           v-on:click="collectAnswer('Sim')"
           :disabled="theresNoSolution || isTypewriterRunning"
         >Sim</b-button>
-        <ModalQuestion class="ml-5 mr-5" :disableButtonNotUnderstand="disableButtonNotUnderstand" />
+        <ModalQuestion :idStage="idStage" class="ml-5 mr-5" :disableButtonNotUnderstand="disableButtonNotUnderstand" />
         <b-button
           class="answer-btn"
           v-on:click="collectAnswer('Não')"
@@ -197,6 +197,7 @@ export default {
         });
         if (answer === "Sim") {
           this.nextStage();
+          this.disableButtonNotUnderstand = false;
         } else {
           this.chatHistory.push({
             endDiagnosis: this.endDiagnosisMessege
