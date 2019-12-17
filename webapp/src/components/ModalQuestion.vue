@@ -3,16 +3,16 @@
     <b-button
       class="modal-question-btn"
       id="show-btn"
-      v-on:click="$bvModal.show('bv-modal-example')" :disabled="disableButtonNotUnderstand"
+      v-on:click="$bvModal.show('bv-modal-example'), getHint()" :disabled="disableButtonNotUnderstand"
     >Não entendi</b-button>
 
-    <b-modal id="bv-modal-example" hide-footer>
-      <template v-slot:modal-title>Prioridade</template>
+    <b-modal id="bv-modal-example" hide-footer 
+      :header-bg-variant= "headerBgVariant" 
+      :header-text-variant = "headerTextVariant">
+      <template v-slot:modal-title>Sugestão:</template>
       <div class="ml-3 mr-3">
         <p>
-          Pense no seu dia a dia,
-          se você sabe qual o próximo passo que deve ser tomado e para onde está indo,
-          se tem esclarecido quais e quando suas tarefas devem ser feitas.
+          {{ hint }}
         </p>
       </div>
       <b-container fluid>
@@ -32,10 +32,27 @@
 </template>
 
 <script>
+import StageService from "@/services/stage.service.js";
+
 export default {
   name: "ModalQuestion",
-   props: {
-   disableButtonNotUnderstand: { type: Boolean },
+  props: {
+  disableButtonNotUnderstand: { type: Boolean },
+  idStage: { type: Number }
+  },
+  data: () => ({
+    hint: "",
+    stage: "",
+    headerBgVariant: 'info',
+    headerTextVariant: 'light'
+  }),
+  methods: {
+    getHint() {
+      StageService.getStageById(this.idStage)
+      .then(response => {
+        this.hint = response.data.hint
+      });
+    }
   },
 };
 </script>
