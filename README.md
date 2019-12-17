@@ -38,7 +38,7 @@ Crie o banco de dados `esqueleto`:
 docker exec -it esqueleto-db psql -U postgres -c 'CREATE DATABASE easybeasy'
 ```
 
-## Desenvolvimento local
+## Desenvolvimento local     
 
 Antes de mais nada, as dependências do front-end devem ser instaladas:
 
