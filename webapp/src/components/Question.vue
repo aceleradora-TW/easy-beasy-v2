@@ -90,6 +90,7 @@
         <ModalQuestion
           class="ml-5 mr-5"
           :disableButtonNotUnderstand="disableButtonNotUnderstand"
+          :idStage="idStage"
         />
         <b-button
           class="answer-btn"
