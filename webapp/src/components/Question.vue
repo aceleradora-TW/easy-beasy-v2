@@ -16,72 +16,73 @@
       <div
         class="question-history"
         v-for="answeredQuestion in chatHistory"
-        v-bind:key="answeredQuestion.description"
-      >
-        <b-row>
+        v-bind:key="answeredQuestion.description">
+
+        <b-row v-if="answeredQuestion.description">
           <b-col cols="auto">
             <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
           </b-col>
-          <b-col cols="9" class="question mb-3">{{
-            answeredQuestion.description
-          }}</b-col>
+          <b-col cols="9" class="question mb-3">{{ answeredQuestion.description }}</b-col>
         </b-row>
 
-        <b-row align-h="end">
-          <b-col cols="2" class="answer mb-3">{{
-            answeredQuestion.response
-          }}</b-col>
+        <b-row v-if="answeredQuestion.response" align-h="end">
+          <b-col cols="2" class="answer mb-3">{{ answeredQuestion.response }}</b-col>
+        </b-row>
+
+        <b-row v-if="answeredQuestion.thankData" class="mb-3">
+          <b-col cols="auto">
+            <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
+          </b-col>
+          <b-col cols="9" class="question">{{ answeredQuestion.thankData }}</b-col>
+        </b-row>
+
+        <b-row v-if="answeredQuestion.hasSolution" class="mb-3">
+          <b-col cols="auto">
+            <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
+          </b-col>
+          <b-col cols="9" class="question">
+            <Solution v-bind:idStage="idStage" />
+          </b-col>
+        </b-row>
+
+        <b-row v-if="answeredQuestion.thankNps" class="mb-3">
+          <b-col cols="auto">
+            <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
+          </b-col>
+          <b-col cols="9" class="question">{{ answeredQuestion.thankNps }}</b-col>
+        </b-row>
+
+        <b-row v-if="answeredQuestion.showNps" class="mb-3">
+          <b-col cols="auto" class="mb-3">
+            <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
+          </b-col>
+          <b-button :disabled="npsDisabled" v-on:click="showNps" cols="9" class="showNps">
+            Por favor,
+            <strong>clique aqui</strong> e nos ajude a
+            melhorar!
+          </b-button>
+        </b-row>
+
+        <b-row v-if="answeredQuestion.continueMessage" class="mb-3">
+          <b-col cols="auto">
+            <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
+          </b-col>
+          <b-col cols="9" class="question">{{ continueMessage }}</b-col>
+        </b-row>
+
+        <b-row v-if="endDiagnosis" class="mb-3">
+          <b-col cols="auto">
+            <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
+          </b-col>
+          <b-col cols="9" class="question">{{ solutionNotFound }}</b-col>
         </b-row>
       </div>
-      <b-row class="current-question" v-if="isThereNextQuestion">
+
+      <b-row v-if="isThereNextQuestion" class="current-question">
         <b-col cols="auto">
           <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
         </b-col>
         <b-col class="question" cols="9">{{ typewritingQuestion }}</b-col>
-      </b-row>
-
-      <b-row v-if="thankData" class="mb-3">
-        <b-col cols="auto">
-          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
-        </b-col>
-        <b-col cols="9" class="question">{{ feedbackData }}</b-col>
-      </b-row>
-
-      <b-row v-if="showSolution" class="mb-3">
-        <b-col cols="auto">
-          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
-        </b-col>
-        <b-col cols="9" class="question">
-          <Solution v-bind:idStage="idStage"/>
-        </b-col>
-      </b-row>
-      <b-row v-if="endDiagnosis" class="mb-3">
-        <b-col cols="auto">
-          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
-        </b-col>
-        <b-col cols="9" class="question">{{ solutionNotFound }}</b-col>
-      </b-row>
-
-      <b-row v-if="showSolution || endDiagnosis" class="mb-3">
-        <b-col cols="auto" class="mb-3">
-          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
-        </b-col>
-        <b-button :disabled ="npsDisabled" v-on:click="showNps" cols="9" class="showNps"
-          >Por favor, <strong>clique aqui</strong> e nos ajude a
-          melhorar!</b-button>
-      </b-row>
-
-      <b-row v-if="thankNps" class="mb-3">
-        <b-col cols="auto">
-          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
-        </b-col>
-        <b-col cols="9" class="question">{{ feedbackNps }}</b-col>
-      </b-row>
-        <b-row v-if="thankNps" class="mb-3">
-        <b-col cols="auto">
-          <img src="@/assets/images/easybeasy-logo.jpeg" alt="logo" />
-        </b-col>
-        <b-col cols="9" class="question">{{ message }}</b-col>
       </b-row>
     </b-container>
 
@@ -89,21 +90,15 @@
       <div id="container" class="answer-buttons">
         <b-button
           class="answer-btn"
-          v-on:click="collectAnswer('Sim'), gotoBottom()"
-          :disabled="showSolution || theresNoSolution || isTypewriterRunning"
-          >Sim</b-button
-        >
-        <ModalQuestion
-          class="ml-5 mr-5"
-          :disableButtonNotUnderstand="disableButtonNotUnderstand"
-          :idStage="idStage"
-        />
+          v-on:click="collectAnswer('Sim')"
+          :disabled="theresNoSolution || isTypewriterRunning"
+        >Sim</b-button>
+        <ModalQuestion class="ml-5 mr-5" :disableButtonNotUnderstand="disableButtonNotUnderstand" />
         <b-button
           class="answer-btn"
-          v-on:click="collectAnswer('Não'), gotoBottom()"
-          :disabled="showSolution || theresNoSolution || isTypewriterRunning"
-          >Não</b-button
-        >
+          v-on:click="collectAnswer('Não')"
+          :disabled="theresNoSolution || isTypewriterRunning"
+        >Não</b-button>
       </div>
     </b-row>
   </div>
@@ -137,18 +132,22 @@ export default {
     callBack: () => {},
     disableButtonNotUnderstand: false,
     typewritingQuestion: "",
-    showMessage: false,
-    message: "Agora que você recebeu uma solução, gostaria de continuar?",
     feedbackNps: "Obrigada pelo seu feedback!",
     feedbackData: "Obrigada! Agora podemos prosseguir.",
-    thankNps: false,
-    thankData: false,
+    continueMessage:
+      "Sabemos que essa solução pode não ser o suficiente, deseja continuar?",
+    solutionGiven: false,
     isThereNextQuestion: false,
     endDiagnosis: false,
     speedTyping: 50,
-    npsDisabled: false
+    npsDisabled: false,
+    quantityNegativeAnswers: 0
   }),
-
+  watch: {
+    chatHistory: function() {
+      this.gotoBottom();
+    }
+  },
   created() {
     StageService.getStageById(this.idStage)
       .then(response => {
@@ -159,6 +158,11 @@ export default {
       .catch(error => {});
   },
   methods: {
+    nextQuestion() {
+      this.currentQuestion = this.questionList.shift();
+      this.isThereNextQuestion = true;
+      this.typeWrite();
+    },
     typeWrite() {
       this.clearTypewriter();
       this.isTypewriterRunning = true;
@@ -177,12 +181,20 @@ export default {
     clearTypewriter() {
       this.typewritingQuestion = "";
     },
-    nextQuestion() {
-      this.currentQuestion = this.questionList.shift();
-      this.isThereNextQuestion = true;
-      this.typeWrite();
-    },
-    collectAnswer(answer) {
+    async collectAnswer(answer) {
+      if (this.solutionGiven){
+        this.chatHistory.push({
+          response: answer
+        });
+        if(answer === 'Sim'){
+          this.nextStage();
+        }
+        this.solutionGiven = false;
+        return;
+      }
+      if (answer === "Não") {
+        this.quantityNegativeAnswers++;
+      }
       this.chatHistory.push({
         description: this.currentQuestion.description,
         response: answer
@@ -191,42 +203,55 @@ export default {
     },
     showSolutionMessage() {
       this.showThanksData();
+      this.chatHistory.push({
+        hasSolution: true
+      });
+      this.solutionGiven = true;
+      this.npsButton();
+      this.chatHistory.push({
+        continueMessage: this.continueMessage
+      });
+
       this.showSolution = true;
       this.gotoBottom();
     },
+    npsButton() {
+      this.chatHistory.push({
+        showNps: true
+      });
+    },
+    showThanksData() {
+      this.chatHistory.push({
+        thankData: this.feedbackData
+      });
+    },
+    showThanksNps() {
+      this.chatHistory.push({
+        thankNps: this.feedbackNps
+      
+      });
+    },
     shouldShowSolution() {
-      if (this.quantityNegativeAnswers() === 2) {
+      if (this.quantityNegativeAnswers === 2 || (!this.questionList.length && this.quantityNegativeAnswers === 1)) {
         this.disableButtonNotUnderstand = true;
         this.showModalData();
         this.callBack = this.showSolutionMessage;
         this.isThereNextQuestion = false;
-        return;
-      }
-      if (!this.questionList.length && this.quantityNegativeAnswers() === 1) {
-        this.disableButtonNotUnderstand = true;
-        this.showModalData();
-        this.callBack = this.showSolutionMessage;
-        this.isThereNextQuestion = false;
-        return;
+        return true;
       }
       this.solutionNotIdentified();
       if (this.questionList.length) {
         this.nextQuestion();
       }
+      return null;
     },
+    
     solutionNotIdentified() {
-      if (!this.questionList.length && this.quantityNegativeAnswers() == 0) {
+      if (!this.questionList.length && this.quantityNegativeAnswers == 0) {
         this.theresNoSolution = true;
         this.isThereNextQuestion = false;
         this.nextStage();
       }
-    },
-    showThanksData() {
-      this.thankData = true;
-    },
-    quantityNegativeAnswers() {
-      return this.chatHistory.filter(question => question.response === "Não")
-        .length;
     },
     gotoBottom() {
       this.$nextTick(() => {
@@ -235,27 +260,24 @@ export default {
       });
     },
     showNps() {
-      if(!this.npsDisabled){
+      if (!this.npsDisabled) {
         this.$bvModal.show("modalNps");
         this.npsDisabled = true;
         this.callBack = this.showThanksNps;
       }
-
-    },
-    showThanksNps() {
-      this.thankNps = true;
-      this.showMessage;
-    },
-    showMessage(){
-      this.showMessage = true;
-      this.message;
     },
     showModalData() {
-      this.$bvModal.show("modalData");
+      if (!this.dataDisabled) {
+        this.$bvModal.show("modalData");
+        this.dataDisabled = true;
+        this.callBack = this.showThanksData;
+      }
     },
     nextStage() {
       this.idStage++;
       this.questionList = [];
+      this.showSolution = false;
+      this.quantityNegativeAnswers = 0;
       StageService.getStageById(this.idStage)
         .then(response => {
           let stage = response.data;
@@ -266,11 +288,12 @@ export default {
         .catch(error => {
           this.callBack = this.showNoSolution;
           this.showModalData();
+          this.npsButton();
         });
     },
-    showNoSolution(){
+    showNoSolution() {
       this.endDiagnosis = true;
-      this.gotoBottom();   
+      this.gotoBottom();
     }
   }
 };
@@ -361,3 +384,4 @@ export default {
   }
 }
 </style>
+
